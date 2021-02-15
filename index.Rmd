@@ -5,6 +5,7 @@ site: bookdown::bookdown_site
 documentclass: book
 link-citations: true
 always_allow_html: true
+bibliography: references.bib
 output:
   bookdown::gitbook: default
   latex_document: default
