@@ -1,7 +1,3 @@
----
-bibliography: references.bib
----
-
 # Az adatkezelés R-ben
 
 ## Adatok importálása és exportálása
