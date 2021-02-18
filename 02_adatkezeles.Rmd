@@ -2,10 +2,21 @@
 
 ## Adatok importálása és exportálása
 
-Az adatok importálására az R alapfüggvénye mellett több package is megoldást kínál. Ezek közül a könyv írásakor a legnépszerűbbek a `readr` és a `rio` csomagok. Az egyszerűség kedvéért mi az alap `read.csv()` függvényt fogjuk használni. Amennyiben kihasználjuk az RStudio projekt opcióját (lásd a [Függelékben](#projektmunka)) akkor elegendő csak az elérni kívánt adatok relativ elérési útját megadni (relative path). Ideális esetben az adataink egy csv fileban vannak (comma separated values), ahol az egyes értékeket vesszők (vagy egyéb speciális karakter) választják el. Ez esetben a `read.csv` függvényt használjuk. A beolvasásnál egyből el is tároljuk az adatokat egy objektumban. A `sep =` opcióval tudjuk a szeparátor karaktert beállítani, mert előfordulhat hogy vessző helyett pontosvessző tagolja az adatainkat.
+```{r include=FALSE}
+
+source("_common.R")
+
+```
+
+```{r}
+library(readr)
+```
+
+
+Az adatok importálására az R alapfüggvénye mellett több package is megoldást kínál. Ezek közül a könyv írásakor a legnépszerűbbek a `readr` és a `rio` csomagok. A karakter kódolással a legjobban a tapasztalataink szerint a `readr` csomag `read_csv()` megoldása bíkózik meg, ezért ezt fogjuk használni a `.csv` állományok beolvasására. Amennyiben kihasználjuk az RStudio projekt opcióját (lásd a [Függelékben](#projektmunka)) akkor elegendő csak az elérni kívánt adatok relativ elérési útját megadni (relative path). Ideális esetben az adataink egy csv fileban vannak (comma separated values), ahol az egyes értékeket vesszők (vagy egyéb speciális karakter) választják el. Ez esetben a `read_delim()` függvényt használjuk. A beolvasásnál egyből el is tároljuk az adatokat egy objektumban. A `sep =` opcióval tudjuk a szeparátor karaktert beállítani, mert előfordulhat hogy vessző helyett pontosvessző tagolja az adatainkat.
 
 ```{r, eval=FALSE}
-df <- read.csv("data/adatfile.csv", sep = ",")
+df <- read_csv("data/adatfile.csv")
 ```
 
 Az R képes linkről letölteni fileokat, elég megadnunk egy működő elérési útvonalat.
@@ -124,7 +135,7 @@ A szöveges adatokkal (karakter stringekkel) való munka elkerülhetetlen velej�
 library(stringr)
 ```
 
-```{r}
+```{r eval=FALSE}
 szoveg <- c('gitar', 'ukulele', 'nagybogo')
 
 str_view(szoveg, pattern = "ar")
@@ -132,7 +143,7 @@ str_view(szoveg, pattern = "ar")
 
 Az *anchor*-okkal azt lehet megadni, hogy a karakter string elején vagy végén szeretnénk egyezést találni. A string eleji anchor a `^`, a string végi pedig a `$`.
 
-```{r}
+```{r eval=FALSE}
 str_view("Dr. Doktor Dr.", pattern = "^Dr.")
 
 str_view("Dr. Doktor Dr.", pattern = "Dr.$")
@@ -140,13 +151,13 @@ str_view("Dr. Doktor Dr.", pattern = "Dr.$")
 
 Egy másik jellemző probléma, hogy olyan speciális karaktert akarunk leírni a regex kifejezésünkkel, ami amúgy a regex szintaxisban használt. Ilyen eset például a `.`, ami mint írásjel sokszor csak zaj, ám a regex kotextusban a "bármilyen karakter" megfelelője.
 
-```{r}
+```{r eval=FALSE}
 str_view("Dr. Doktor Dr.", pattern = ".k.")
 ```
 
 Ahhoz hogy magát az írásjelet jelöljük, a `\\` -t kell elé rakni.
 
-```{r}
+```{r eval=FALSE}
 str_view("Dr. Doktor Dr.", pattern = "\\.")
 ```
 
@@ -161,4 +172,5 @@ Néhány hasznos regex kifejezés:
 -   `[:graph:]` - betűk, számok és központozás (123 abc ABC `.!?\(){}`)
 -   `[:space:]` - szóköz ( )
 -   `[:blank:]` - szóköz és tabulálás
+-   `[:cntrl:]` - kontrol karakterek (`\n`, `\r`, stb.)
 -   `*` - bármi
