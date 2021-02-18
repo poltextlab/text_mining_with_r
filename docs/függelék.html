@@ -50,9 +50,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -153,7 +150,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="leíró-statisztika-szózsák-és-szóeloszlások.html"><a href="leíró-statisztika-szózsák-és-szóeloszlások.html"><i class="fa fa-check"></i><b>4</b> Leíró statisztika: szózsák és szóeloszlások</a></li>
 <li class="chapter" data-level="5" data-path="a-szövegek-reprezentálása-a-vektortérben.html"><a href="a-szövegek-reprezentálása-a-vektortérben.html"><i class="fa fa-check"></i><b>5</b> A szövegek reprezentálása a vektortérben</a></li>
 <li class="chapter" data-level="6" data-path="a-korpuszépítés-problémái-és-a-szövegel-készítés.html"><a href="a-korpuszépítés-problémái-és-a-szövegel-készítés.html"><i class="fa fa-check"></i><b>6</b> A korpuszépítés problémái és a szövegelőkészítés</a></li>
-<li class="chapter" data-level="7" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html"><i class="fa fa-check"></i><b>7</b> Szótáralapú elemzések, érzelem-elemzés</a></li>
+<li class="chapter" data-level="7" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html"><i class="fa fa-check"></i><b>7</b> Szótáralapú elemzések, érzelem-elemzés</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html#szótárak-az-r-ben"><i class="fa fa-check"></i><b>7.1</b> Szótárak az R-ben</a></li>
+<li class="chapter" data-level="7.2" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html#magyar-nemzet-cikkek"><i class="fa fa-check"></i><b>7.2</b> Magyar Nemzet cikkek</a></li>
+<li class="chapter" data-level="7.3" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html#mnb-sajtóközlemények"><i class="fa fa-check"></i><b>7.3</b> MNB sajtóközlemények</a></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="klaszterelemzés-és-topic-modellezés.html"><a href="klaszterelemzés-és-topic-modellezés.html"><i class="fa fa-check"></i><b>8</b> Klaszterelemzés és topic modellezés</a></li>
 <li class="chapter" data-level="9" data-path="szóbeágyazások.html"><a href="szóbeágyazások.html"><i class="fa fa-check"></i><b>9</b> Szóbeágyazások</a></li>
 <li class="chapter" data-level="10" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html"><i class="fa fa-check"></i><b>10</b> Szövegösszehasonlítás</a></li>
@@ -200,8 +202,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="az-rstudio-kezdőfelülete" class="section level3" number="13.1.1">
 <h3><span class="header-section-number">13.1.1</span> Az RStudio kezdőfelülete</h3>
 <p>Az RStudio kezdőfelülete négy panelből, eszközsorból és menüsorból áll:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-17"></span>
-<img src="figures/13-01_layout.png" alt="RStudio felhasználói felület"  />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-44"></span>
+<img src="figures/13-01_layout.png" alt="RStudio felhasználói felület" width="90%" />
 <p class="caption">
 Figure 13.1: RStudio felhasználói felület
 </p>
@@ -211,8 +213,8 @@ Figure 13.1: RStudio felhasználói felület
 <div id="projektmunka" class="section level3" number="13.1.2">
 <h3><span class="header-section-number">13.1.2</span> Projekt alapú munka</h3>
 <p>Bár nem kötelező, de javasolt, hogy az RStudio-ban projekt alapon dolgozzunk, mivel így az összes – az adott projekttel kapcsolatos fájlt – egy mappában tárolhatjuk. Új projekt beállítását a <code>File-&gt;New Project</code> menüben tehetjük meg, ahol a saját gépünk egy könyvtárát kell kiválasztani, ahová az R scripteket, az adat- és előzményfájlokat menti. Ezenkívül a <code>Tools-&gt;Global Options-&gt;General</code> menüpont alatt le kell tiltani a <em>„Restore most recently opened project at startup”</em> és a <em>„Restore .RData ino workspace at startup”</em> beállítást, valamint <em>„Save workspace to .RData on exit”</em> értékre be kell állítani a <em>„Never”</em> értéket.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-18"></span>
-<img src="figures/13-02_project_options.png" alt="RStudio projekt beállítások"  />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-45"></span>
+<img src="figures/13-02_project_options.png" alt="RStudio projekt beállítások" width="90%" />
 <p class="caption">
 Figure 13.2: RStudio projekt beállítások
 </p>
@@ -225,8 +227,8 @@ Figure 13.2: RStudio projekt beállítások
 A scriptbeli utasítások az azokat tartalmazó sorokra állva vagy több sort kijelölve a Run feliratra kattintva vagy a <code>Ctrl+Enter</code> billentyűparanccsal futtathatók le. A lefuttatott parancsok és azok eredményei ezután a bal alsó sarokban lévő console ablakban jelennek meg és ugyanitt kapunk hibaüzenetet is, ha valamilyen hibát vétettünk a scriptben.</p>
 <p>A munkafolyamat során létrehozott állományok (ábrák, fájlok) ebbe az ún. munkakönyvtárba (<em>working directory</em>) mentődnek. Az aktuális munkakönyvtár neve, elérési útja a <code>getwd()</code> utasítással jeleníthető meg. A könyvtárban található állományok listázására a <code>list.files()</code> utasítással van lehetőségünk. Ha a korábbiaktól eltérő munkakönyvtárat akarunk megadni, azt a <code>setwd()</code> függvénnyel tehetjük meg, ahol a ()-ben az adott mappa elérési útját kell megadnunk. Az elérési útban a meghajtó azonosítóját, majd a mappák, almappák nevét vagy egy normál irányú perjel (<code>/</code>), vagy két fordított perjel (<code>\\</code>) választja el, mivel az elérési út karakterlánc, ezért azt idézőjelek vagy aposztrófok közé kell tennünk.
 Az aktuális munkakönyvtárba beléphetünk a jobb alsó ablak file lapján a <code>„More -&gt; Go To Working Directory”</code> segítségével. Ugyanitt a <code>„Set Working Directory”</code>-val munkakönyvtárnak állíthatjuk be az a mappát, amelyben épp benne vagyunk.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-19"></span>
-<img src="figures/13-03_working_directory.png" alt="Working directory beállítások"  />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-46"></span>
+<img src="figures/13-03_working_directory.png" alt="Working directory beállítások" width="90%" />
 <p class="caption">
 Figure 13.3: Working directory beállítások
 </p>
@@ -245,8 +247,8 @@ Az R súgórendszere a <code>help.start()</code> utasítással indítható el. E
 <div id="packages" class="section level3" number="13.1.4">
 <h3><span class="header-section-number">13.1.4</span> R csomagok</h3>
 <p>Az R-ben telepíthetők kiegészítő csomagok (packages), amelyek alapértelmezetten el nem érhető algoritmusokat, függvényeket tartalmaznak. A csomagok saját dokumentációval rendelkeznek, amelyeket fel kell tüntetni a használatukkal készült publikációink hivatkozáslistájában. A csomagok telepítésre több lehetőségünk is van: használhatjuk a menüsor <code>Tools -&gt; Install Packages</code> menüpontját, vagy a jobb alsó ablak <em>Packages</em> fül Install menüpontját, illetve az editor ablakban az <code>install.packages()</code> parancsot futtatva, ahol a ()-be a telepíteni kívánt csomag nevét kell beírnunk (pl.: <code>install.packages(dplyr)</code>).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-20"></span>
-<img src="figures/13-04_packages.png" alt="Packages fül"  />
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-47"></span>
+<img src="figures/13-04_packages.png" alt="Packages fül" width="90%" />
 <p class="caption">
 Figure 13.4: Packages fül
 </p>
@@ -265,63 +267,66 @@ Figure 13.4: Packages fül
 </ul>
 <p>Az egyedüli vektornak hat típusa van, <strong>logikai</strong> (logical), <strong>egész szám</strong> (integer), <strong>természetes szám</strong> (double), <strong>karakter</strong> (character), <strong>komplex szám</strong> (complex) és <strong>nyers adat</strong> (raw). A leggyakrabban valamilyen numerikus, logikai vagy karakter vektorral használjuk. Az egyedüli vektorok onnan kapták a nevüket hogy csak egy féle adattípust tudnak tárolni. A listák ezzel szemben gyakorlatilag bármit tudnak tárolni, akár több listát is egybeágyazhatunk.</p>
 <p>A vektorok és listák azok az építőelemek amikből felépülnek az R objektumaink. Több érték vagy azonos típusú objektum összefűzését a <code>c()</code> függvénnyel végezhetjük el. A lenti példában három különböző objektumot kreálunk, egy numerikusat, egy karaktert és egy logikait. A karakter vektorban az elemeket időzőjellel és vesszővel szeparáljuk. A logikai vektor csak <code>TRUE</code>, illetve <code>FALSE</code> értékeket tartalmazhat.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="függelék.html#cb23-1" aria-hidden="true" tabindex="-1"></a>numerikus <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
-<span id="cb23-2"><a href="függelék.html#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="függelék.html#cb23-3" aria-hidden="true" tabindex="-1"></a>karakter <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;kutya&quot;</span>,<span class="st">&quot;macska&quot;</span>,<span class="st">&quot;ló&quot;</span>)</span>
-<span id="cb23-4"><a href="függelék.html#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="függelék.html#cb23-5" aria-hidden="true" tabindex="-1"></a>logikai <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="függelék.html#cb39-1" aria-hidden="true" tabindex="-1"></a>numerikus <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb39-2"><a href="függelék.html#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="függelék.html#cb39-3" aria-hidden="true" tabindex="-1"></a>karakter <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;kutya&quot;</span>, <span class="st">&quot;macska&quot;</span>, <span class="st">&quot;ló&quot;</span>)</span>
+<span id="cb39-4"><a href="függelék.html#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="függelék.html#cb39-5" aria-hidden="true" tabindex="-1"></a>logikai <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span></code></pre></div>
 <p>A létrehozott vektorokkal különböző műveleteket végezhetünk el, például összeadhatjuk numerikus vektorainkat. Ebben az esetben az első vektor első eleme a második vektor első eleméhez adódik.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="függelék.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">20</span>,<span class="dv">30</span>,<span class="dv">40</span>)</span></code></pre></div>
-<pre><code>## [1] 11 22 33 44</code></pre>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="függelék.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>)</span>
+<span id="cb40-2"><a href="függelék.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 11 22 33 44</span></span></code></pre></div>
 <p>A karaktervektorokat összefűzhetjük egymással. Itt egy új objektumot is létrehoztunk, a jobb felső ablakban, az environment fülön láthatjuk, hogy a létrejött karakter_kombinalt objektum egy négy elemű (hosszúságú) karaktervektor (<code>chr [1:4]</code>), melynek elemei a <code>"kutya","macska","ló","nyúl"</code>. Az objektumként tárolt vektorok tartalmát a lefuttatva írathatjuk ki a console ablakba. Habár van <code>print()</code> függvény az R-ben, azt ilyenkor nem szükséges használni.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="függelék.html#cb26-1" aria-hidden="true" tabindex="-1"></a>karakter1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;kutya&quot;</span>,<span class="st">&quot;macska&quot;</span>,<span class="st">&quot;ló&quot;</span>)</span>
-<span id="cb26-2"><a href="függelék.html#cb26-2" aria-hidden="true" tabindex="-1"></a>karakter2 <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;nyúl&quot;</span>)</span>
-<span id="cb26-3"><a href="függelék.html#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="függelék.html#cb26-4" aria-hidden="true" tabindex="-1"></a>karakter_kombinalt <span class="ot">&lt;-</span><span class="fu">c</span>(karakter1, karakter2)</span>
-<span id="cb26-5"><a href="függelék.html#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="függelék.html#cb26-6" aria-hidden="true" tabindex="-1"></a>karakter_kombinalt</span></code></pre></div>
-<pre><code>## [1] &quot;kutya&quot;  &quot;macska&quot; &quot;ló&quot;     &quot;nyúl&quot;</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="függelék.html#cb41-1" aria-hidden="true" tabindex="-1"></a>karakter1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;kutya&quot;</span>, <span class="st">&quot;macska&quot;</span>, <span class="st">&quot;ló&quot;</span>)</span>
+<span id="cb41-2"><a href="függelék.html#cb41-2" aria-hidden="true" tabindex="-1"></a>karakter2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;nyúl&quot;</span>)</span>
+<span id="cb41-3"><a href="függelék.html#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="függelék.html#cb41-4" aria-hidden="true" tabindex="-1"></a>karakter_kombinalt <span class="ot">&lt;-</span> <span class="fu">c</span>(karakter1, karakter2)</span>
+<span id="cb41-5"><a href="függelék.html#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="függelék.html#cb41-6" aria-hidden="true" tabindex="-1"></a>karakter_kombinalt</span>
+<span id="cb41-7"><a href="függelék.html#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;kutya&quot;  &quot;macska&quot; &quot;ló&quot;     &quot;nyúl&quot;</span></span></code></pre></div>
 <p>Ha egy vektorról szeretnénk megtudni, hogy milyen típusú azt a <code>typeof()</code> vagy a <code>class()</code> paranccsal tehetjük meg, ahol ()-ben az adott objektumként tárolt vektor nevét kell megadnunk: <code>typeof(karakter1)</code>. A vektor hosszúságát (benne tárolt elemek száma vektorok esetén) a <code>lenght()</code> függvénnyel tudhatjuk meg.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="függelék.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(karakter1)</span></code></pre></div>
-<pre><code>## [1] &quot;character&quot;</code></pre>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="függelék.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(karakter1)</span></code></pre></div>
-<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="függelék.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">typeof</span>(karakter1)</span>
+<span id="cb42-2"><a href="függelék.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;character&quot;</span></span>
+<span id="cb42-3"><a href="függelék.html#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="függelék.html#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(karakter1)</span>
+<span id="cb42-5"><a href="függelék.html#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3</span></span></code></pre></div>
 </div>
 <div id="faktorok" class="section level3" number="13.1.7">
 <h3><span class="header-section-number">13.1.7</span> Faktorok</h3>
 <p>A faktorok a kategórikus adatok tárolására szolgálnak. Faktor típusú változó a <code>factor()</code> függvénnyel hozható létre. A faktor szintjeit (igen, semleges, nem), a <code>levels()</code> függvénnyel kaphatjuk meg míg az adatok címkéit (tehát a kapott válaszok száma), a <code>labels()</code> paranccsal érhetjük el.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="függelék.html#cb32-1" aria-hidden="true" tabindex="-1"></a>survey_response <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;igen&quot;</span>, <span class="st">&quot;semleges&quot;</span>, <span class="st">&quot;nem&quot;</span>, <span class="st">&quot;semleges&quot;</span>, <span class="st">&quot;nem&quot;</span>, <span class="st">&quot;nem&quot;</span>, <span class="st">&quot;igen&quot;</span>), <span class="at">ordered =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb32-2"><a href="függelék.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="függelék.html#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-4"><a href="függelék.html#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(survey_response)</span></code></pre></div>
-<pre><code>## [1] &quot;igen&quot;     &quot;nem&quot;      &quot;semleges&quot;</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="függelék.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">labels</span>(survey_response)</span></code></pre></div>
-<pre><code>## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot; &quot;6&quot; &quot;7&quot;</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="függelék.html#cb43-1" aria-hidden="true" tabindex="-1"></a>survey_response <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">&quot;igen&quot;</span>, <span class="st">&quot;semleges&quot;</span>, <span class="st">&quot;nem&quot;</span>, <span class="st">&quot;semleges&quot;</span>, <span class="st">&quot;nem&quot;</span>, <span class="st">&quot;nem&quot;</span>, <span class="st">&quot;igen&quot;</span>), <span class="at">ordered =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb43-2"><a href="függelék.html#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="függelék.html#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="függelék.html#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(survey_response)</span>
+<span id="cb43-5"><a href="függelék.html#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;igen&quot;     &quot;nem&quot;      &quot;semleges&quot;</span></span>
+<span id="cb43-6"><a href="függelék.html#cb43-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-7"><a href="függelék.html#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="fu">labels</span>(survey_response)</span>
+<span id="cb43-8"><a href="függelék.html#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; &quot;5&quot; &quot;6&quot; &quot;7&quot;</span></span></code></pre></div>
 </div>
 <div id="data-frame" class="section level3" number="13.1.8">
 <h3><span class="header-section-number">13.1.8</span> Data frame</h3>
 <p>Az adat táblák (data frame) a statisztikai és adatelemzési folyamatok egyik leggyakrabban használt adattárolási formája. Amikor lehetséges akkor a ‘hosszú’ formátumban használjuk (az R közösség a ‘tidy’ jelzővel illeti), aholtéglalap alakú adatszerkezetek, ahol minden sor egy megfigyelés és minden oszlop egy változó [TIDY CITATION]. Egy data frame többféle típusú adatot tartalmazhat. A data frame-k különféle oszlopokból állhatnak, amelyek különféle típusú adatokat tartalmazhatnak, de egy oszlop csak egy típusú adatból állhat. A lent bemutatott data frame 7 megfigyelést és 4 féle változót tartalmaz (id, country, pop, continent).</p>
-<pre><code>##   id      orszag nepesseg     kontinens
-## 1  1    Thailand     68.7          Asia
-## 2  2      Norway      5.2        Europe
-## 3  3 North Korea     24.0          Asia
-## 4  4      Canada     47.8 North America
-## 5  5    Slovenia      2.0        Europe
-## 6  6      France     63.6        Europe
-## 7  7   Venezuela     31.6 South America</code></pre>
+<pre><code>#&gt;   id      orszag nepesseg     kontinens
+#&gt; 1  1    Thailand     68.7          Asia
+#&gt; 2  2      Norway      5.2        Europe
+#&gt; 3  3 North Korea     24.0          Asia
+#&gt; 4  4      Canada     47.8 North America
+#&gt; 5  5    Slovenia      2.0        Europe
+#&gt; 6  6      France     63.6        Europe
+#&gt; 7  7   Venezuela     31.6 South America</code></pre>
 <p>A data frame-be rendezett adatokhoz különböző módon férhetünk hozzá, például a data frame nevének majd []-ben a kívánt sor megadásával, kiírathatjuk a console ablakba annak tetszőleges sorát ás oszlopát: <code>orszag_adatok[1, 1]</code>. Az R több különböző módot kínál a data frame sorainak és oszlopainak eléréséhez. A <code>[</code> általános használata: <code>data_frame[sor, oszlop]</code>. Egy másik megoldás a <code>$</code> haszálata: <code>data_frame$oszlop</code>.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="függelék.html#cb37-1" aria-hidden="true" tabindex="-1"></a>orszag_adatok[<span class="dv">1</span>, <span class="dv">4</span>]</span></code></pre></div>
-<pre><code>## [1] Asia
-## Levels: Asia Europe North America South America</code></pre>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="függelék.html#cb39-1" aria-hidden="true" tabindex="-1"></a>orszag_adatok<span class="sc">$</span>orszag</span></code></pre></div>
-<pre><code>## [1] &quot;Thailand&quot;    &quot;Norway&quot;      &quot;North Korea&quot; &quot;Canada&quot;      &quot;Slovenia&quot;   
-## [6] &quot;France&quot;      &quot;Venezuela&quot;</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="függelék.html#cb45-1" aria-hidden="true" tabindex="-1"></a>orszag_adatok[<span class="dv">1</span>, <span class="dv">4</span>]</span>
+<span id="cb45-2"><a href="függelék.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] Asia</span></span>
+<span id="cb45-3"><a href="függelék.html#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Levels: Asia Europe North America South America</span></span>
+<span id="cb45-4"><a href="függelék.html#cb45-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-5"><a href="függelék.html#cb45-5" aria-hidden="true" tabindex="-1"></a>orszag_adatok<span class="sc">$</span>orszag</span>
+<span id="cb45-6"><a href="függelék.html#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thailand&quot;    &quot;Norway&quot;      &quot;North Korea&quot; &quot;Canada&quot;      &quot;Slovenia&quot;   </span></span>
+<span id="cb45-7"><a href="függelék.html#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6] &quot;France&quot;      &quot;Venezuela&quot;</span></span></code></pre></div>
 </div>
 </div>
 <div id="vizualizáció" class="section level2" number="13.2">
 <h2><span class="header-section-number">13.2</span> Vizualizáció</h2>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="függelék.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb41-2"><a href="függelék.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="függelék.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb46-2"><a href="függelék.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span></code></pre></div>
 <p>Az elemzéseinkhez használt data frame adatainak alapján a <code>ggplot2</code> csomag segítségével lehetőségünk van különböző vizualizációk készítésére is.</p>
 <p>A <code>ggplot2</code> használata során különböző témákat alkalmazhatunk, melyek részletes leírása megtalálható: <a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="uri">https://ggplot2.tidyverse.org/reference/ggtheme.html</a></p>
 <p>Abban az esetben, ha nem választunk témát, a <code>ggplot2</code> a következő ábrán is látható alaptémát használja. Ha például a szürke helyett fehér hátteret szeretnénk, alkalmazhatjuk a <code>theme_minmal()</code>parancsot. Szintén gyakran alkalmazott ábra alap a <code>thema_bw()</code>, ami az előzőtől az ábra keretezésében különbözik. Ha fehér alapon, de a beosztások vonalait feketén szeretnénk megjeleníteni, alkalmazhatjuk a <code>theme_linedraw()</code> függvényt, a <code>theme_void()</code> segítségével pedig egy fehér alapon, beosztásoktól mentes alapot kapunk, a <code>theme_dark()</code> pedig sötét hátteret eredményez. A <code>theme_classic()</code> segítségével az x és y tengelyt jeleníthetjük meg fehér alapon.</p>
@@ -330,123 +335,151 @@ Figure 13.4: Packages fül
 <a href="https://r4ds.had.co.nz/data-visualisation.html" class="uri">https://r4ds.had.co.nz/data-visualisation.html</a></p>
 <p>A következőkben a már korábban is használt <code>gapminder</code> adatok segítségével, személetetjük az adatok vizualizálásának alapjait.
 Először egyszerű alapbeállítások mellett egy histogram típusú vizualizációt készítünk.</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="függelék.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
-<span id="cb42-2"><a href="függelék.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder, </span>
-<span id="cb42-3"><a href="függelék.html#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap)</span>
-<span id="cb42-4"><a href="függelék.html#cb42-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> </span>
-<span id="cb42-5"><a href="függelék.html#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>() </span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-30-1.png" width="672" /></p>
-<p>Lehetőségünk van arra, hogy az alakzat színét megváltoztatássuk. A használható színek és színkódok megtalálhatóak a <code>ggplot2</code> leírásában: <a href="https://ggplot2-book.org/scale-colour.html" class="uri">https://ggplot2-book.org/scale-colour.html</a></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="függelék.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
-<span id="cb43-2"><a href="függelék.html#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
-<span id="cb43-3"><a href="függelék.html#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap)</span>
-<span id="cb43-4"><a href="függelék.html#cb43-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb43-5"><a href="függelék.html#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;green&quot;</span>) </span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
-<p>Meghatározhatjuk külön-külön a histogram x és y tengelyén ábrázolni kívánt adatokat és választhatjuk azok pontszerű ábrázolását is.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="függelék.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
-<span id="cb44-2"><a href="függelék.html#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
-<span id="cb44-3"><a href="függelék.html#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
-<span id="cb44-4"><a href="függelék.html#cb44-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> gdpPercap,</span>
-<span id="cb44-5"><a href="függelék.html#cb44-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> lifeExp</span>
-<span id="cb44-6"><a href="függelék.html#cb44-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb44-7"><a href="függelék.html#cb44-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb44-8"><a href="függelék.html#cb44-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() </span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
-<p>Ahogy az előzőekben, itt is megváltoztathatjuk az ábra színét.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="függelék.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
-<span id="cb45-2"><a href="függelék.html#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
-<span id="cb45-3"><a href="függelék.html#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
-<span id="cb45-4"><a href="függelék.html#cb45-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> gdpPercap,</span>
-<span id="cb45-5"><a href="függelék.html#cb45-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> lifeExp</span>
-<span id="cb45-6"><a href="függelék.html#cb45-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb45-7"><a href="függelék.html#cb45-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb45-8"><a href="függelék.html#cb45-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
-<p>Az fenti script kibővítésével az egyes kontinensek adatait különböző színnel ábrázolhatjuk, az x és y tengelyt elnevezhetjük, a histogramnak címet és alcímet adhatunk, illetve az adataink forrását is feltüntethetjük az alábbi módon:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="függelék.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
-<span id="cb46-2"><a href="függelék.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
-<span id="cb46-3"><a href="függelék.html#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
-<span id="cb46-4"><a href="függelék.html#cb46-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> gdpPercap,</span>
-<span id="cb46-5"><a href="függelék.html#cb46-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> lifeExp,</span>
-<span id="cb46-6"><a href="függelék.html#cb46-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> continent</span>
-<span id="cb46-7"><a href="függelék.html#cb46-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb46-8"><a href="függelék.html#cb46-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> </span>
-<span id="cb46-9"><a href="függelék.html#cb46-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb46-10"><a href="függelék.html#cb46-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb46-11"><a href="függelék.html#cb46-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;GDP per capita (log $)&quot;</span>, </span>
-<span id="cb46-12"><a href="függelék.html#cb46-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Life expectancy&quot;</span>,</span>
-<span id="cb46-13"><a href="függelék.html#cb46-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Connection between GDP and Life expectancy&quot;</span>,</span>
-<span id="cb46-14"><a href="függelék.html#cb46-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Points are country-years&quot;</span>,</span>
-<span id="cb46-15"><a href="függelék.html#cb46-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Source: Gapminder dataset&quot;</span></span>
-<span id="cb46-16"><a href="függelék.html#cb46-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
-<p>Az ábrán található feliratok méretének, betűtípusának és betűszínének megválasztásra is lehetőségünk van.</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="függelék.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
 <span id="cb47-2"><a href="függelék.html#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
-<span id="cb47-3"><a href="függelék.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
-<span id="cb47-4"><a href="függelék.html#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> gdpPercap,</span>
-<span id="cb47-5"><a href="függelék.html#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> lifeExp,</span>
-<span id="cb47-6"><a href="függelék.html#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> continent</span>
-<span id="cb47-7"><a href="függelék.html#cb47-7" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb47-8"><a href="függelék.html#cb47-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span> </span>
-<span id="cb47-9"><a href="függelék.html#cb47-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb47-10"><a href="függelék.html#cb47-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb47-11"><a href="függelék.html#cb47-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;GDP per capita (log $)&quot;</span>, </span>
-<span id="cb47-12"><a href="függelék.html#cb47-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Life expectancy&quot;</span>,</span>
-<span id="cb47-13"><a href="függelék.html#cb47-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Connection between GDP and Life expectancy&quot;</span>,</span>
-<span id="cb47-14"><a href="függelék.html#cb47-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Points are country-years&quot;</span>,</span>
-<span id="cb47-15"><a href="függelék.html#cb47-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Source: Gapminder dataset&quot;</span></span>
-<span id="cb47-16"><a href="függelék.html#cb47-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb47-17"><a href="függelék.html#cb47-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
-<span id="cb47-18"><a href="függelék.html#cb47-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">12</span>, </span>
-<span id="cb47-19"><a href="függelék.html#cb47-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">&quot;red&quot;</span></span>
-<span id="cb47-20"><a href="függelék.html#cb47-20" aria-hidden="true" tabindex="-1"></a>  ))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+<span id="cb47-3"><a href="függelék.html#cb47-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap)</span>
+<span id="cb47-4"><a href="függelék.html#cb47-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb47-5"><a href="függelék.html#cb47-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-57-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Lehetőségünk van arra, hogy az alakzat színét megváltoztatássuk. A használható színek és színkódok megtalálhatóak a <code>ggplot2</code> leírásában: <a href="https://ggplot2-book.org/scale-colour.html" class="uri">https://ggplot2-book.org/scale-colour.html</a></p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="függelék.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb48-2"><a href="függelék.html#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
+<span id="cb48-3"><a href="függelék.html#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap)</span>
+<span id="cb48-4"><a href="függelék.html#cb48-4" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb48-5"><a href="függelék.html#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">&quot;yellow&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;green&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-58-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Meghatározhatjuk külön-külön a histogram x és y tengelyén ábrázolni kívánt adatokat és választhatjuk azok pontszerű ábrázolását is.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="függelék.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb49-2"><a href="függelék.html#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
+<span id="cb49-3"><a href="függelék.html#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
+<span id="cb49-4"><a href="függelék.html#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> gdpPercap,</span>
+<span id="cb49-5"><a href="függelék.html#cb49-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> lifeExp</span>
+<span id="cb49-6"><a href="függelék.html#cb49-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb49-7"><a href="függelék.html#cb49-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb49-8"><a href="függelék.html#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-59-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Ahogy az előzőekben, itt is megváltoztathatjuk az ábra színét.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="függelék.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb50-2"><a href="függelék.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
+<span id="cb50-3"><a href="függelék.html#cb50-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
+<span id="cb50-4"><a href="függelék.html#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> gdpPercap,</span>
+<span id="cb50-5"><a href="függelék.html#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> lifeExp</span>
+<span id="cb50-6"><a href="függelék.html#cb50-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb50-7"><a href="függelék.html#cb50-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb50-8"><a href="függelék.html#cb50-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-60-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Az fenti script kibővítésével az egyes kontinensek adatait különböző színnel ábrázolhatjuk, az x és y tengelyt elnevezhetjük, a histogramnak címet és alcímet adhatunk, illetve az adataink forrását is feltüntethetjük az alábbi módon:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="függelék.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb51-2"><a href="függelék.html#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
+<span id="cb51-3"><a href="függelék.html#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
+<span id="cb51-4"><a href="függelék.html#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> gdpPercap,</span>
+<span id="cb51-5"><a href="függelék.html#cb51-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> lifeExp,</span>
+<span id="cb51-6"><a href="függelék.html#cb51-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> continent</span>
+<span id="cb51-7"><a href="függelék.html#cb51-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb51-8"><a href="függelék.html#cb51-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb51-9"><a href="függelék.html#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb51-10"><a href="függelék.html#cb51-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb51-11"><a href="függelék.html#cb51-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;GDP per capita (log $)&quot;</span>,</span>
+<span id="cb51-12"><a href="függelék.html#cb51-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Life expectancy&quot;</span>,</span>
+<span id="cb51-13"><a href="függelék.html#cb51-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Connection between GDP and Life expectancy&quot;</span>,</span>
+<span id="cb51-14"><a href="függelék.html#cb51-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Points are country-years&quot;</span>,</span>
+<span id="cb51-15"><a href="függelék.html#cb51-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Source: Gapminder dataset&quot;</span></span>
+<span id="cb51-16"><a href="függelék.html#cb51-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-61-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Az ábrán található feliratok méretének, betűtípusának és betűszínének megválasztásra is lehetőségünk van.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="függelék.html#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb52-2"><a href="függelék.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> gapminder,</span>
+<span id="cb52-3"><a href="függelék.html#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(</span>
+<span id="cb52-4"><a href="függelék.html#cb52-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> gdpPercap,</span>
+<span id="cb52-5"><a href="függelék.html#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> lifeExp,</span>
+<span id="cb52-6"><a href="függelék.html#cb52-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> continent</span>
+<span id="cb52-7"><a href="függelék.html#cb52-7" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb52-8"><a href="függelék.html#cb52-8" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb52-9"><a href="függelék.html#cb52-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb52-10"><a href="függelék.html#cb52-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb52-11"><a href="függelék.html#cb52-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;GDP per capita (log $)&quot;</span>,</span>
+<span id="cb52-12"><a href="függelék.html#cb52-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Life expectancy&quot;</span>,</span>
+<span id="cb52-13"><a href="függelék.html#cb52-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Connection between GDP and Life expectancy&quot;</span>,</span>
+<span id="cb52-14"><a href="függelék.html#cb52-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Points are country-years&quot;</span>,</span>
+<span id="cb52-15"><a href="függelék.html#cb52-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Source: Gapminder dataset&quot;</span></span>
+<span id="cb52-16"><a href="függelék.html#cb52-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb52-17"><a href="függelék.html#cb52-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb52-18"><a href="függelék.html#cb52-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">12</span>,</span>
+<span id="cb52-19"><a href="függelék.html#cb52-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="st">&quot;red&quot;</span></span>
+<span id="cb52-20"><a href="függelék.html#cb52-20" aria-hidden="true" tabindex="-1"></a>  ))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-62-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Készíthetünk oszlopdiagramot is, amit a <code>ggplot2</code> diamonds adatkészletén személtetünk</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="függelék.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
-<span id="cb48-2"><a href="függelék.html#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="függelék.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
+<span id="cb53-2"><a href="függelék.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-63-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Itt is lehetőségünk van arra, hogy a diagram színét megváltoztassuk.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="függelék.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
-<span id="cb49-2"><a href="függelék.html#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut), <span class="at">fill =</span> <span class="st">&quot;darkgreen&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="függelék.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
+<span id="cb54-2"><a href="függelék.html#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut), <span class="at">fill =</span> <span class="st">&quot;darkgreen&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-64-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>De arra is lehetőségünk van, hogy az egyes oszlopok eltérő színűek legyenek.</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="függelék.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
-<span id="cb50-2"><a href="függelék.html#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">fill =</span> cut))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-38-1.png" width="672" />
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="függelék.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="függelék.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">fill =</span> cut))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-65-1.png" width="90%" style="display: block; margin: auto;" />
 Arra is van lehetőségünk, hogy egyszerre több változót is ábrázoljunk.</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="függelék.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
-<span id="cb51-2"><a href="függelék.html#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">fill =</span> clarity))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="függelék.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> diamonds) <span class="sc">+</span></span>
+<span id="cb56-2"><a href="függelék.html#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> cut, <span class="at">fill =</span> clarity))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-66-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Arra ggplot2 segítségével arra is lehetőségünk van, hogy csv-ből beolvasott adatainkat vizualizáljuk.</p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="függelék.html#cb52-1" aria-hidden="true" tabindex="-1"></a>plot_cap_1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/plot_cap_1.csv&quot;</span>, <span class="at">head =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>) </span>
-<span id="cb52-2"><a href="függelék.html#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_cap_1, <span class="fu">aes</span>(Year, <span class="at">fill =</span> Subtopic)) <span class="sc">+</span> </span>
-<span id="cb52-3"><a href="függelék.html#cb52-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1957</span>, <span class="dv">1958</span>, <span class="dv">1959</span>, <span class="dv">1960</span>, <span class="dv">1961</span>, <span class="dv">1962</span>, <span class="dv">1963</span>)) <span class="sc">+</span></span>
-<span id="cb52-4"><a href="függelék.html#cb52-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb52-5"><a href="függelék.html#cb52-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb52-6"><a href="függelék.html#cb52-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>, </span>
-<span id="cb52-7"><a href="függelék.html#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;A Magyar Közlönyben kihirdetett agrárpolitikai jogszabályok&quot;</span>, </span>
-<span id="cb52-8"><a href="függelék.html#cb52-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;N=445&quot;</span></span>
-<span id="cb52-9"><a href="függelék.html#cb52-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
-<span id="cb52-10"><a href="függelék.html#cb52-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="co"># az ábra tipusa</span></span>
-<span id="cb52-11"><a href="függelék.html#cb52-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb52-12"><a href="függelék.html#cb52-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="függelék.html#cb57-1" aria-hidden="true" tabindex="-1"></a>plot_cap_1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/plot_cap_1.csv&quot;</span>, <span class="at">head =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
+<span id="cb57-2"><a href="függelék.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_cap_1, <span class="fu">aes</span>(Year, <span class="at">fill =</span> Subtopic)) <span class="sc">+</span></span>
+<span id="cb57-3"><a href="függelék.html#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">1957</span>, <span class="dv">1958</span>, <span class="dv">1959</span>, <span class="dv">1960</span>, <span class="dv">1961</span>, <span class="dv">1962</span>, <span class="dv">1963</span>)) <span class="sc">+</span></span>
+<span id="cb57-4"><a href="függelék.html#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span></span>
+<span id="cb57-5"><a href="függelék.html#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb57-6"><a href="függelék.html#cb57-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb57-7"><a href="függelék.html#cb57-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;A Magyar Közlönyben kihirdetett agrárpolitikai jogszabályok&quot;</span>,</span>
+<span id="cb57-8"><a href="függelék.html#cb57-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;N=445&quot;</span></span>
+<span id="cb57-9"><a href="függelék.html#cb57-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb57-10"><a href="függelék.html#cb57-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="co"># az ábra tipusa</span></span>
+<span id="cb57-11"><a href="függelék.html#cb57-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb57-12"><a href="függelék.html#cb57-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code></pre></div>
 <p>A csv-ből belolvasott adatainból kördiagramot is készíthetünk</p>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="függelék.html#cb53-1" aria-hidden="true" tabindex="-1"></a>pie <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/pie.csv&quot;</span>, <span class="at">head =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
-<span id="cb53-2"><a href="függelék.html#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-3"><a href="függelék.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pie, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> value, <span class="at">fill =</span> Type)) <span class="sc">+</span></span>
-<span id="cb53-4"><a href="függelék.html#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb53-5"><a href="függelék.html#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="st">&quot;y&quot;</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb53-6"><a href="függelék.html#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;GnBu&quot;</span>) <span class="sc">+</span></span>
-<span id="cb53-7"><a href="függelék.html#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb53-8"><a href="függelék.html#cb53-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;A Magyar Közlönyben megjelent jogszabályok típusai&quot;</span>,</span>
-<span id="cb53-9"><a href="függelék.html#cb53-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;N = 445&quot;</span></span>
-<span id="cb53-10"><a href="függelék.html#cb53-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb53-11"><a href="függelék.html#cb53-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="függelék.html#cb58-1" aria-hidden="true" tabindex="-1"></a>pie <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/pie.csv&quot;</span>, <span class="at">head =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;;&quot;</span>)</span>
+<span id="cb58-2"><a href="függelék.html#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-3"><a href="függelék.html#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pie, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> value, <span class="at">fill =</span> Type)) <span class="sc">+</span></span>
+<span id="cb58-4"><a href="függelék.html#cb58-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="at">width =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb58-5"><a href="függelék.html#cb58-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="st">&quot;y&quot;</span>, <span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb58-6"><a href="függelék.html#cb58-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;GnBu&quot;</span>) <span class="sc">+</span></span>
+<span id="cb58-7"><a href="függelék.html#cb58-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb58-8"><a href="függelék.html#cb58-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;A Magyar Közlönyben megjelent jogszabályok típusai&quot;</span>,</span>
+<span id="cb58-9"><a href="függelék.html#cb58-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;N = 445&quot;</span></span>
+<span id="cb58-10"><a href="függelék.html#cb58-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb58-11"><a href="függelék.html#cb58-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div>
 
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-grimmer2013text" class="csl-entry">
+Grimmer, Justin, and Brandon M Stewart. 2013. <span>“Text as Data: The Promise and Pitfalls of Automatic Content Analysis Methods for Political Texts.”</span> <em>Political Analysis</em> 21 (3): 267297.
+</div>
+<div id="ref-laver2000estimating" class="csl-entry">
+Laver, Michael, and John Garry. 2000. <span>“Estimating Policy Positions from Political Texts.”</span> <em>American Journal of Political Science</em>, 619634.
+</div>
+<div id="ref-loughran2011" class="csl-entry">
+Loughran, Tim, and Bill McDonald. 2011. <span>“When Is a Liability Not a Liability? Textual Analysis, Dictionaries, and 10-Ks.”</span> <em>The Journal of Finance</em> 66 (1): 35–65.
+</div>
+<div id="ref-máté2021" class="csl-entry">
+Máté, Ákos, Miklós Sebők, and Tamás Barczikay. 2021. <span>“The Effect of Central Bank Communication on Sovereign Bond Yields: The Case of Hungary.”</span> Edited by Hiranya K. Nath. <em>PLOS ONE</em> 16 (2): e0245515. <a href="https://doi.org/10.1371/journal.pone.0245515">https://doi.org/10.1371/journal.pone.0245515</a>.
+</div>
+<div id="ref-silge2017text" class="csl-entry">
+Silge, Julia, and David Robinson. 2017. <em>Text Mining with r: A Tidy Approach</em>. <span>"</span> O’Reilly Media, Inc.<span>"</span>.
+</div>
+<div id="ref-wickham2016r" class="csl-entry">
+Wickham, Hadley, and Garrett Grolemund. 2016. <em>R for Data Science: Import, Tidy, Transform, Visualize, and Model Data</em>. <span>"</span> O’Reilly Media, Inc.<span>"</span>.
+</div>
+<div id="ref-young2012affective" class="csl-entry">
+Young, Lori, and Stuart Soroka. 2012. <span>“Affective News: The Automated Coding of Sentiment in Political Texts.”</span> <em>Political Communication</em> 29 (2): 205231.
 </div>
 </div>
+</div>
+</div>
+
+
+
+
+
 
 
 

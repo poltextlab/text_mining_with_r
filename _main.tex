@@ -102,10 +102,30 @@
 \ifluatex
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \title{Szövegbányászat és mesterséges intelligencia R-ben}
 \author{Sebők Miklós, Ring Orsolya}
-\date{}
+\date{2021-02-18 15:30:15}
 
 \begin{document}
 \frontmatter
@@ -180,23 +200,31 @@ elso fejezet
 \section{Adatok importálása és
 exportálása}\label{adatok-importuxe1luxe1sa-uxe9s-exportuxe1luxe1sa}}
 
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readr)}
+\end{Highlighting}
+\end{Shaded}
+
 Az adatok importálására az R alapfüggvénye mellett több package is
 megoldást kínál. Ezek közül a könyv írásakor a legnépszerűbbek a
-\texttt{readr} és a \texttt{rio} csomagok. Az egyszerűség kedvéért mi az
-alap \texttt{read.csv()} függvényt fogjuk használni. Amennyiben
-kihasználjuk az RStudio projekt opcióját (lásd a
+\texttt{readr} és a \texttt{rio} csomagok. A karakter kódolással a
+legjobban a tapasztalataink szerint a \texttt{readr} csomag
+\texttt{read\_csv()} megoldása bíkózik meg, ezért ezt fogjuk használni a
+\texttt{.csv} állományok beolvasására. Amennyiben kihasználjuk az
+RStudio projekt opcióját (lásd a
 \protect\hyperlink{projektmunka}{Függelékben}) akkor elegendő csak az
 elérni kívánt adatok relativ elérési útját megadni (relative path).
 Ideális esetben az adataink egy csv fileban vannak (comma separated
 values), ahol az egyes értékeket vesszők (vagy egyéb speciális karakter)
-választják el. Ez esetben a \texttt{read.csv} függvényt használjuk. A
-beolvasásnál egyből el is tároljuk az adatokat egy objektumban. A
+választják el. Ez esetben a \texttt{read\_delim()} függvényt használjuk.
+A beolvasásnál egyből el is tároljuk az adatokat egy objektumban. A
 \texttt{sep\ =} opcióval tudjuk a szeparátor karaktert beállítani, mert
 előfordulhat hogy vessző helyett pontosvessző tagolja az adatainkat.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/adatfile.csv"}\NormalTok{, }\AttributeTok{sep =} \StringTok{","}\NormalTok{)}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/adatfile.csv"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -242,11 +270,11 @@ felszólalásnál a felszólaló neve és a beszéd ideje és párttagsága
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{df\_text }\OtherTok{\textless{}{-}} \FunctionTok{readtext}\NormalTok{(}
-  \StringTok{"data/*.txt"}\NormalTok{, }
-  \AttributeTok{docvarsfrom =} \StringTok{"filenames"}\NormalTok{, }
+  \StringTok{"data/*.txt"}\NormalTok{,}
+  \AttributeTok{docvarsfrom =} \StringTok{"filenames"}\NormalTok{,}
   \AttributeTok{dvsep =} \StringTok{"\_"}\NormalTok{,}
   \AttributeTok{docvarnames =} \FunctionTok{c}\NormalTok{(}\StringTok{"nev"}\NormalTok{, }\StringTok{"ev"}\NormalTok{, }\StringTok{"part"}\NormalTok{)}
-\NormalTok{  )}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -286,10 +314,10 @@ fordítani.
 \begin{Highlighting}[]
 \FunctionTok{reggeli}\NormalTok{(}\FunctionTok{oltozkodes}\NormalTok{(}\FunctionTok{felkeles}\NormalTok{(}\FunctionTok{ebredes}\NormalTok{(en, }\AttributeTok{idopont =} \StringTok{"8:00"}\NormalTok{), }\AttributeTok{oldal =} \StringTok{"jobb"}\NormalTok{), }\AttributeTok{nadrag =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{ing =} \ConstantTok{TRUE}\NormalTok{))}
 
-\NormalTok{en }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{ebredes}\NormalTok{(}\AttributeTok{idopont =} \StringTok{"8:00"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{felkeles}\NormalTok{(}\AttributeTok{oldal =} \StringTok{"jobb"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{oltozkodes}\NormalTok{(}\AttributeTok{nadrag =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{ing =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{en }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ebredes}\NormalTok{(}\AttributeTok{idopont =} \StringTok{"8:00"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{felkeles}\NormalTok{(}\AttributeTok{oldal =} \StringTok{"jobb"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{oltozkodes}\NormalTok{(}\AttributeTok{nadrag =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{ing =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{reggeli}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
@@ -336,19 +364,16 @@ várható élettartam nagyobb mint 72 év.
 \begin{Highlighting}[]
 \NormalTok{gapminder }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(year }\SpecialCharTok{==} \DecValTok{1962}\NormalTok{, lifeExp }\SpecialCharTok{\textgreater{}} \DecValTok{72}\NormalTok{)}
+\CommentTok{\#\textgreater{} \# A tibble: 5 x 6}
+\CommentTok{\#\textgreater{}   country     continent  year lifeExp      pop gdpPercap}
+\CommentTok{\#\textgreater{}   \textless{}fct\textgreater{}       \textless{}fct\textgreater{}     \textless{}int\textgreater{}   \textless{}dbl\textgreater{}    \textless{}int\textgreater{}     \textless{}dbl\textgreater{}}
+\CommentTok{\#\textgreater{} 1 Denmark     Europe     1962    72.4  4646899    13583.}
+\CommentTok{\#\textgreater{} 2 Iceland     Europe     1962    73.7   182053    10350.}
+\CommentTok{\#\textgreater{} 3 Netherlands Europe     1962    73.2 11805689    12791.}
+\CommentTok{\#\textgreater{} 4 Norway      Europe     1962    73.5  3638919    13450.}
+\CommentTok{\#\textgreater{} 5 Sweden      Europe     1962    73.4  7561588    12329.}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 5 x 6
-##   country     continent  year lifeExp      pop gdpPercap
-##   <fct>       <fct>     <int>   <dbl>    <int>     <dbl>
-## 1 Denmark     Europe     1962    72.4  4646899    13583.
-## 2 Iceland     Europe     1962    73.7   182053    10350.
-## 3 Netherlands Europe     1962    73.2 11805689    12791.
-## 4 Norway      Europe     1962    73.5  3638919    13450.
-## 5 Sweden      Europe     1962    73.4  7561588    12329.
-\end{verbatim}
 
 De ugyanígy leválogathatjuk a data frame-ből az adatokat akkor is hogyha
 egy karakter változó alapján szeretnénk szűrni.
@@ -357,18 +382,15 @@ egy karakter változó alapján szeretnénk szűrni.
 \begin{Highlighting}[]
 \NormalTok{gapminder }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{filter}\NormalTok{(country }\SpecialCharTok{==} \StringTok{"Sweden"}\NormalTok{, year }\SpecialCharTok{\textgreater{}} \DecValTok{1990}\NormalTok{)}
+\CommentTok{\#\textgreater{} \# A tibble: 4 x 6}
+\CommentTok{\#\textgreater{}   country continent  year lifeExp     pop gdpPercap}
+\CommentTok{\#\textgreater{}   \textless{}fct\textgreater{}   \textless{}fct\textgreater{}     \textless{}int\textgreater{}   \textless{}dbl\textgreater{}   \textless{}int\textgreater{}     \textless{}dbl\textgreater{}}
+\CommentTok{\#\textgreater{} 1 Sweden  Europe     1992    78.2 8718867    23880.}
+\CommentTok{\#\textgreater{} 2 Sweden  Europe     1997    79.4 8897619    25267.}
+\CommentTok{\#\textgreater{} 3 Sweden  Europe     2002    80.0 8954175    29342.}
+\CommentTok{\#\textgreater{} 4 Sweden  Europe     2007    80.9 9031088    33860.}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 4 x 6
-##   country continent  year lifeExp     pop gdpPercap
-##   <fct>   <fct>     <int>   <dbl>   <int>     <dbl>
-## 1 Sweden  Europe     1992    78.2 8718867    23880.
-## 2 Sweden  Europe     1997    79.4 8897619    25267.
-## 3 Sweden  Europe     2002    80.0 8954175    29342.
-## 4 Sweden  Europe     2007    80.9 9031088    33860.
-\end{verbatim}
 
 Itt tehát a data frame azon sorait szeretnénk látni, ahol az ország
 megegyezik a „Sweden" karakterlánccal az év pedig nagyobb, mint 1990.
@@ -392,27 +414,24 @@ a nemkívánt változó(k) elé (pl.:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{gapminder }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{gapminder }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{select}\NormalTok{(}\FunctionTok{contains}\NormalTok{(}\StringTok{"ea"}\NormalTok{), }\FunctionTok{starts\_with}\NormalTok{(}\StringTok{"co"}\NormalTok{), pop)}
+\CommentTok{\#\textgreater{} \# A tibble: 1,704 x 4}
+\CommentTok{\#\textgreater{}     year country     continent      pop}
+\CommentTok{\#\textgreater{}    \textless{}int\textgreater{} \textless{}fct\textgreater{}       \textless{}fct\textgreater{}        \textless{}int\textgreater{}}
+\CommentTok{\#\textgreater{}  1  1952 Afghanistan Asia       8425333}
+\CommentTok{\#\textgreater{}  2  1957 Afghanistan Asia       9240934}
+\CommentTok{\#\textgreater{}  3  1962 Afghanistan Asia      10267083}
+\CommentTok{\#\textgreater{}  4  1967 Afghanistan Asia      11537966}
+\CommentTok{\#\textgreater{}  5  1972 Afghanistan Asia      13079460}
+\CommentTok{\#\textgreater{}  6  1977 Afghanistan Asia      14880372}
+\CommentTok{\#\textgreater{}  7  1982 Afghanistan Asia      12881816}
+\CommentTok{\#\textgreater{}  8  1987 Afghanistan Asia      13867957}
+\CommentTok{\#\textgreater{}  9  1992 Afghanistan Asia      16317921}
+\CommentTok{\#\textgreater{} 10  1997 Afghanistan Asia      22227415}
+\CommentTok{\#\textgreater{} \# ... with 1,694 more rows}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 1,704 x 4
-##     year country     continent      pop
-##    <int> <fct>       <fct>        <int>
-##  1  1952 Afghanistan Asia       8425333
-##  2  1957 Afghanistan Asia       9240934
-##  3  1962 Afghanistan Asia      10267083
-##  4  1967 Afghanistan Asia      11537966
-##  5  1972 Afghanistan Asia      13079460
-##  6  1977 Afghanistan Asia      14880372
-##  7  1982 Afghanistan Asia      12881816
-##  8  1987 Afghanistan Asia      13867957
-##  9  1992 Afghanistan Asia      16317921
-## 10  1997 Afghanistan Asia      22227415
-## # ... with 1,694 more rows
-\end{verbatim}
 
 \hypertarget{uxfaj-vuxe1ltozuxf3k-luxe9trehozuxe1sa-mutate}{%
 \subsection{\texorpdfstring{Új változók létrehozása:
@@ -428,21 +447,18 @@ szövegek előkészítésével foglalkozó fejezetben.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{gapminder }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{filter}\NormalTok{(country }\SpecialCharTok{==} \StringTok{"Sweden"}\NormalTok{, year }\SpecialCharTok{\textgreater{}=} \DecValTok{1992}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{gapminder }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(country }\SpecialCharTok{==} \StringTok{"Sweden"}\NormalTok{, year }\SpecialCharTok{\textgreater{}=} \DecValTok{1992}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{gdp =}\NormalTok{ (gdpPercap }\SpecialCharTok{*}\NormalTok{ pop) }\SpecialCharTok{/} \DecValTok{10}\SpecialCharTok{\^{}}\DecValTok{9}\NormalTok{)}
+\CommentTok{\#\textgreater{} \# A tibble: 4 x 7}
+\CommentTok{\#\textgreater{}   country continent  year lifeExp     pop gdpPercap   gdp}
+\CommentTok{\#\textgreater{}   \textless{}fct\textgreater{}   \textless{}fct\textgreater{}     \textless{}int\textgreater{}   \textless{}dbl\textgreater{}   \textless{}int\textgreater{}     \textless{}dbl\textgreater{} \textless{}dbl\textgreater{}}
+\CommentTok{\#\textgreater{} 1 Sweden  Europe     1992    78.2 8718867    23880.  208.}
+\CommentTok{\#\textgreater{} 2 Sweden  Europe     1997    79.4 8897619    25267.  225.}
+\CommentTok{\#\textgreater{} 3 Sweden  Europe     2002    80.0 8954175    29342.  263.}
+\CommentTok{\#\textgreater{} 4 Sweden  Europe     2007    80.9 9031088    33860.  306.}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## # A tibble: 4 x 7
-##   country continent  year lifeExp     pop gdpPercap   gdp
-##   <fct>   <fct>     <int>   <dbl>   <int>     <dbl> <dbl>
-## 1 Sweden  Europe     1992    78.2 8718867    23880.  208.
-## 2 Sweden  Europe     1997    79.4 8897619    25267.  225.
-## 3 Sweden  Europe     2002    80.0 8954175    29342.  263.
-## 4 Sweden  Europe     2007    80.9 9031088    33860.  306.
-\end{verbatim}
 
 \hypertarget{csoportonkuxe9nti-statisztikuxe1k-group_by-uxe9s-summarize}{%
 \subsection{\texorpdfstring{Csoportonkénti statisztikák:
@@ -462,26 +478,19 @@ adataink leíró statisztikáinál is a 4. fejezetben.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{gapminder }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{group\_by}\NormalTok{(continent) }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{gapminder }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(continent) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{summarise}\NormalTok{(}\AttributeTok{megfigyelesek =} \FunctionTok{n}\NormalTok{(), }\AttributeTok{atlag\_gdp =} \FunctionTok{mean}\NormalTok{(gdpPercap))}
+\CommentTok{\#\textgreater{} \# A tibble: 5 x 3}
+\CommentTok{\#\textgreater{}   continent megfigyelesek atlag\_gdp}
+\CommentTok{\#\textgreater{}   \textless{}fct\textgreater{}             \textless{}int\textgreater{}     \textless{}dbl\textgreater{}}
+\CommentTok{\#\textgreater{} 1 Africa              624     2194.}
+\CommentTok{\#\textgreater{} 2 Americas            300     7136.}
+\CommentTok{\#\textgreater{} 3 Asia                396     7902.}
+\CommentTok{\#\textgreater{} 4 Europe              360    14469.}
+\CommentTok{\#\textgreater{} 5 Oceania              24    18622.}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## `summarise()` ungrouping output (override with `.groups` argument)
-\end{verbatim}
-
-\begin{verbatim}
-## # A tibble: 5 x 3
-##   continent megfigyelesek atlag_gdp
-##   <fct>             <int>     <dbl>
-## 1 Africa              624     2194.
-## 2 Americas            300     7136.
-## 3 Asia                396     7902.
-## 4 Europe              360    14469.
-## 5 Oceania              24    18622.
-\end{verbatim}
 
 \hypertarget{munka-karakter-vektorokkaladatkezeles-4}{%
 \section[Munka karakter vektorokkal]{\texorpdfstring{Munka karakter
@@ -490,7 +499,8 @@ vektorokkal\footnote{A könyv terjedelme miatt ezt a témát itt csak
   elmélyülni benne. Kíváló online anyagok találhatóak az RStudio GitHub
   tárhelyén
   (\url{https://github.com/rstudio/cheatsheets/raw/master/strings.pdf}),
-  illetve @wickham2016r 14. fejezetében.}}{Munka karakter vektorokkal}}\label{munka-karakter-vektorokkaladatkezeles-4}}
+  illetve \protect\hyperlink{ref-wickham2016r}{Wickham and Grolemund}
+  (\protect\hyperlink{ref-wickham2016r}{2016}) 14. fejezetében.}}{Munka karakter vektorokkal}}\label{munka-karakter-vektorokkaladatkezeles-4}}
 
 A szöveges adatokkal (karakter stringekkel) való munka elkerülhetetlen
 velejárója hogy a felesleges szövegelemeket, karaktereket el kell
@@ -517,13 +527,11 @@ jelöl.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{szoveg }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}gitar\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}ukulele\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}nagybogo\textquotesingle{}}\NormalTok{)}
+\NormalTok{szoveg }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"gitar"}\NormalTok{, }\StringTok{"ukulele"}\NormalTok{, }\StringTok{"nagybogo"}\NormalTok{)}
 
 \FunctionTok{str\_view}\NormalTok{(szoveg, }\AttributeTok{pattern =} \StringTok{"ar"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\hypertarget{htmlwidget-0fbfe25d961db4d1f63a}{}
 
 Az \emph{anchor}-okkal azt lehet megadni, hogy a karakter string elején
 vagy végén szeretnénk egyezést találni. A string eleji anchor a
@@ -532,18 +540,10 @@ vagy végén szeretnénk egyezést találni. A string eleji anchor a
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{str\_view}\NormalTok{(}\StringTok{"Dr. Doktor Dr."}\NormalTok{, }\AttributeTok{pattern =} \StringTok{"\^{}Dr."}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
-\hypertarget{htmlwidget-64a2acfb1ed1c74b7f86}{}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{str\_view}\NormalTok{(}\StringTok{"Dr. Doktor Dr."}\NormalTok{, }\AttributeTok{pattern =} \StringTok{"Dr.$"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\hypertarget{htmlwidget-f7392aa773cbacf6aa2b}{}
 
 Egy másik jellemző probléma, hogy olyan speciális karaktert akarunk
 leírni a regex kifejezésünkkel, ami amúgy a regex szintaxisban használt.
@@ -556,8 +556,6 @@ regex kotextusban a ``bármilyen karakter'' megfelelője.
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{htmlwidget-1572e12d88028651ab15}{}
-
 Ahhoz hogy magát az írásjelet jelöljük, a
 \texttt{\textbackslash{}\textbackslash{}} -t kell elé rakni.
 
@@ -566,8 +564,6 @@ Ahhoz hogy magát az írásjelet jelöljük, a
 \FunctionTok{str\_view}\NormalTok{(}\StringTok{"Dr. Doktor Dr."}\NormalTok{, }\AttributeTok{pattern =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{."}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-\hypertarget{htmlwidget-2dc0439d93dc3575f738}{}
 
 Néhány hasznos regex kifejezés:
 
@@ -594,6 +590,9 @@ Néhány hasznos regex kifejezés:
 \item
   \texttt{{[}:blank:{]}} - szóköz és tabulálás
 \item
+  \texttt{{[}:cntrl:{]}} - kontrol karakterek
+  (\texttt{\textbackslash{}n}, \texttt{\textbackslash{}r}, stb.)
+\item
   \texttt{*} - bármi
 \end{itemize}
 
@@ -619,7 +618,617 @@ hatodik fejezet
 \chapter{Szótáralapú elemzések,
 érzelem-elemzés}\label{szuxf3tuxe1ralapuxfa-elemzuxe9sek-uxe9rzelem-elemzuxe9s}}
 
-hetedik fejezet
+A szótár alapú szentiment elemzés egy egyszerű ötleten alapul. Hogyha
+tudjuk hogy egyes szavak milyen érzelmeket, érzéseket, információt
+hordoznak, akkor minél gyakoribb egy-egy érzelem kategóriához tartozó
+szó, akkor a szentiment annél inkább jellemző lesz a dokumentumra amit
+vizsgálunk. Természetesen itt is jó pár dolognak kell teljesülnie ahhoz
+hogy az elemzésünk eredménye megbízható legyen. Mivel a szótár alapú
+elemzés az adott szentiment kategórián belüli kulcsszavak gyakoriságán
+alapul, ezért van aki nem tekinti statisztikai elemzésnek (lásd például
+\protect\hyperlink{ref-young2012affective}{Young and Soroka}
+(\protect\hyperlink{ref-young2012affective}{2012})). A tágabb
+kvantitatív szövegelemzési kontextusban az osztályozáson
+(classification) belül a felügyelt módszerekhez hasonlóan itt is ismert
+kategóriákkal dolgozunk (pl.: egy kulcsszó az ``öröm'' kategóriába
+tartozik), csak egyszerűbb módszertannal
+(\protect\hyperlink{ref-grimmer2013text}{Grimmer and Stewart 2013}).
+
+A kulcsszavakra építés miatt a módszer a kvalitatív és kvantitatív
+kutatási vonalak találkozásának is tekinthető, hiszen egy-egy szónak az
+érzelmi töltete nem mindig ítélhető meg objektíven. Mint minden módszer
+esetében, amiről ebben a tankönyvben szó van, itt is kiemelten fontos
+hogy ellenőrízzük hogy a használt szótár kategóriák és kulcsszavak
+fedik-e a valóságot. Más szavakkal: \emph{validate, validate, validate}.
+\textbf{A módszer előnyei:}
+
+\begin{itemize}
+\tightlist
+\item
+  Tökéletesen megbízható: nincsen probabilisztikus eleme a
+  számításoknak, mint például a Support Vector alapú osztályozásnál,
+  illetve az emberi szövegkódolásnál előforduló problémákat is
+  elkerüljük így.
+\item
+  Képesek vagyunk vele mérni a szöveg látens dimenzióit.
+\item
+  Széles körben alkalmazható, egyszerűen számolható. A
+  politikatudományon és számítogépes nyelvtudományokon belül nagyon sok
+  kész szótár elérhető, amik különböző módszerekkel készültek és
+  különböző területet fednek le (pl.: populizmus, pártprogramok policy
+  tartalma, érzelmek, gazdasági tartalom.)\footnote{A lehetséges,
+    területspecifikus szótáralkotási módszerekről részletesebben ezekben
+    a cikkekben lehet olvasni:
+    \protect\hyperlink{ref-laver2000estimating}{Laver and Garry}
+    (\protect\hyperlink{ref-laver2000estimating}{2000});
+    \protect\hyperlink{ref-young2012affective}{Young and Soroka}
+    (\protect\hyperlink{ref-young2012affective}{2012});
+    \protect\hyperlink{ref-loughran2011}{Loughran and McDonald}
+    (\protect\hyperlink{ref-loughran2011}{2011});
+    \protect\hyperlink{ref-muxe1tuxe92021}{Máté, Sebők, and Barczikay}
+    (\protect\hyperlink{ref-muxe1tuxe92021}{2021})}
+\item
+  Relatíve könnyen adaptálható egyik nyelvi környezetből másikba.
+\end{itemize}
+
+\textbf{A módszer lehetéges hátrányai:}
+
+\begin{itemize}
+\tightlist
+\item
+  A szótár hatékonysága és validitása azon múlik hogy mennyire egyezik a
+  szótár és a viszgálni kívánt dokumentum területe. Például jellemző
+  hiba, hogy gazdasági bizonytalanságot szeretnék tőzsdei jelentések
+  alapján vizsgálni a kutatók egy általános szentimet szótár
+  használatával.
+\item
+  A terület-specifikus szótár építése egy kvalitatív folyamat (lsd. a
+  labjegyzetben), éppen ezért gyakran idő és emberi erőforrás igényes.
+\item
+  A szózsák alapú elemzéseknél a kontextus elvész (ez gyakran igaz a
+  bigram és trigramok használatánál is) a kulcsszavak esetében. Erre egy
+  triviális példa a tagadás a mondatban: \emph{``nem vagyok boldog''}
+  esetén egy általános szentiment szótár a tagadás miatt
+  félreosztályozná a mondat érzelmi töltését.
+\end{itemize}
+
+Az elemzés sikere több faktortól is függ. Fontos hogy a korpuszban lévő
+dokumentumokat körültekintően tisztítsuk meg az elemzés elején (lásd a
+4. fejezetet a szövegelőkészítésről). A következő lépésben meg kell
+bizonyosodnunk arról, hogy a kiválasztott szentiment szótár alkalmazható
+a korpuszunkra. Amennyiben nem találunk alkalmas szótárat, akkor a saját
+szótár validálására kell figyelni. A negyedik fejezetben leírtak itt is
+érvényesek, érdemes a dokumentum-kifejezés mátrixot súlyozni valamilyen
+módon.
+
+\hypertarget{szuxf3tuxe1rak-az-r-ben}{%
+\section{Szótárak az R-ben}\label{szuxf3tuxe1rak-az-r-ben}}
+
+A szótár alapú elemzéshez a \texttt{quanteda} csomagot fogjuk használni,
+illetve a 3. fejezetben már megismert \texttt{readr}, \texttt{stringr},
+\texttt{dplyr} tidyverse csomagokat.\footnote{A szentiment elemzéshez
+  gyakran használt csomag még a tidytext. Az online is szabadon elérhető
+  \protect\hyperlink{ref-silge2017text}{Silge and Robinson}
+  (\protect\hyperlink{ref-silge2017text}{2017}) 2. fejezetében
+  részletesen is bemutatják a szerzők a tidytext munkafolyamatot
+  (\url{https://www.tidytextmining.com/sentiment.html}).}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(quanteda)}
+\end{Highlighting}
+\end{Shaded}
+
+Mielőtt a két esettanulmányt bemutatnánk, vizsgáljuk meg hogy hogyan néz
+ki egy szentiment szótár az R-ben. A szótárt kézzel úgy tudjuk
+létrehozni, hogy egy listán belül létrehozzuk karaktervektorként a
+kategóriákat és a kulcsszavakat és ezt a listát a quanteda dictionary
+függvényével eltároljuk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{szentiment\_szotar }\OtherTok{\textless{}{-}} \FunctionTok{dictionary}\NormalTok{(}\FunctionTok{list}\NormalTok{(}
+  \AttributeTok{pozitiv =} \FunctionTok{c}\NormalTok{(}\StringTok{"jó"}\NormalTok{, }\StringTok{"boldog"}\NormalTok{, }\StringTok{"öröm"}\NormalTok{),}
+  \AttributeTok{negativ =} \FunctionTok{c}\NormalTok{(}\StringTok{"rossz"}\NormalTok{, }\StringTok{"szomorú"}\NormalTok{, }\StringTok{"lehangoló"}\NormalTok{)}
+\NormalTok{))}
+
+\NormalTok{szentiment\_szotar}
+\CommentTok{\#\textgreater{} Dictionary object with 2 key entries.}
+\CommentTok{\#\textgreater{} {-} [pozitiv]:}
+\CommentTok{\#\textgreater{}   {-} jó, boldog, öröm}
+\CommentTok{\#\textgreater{} {-} [negativ]:}
+\CommentTok{\#\textgreater{}   {-} rossz, szomorú, lehangoló}
+\end{Highlighting}
+\end{Shaded}
+
+A quanteda, quanteda.corpora és tidytext R csomagok több széles körben
+használt szentiment szótárat tartalmaznak, így nem kell kézzel
+replikálni minden egyes szótárat amit használni szeretnénk.
+
+A szentiment elemzési munkafolyamat amit a részfejezetben bemutatunk a
+következő lépésekből áll:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  dokumentumok betöltése
+\item
+  szöveg előkészítése
+\item
+  a korpusz létrehozása
+\item
+  dokumentum-kifejezés mátrix
+\item
+  szótár betöltése
+\item
+  a dokumentum-kifejezés mátrix szűrése a szótárban lévő kulcsszavakkal
+\item
+  az eredmény vizualizálása, további felhasználása
+\end{enumerate}
+
+A fejezetben két különböző korpuszt fogunk elemezni: a 2006-os Magyar
+Nemzet címlapjainak egy 252 cikkből álló mintájának szentimentjét
+vizsgáljuk egy magyar szentiment szótárral. A második korpusz a Magyar
+Nemzeti Bank angol nyelvű sajtóközleményeiből áll, amin bemutatjuk egy
+széles körben használt gazdasági szótár használatát.
+
+\hypertarget{magyar-nemzet-cikkek}{%
+\section{Magyar Nemzet cikkek}\label{magyar-nemzet-cikkek}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mn\_minta }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/magyar\_nemzet\_small.csv"}\NormalTok{)}
+
+\FunctionTok{summary}\NormalTok{(mn\_minta)}
+\CommentTok{\#\textgreater{}      doc\_id           text              doc\_date         }
+\CommentTok{\#\textgreater{}  Min.   :   1.0   Length:2834        Min.   :2006{-}01{-}02  }
+\CommentTok{\#\textgreater{}  1st Qu.: 709.2   Class :character   1st Qu.:2006{-}03{-}29  }
+\CommentTok{\#\textgreater{}  Median :1417.5   Mode  :character   Median :2006{-}06{-}28  }
+\CommentTok{\#\textgreater{}  Mean   :1417.5                      Mean   :2006{-}06{-}28  }
+\CommentTok{\#\textgreater{}  3rd Qu.:2125.8                      3rd Qu.:2006{-}09{-}26  }
+\CommentTok{\#\textgreater{}  Max.   :2834.0                      Max.   :2006{-}12{-}29}
+\end{Highlighting}
+\end{Shaded}
+
+A \texttt{read\_csv()} segítségével beolvassuk a Magyar Nemzet adatbázis
+egy kisebb részét, ami az esetünkben a 2006-os cimlapokon szereplő hírek
+. A \texttt{summary()}, ahogy a neve is mutatja, egy gyors
+áttekinténtést nyújt a betöltött adatbázisról. Látjuk, hogy 2834 sorbol
+(megfigyelés) és 3 oszlopból (változó) áll. Az első ránézésre látszik
+hogy a text változónk tartalmazza a szövegeket, és hogy tisztításra
+szorulnak.
+
+Az első szöveget megnézve látjuk, hogy a standard előkészítési lépések
+mellett a sortörést (\texttt{\textbackslash{}n}) is ki kell törölnünk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mn\_minta}\SpecialCharTok{$}\NormalTok{text[}\DecValTok{1}\NormalTok{]}
+\CommentTok{\#\textgreater{} [1] "Hat fovárosi képviselo öt percnél is kevesebbet beszélt egy év alatt a közgyulésben.\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n"}
+\end{Highlighting}
+\end{Shaded}
+
+Habár a \texttt{quanteda} is lehetőséget ad néhány elékészítő lépésre,
+érdemes ezt olyan céleszközzel tenni ami nagyobb rugalmasságot ad a
+kezünkbe. Mi erre a célra a \texttt{stringr} csomagot használjuk. Első
+lépésben kitöröljük a sortöréseket (\texttt{\textbackslash{}n}), a
+központozást, számokat, kisbetűsítünk minden szót. Előfordulhat hogy
+(számunkra nehezen látható) extra szóközök maradnak a szövegben. Ezeket
+az \texttt{str\_squish()}-el tüntetjük el. A szöveg eleji és végi extra
+szóközöket (ún. leading vagy trailing white space) az
+\texttt{str\_trim()} vágja le.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mn\_tiszta }\OtherTok{\textless{}{-}}\NormalTok{ mn\_minta }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:punct:]"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:digit:]"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_to\_lower}\NormalTok{(text),}
+    \AttributeTok{text =} \FunctionTok{str\_trim}\NormalTok{(text),}
+    \AttributeTok{text =} \FunctionTok{str\_squish}\NormalTok{(text)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+A szöveg sokkal jobban néz ki, habár észrevehetjük hogy maradhattak
+benne problémás részek, főleg a sortörés miatt, ami sajnos hol egyes
+szavak közepén van (a jobbik eset), vagy pedig pont szóhatáron, ez
+esetben a két szó sajnos összevonódik. Az egyszerűség kedvéért
+feltételezzük hogy ez kellően ritkán fordul elő ahhoz hogy ne
+befolyásolja az elemzésünk eredményét.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mn\_tiszta}\SpecialCharTok{$}\NormalTok{text[}\DecValTok{1}\NormalTok{]}
+\CommentTok{\#\textgreater{} [1] "hat fovárosi képviselo öt percnél is kevesebbet beszélt egy év alatt a közgyulésben"}
+\end{Highlighting}
+\end{Shaded}
+
+Miután kész a tiszta(bb) szövegünk, kreálunk egy korpuszt a quanteda
+\texttt{corpus()} fuggvenyevel. A létrehozott corpus objektum a szöveg
+mellett egyéb dokumentum meta adatokat is tud tárolni (dátum, író, hely,
+stb.) Ezeket mi is hozzáadhatjuk (erre majd látunk példát nemsokára)
+illetve amikor létrehozzuk a korpuszt a data frame-ünkből, akkor
+autómatikusan meta adatokként tárolódnak az változóink. Jelen esetben az
+egyetlen dokument változónk az a dátum lesz a szöveg mellett. A korpusz
+dokumentum változóihoz a \texttt{docvars()} segíségével tudunk
+hozzáférni.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mn\_corpus }\OtherTok{\textless{}{-}} \FunctionTok{corpus}\NormalTok{(mn\_tiszta)}
+
+\FunctionTok{head}\NormalTok{(}\FunctionTok{docvars}\NormalTok{(mn\_corpus), }\DecValTok{5}\NormalTok{)}
+\CommentTok{\#\textgreater{}     doc\_date}
+\CommentTok{\#\textgreater{} 1 2006{-}01{-}02}
+\CommentTok{\#\textgreater{} 2 2006{-}01{-}02}
+\CommentTok{\#\textgreater{} 3 2006{-}01{-}02}
+\CommentTok{\#\textgreater{} 4 2006{-}01{-}02}
+\CommentTok{\#\textgreater{} 5 2006{-}01{-}02}
+\end{Highlighting}
+\end{Shaded}
+
+A következő lépés a dokument-kifejezés mátrix létrehozása a
+\texttt{dfm()} függvénnyel (ami a \emph{document-feature matrix}
+rövidítése). Előszőr tokenekre bontjuk a szövegeket a
+\texttt{tokens()}-el, és aztán ezt a tokenizált szózsákot kapja meg a
+dfm inputnak. A sornak a végén a létrehozott mátrixunkat TF-IDF
+módszerrel súlyozzuk a \texttt{dfm\_tfidf()} használatával.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mn\_dfm }\OtherTok{\textless{}{-}}\NormalTok{ mn\_corpus }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens}\NormalTok{(}\AttributeTok{what =} \StringTok{"word"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{dfm}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{dfm\_tfidf}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+A cikkek szentimentjét egy magyar szótárral fogjuk becsülni, amit a
+Társadalomtudmányi Kutatóközpont CSS-RECENS és a POLTEXTLab kutatói
+készítették.\footnote{A szótár elérhető a könyv online verziójának a
+  GitHub repozitorijából. (LINK)} Két dimenziót tarlamaz (pozitív és
+negatív), 2299 pozitív és 2588 negatív kulcsszóval. Ez nem számít
+kirívóan nagynak a szótárak között, mivel az adott kategóriák minél
+teljesebb lefedése a cél. Azt is látjuk, hogy a kulcsszavak egyszavas
+tokenek (szóval nem érdemes bigramokat és trigramokat készítenünk a
+tokenizálás során), illetve nem szótövek (így szótöveznünk sem kell).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{poltext\_szotar}
+\CommentTok{\#\textgreater{} Dictionary object with 2 key entries.}
+\CommentTok{\#\textgreater{} {-} [positive]:}
+\CommentTok{\#\textgreater{}   {-} abszolút, ad, adaptív, adekvát, adócsökkentés, adókedvezmény, adomány, adományoz, adóreform, adottság, adottságú, áfacsökkentés, agilis, agytröszt, áhított, ajándék, ajándékoz, ajánl, ajánlott, akadálytalan [ ... and 2,279 more ]}
+\CommentTok{\#\textgreater{} {-} [negative]:}
+\CommentTok{\#\textgreater{}   {-} aberrált, abnormális, abnormalitás, abszurd, abszurditás, ádáz, adócsalás, adócsaló, adós, adósság, áfacsalás, áfacsaló, affér, aggasztó, aggodalom, aggódik, aggódás, agresszió, agresszíven, agresszivitás [ ... and 2,568 more ]}
+\end{Highlighting}
+\end{Shaded}
+
+Az egyes dokumentumok szentimentjét a \texttt{dfm\_lookup()} becsüli,
+ahol az előző lépésben létrehozott súlyozott dfm az input és a magyar
+szentimentszótár a dictionary. Egy gyors pillantás az eredményre és
+látjuk hogy minden dokumentumhoz készült egy pozitív és egy negatív
+értéket. A TF-IDF súlyozás miatt nem látunk egész számokat (a súlyozás
+nélkül a sima szófrekvenciát kapnánk).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mn\_szentiment }\OtherTok{\textless{}{-}} \FunctionTok{dfm\_lookup}\NormalTok{(mn\_dfm, }\AttributeTok{dictionary =}\NormalTok{ poltext\_szotar)}
+
+\FunctionTok{head}\NormalTok{(mn\_szentiment, }\DecValTok{5}\NormalTok{)}
+\CommentTok{\#\textgreater{} Document{-}feature matrix of: 5 documents, 2 features (40.0\% sparse) and 1 docvar.}
+\CommentTok{\#\textgreater{}     features}
+\CommentTok{\#\textgreater{} docs   positive  negative}
+\CommentTok{\#\textgreater{}    1  0          0       }
+\CommentTok{\#\textgreater{}    2  0.8375026 12.497973}
+\CommentTok{\#\textgreater{}    3  0          0       }
+\CommentTok{\#\textgreater{}    4 21.1044299  6.449036}
+\CommentTok{\#\textgreater{}    5 11.0358129  8.131890}
+\end{Highlighting}
+\end{Shaded}
+
+Ahhoz hogy fel tudjuk használni a kapott eredményt, érdemes
+dokumentumváltozóként eltárolni a korpuszban. Ezt a fent már használt
+\texttt{docvars()} segítségével tudjuk megtenni, ahol a második
+argumentumkét az új változó nevét adjuk meg stringként.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{docvars}\NormalTok{(mn\_corpus, }\StringTok{"pos"}\NormalTok{) }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(mn\_szentiment[, }\DecValTok{1}\NormalTok{])}
+\FunctionTok{docvars}\NormalTok{(mn\_corpus, }\StringTok{"neg"}\NormalTok{) }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(mn\_szentiment[, }\DecValTok{2}\NormalTok{])}
+
+\FunctionTok{head}\NormalTok{(}\FunctionTok{docvars}\NormalTok{(mn\_corpus), }\DecValTok{5}\NormalTok{)}
+\CommentTok{\#\textgreater{}     doc\_date        pos       neg}
+\CommentTok{\#\textgreater{} 1 2006{-}01{-}02  0.0000000  0.000000}
+\CommentTok{\#\textgreater{} 2 2006{-}01{-}02  0.8375026 12.497973}
+\CommentTok{\#\textgreater{} 3 2006{-}01{-}02  0.0000000  0.000000}
+\CommentTok{\#\textgreater{} 4 2006{-}01{-}02 21.1044299  6.449036}
+\CommentTok{\#\textgreater{} 5 2006{-}01{-}02 11.0358129  8.131890}
+\end{Highlighting}
+\end{Shaded}
+
+Végül a kapott korpuszt a kiszámolt szentiment értékekkel a
+\texttt{quanteda}-ban lévő \texttt{convert()} fügvénnyel data frame-é
+alakítjuk. A convert függvény dokumentációját érdemes elolvasni, mert
+ennek segítségével tudjuk a \texttt{quanteda}-ban elkeszült
+objektumainkat átalakítani úgy, hogy azt más csomagok is tudják
+használni.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mn\_df }\OtherTok{\textless{}{-}} \FunctionTok{convert}\NormalTok{(mn\_corpus, }\AttributeTok{to =} \StringTok{"data.frame"}\NormalTok{)}
+
+
+\FunctionTok{summary}\NormalTok{(mn\_df)}
+\CommentTok{\#\textgreater{}     doc\_id              text              doc\_date               pos        }
+\CommentTok{\#\textgreater{}  Length:2834        Length:2834        Min.   :2006{-}01{-}02   Min.   : 0.000  }
+\CommentTok{\#\textgreater{}  Class :character   Class :character   1st Qu.:2006{-}03{-}29   1st Qu.: 0.000  }
+\CommentTok{\#\textgreater{}  Mode  :character   Mode  :character   Median :2006{-}06{-}28   Median : 2.373  }
+\CommentTok{\#\textgreater{}                                        Mean   :2006{-}06{-}28   Mean   : 4.074  }
+\CommentTok{\#\textgreater{}                                        3rd Qu.:2006{-}09{-}26   3rd Qu.: 6.280  }
+\CommentTok{\#\textgreater{}                                        Max.   :2006{-}12{-}29   Max.   :35.648  }
+\CommentTok{\#\textgreater{}       neg        }
+\CommentTok{\#\textgreater{}  Min.   : 0.000  }
+\CommentTok{\#\textgreater{}  1st Qu.: 0.000  }
+\CommentTok{\#\textgreater{}  Median : 2.037  }
+\CommentTok{\#\textgreater{}  Mean   : 3.528  }
+\CommentTok{\#\textgreater{}  3rd Qu.: 5.348  }
+\CommentTok{\#\textgreater{}  Max.   :39.096}
+\end{Highlighting}
+\end{Shaded}
+
+Mielőtt vizualizálnánk az eredményt érdemes a napi szintre aggregálni a
+szentimentet és egy nettó értéket kalkulálni.\footnote{A csoportosított
+  adatokkal való munka bővebb bemutatását lsd. a Függelékben}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mn\_df }\OtherTok{\textless{}{-}}\NormalTok{ mn\_df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(doc\_date) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{daily\_pos =} \FunctionTok{sum}\NormalTok{(pos),}
+    \AttributeTok{daily\_neg =} \FunctionTok{sum}\NormalTok{(neg),}
+    \AttributeTok{net\_daily =}\NormalTok{ daily\_pos }\SpecialCharTok{{-}}\NormalTok{ daily\_neg}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+A plot alapján egyértelmű trendet nem lehet megállapítani és még a
+2006-os év végi turbulens belpolitikai események sem feltétlenül
+jelennek meg markánsan. Ennek az oka abban is kereshető, hogy egy
+napilap címlapját ritkán dominálja teljes egészében a belpolitika és így
+a negatív és pozitív szentimentek kioltják egymást. Természetesen
+messzemenő következtetéseket egy ábra alapján nem érdemes levonni, de az
+elemzésünk azt mutatha hogy a nyári hónapok alatt kevesebb volt az
+igazán negatív címlap, ellenben az év eleje és vége tartalmazta a minta
+alsó szélső értékeit.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mn\_df, }\FunctionTok{aes}\NormalTok{(doc\_date, net\_daily)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Magyar Nemzet címlap szentimentje"}\NormalTok{,}
+    \AttributeTok{subtitle =} \StringTok{"A szentiment érték a pozitív és negatív szentiment pontszámok különbsége a teljes mintára."}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Szentiment"}\NormalTok{,}
+    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Adatforrás: https://cap.tk.hu/"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-35-1} \end{center}
+
+\hypertarget{mnb-sajtuxf3kuxf6zlemuxe9nyek}{%
+\section{MNB sajtóközlemények}\label{mnb-sajtuxf3kuxf6zlemuxe9nyek}}
+
+A második esettanulmányban a kotextuális szótár elemzést mutatjuk be egy
+angol nyelvű korpusz és specializált szótár segítségével. A korpusz az
+MNB kamatdöntéseit kísérő nemzetközi sajtóközleményei és a szótár pedig
+a \protect\hyperlink{ref-loughran2011}{Loughran and McDonald}
+(\protect\hyperlink{ref-loughran2011}{2011}) pénzügyi
+szentimentszótár.\footnote{A témával részletesebben is foglalkoztunk a
+  \protect\hyperlink{ref-muxe1tuxe92021}{Máté, Sebők, and Barczikay}
+  (\protect\hyperlink{ref-muxe1tuxe92021}{2021}) tanulmányban, ahol egy
+  saját monetáris szentiment szótárt mutatunk be. Az implementáció és a
+  hozzá tartozó R forráskód a nyilvános
+  \url{https://doi.org/10.6084/m9.figshare.13526156.v1} linken.} A
+szótár a \texttt{quanteda.dictionaries} csomag részeként elérhető,
+illetve a tankönyv honlapján is megtalálható.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{penzugy\_szentiment}
+\CommentTok{\#\textgreater{} Dictionary object with 9 key entries.}
+\CommentTok{\#\textgreater{} {-} [NEGATIVE]:}
+\CommentTok{\#\textgreater{}   {-} abandon, abandoned, abandoning, abandonment, abandonments, abandons, abdicated, abdicates, abdicating, abdication, abdications, aberrant, aberration, aberrational, aberrations, abetting, abnormal, abnormalities, abnormality, abnormally [ ... and 2,335 more ]}
+\CommentTok{\#\textgreater{} {-} [POSITIVE]:}
+\CommentTok{\#\textgreater{}   {-} able, abundance, abundant, acclaimed, accomplish, accomplished, accomplishes, accomplishing, accomplishment, accomplishments, achieve, achieved, achievement, achievements, achieves, achieving, adequately, advancement, advancements, advances [ ... and 334 more ]}
+\CommentTok{\#\textgreater{} {-} [UNCERTAINTY]:}
+\CommentTok{\#\textgreater{}   {-} abeyance, abeyances, almost, alteration, alterations, ambiguities, ambiguity, ambiguous, anomalies, anomalous, anomalously, anomaly, anticipate, anticipated, anticipates, anticipating, anticipation, anticipations, apparent, apparently [ ... and 277 more ]}
+\CommentTok{\#\textgreater{} {-} [LITIGIOUS]:}
+\CommentTok{\#\textgreater{}   {-} abovementioned, abrogate, abrogated, abrogates, abrogating, abrogation, abrogations, absolve, absolved, absolves, absolving, accession, accessions, acquirees, acquirors, acquit, acquits, acquittal, acquittals, acquittance [ ... and 883 more ]}
+\CommentTok{\#\textgreater{} {-} [CONSTRAINING]:}
+\CommentTok{\#\textgreater{}   {-} abide, abiding, bound, bounded, commit, commitment, commitments, commits, committed, committing, compel, compelled, compelling, compels, comply, compulsion, compulsory, confine, confined, confinement [ ... and 164 more ]}
+\CommentTok{\#\textgreater{} {-} [SUPERFLUOUS]:}
+\CommentTok{\#\textgreater{}   {-} aegis, amorphous, anticipatory, appertaining, assimilate, assimilating, assimilation, bifurcated, bifurcation, cessions, cognizable, concomitant, correlative, deconsolidation, delineation, demonstrable, demonstrably, derecognized, derecognizes, derivatively [ ... and 36 more ]}
+\CommentTok{\#\textgreater{} [ reached max\_nkey ... 3 more keys ]}
+\end{Highlighting}
+\end{Shaded}
+
+A szentiment szótár 9 kategóriából áll. A legtöbb kulcsszó a negatív
+dimenzióhoz van (2355).
+
+A munkamenet hasonló a Magyar Nemzetes példához:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  adat betöltés
+\item
+  szövegtisztítás
+\item
+  korpusz
+\item
+  tokenek
+\item
+  kulcs kontextuális tokenek szűrése
+\item
+  dfm előállítás és szentiment számítás
+\item
+  az eredmény vizualizálása, további felhasználása
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mnb\_pr }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/mnb\_pr\_corpus.csv"}\NormalTok{)}
+
+\FunctionTok{summary}\NormalTok{(mnb\_pr)}
+\CommentTok{\#\textgreater{}       date                text                 id              year     }
+\CommentTok{\#\textgreater{}  Min.   :2005{-}01{-}24   Length:180         Min.   :  1.00   Min.   :2005  }
+\CommentTok{\#\textgreater{}  1st Qu.:2008{-}10{-}14   Class :character   1st Qu.: 45.75   1st Qu.:2008  }
+\CommentTok{\#\textgreater{}  Median :2012{-}07{-}10   Mode  :character   Median : 90.50   Median :2012  }
+\CommentTok{\#\textgreater{}  Mean   :2012{-}07{-}08                      Mean   : 90.50   Mean   :2012  }
+\CommentTok{\#\textgreater{}  3rd Qu.:2016{-}03{-}30                      3rd Qu.:135.25   3rd Qu.:2016  }
+\CommentTok{\#\textgreater{}  Max.   :2019{-}12{-}17                      Max.   :180.00   Max.   :2019}
+\end{Highlighting}
+\end{Shaded}
+
+Az adatbázisunk 180 megfigyelésből és 4 változóbol áll. Az egyetlen
+lényeges dokumentum meta adat itt is a szövegek megjelenési ideje.
+
+A szövegeket ugyanazokkal a standard eszközökkel kezeljük mint a Magyar
+Nemzet esetében. Érdemes minden esetben ellenőrízni, hogy az R kód amit
+használunk az tényleg azt csinálja-e mint amit szeretnénk hogy
+csináljon. Ez hatványozottan igaz abban az esetben, amikor szövegekkel
+és regular expressionökkel dolgozunk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mnb\_tiszta }\OtherTok{\textless{}{-}}\NormalTok{ mnb\_pr }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:cntrl:]"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:punct:]"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:digit:]"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_to\_lower}\NormalTok{(text),}
+    \AttributeTok{text =} \FunctionTok{str\_trim}\NormalTok{(text),}
+    \AttributeTok{text =} \FunctionTok{str\_squish}\NormalTok{(text)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+Miután rendelkezésre állnak a tiszta dokumentumaink, egy
+karaktervektorba gyüjtjuk azokat a kulcsszavakat amelyek környékén
+szeretnénk megfigyelni a szentiment alakulását. A példa kedvéért mi az
+\texttt{unemp*}, \texttt{growth}, \texttt{gdp}, \texttt{inflation*}
+szótöveket és szavakat választottuk. A \texttt{tokens\_keep()} megtartja
+a kulcsszavainkat és egy általunk megadott +/- n tokenes környezetüket
+(jelen esetben 10). A szentiment elemzést pedig már ezen a jóval kisebb
+mátrixon fogjuk lefuttatni. A \texttt{phrase()} segítségével több szóból
+álló kifejezéséket is vizsgálhatunk. Ilyen szókapcsolat például az
+\emph{Európai Unió} is, ahol lényeges hogy egyben kezeljük a két szót.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mnb\_corpus }\OtherTok{\textless{}{-}} \FunctionTok{corpus}\NormalTok{(mnb\_tiszta)}
+
+\NormalTok{gazdasag }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"unemp*"}\NormalTok{, }\StringTok{"growth"}\NormalTok{, }\StringTok{"gdp"}\NormalTok{, }\StringTok{"inflation*"}\NormalTok{, }\StringTok{"inflation expectation*"}\NormalTok{)}
+
+\NormalTok{mnb\_token }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(mnb\_corpus) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_keep}\NormalTok{(}\AttributeTok{pattern =} \FunctionTok{phrase}\NormalTok{(gazdasag), }\AttributeTok{window =} \DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+A szentimentet most is egy súlyozott dfm-ből számoljuk. A kész eredményt
+hozzáadjuk a korpuszhoz majd data framet hozunk létre belőle. A 9
+kategóriából 5-öt adunk választunk csak ki, amelyeknek jegybanki
+környezetben értelmezhető tartalma van.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mnb\_szentiment }\OtherTok{\textless{}{-}} \FunctionTok{tokens\_lookup}\NormalTok{(mnb\_token, }\AttributeTok{dictionary =}\NormalTok{ penzugy\_szentiment) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{dfm}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{dfm\_tfidf}\NormalTok{()}
+
+
+
+\FunctionTok{docvars}\NormalTok{(mnb\_corpus, }\StringTok{"negative"}\NormalTok{) }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(mnb\_szentiment[, }\StringTok{"negative"}\NormalTok{])}
+\FunctionTok{docvars}\NormalTok{(mnb\_corpus, }\StringTok{"positive"}\NormalTok{) }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(mnb\_szentiment[, }\StringTok{"positive"}\NormalTok{])}
+\FunctionTok{docvars}\NormalTok{(mnb\_corpus, }\StringTok{"uncertainty"}\NormalTok{) }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(mnb\_szentiment[, }\StringTok{"uncertainty"}\NormalTok{])}
+\FunctionTok{docvars}\NormalTok{(mnb\_corpus, }\StringTok{"constraining"}\NormalTok{) }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(mnb\_szentiment[, }\StringTok{"constraining"}\NormalTok{])}
+\FunctionTok{docvars}\NormalTok{(mnb\_corpus, }\StringTok{"superfluous"}\NormalTok{) }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(mnb\_szentiment[, }\StringTok{"superfluous"}\NormalTok{])}
+
+
+\NormalTok{mnb\_df }\OtherTok{\textless{}{-}} \FunctionTok{convert}\NormalTok{(mnb\_corpus, }\AttributeTok{to =} \StringTok{"data.frame"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+A célunk hogy szentiment kategóriánkénti bontásban mutassuk be az
+elemzésünk eredményét, de előtte egy kicsit alakítani kell a data
+frame-n, hogy a második fejezetben is tárgyalt \emph{tidy} formára
+hozzuk. A különböző szentiment értékeket tartalmazó oszlopokat fogjuk
+átrendezni úgy hogy kreálunk egy ``sent\_type'' változót ahol a
+kategória nevet fogjuk eltárolni és egy ``sent\_score'' változót, ahol a
+szentiment értéket. Ehhez a \texttt{tidyr}-ben található
+\texttt{pivot\_longer()} -t használjuk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mnb\_df }\OtherTok{\textless{}{-}}\NormalTok{ mnb\_df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}
+    \AttributeTok{cols =}\NormalTok{ negative}\SpecialCharTok{:}\NormalTok{superfluous,}
+    \AttributeTok{names\_to =} \StringTok{"sent\_type"}\NormalTok{,}
+    \AttributeTok{values\_to =} \StringTok{"sent\_score"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+Az átalakítás után már könnyedén tudjuk kategóriákra bontva
+megjeleníteni az MNB közlemények különböző látens dimenzióit. Fontos
+emlékezni arra, hogy ez az eredmény a kulcsszavaink +/- 10 tokenes
+környezetében lévő szavak szentimentjét mérik. Ami érdekes eredmény,
+hogy a felesleges ``töltelék'' szövegek (superflous kategória) szinte
+soha nem fordulnak elő a kulcsszavaink körül. A többi érték is nagyjából
+megfelel a várakozásainknak, habár a 2008-as gazdasági válság nem tűnik
+kiugró pontnak. Azonban a 2010 utáni európai válság már láthatóan
+megjelnik az idősorainkban.
+
+A szótár amit használtunk az alapvetően az Egyesült Államokban a tőzsdén
+kereskedett cégek publikus beszámolóiból készült így elképzelhető, hogy
+egyes jegybanki környezetben sokat használt kifejezés nincs benne. A
+validálása a kapott eredményeknek ezért is nagyon fontos, illetve
+érdemes azzal is tisztában lenni hogy a szótáras módszer nem tökéletes
+(ahogy az emberi vagy más gépi kódolás sem).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(mnb\_df, }\FunctionTok{aes}\NormalTok{(date, sent\_score)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Magyar Nemzeti Bank közleményeinek szentimentje"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Szentiment"}\NormalTok{,}
+    \AttributeTok{x =} \ConstantTok{NULL}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{sent\_type, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-43-1} \end{center}
 
 \hypertarget{klaszterelemzuxe9s-uxe9s-topic-modellezuxe9s}{%
 \chapter{Klaszterelemzés és topic
@@ -683,11 +1292,11 @@ Az RStudio kezdőfelülete négy panelből, eszközsorból és menüsorból áll
 
 \begin{figure}
 
-{\centering \includegraphics{figures/13-01_layout} 
+{\centering \includegraphics[width=0.9\linewidth]{figures/13-01_layout} 
 
 }
 
-\caption{RStudio felhasználói felület}\label{fig:unnamed-chunk-17}
+\caption{RStudio felhasználói felület}\label{fig:unnamed-chunk-44}
 \end{figure}
 
 Az \textbf{\emph{(1) editor}} ablak szolgál a kód beírására, futtatására
@@ -725,11 +1334,11 @@ exit''} értékre be kell állítani a \emph{„Never''} értéket.
 
 \begin{figure}
 
-{\centering \includegraphics{figures/13-02_project_options} 
+{\centering \includegraphics[width=0.9\linewidth]{figures/13-02_project_options} 
 
 }
 
-\caption{RStudio projekt beállítások}\label{fig:unnamed-chunk-18}
+\caption{RStudio projekt beállítások}\label{fig:unnamed-chunk-45}
 \end{figure}
 
 A szükséges beállítások után a
@@ -780,11 +1389,11 @@ munkakönyvtárnak állíthatjuk be az a mappát, amelyben épp benne vagyunk.
 
 \begin{figure}
 
-{\centering \includegraphics{figures/13-03_working_directory} 
+{\centering \includegraphics[width=0.9\linewidth]{figures/13-03_working_directory} 
 
 }
 
-\caption{Working directory beállítások}\label{fig:unnamed-chunk-19}
+\caption{Working directory beállítások}\label{fig:unnamed-chunk-46}
 \end{figure}
 
 A munkafolyamat befejezésére a \texttt{q()} vagy \texttt{quit()}
@@ -850,11 +1459,11 @@ a ()-be a telepíteni kívánt csomag nevét kell beírnunk (pl.:
 
 \begin{figure}
 
-{\centering \includegraphics{figures/13-04_packages} 
+{\centering \includegraphics[width=0.9\linewidth]{figures/13-04_packages} 
 
 }
 
-\caption{Packages fül}\label{fig:unnamed-chunk-20}
+\caption{Packages fül}\label{fig:unnamed-chunk-47}
 \end{figure}
 
 \hypertarget{objektumok-tuxe1roluxe1sa-uxe9rtuxe9kaduxe1s}{%
@@ -905,9 +1514,9 @@ szeparáljuk. A logikai vektor csak \texttt{TRUE}, illetve \texttt{FALSE}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{numerikus }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{)}
+\NormalTok{numerikus }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{)}
 
-\NormalTok{karakter }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"kutya"}\NormalTok{,}\StringTok{"macska"}\NormalTok{,}\StringTok{"ló"}\NormalTok{)}
+\NormalTok{karakter }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"kutya"}\NormalTok{, }\StringTok{"macska"}\NormalTok{, }\StringTok{"ló"}\NormalTok{)}
 
 \NormalTok{logikai }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{)}
 \end{Highlighting}
@@ -919,13 +1528,10 @@ első eleme a második vektor első eleméhez adódik.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{)}
+\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{40}\NormalTok{)}
+\CommentTok{\#\textgreater{} [1] 11 22 33 44}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## [1] 11 22 33 44
-\end{verbatim}
 
 A karaktervektorokat összefűzhetjük egymással. Itt egy új objektumot is
 létrehoztunk, a jobb felső ablakban, az environment fülön láthatjuk,
@@ -938,18 +1544,15 @@ használni.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{karakter1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"kutya"}\NormalTok{,}\StringTok{"macska"}\NormalTok{,}\StringTok{"ló"}\NormalTok{)}
-\NormalTok{karakter2 }\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"nyúl"}\NormalTok{)}
+\NormalTok{karakter1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"kutya"}\NormalTok{, }\StringTok{"macska"}\NormalTok{, }\StringTok{"ló"}\NormalTok{)}
+\NormalTok{karakter2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"nyúl"}\NormalTok{)}
 
-\NormalTok{karakter\_kombinalt }\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(karakter1, karakter2)}
+\NormalTok{karakter\_kombinalt }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(karakter1, karakter2)}
 
 \NormalTok{karakter\_kombinalt}
+\CommentTok{\#\textgreater{} [1] "kutya"  "macska" "ló"     "nyúl"}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## [1] "kutya"  "macska" "ló"     "nyúl"
-\end{verbatim}
 
 Ha egy vektorról szeretnénk megtudni, hogy milyen típusú azt a
 \texttt{typeof()} vagy a \texttt{class()} paranccsal tehetjük meg, ahol
@@ -960,22 +1563,12 @@ száma vektorok esetén) a \texttt{lenght()} függvénnyel tudhatjuk meg.
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{typeof}\NormalTok{(karakter1)}
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{\#\textgreater{} [1] "character"}
 
-\begin{verbatim}
-## [1] "character"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{length}\NormalTok{(karakter1)}
+\CommentTok{\#\textgreater{} [1] 3}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## [1] 3
-\end{verbatim}
 
 \hypertarget{faktorok}{%
 \subsection{Faktorok}\label{faktorok}}
@@ -992,22 +1585,12 @@ kaphatjuk meg míg az adatok címkéit (tehát a kapott válaszok száma), a
 
 
 \FunctionTok{levels}\NormalTok{(survey\_response)}
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{\#\textgreater{} [1] "igen"     "nem"      "semleges"}
 
-\begin{verbatim}
-## [1] "igen"     "nem"      "semleges"
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \FunctionTok{labels}\NormalTok{(survey\_response)}
+\CommentTok{\#\textgreater{} [1] "1" "2" "3" "4" "5" "6" "7"}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## [1] "1" "2" "3" "4" "5" "6" "7"
-\end{verbatim}
 
 \hypertarget{data-frame}{%
 \subsection{Data frame}\label{data-frame}}
@@ -1024,14 +1607,14 @@ bemutatott data frame 7 megfigyelést és 4 féle változót tartalmaz (id,
 country, pop, continent).
 
 \begin{verbatim}
-##   id      orszag nepesseg     kontinens
-## 1  1    Thailand     68.7          Asia
-## 2  2      Norway      5.2        Europe
-## 3  3 North Korea     24.0          Asia
-## 4  4      Canada     47.8 North America
-## 5  5    Slovenia      2.0        Europe
-## 6  6      France     63.6        Europe
-## 7  7   Venezuela     31.6 South America
+#>   id      orszag nepesseg     kontinens
+#> 1  1    Thailand     68.7          Asia
+#> 2  2      Norway      5.2        Europe
+#> 3  3 North Korea     24.0          Asia
+#> 4  4      Canada     47.8 North America
+#> 5  5    Slovenia      2.0        Europe
+#> 6  6      France     63.6        Europe
+#> 7  7   Venezuela     31.6 South America
 \end{verbatim}
 
 A data frame-be rendezett adatokhoz különböző módon férhetünk hozzá,
@@ -1045,24 +1628,14 @@ használata: \texttt{data\_frame{[}sor,\ oszlop{]}}. Egy másik megoldás a
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{orszag\_adatok[}\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{]}
-\end{Highlighting}
-\end{Shaded}
+\CommentTok{\#\textgreater{} [1] Asia}
+\CommentTok{\#\textgreater{} Levels: Asia Europe North America South America}
 
-\begin{verbatim}
-## [1] Asia
-## Levels: Asia Europe North America South America
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{orszag\_adatok}\SpecialCharTok{$}\NormalTok{orszag}
+\CommentTok{\#\textgreater{} [1] "Thailand"    "Norway"      "North Korea" "Canada"      "Slovenia"   }
+\CommentTok{\#\textgreater{} [6] "France"      "Venezuela"}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{verbatim}
-## [1] "Thailand"    "Norway"      "North Korea" "Canada"      "Slovenia"   
-## [6] "France"      "Venezuela"
-\end{verbatim}
 
 \hypertarget{vizualizuxe1ciuxf3}{%
 \section{Vizualizáció}\label{vizualizuxe1ciuxf3}}
@@ -1115,14 +1688,14 @@ készítünk.
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(}
-  \AttributeTok{data =}\NormalTok{ gapminder, }
+  \AttributeTok{data =}\NormalTok{ gapminder,}
   \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ gdpPercap)}
-\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{geom\_histogram}\NormalTok{() }
+\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-30-1.pdf}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-57-1} \end{center}
 
 Lehetőségünk van arra, hogy az alakzat színét megváltoztatássuk. A
 használható színek és színkódok megtalálhatóak a \texttt{ggplot2}
@@ -1134,11 +1707,11 @@ leírásában: \url{https://ggplot2-book.org/scale-colour.html}
   \AttributeTok{data =}\NormalTok{ gapminder,}
   \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ gdpPercap)}
 \NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{fill =} \StringTok{"yellow"}\NormalTok{, }\AttributeTok{colour =} \StringTok{"green"}\NormalTok{) }
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{fill =} \StringTok{"yellow"}\NormalTok{, }\AttributeTok{colour =} \StringTok{"green"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-31-1.pdf}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-58-1} \end{center}
 
 Meghatározhatjuk külön-külön a histogram x és y tengelyén ábrázolni
 kívánt adatokat és választhatjuk azok pontszerű ábrázolását is.
@@ -1152,11 +1725,11 @@ kívánt adatokat és választhatjuk azok pontszerű ábrázolását is.
     \AttributeTok{y =}\NormalTok{ lifeExp}
 \NormalTok{  )}
 \NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{() }
+  \FunctionTok{geom\_point}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-32-1.pdf}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-59-1} \end{center}
 
 Ahogy az előzőekben, itt is megváltoztathatjuk az ábra színét.
 
@@ -1173,7 +1746,7 @@ Ahogy az előzőekben, itt is megváltoztathatjuk az ábra színét.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-33-1.pdf}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-60-1} \end{center}
 
 Az fenti script kibővítésével az egyes kontinensek adatait különböző
 színnel ábrázolhatjuk, az x és y tengelyt elnevezhetjük, a histogramnak
@@ -1189,10 +1762,10 @@ feltüntethetjük az alábbi módon:
     \AttributeTok{y =}\NormalTok{ lifeExp,}
     \AttributeTok{color =}\NormalTok{ continent}
 \NormalTok{  )}
-\NormalTok{) }\SpecialCharTok{+} 
+\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \StringTok{"GDP per capita (log $)"}\NormalTok{, }
+    \AttributeTok{x =} \StringTok{"GDP per capita (log $)"}\NormalTok{,}
     \AttributeTok{y =} \StringTok{"Life expectancy"}\NormalTok{,}
     \AttributeTok{title =} \StringTok{"Connection between GDP and Life expectancy"}\NormalTok{,}
     \AttributeTok{subtitle =} \StringTok{"Points are country{-}years"}\NormalTok{,}
@@ -1201,7 +1774,7 @@ feltüntethetjük az alábbi módon:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-34-1.pdf}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-61-1} \end{center}
 
 Az ábrán található feliratok méretének, betűtípusának és betűszínének
 megválasztásra is lehetőségünk van.
@@ -1215,23 +1788,23 @@ megválasztásra is lehetőségünk van.
     \AttributeTok{y =}\NormalTok{ lifeExp,}
     \AttributeTok{color =}\NormalTok{ continent}
 \NormalTok{  )}
-\NormalTok{) }\SpecialCharTok{+} 
+\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \StringTok{"GDP per capita (log $)"}\NormalTok{, }
+    \AttributeTok{x =} \StringTok{"GDP per capita (log $)"}\NormalTok{,}
     \AttributeTok{y =} \StringTok{"Life expectancy"}\NormalTok{,}
     \AttributeTok{title =} \StringTok{"Connection between GDP and Life expectancy"}\NormalTok{,}
     \AttributeTok{subtitle =} \StringTok{"Points are country{-}years"}\NormalTok{,}
     \AttributeTok{caption =} \StringTok{"Source: Gapminder dataset"}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}
-    \AttributeTok{size =} \DecValTok{12}\NormalTok{, }
+    \AttributeTok{size =} \DecValTok{12}\NormalTok{,}
     \AttributeTok{colour =} \StringTok{"red"}
 \NormalTok{  ))}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-35-1.pdf}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-62-1} \end{center}
 
 Készíthetünk oszlopdiagramot is, amit a \texttt{ggplot2} diamonds
 adatkészletén személtetünk
@@ -1243,7 +1816,7 @@ adatkészletén személtetünk
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-36-1.pdf}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-63-1} \end{center}
 
 Itt is lehetőségünk van arra, hogy a diagram színét megváltoztassuk.
 
@@ -1254,7 +1827,7 @@ Itt is lehetőségünk van arra, hogy a diagram színét megváltoztassuk.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-37-1.pdf}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-64-1} \end{center}
 
 De arra is lehetőségünk van, hogy az egyes oszlopok eltérő színűek
 legyenek.
@@ -1266,8 +1839,9 @@ legyenek.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-38-1.pdf} Arra
-is van lehetőségünk, hogy egyszerre több változót is ábrázoljunk.
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-65-1} \end{center}
+
+Arra is van lehetőségünk, hogy egyszerre több változót is ábrázoljunk.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1276,25 +1850,25 @@ is van lehetőségünk, hogy egyszerre több változót is ábrázoljunk.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{_main_files/figure-latex/unnamed-chunk-39-1.pdf}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-66-1} \end{center}
 
 Arra ggplot2 segítségével arra is lehetőségünk van, hogy csv-ből
 beolvasott adatainkat vizualizáljuk.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{plot\_cap\_1 }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/plot\_cap\_1.csv"}\NormalTok{, }\AttributeTok{head =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{sep =} \StringTok{";"}\NormalTok{) }
-\FunctionTok{ggplot}\NormalTok{(plot\_cap\_1, }\FunctionTok{aes}\NormalTok{(Year, }\AttributeTok{fill =}\NormalTok{ Subtopic)) }\SpecialCharTok{+} 
+\NormalTok{plot\_cap\_1 }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/plot\_cap\_1.csv"}\NormalTok{, }\AttributeTok{head =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{sep =} \StringTok{";"}\NormalTok{)}
+\FunctionTok{ggplot}\NormalTok{(plot\_cap\_1, }\FunctionTok{aes}\NormalTok{(Year, }\AttributeTok{fill =}\NormalTok{ Subtopic)) }\SpecialCharTok{+}
   \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{1957}\NormalTok{, }\DecValTok{1958}\NormalTok{, }\DecValTok{1959}\NormalTok{, }\DecValTok{1960}\NormalTok{, }\DecValTok{1961}\NormalTok{, }\DecValTok{1962}\NormalTok{, }\DecValTok{1963}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \ConstantTok{NULL}\NormalTok{, }
-    \AttributeTok{title =} \StringTok{"A Magyar Közlönyben kihirdetett agrárpolitikai jogszabályok"}\NormalTok{, }
+    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \ConstantTok{NULL}\NormalTok{,}
+    \AttributeTok{title =} \StringTok{"A Magyar Közlönyben kihirdetett agrárpolitikai jogszabályok"}\NormalTok{,}
     \AttributeTok{subtitle =} \StringTok{"N=445"}
-\NormalTok{  ) }\SpecialCharTok{+} 
+\NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+} \CommentTok{\# az ábra tipusa}
   \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{)) }
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1316,6 +1890,44 @@ A csv-ből belolvasott adatainból kördiagramot is készíthetünk
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\hypertarget{ref-grimmer2013text}{}%
+Grimmer, Justin, and Brandon M Stewart. 2013. {``Text as Data: The
+Promise and Pitfalls of Automatic Content Analysis Methods for Political
+Texts.''} \emph{Political Analysis} 21 (3): 267297.
+
+\leavevmode\hypertarget{ref-laver2000estimating}{}%
+Laver, Michael, and John Garry. 2000. {``Estimating Policy Positions
+from Political Texts.''} \emph{American Journal of Political Science},
+619634.
+
+\leavevmode\hypertarget{ref-loughran2011}{}%
+Loughran, Tim, and Bill McDonald. 2011. {``When Is a Liability Not a
+Liability? Textual Analysis, Dictionaries, and 10-Ks.''} \emph{The
+Journal of Finance} 66 (1): 35--65.
+
+\leavevmode\hypertarget{ref-muxe1tuxe92021}{}%
+Máté, Ákos, Miklós Sebők, and Tamás Barczikay. 2021. {``The Effect of
+Central Bank Communication on Sovereign Bond Yields: The Case of
+Hungary.''} Edited by Hiranya K. Nath. \emph{PLOS ONE} 16 (2): e0245515.
+\url{https://doi.org/10.1371/journal.pone.0245515}.
+
+\leavevmode\hypertarget{ref-silge2017text}{}%
+Silge, Julia, and David Robinson. 2017. \emph{Text Mining with r: A Tidy
+Approach}. {"} O'Reilly Media, Inc.{"}.
+
+\leavevmode\hypertarget{ref-wickham2016r}{}%
+Wickham, Hadley, and Garrett Grolemund. 2016. \emph{R for Data Science:
+Import, Tidy, Transform, Visualize, and Model Data}. {"} O'Reilly Media,
+Inc.{"}.
+
+\leavevmode\hypertarget{ref-young2012affective}{}%
+Young, Lori, and Stuart Soroka. 2012. {``Affective News: The Automated
+Coding of Sentiment in Political Texts.''} \emph{Political
+Communication} 29 (2): 205231.
+
+\end{CSLReferences}
 
 \backmatter
 \end{document}
