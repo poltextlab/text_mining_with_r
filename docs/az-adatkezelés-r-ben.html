@@ -50,9 +50,6 @@
 
 
 
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
-<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
-<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
 
 
 <style type="text/css">
@@ -153,7 +150,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4" data-path="leíró-statisztika-szózsák-és-szóeloszlások.html"><a href="leíró-statisztika-szózsák-és-szóeloszlások.html"><i class="fa fa-check"></i><b>4</b> Leíró statisztika: szózsák és szóeloszlások</a></li>
 <li class="chapter" data-level="5" data-path="a-szövegek-reprezentálása-a-vektortérben.html"><a href="a-szövegek-reprezentálása-a-vektortérben.html"><i class="fa fa-check"></i><b>5</b> A szövegek reprezentálása a vektortérben</a></li>
 <li class="chapter" data-level="6" data-path="a-korpuszépítés-problémái-és-a-szövegel-készítés.html"><a href="a-korpuszépítés-problémái-és-a-szövegel-készítés.html"><i class="fa fa-check"></i><b>6</b> A korpuszépítés problémái és a szövegelőkészítés</a></li>
-<li class="chapter" data-level="7" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html"><i class="fa fa-check"></i><b>7</b> Szótáralapú elemzések, érzelem-elemzés</a></li>
+<li class="chapter" data-level="7" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html"><i class="fa fa-check"></i><b>7</b> Szótáralapú elemzések, érzelem-elemzés</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html#szótárak-az-r-ben"><i class="fa fa-check"></i><b>7.1</b> Szótárak az R-ben</a></li>
+<li class="chapter" data-level="7.2" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html#magyar-nemzet-cikkek"><i class="fa fa-check"></i><b>7.2</b> Magyar Nemzet cikkek</a></li>
+<li class="chapter" data-level="7.3" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html#mnb-sajtóközlemények"><i class="fa fa-check"></i><b>7.3</b> MNB sajtóközlemények</a></li>
+</ul></li>
 <li class="chapter" data-level="8" data-path="klaszterelemzés-és-topic-modellezés.html"><a href="klaszterelemzés-és-topic-modellezés.html"><i class="fa fa-check"></i><b>8</b> Klaszterelemzés és topic modellezés</a></li>
 <li class="chapter" data-level="9" data-path="szóbeágyazások.html"><a href="szóbeágyazások.html"><i class="fa fa-check"></i><b>9</b> Szóbeágyazások</a></li>
 <li class="chapter" data-level="10" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html"><i class="fa fa-check"></i><b>10</b> Szövegösszehasonlítás</a></li>
@@ -195,21 +197,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">3</span> Az adatkezelés R-ben</h1>
 <div id="adatok-importálása-és-exportálása" class="section level2" number="3.1">
 <h2><span class="header-section-number">3.1</span> Adatok importálása és exportálása</h2>
-<p>Az adatok importálására az R alapfüggvénye mellett több package is megoldást kínál. Ezek közül a könyv írásakor a legnépszerűbbek a <code>readr</code> és a <code>rio</code> csomagok. Az egyszerűség kedvéért mi az alap <code>read.csv()</code> függvényt fogjuk használni. Amennyiben kihasználjuk az RStudio projekt opcióját (lásd a <a href="függelék.html#projektmunka">Függelékben</a>) akkor elegendő csak az elérni kívánt adatok relativ elérési útját megadni (relative path). Ideális esetben az adataink egy csv fileban vannak (comma separated values), ahol az egyes értékeket vesszők (vagy egyéb speciális karakter) választják el. Ez esetben a <code>read.csv</code> függvényt használjuk. A beolvasásnál egyből el is tároljuk az adatokat egy objektumban. A <code>sep =</code> opcióval tudjuk a szeparátor karaktert beállítani, mert előfordulhat hogy vessző helyett pontosvessző tagolja az adatainkat.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="az-adatkezelés-r-ben.html#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/adatfile.csv&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="az-adatkezelés-r-ben.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code></pre></div>
+<p>Az adatok importálására az R alapfüggvénye mellett több package is megoldást kínál. Ezek közül a könyv írásakor a legnépszerűbbek a <code>readr</code> és a <code>rio</code> csomagok. A karakter kódolással a legjobban a tapasztalataink szerint a <code>readr</code> csomag <code>read_csv()</code> megoldása bíkózik meg, ezért ezt fogjuk használni a <code>.csv</code> állományok beolvasására. Amennyiben kihasználjuk az RStudio projekt opcióját (lásd a <a href="függelék.html#projektmunka">Függelékben</a>) akkor elegendő csak az elérni kívánt adatok relativ elérési útját megadni (relative path). Ideális esetben az adataink egy csv fileban vannak (comma separated values), ahol az egyes értékeket vesszők (vagy egyéb speciális karakter) választják el. Ez esetben a <code>read_delim()</code> függvényt használjuk. A beolvasásnál egyből el is tároljuk az adatokat egy objektumban. A <code>sep =</code> opcióval tudjuk a szeparátor karaktert beállítani, mert előfordulhat hogy vessző helyett pontosvessző tagolja az adatainkat.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="az-adatkezelés-r-ben.html#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/adatfile.csv&quot;</span>)</span></code></pre></div>
 <p>Az R képes linkről letölteni fileokat, elég megadnunk egy működő elérési útvonalat.</p>
 <p><strong>placeholder link, cserelni majd mukodore</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="az-adatkezelés-r-ben.html#cb2-1" aria-hidden="true" tabindex="-1"></a>df_online <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://www.qta.tk.mta.hu/adatok/adatfile.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="az-adatkezelés-r-ben.html#cb3-1" aria-hidden="true" tabindex="-1"></a>df_online <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://www.qta.tk.mta.hu/adatok/adatfile.csv&quot;</span>)</span></code></pre></div>
 <p>Az R package ökoszisztémája kellően változatos ahhoz, hogy gyakorlatilag bármilyen inputtal meg tudjon bírkózni. Az Excel fileokat a <code>readxl</code> csomagot használva tudjuk betölteni (a csomagok installálásával kapcsolatban lásd a <a href="függelék.html#packages">Függeléket</a>), a <code>read_excel()</code>-t használva. A leggyakoribb statisztikai programok formátumait pedig a <code>haven</code> csomag tudja kezelni (például Stata, Spss, SAS). A szintaxis itt is hasonló: <code>read_stata</code>, <code>read_spss</code>, <code>read_sas</code>.</p>
 <div id="szöveges-dokumentumok-importálása" class="section level3" number="3.1.1">
 <h3><span class="header-section-number">3.1.1</span> Szöveges dokumentumok importálása</h3>
 <p>A nagy mennyiségű szöveges dokumentum (a legyakrabban előforduló kiterjesztések: <code>.txt</code>, <code>.doc</code>, <code>.pdf</code>, <code>.json</code>, <code>.csv</code>, <code>.xml</code>, <code>.rtf</code>, <code>.odt</code>) betöltésére a legalkalmasabb a <code>readtext</code> package. Az alábbi példa azt mutatja be, hogy hogyan tudunk beolvasni egy adott mappából az összes .txt kiterjesztésű file-t, anélkül hogy bármilyen loop-ot kellene írnunk, vagy egyenként megadni a file-ok neveit. A <code>*</code> karakter az azt jelenti ebben a környezetben, hogy bármilyen fájl, ami .txt-re végződik. Amennyiben a fájlok nevei tartalmaznak valamilyen meta adatot tartalmaznak, akkor ezt be tudjuk allítani a betöltés során. Ilyen meta adat lehet például egy parlamenti felszólalásnál a felszólaló neve és a beszéd ideje és párttagsága (például: <code>kovacsjanos_1994_fkgp.txt</code>).</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="az-adatkezelés-r-ben.html#cb3-1" aria-hidden="true" tabindex="-1"></a>df_text <span class="ot">&lt;-</span> <span class="fu">readtext</span>(</span>
-<span id="cb3-2"><a href="az-adatkezelés-r-ben.html#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;data/*.txt&quot;</span>, </span>
-<span id="cb3-3"><a href="az-adatkezelés-r-ben.html#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">docvarsfrom =</span> <span class="st">&quot;filenames&quot;</span>, </span>
-<span id="cb3-4"><a href="az-adatkezelés-r-ben.html#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dvsep =</span> <span class="st">&quot;_&quot;</span>,</span>
-<span id="cb3-5"><a href="az-adatkezelés-r-ben.html#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">docvarnames =</span> <span class="fu">c</span>(<span class="st">&quot;nev&quot;</span>, <span class="st">&quot;ev&quot;</span>, <span class="st">&quot;part&quot;</span>)</span>
-<span id="cb3-6"><a href="az-adatkezelés-r-ben.html#cb3-6" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="az-adatkezelés-r-ben.html#cb4-1" aria-hidden="true" tabindex="-1"></a>df_text <span class="ot">&lt;-</span> <span class="fu">readtext</span>(</span>
+<span id="cb4-2"><a href="az-adatkezelés-r-ben.html#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;data/*.txt&quot;</span>,</span>
+<span id="cb4-3"><a href="az-adatkezelés-r-ben.html#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">docvarsfrom =</span> <span class="st">&quot;filenames&quot;</span>,</span>
+<span id="cb4-4"><a href="az-adatkezelés-r-ben.html#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">dvsep =</span> <span class="st">&quot;_&quot;</span>,</span>
+<span id="cb4-5"><a href="az-adatkezelés-r-ben.html#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">docvarnames =</span> <span class="fu">c</span>(<span class="st">&quot;nev&quot;</span>, <span class="st">&quot;ev&quot;</span>, <span class="st">&quot;part&quot;</span>)</span>
+<span id="cb4-6"><a href="az-adatkezelés-r-ben.html#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 </div>
 <div id="adatok-exportálása" class="section level2" number="3.2">
@@ -219,120 +222,110 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="a-pipe-operátor" class="section level2" number="3.3">
 <h2><span class="header-section-number">3.3</span> A pipe operátor</h2>
 <p>Az úgynevezett <em>pipe</em> operátor alapjaiban határozta meg a modern R fejlődését és a népszerű package ökoszisztéma, a <em>tidyverse</em>, egyik alapköve. Úgy gondoljuk, hogy a <em>tidyverse</em> és a <em>pipe</em> egyszerűbbé teszi elsajátítani az R használatát, ezért mi is erre helyezzük a hangsúlyt.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Vizuálisan a pipe operátor így néz ki: <code>%&gt;%</code> és arra szolgál hogy a kódban több egymáshoz kapcsolódó műveletet egybefűzzűnk.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Technikailag a pipe a bal oldali elemet adja meg a jobb oldali függvény első argumentumának. A lenti példa ugyanazt a folyamatot írja le, az alap R (<em>base R</em>) illetve a pipe használatával.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> Miközben a kódot olvassuk érdemes a pipe-ot “<em>és aztán</em>”-nak fordítani.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="az-adatkezelés-r-ben.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reggeli</span>(<span class="fu">oltozkodes</span>(<span class="fu">felkeles</span>(<span class="fu">ebredes</span>(en, <span class="at">idopont =</span> <span class="st">&quot;8:00&quot;</span>), <span class="at">oldal =</span> <span class="st">&quot;jobb&quot;</span>), <span class="at">nadrag =</span> <span class="cn">TRUE</span>, <span class="at">ing =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb4-2"><a href="az-adatkezelés-r-ben.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="az-adatkezelés-r-ben.html#cb4-3" aria-hidden="true" tabindex="-1"></a>en <span class="sc">%&gt;%</span> </span>
-<span id="cb4-4"><a href="az-adatkezelés-r-ben.html#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ebredes</span>(<span class="at">idopont =</span> <span class="st">&quot;8:00&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-5"><a href="az-adatkezelés-r-ben.html#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">felkeles</span>(<span class="at">oldal =</span> <span class="st">&quot;jobb&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-6"><a href="az-adatkezelés-r-ben.html#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">oltozkodes</span>(<span class="at">nadrag =</span> <span class="cn">TRUE</span>, <span class="at">ing =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-7"><a href="az-adatkezelés-r-ben.html#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reggeli</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="az-adatkezelés-r-ben.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reggeli</span>(<span class="fu">oltozkodes</span>(<span class="fu">felkeles</span>(<span class="fu">ebredes</span>(en, <span class="at">idopont =</span> <span class="st">&quot;8:00&quot;</span>), <span class="at">oldal =</span> <span class="st">&quot;jobb&quot;</span>), <span class="at">nadrag =</span> <span class="cn">TRUE</span>, <span class="at">ing =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb5-2"><a href="az-adatkezelés-r-ben.html#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="az-adatkezelés-r-ben.html#cb5-3" aria-hidden="true" tabindex="-1"></a>en <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="az-adatkezelés-r-ben.html#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ebredes</span>(<span class="at">idopont =</span> <span class="st">&quot;8:00&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="az-adatkezelés-r-ben.html#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">felkeles</span>(<span class="at">oldal =</span> <span class="st">&quot;jobb&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="az-adatkezelés-r-ben.html#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">oltozkodes</span>(<span class="at">nadrag =</span> <span class="cn">TRUE</span>, <span class="at">ing =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-7"><a href="az-adatkezelés-r-ben.html#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reggeli</span>()</span></code></pre></div>
 <p>A fenti példa is jól mutatja, hogy a pipe a bal oldali elemet fogja a jobb oldali függvény első elemének berakni. A fejezet további részeiben még bőven fogunk gyakorlati példát találni a használatára. A fejezetben bemutatott példák az alkalmazásoknak csak egy relatíve szűk körét mutatják be, ezért érdemes átolvasni a csomagokhoz tartozó dokumentációt, illetve ha van, akkor a működést demonstráló bemutató oldalakat is.</p>
 </div>
 <div id="muveletek-a-date-framekkel" class="section level2" number="3.4">
 <h2><span class="header-section-number">3.4</span> Muveletek a date framekkel</h2>
 <p>A data frame az egyik leghasznosabb és leggyakrabban használt adat tárolási mód az R-ben (a részletesebb leírás a <a href="függelék.html#data-frame">Függelékben</a> található) és ebben az alfejezetben azt mutatjuk be a <code>dplyr</code> és <code>gapminder</code> csomagok segíségével, hogy hogyan lehet hatékonyan dolgozni velük. A <code>dplyr</code> az egyik legnépszerűbb R csomag, a <em>tidyverse</em> része. A <code>gapminder</code> csomag pedig a példa adatbázisunkat tartalmazza, amiben a világ országainak különböző gazdasági és társadalmi mutatói vannak.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="az-adatkezelés-r-ben.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb5-2"><a href="az-adatkezelés-r-ben.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="az-adatkezelés-r-ben.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb6-2"><a href="az-adatkezelés-r-ben.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span></code></pre></div>
 <div id="megfigyelések-szűrése-filter" class="section level3" number="3.4.1">
 <h3><span class="header-section-number">3.4.1</span> Megfigyelések szűrése: <code>filter()</code></h3>
 <p>A sorok (megfigyelések) szűréséhez a <code>dplyr</code> csomag <code>filter()</code> parancsát használva lehetőségünk van arra hogy egy vagy több kritérium alapján szűkítsük az adatbázisunkat. A lenti példában azokat megfigyeléseket tartjuk meg, ahol az év 1962 és a várható élettartam nagyobb mint 72 év.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="az-adatkezelés-r-ben.html#cb6-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href="az-adatkezelés-r-ben.html#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1962</span>, lifeExp <span class="sc">&gt;</span> <span class="dv">72</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 6
-##   country     continent  year lifeExp      pop gdpPercap
-##   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;
-## 1 Denmark     Europe     1962    72.4  4646899    13583.
-## 2 Iceland     Europe     1962    73.7   182053    10350.
-## 3 Netherlands Europe     1962    73.2 11805689    12791.
-## 4 Norway      Europe     1962    73.5  3638919    13450.
-## 5 Sweden      Europe     1962    73.4  7561588    12329.</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="az-adatkezelés-r-ben.html#cb7-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="az-adatkezelés-r-ben.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">1962</span>, lifeExp <span class="sc">&gt;</span> <span class="dv">72</span>)</span>
+<span id="cb7-3"><a href="az-adatkezelés-r-ben.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 6</span></span>
+<span id="cb7-4"><a href="az-adatkezelés-r-ben.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country     continent  year lifeExp      pop gdpPercap</span></span>
+<span id="cb7-5"><a href="az-adatkezelés-r-ben.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt;       &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;    &lt;int&gt;     &lt;dbl&gt;</span></span>
+<span id="cb7-6"><a href="az-adatkezelés-r-ben.html#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Denmark     Europe     1962    72.4  4646899    13583.</span></span>
+<span id="cb7-7"><a href="az-adatkezelés-r-ben.html#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Iceland     Europe     1962    73.7   182053    10350.</span></span>
+<span id="cb7-8"><a href="az-adatkezelés-r-ben.html#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Netherlands Europe     1962    73.2 11805689    12791.</span></span>
+<span id="cb7-9"><a href="az-adatkezelés-r-ben.html#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Norway      Europe     1962    73.5  3638919    13450.</span></span>
+<span id="cb7-10"><a href="az-adatkezelés-r-ben.html#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 Sweden      Europe     1962    73.4  7561588    12329.</span></span></code></pre></div>
 <p>De ugyanígy leválogathatjuk a data frame-ből az adatokat akkor is hogyha egy karakter változó alapján szeretnénk szűrni.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="az-adatkezelés-r-ben.html#cb8-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
-<span id="cb8-2"><a href="az-adatkezelés-r-ben.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;Sweden&quot;</span>, year <span class="sc">&gt;</span> <span class="dv">1990</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 4 x 6
-##   country continent  year lifeExp     pop gdpPercap
-##   &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;
-## 1 Sweden  Europe     1992    78.2 8718867    23880.
-## 2 Sweden  Europe     1997    79.4 8897619    25267.
-## 3 Sweden  Europe     2002    80.0 8954175    29342.
-## 4 Sweden  Europe     2007    80.9 9031088    33860.</code></pre>
+<span id="cb8-2"><a href="az-adatkezelés-r-ben.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;Sweden&quot;</span>, year <span class="sc">&gt;</span> <span class="dv">1990</span>)</span>
+<span id="cb8-3"><a href="az-adatkezelés-r-ben.html#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 x 6</span></span>
+<span id="cb8-4"><a href="az-adatkezelés-r-ben.html#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country continent  year lifeExp     pop gdpPercap</span></span>
+<span id="cb8-5"><a href="az-adatkezelés-r-ben.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt;</span></span>
+<span id="cb8-6"><a href="az-adatkezelés-r-ben.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Sweden  Europe     1992    78.2 8718867    23880.</span></span>
+<span id="cb8-7"><a href="az-adatkezelés-r-ben.html#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Sweden  Europe     1997    79.4 8897619    25267.</span></span>
+<span id="cb8-8"><a href="az-adatkezelés-r-ben.html#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Sweden  Europe     2002    80.0 8954175    29342.</span></span>
+<span id="cb8-9"><a href="az-adatkezelés-r-ben.html#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Sweden  Europe     2007    80.9 9031088    33860.</span></span></code></pre></div>
 <p>Itt tehát a data frame azon sorait szeretnénk látni, ahol az ország megegyezik a „Sweden" karakterlánccal az év pedig nagyobb, mint 1990.</p>
 </div>
 <div id="változók-kiválogatása-select" class="section level3" number="3.4.2">
 <h3><span class="header-section-number">3.4.2</span> Változók kiválogatása: <code>select()</code></h3>
 <p>A <code>select()</code> függvény segítségével válogathatunk oszlopokat a data frame-ből. A változók kiválasztására több megoldás is van. A <code>dplyr</code> csomag tartalmaz apróbb kisegítő függvényeket, amik megkönnyítik a nagy adatbázisok esetén a változók kiválogatását a nevük alapján. Ezek a függvények a <code>contains()</code>, <code>starts_with()</code>, <code>ends_with()</code>, <code>matches()</code> és beszédesen arra szolgálnak hogy bizonyos nevű változókat ne kelljen egyenként felsorolni. A <code>select()</code>-en belüli változó sorrend egyben az eredmény data frame változó sorrendjet is megadja. A negatív kiválasztás is lehetséges, ebben az esetben egy <code>-</code> kell tennünk a nemkívánt változó(k) elé (pl.: <code>select(df, year, country, -continent</code>).</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="az-adatkezelés-r-ben.html#cb10-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="az-adatkezelés-r-ben.html#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;ea&quot;</span>), <span class="fu">starts_with</span>(<span class="st">&quot;co&quot;</span>), pop)</span></code></pre></div>
-<pre><code>## # A tibble: 1,704 x 4
-##     year country     continent      pop
-##    &lt;int&gt; &lt;fct&gt;       &lt;fct&gt;        &lt;int&gt;
-##  1  1952 Afghanistan Asia       8425333
-##  2  1957 Afghanistan Asia       9240934
-##  3  1962 Afghanistan Asia      10267083
-##  4  1967 Afghanistan Asia      11537966
-##  5  1972 Afghanistan Asia      13079460
-##  6  1977 Afghanistan Asia      14880372
-##  7  1982 Afghanistan Asia      12881816
-##  8  1987 Afghanistan Asia      13867957
-##  9  1992 Afghanistan Asia      16317921
-## 10  1997 Afghanistan Asia      22227415
-## # ... with 1,694 more rows</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="az-adatkezelés-r-ben.html#cb9-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb9-2"><a href="az-adatkezelés-r-ben.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">&quot;ea&quot;</span>), <span class="fu">starts_with</span>(<span class="st">&quot;co&quot;</span>), pop)</span>
+<span id="cb9-3"><a href="az-adatkezelés-r-ben.html#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,704 x 4</span></span>
+<span id="cb9-4"><a href="az-adatkezelés-r-ben.html#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     year country     continent      pop</span></span>
+<span id="cb9-5"><a href="az-adatkezelés-r-ben.html#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;int&gt; &lt;fct&gt;       &lt;fct&gt;        &lt;int&gt;</span></span>
+<span id="cb9-6"><a href="az-adatkezelés-r-ben.html#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  1952 Afghanistan Asia       8425333</span></span>
+<span id="cb9-7"><a href="az-adatkezelés-r-ben.html#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  1957 Afghanistan Asia       9240934</span></span>
+<span id="cb9-8"><a href="az-adatkezelés-r-ben.html#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  1962 Afghanistan Asia      10267083</span></span>
+<span id="cb9-9"><a href="az-adatkezelés-r-ben.html#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  1967 Afghanistan Asia      11537966</span></span>
+<span id="cb9-10"><a href="az-adatkezelés-r-ben.html#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  1972 Afghanistan Asia      13079460</span></span>
+<span id="cb9-11"><a href="az-adatkezelés-r-ben.html#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  1977 Afghanistan Asia      14880372</span></span>
+<span id="cb9-12"><a href="az-adatkezelés-r-ben.html#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  1982 Afghanistan Asia      12881816</span></span>
+<span id="cb9-13"><a href="az-adatkezelés-r-ben.html#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  1987 Afghanistan Asia      13867957</span></span>
+<span id="cb9-14"><a href="az-adatkezelés-r-ben.html#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  1992 Afghanistan Asia      16317921</span></span>
+<span id="cb9-15"><a href="az-adatkezelés-r-ben.html#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  1997 Afghanistan Asia      22227415</span></span>
+<span id="cb9-16"><a href="az-adatkezelés-r-ben.html#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 1,694 more rows</span></span></code></pre></div>
 </div>
 <div id="új-változók-létrehozása-mutate" class="section level3" number="3.4.3">
 <h3><span class="header-section-number">3.4.3</span> Új változók létrehozása: <code>mutate()</code></h3>
 <p>Az elemzési munkafolyamat elkerülhetetlen része hogy új változókat hozzunk létre, vagy a meglévőket módosítsuk. Ezt a <code>mutate()</code>-el tehetjuk meg, ahol a szintaxis a következő: <code>mutate(data frame, uj valtozo = ertekek)</code>. Példaként kiszámoljuk a Svéd GDP-t (milliárd dollárban) 1992-től kezdve. A <code>mutate()</code> alkalmazásával részletesebben is foglalkozunk a szövegek előkészítésével foglalkozó fejezetben.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="az-adatkezelés-r-ben.html#cb12-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="az-adatkezelés-r-ben.html#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;Sweden&quot;</span>, year <span class="sc">&gt;=</span> <span class="dv">1992</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-3"><a href="az-adatkezelés-r-ben.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp =</span> (gdpPercap <span class="sc">*</span> pop) <span class="sc">/</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">9</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 4 x 7
-##   country continent  year lifeExp     pop gdpPercap   gdp
-##   &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;
-## 1 Sweden  Europe     1992    78.2 8718867    23880.  208.
-## 2 Sweden  Europe     1997    79.4 8897619    25267.  225.
-## 3 Sweden  Europe     2002    80.0 8954175    29342.  263.
-## 4 Sweden  Europe     2007    80.9 9031088    33860.  306.</code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="az-adatkezelés-r-ben.html#cb10-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="az-adatkezelés-r-ben.html#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(country <span class="sc">==</span> <span class="st">&quot;Sweden&quot;</span>, year <span class="sc">&gt;=</span> <span class="dv">1992</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="az-adatkezelés-r-ben.html#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdp =</span> (gdpPercap <span class="sc">*</span> pop) <span class="sc">/</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">9</span>)</span>
+<span id="cb10-4"><a href="az-adatkezelés-r-ben.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 4 x 7</span></span>
+<span id="cb10-5"><a href="az-adatkezelés-r-ben.html#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   country continent  year lifeExp     pop gdpPercap   gdp</span></span>
+<span id="cb10-6"><a href="az-adatkezelés-r-ben.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt;   &lt;fct&gt;     &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;     &lt;dbl&gt; &lt;dbl&gt;</span></span>
+<span id="cb10-7"><a href="az-adatkezelés-r-ben.html#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Sweden  Europe     1992    78.2 8718867    23880.  208.</span></span>
+<span id="cb10-8"><a href="az-adatkezelés-r-ben.html#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Sweden  Europe     1997    79.4 8897619    25267.  225.</span></span>
+<span id="cb10-9"><a href="az-adatkezelés-r-ben.html#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Sweden  Europe     2002    80.0 8954175    29342.  263.</span></span>
+<span id="cb10-10"><a href="az-adatkezelés-r-ben.html#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Sweden  Europe     2007    80.9 9031088    33860.  306.</span></span></code></pre></div>
 </div>
 <div id="csoportonkénti-statisztikák-group_by-és-summarize" class="section level3" number="3.4.4">
 <h3><span class="header-section-number">3.4.4</span> Csoportonkénti statisztikák: <code>group_by()</code> és <code>summarize()</code></h3>
 <p>Az adataink részletesebb és alaposabb megismerésében segítenek a különböző szintű leíró statisztikai adatok. A szintek megadására a <code>group_by()</code> használható, a csoportokon belüli számításokhoz pedig a <code>summarize()</code>. A lenti példa azt illusztrálja, hogyha kontinensenként csoportosítjuk a <code>gapminder</code> data framet, akkor a <code>summarise()</code> használatával megkaphatjuk a megfigyelések számát, illetve az átlagos per capita GDP-t. A <code>summarise()</code> a <code>mutate()</code> közeli rokona, hasonló szintaxissal és logikával használható. Ezt a függvény párost fogjuk majd használni a szöveges adataink leíró statisztikáinál is a 4. fejezetben.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="az-adatkezelés-r-ben.html#cb14-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span> </span>
-<span id="cb14-2"><a href="az-adatkezelés-r-ben.html#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-3"><a href="az-adatkezelés-r-ben.html#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">megfigyelesek =</span> <span class="fu">n</span>(), <span class="at">atlag_gdp =</span> <span class="fu">mean</span>(gdpPercap))</span></code></pre></div>
-<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<pre><code>## # A tibble: 5 x 3
-##   continent megfigyelesek atlag_gdp
-##   &lt;fct&gt;             &lt;int&gt;     &lt;dbl&gt;
-## 1 Africa              624     2194.
-## 2 Americas            300     7136.
-## 3 Asia                396     7902.
-## 4 Europe              360    14469.
-## 5 Oceania              24    18622.</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="az-adatkezelés-r-ben.html#cb11-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="az-adatkezelés-r-ben.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="az-adatkezelés-r-ben.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">megfigyelesek =</span> <span class="fu">n</span>(), <span class="at">atlag_gdp =</span> <span class="fu">mean</span>(gdpPercap))</span>
+<span id="cb11-4"><a href="az-adatkezelés-r-ben.html#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 3</span></span>
+<span id="cb11-5"><a href="az-adatkezelés-r-ben.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   continent megfigyelesek atlag_gdp</span></span>
+<span id="cb11-6"><a href="az-adatkezelés-r-ben.html#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;fct&gt;             &lt;int&gt;     &lt;dbl&gt;</span></span>
+<span id="cb11-7"><a href="az-adatkezelés-r-ben.html#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 Africa              624     2194.</span></span>
+<span id="cb11-8"><a href="az-adatkezelés-r-ben.html#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 Americas            300     7136.</span></span>
+<span id="cb11-9"><a href="az-adatkezelés-r-ben.html#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 Asia                396     7902.</span></span>
+<span id="cb11-10"><a href="az-adatkezelés-r-ben.html#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 Europe              360    14469.</span></span>
+<span id="cb11-11"><a href="az-adatkezelés-r-ben.html#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 Oceania              24    18622.</span></span></code></pre></div>
 </div>
 </div>
 <div id="munka-karakter-vektorokkaladatkezeles-4" class="section level2" number="3.5">
 <h2><span class="header-section-number">3.5</span> Munka karakter vektorokkal<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></h2>
 <p>A szöveges adatokkal (karakter stringekkel) való munka elkerülhetetlen velejárója hogy a felesleges szövegelemeket, karaktereket el kell távolítanunk ahhoz hogy az elemzésünk hatásfoka javuljon (erről részletesebben a 3. fejezetben lesz szó). Erre a célra a <code>stringr</code> csomagot fogjuk használni, kombinálva a korábban bemutatott <code>mutate()</code>-el. A <code>stringr</code> függvények az <code>str_</code> előtaggal kezdődnek és eléggé beszédes nevekkel rendelkeznek. Egy gyakran előforduló probléma, hogy extra szóközök maradnak a szövegben, vagy bizonyos szavakról, karakterkombinációkról tudjuk hogy nem kellenek az elemzésünkhoz. Ebben az esetben egy vagy több <em>regular expression</em> (regex) használatával tudjuk pontosan kijelölni hogy a karakter sornak melyik részét akarjuk módosítani. A legegyszerűbb formája a regexeknek, hogyha pontosan tudjuk milyen szöveget akarunk megtalálni. A kísérletezésre az <code>str_view()</code>-t használjuk, ami megjeleníti hogy a megadott regex mintánk pontosan mit jelöl.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="az-adatkezelés-r-ben.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code></pre></div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="az-adatkezelés-r-ben.html#cb18-1" aria-hidden="true" tabindex="-1"></a>szoveg <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&#39;gitar&#39;</span>, <span class="st">&#39;ukulele&#39;</span>, <span class="st">&#39;nagybogo&#39;</span>)</span>
-<span id="cb18-2"><a href="az-adatkezelés-r-ben.html#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="az-adatkezelés-r-ben.html#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(szoveg, <span class="at">pattern =</span> <span class="st">&quot;ar&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-743f0a03e4f78b907d8c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-743f0a03e4f78b907d8c">{"x":{"html":"<ul>\n  <li>git<span class='match'>ar<\/span><\/li>\n  <li>ukulele<\/li>\n  <li>nagybogo<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="az-adatkezelés-r-ben.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="az-adatkezelés-r-ben.html#cb13-1" aria-hidden="true" tabindex="-1"></a>szoveg <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;gitar&quot;</span>, <span class="st">&quot;ukulele&quot;</span>, <span class="st">&quot;nagybogo&quot;</span>)</span>
+<span id="cb13-2"><a href="az-adatkezelés-r-ben.html#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="az-adatkezelés-r-ben.html#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(szoveg, <span class="at">pattern =</span> <span class="st">&quot;ar&quot;</span>)</span></code></pre></div>
 <p>Az <em>anchor</em>-okkal azt lehet megadni, hogy a karakter string elején vagy végén szeretnénk egyezést találni. A string eleji anchor a <code>^</code>, a string végi pedig a <code>$</code>.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="az-adatkezelés-r-ben.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;Dr. Doktor Dr.&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;^Dr.&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-cf8cf9d9cf39a1883653" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cf8cf9d9cf39a1883653">{"x":{"html":"<ul>\n  <li><span class='match'>Dr.<\/span> Doktor Dr.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="az-adatkezelés-r-ben.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;Dr. Doktor Dr.&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;Dr.$&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-51ee7c9cc7582d0adda6" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-51ee7c9cc7582d0adda6">{"x":{"html":"<ul>\n  <li>Dr. Doktor <span class='match'>Dr.<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="az-adatkezelés-r-ben.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;Dr. Doktor Dr.&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;^Dr.&quot;</span>)</span>
+<span id="cb14-2"><a href="az-adatkezelés-r-ben.html#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="az-adatkezelés-r-ben.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;Dr. Doktor Dr.&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;Dr.$&quot;</span>)</span></code></pre></div>
 <p>Egy másik jellemző probléma, hogy olyan speciális karaktert akarunk leírni a regex kifejezésünkkel, ami amúgy a regex szintaxisban használt. Ilyen eset például a <code>.</code>, ami mint írásjel sokszor csak zaj, ám a regex kotextusban a “bármilyen karakter” megfelelője.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="az-adatkezelés-r-ben.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;Dr. Doktor Dr.&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;.k.&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-ccbbf2f3a379836afc97" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ccbbf2f3a379836afc97">{"x":{"html":"<ul>\n  <li>Dr. D<span class='match'>okt<\/span>or Dr.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="az-adatkezelés-r-ben.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;Dr. Doktor Dr.&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;.k.&quot;</span>)</span></code></pre></div>
 <p>Ahhoz hogy magát az írásjelet jelöljük, a <code>\\</code> -t kell elé rakni.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="az-adatkezelés-r-ben.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;Dr. Doktor Dr.&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-7feb8f210d2d0881ae9a" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7feb8f210d2d0881ae9a">{"x":{"html":"<ul>\n  <li>Dr<span class='match'>.<\/span> Doktor Dr.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="az-adatkezelés-r-ben.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;Dr. Doktor Dr.&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>)</span></code></pre></div>
 <p>Néhány hasznos regex kifejezés:</p>
 <ul>
 <li><code>[:digit:]</code> - számok (123)</li>
@@ -344,6 +337,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><code>[:graph:]</code> - betűk, számok és központozás (123 abc ABC <code>.!?\(){}</code>)</li>
 <li><code>[:space:]</code> - szóköz ( )</li>
 <li><code>[:blank:]</code> - szóköz és tabulálás</li>
+<li><code>[:cntrl:]</code> - kontrol karakterek (<code>\n</code>, <code>\r</code>, stb.)</li>
 <li><code>*</code> - bármi</li>
 </ul>
 
@@ -355,7 +349,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li id="fn1"><p>A <em>tidyverse</em> megközelítés miatt a kötetben szereplő R kód követi a “The tidyverse style guide” dokumentációt (<a href="https://style.tidyverse.org/" class="uri">https://style.tidyverse.org/</a>)<a href="az-adatkezelés-r-ben.html#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>Az RStudio-ban a pipe operátor billentyű kombinációja a <code>Ctrl + Shift + M</code><a href="az-adatkezelés-r-ben.html#fnref2" class="footnote-back">↩︎</a></p></li>
 <li id="fn3"><p>Köszönjük Andrew Heissnek a kitűnő példát.<a href="az-adatkezelés-r-ben.html#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>A könyv terjedelme miatt ezt a témát itt csak bemutatni tudjuk, de minden részletre kiterjedően nem tudunk elmélyülni benne. Kíváló online anyagok találhatóak az RStudio GitHub tárhelyén (<a href="https://github.com/rstudio/cheatsheets/raw/master/strings.pdf" class="uri">https://github.com/rstudio/cheatsheets/raw/master/strings.pdf</a>), illetve <span class="citation">@wickham2016r</span> 14. fejezetében.<a href="az-adatkezelés-r-ben.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>A könyv terjedelme miatt ezt a témát itt csak bemutatni tudjuk, de minden részletre kiterjedően nem tudunk elmélyülni benne. Kíváló online anyagok találhatóak az RStudio GitHub tárhelyén (<a href="https://github.com/rstudio/cheatsheets/raw/master/strings.pdf" class="uri">https://github.com/rstudio/cheatsheets/raw/master/strings.pdf</a>), illetve <span class="citation"><a href="függelék.html#ref-wickham2016r" role="doc-biblioref">Wickham and Grolemund</a> (<a href="függelék.html#ref-wickham2016r" role="doc-biblioref">2016</a>)</span> 14. fejezetében.<a href="az-adatkezelés-r-ben.html#fnref4" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
