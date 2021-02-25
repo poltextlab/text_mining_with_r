@@ -95,8 +95,7 @@ mn_tiszta <- mn_minta %>%
     text = str_to_lower(text),
     text = str_trim(text),
     text = str_squish(text)
-    )
-
+  )
 ```
 
 A szöveg sokkal jobban néz ki, habár észrevehetjük hogy maradhattak benne problémás részek, főleg a sortörés miatt, ami sajnos hol egyes szavak közepén van (a jobbik eset), vagy pedig pont szóhatáron, ez esetben a két szó sajnos összevonódik. Az egyszerűség kedvéért feltételezzük hogy ez kellően ritkán fordul elő ahhoz hogy ne befolyásolja az elemzésünk eredményét.
@@ -116,9 +115,9 @@ head(docvars(mn_corpus), 5)
 A következő lépés a dokument-kifejezés mátrix létrehozása a `dfm()` függvénnyel (ami a *document-feature matrix* rövidítése). Előszőr tokenekre bontjuk a szövegeket a `tokens()`-el, és aztán ezt a tokenizált szózsákot kapja meg a dfm inputnak. A sornak a végén a létrehozott mátrixunkat TF-IDF módszerrel súlyozzuk a `dfm_tfidf()` használatával.
 
 ```{r}
-mn_dfm <- mn_corpus %>% 
-  tokens(what = "word") %>% 
-  dfm() %>% 
+mn_dfm <- mn_corpus %>%
+  tokens(what = "word") %>%
+  dfm() %>%
   dfm_tfidf()
 ```
 
@@ -166,14 +165,13 @@ Mielőtt vizualizálnánk az eredményt érdemes a napi szintre aggregálni a sz
 [^groupby]: A csoportosított adatokkal való munka bővebb bemutatását lsd. a Függelékben
 
 ```{r}
-mn_df <- mn_df %>% 
-  group_by(doc_date) %>% 
+mn_df <- mn_df %>%
+  group_by(doc_date) %>%
   summarise(
-    daily_pos = sum(pos), 
+    daily_pos = sum(pos),
     daily_neg = sum(neg),
     net_daily = daily_pos - daily_neg
-    )
-  
+  )
 ```
 
 A plot alapján egyértelmű trendet nem lehet megállapítani és még a 2006-os év végi turbulens belpolitikai események sem feltétlenül jelennek meg markánsan. Ennek az oka abban is kereshető, hogy egy napilap címlapját ritkán dominálja teljes egészében a belpolitika és így a negatív és pozitív szentimentek kioltják egymást. Természetesen messzemenő következtetéseket egy ábra alapján nem érdemes levonni, de az elemzésünk azt mutatha hogy a nyári hónapok alatt kevesebb volt az igazán negatív címlap, ellenben az év eleje és vége tartalmazta a minta alsó szélső értékeit.
@@ -205,7 +203,6 @@ A második esettanulmányban a kotextuális szótár elemzést mutatjuk be egy a
 library(quanteda.dictionaries)
 
 penzugy_szentiment <- quanteda.dictionaries::data_dictionary_LoughranMcDonald
-
 ```
 ```{r}
 penzugy_szentiment
@@ -244,8 +241,7 @@ mnb_tiszta <- mnb_pr %>%
     text = str_to_lower(text),
     text = str_trim(text),
     text = str_squish(text)
-    )
-
+  )
 ```
 
 Miután rendelkezésre állnak a tiszta dokumentumaink, egy karaktervektorba gyüjtjuk azokat a kulcsszavakat amelyek környékén szeretnénk megfigyelni a szentiment alakulását. A példa kedvéért mi az `unemp*`, `growth`, `gdp`, `inflation*` szótöveket és szavakat választottuk. A `tokens_keep()` megtartja a kulcsszavainkat és egy általunk megadott +/- n tokenes környezetüket (jelen esetben 10). A szentiment elemzést pedig már ezen a jóval kisebb mátrixon fogjuk lefuttatni. A `phrase()` segítségével több szóból álló kifejezéséket is vizsgálhatunk. Ilyen szókapcsolat például az *Európai Unió* is, ahol lényeges hogy egyben kezeljük a két szót.
@@ -255,17 +251,16 @@ mnb_corpus <- corpus(mnb_tiszta)
 
 gazdasag <- c("unemp*", "growth", "gdp", "inflation*", "inflation expectation*")
 
-mnb_token <- tokens(mnb_corpus) %>% 
+mnb_token <- tokens(mnb_corpus) %>%
   tokens_keep(pattern = phrase(gazdasag), window = 10)
-
 ```
 
 
 A szentimentet most is egy súlyozott dfm-ből számoljuk. A kész eredményt hozzáadjuk a korpuszhoz majd data framet hozunk létre belőle. A 9 kategóriából 5-öt adunk választunk csak ki, amelyeknek jegybanki környezetben értelmezhető tartalma van.
 
 ```{r}
-mnb_szentiment <- tokens_lookup(mnb_token, dictionary = penzugy_szentiment) %>% 
-  dfm() %>% 
+mnb_szentiment <- tokens_lookup(mnb_token, dictionary = penzugy_szentiment) %>%
+  dfm() %>%
   dfm_tfidf()
 
 
@@ -284,13 +279,12 @@ mnb_df <- convert(mnb_corpus, to = "data.frame")
 A célunk hogy szentiment kategóriánkénti bontásban mutassuk be az elemzésünk eredményét, de előtte egy kicsit alakítani kell a data frame-n, hogy a második fejezetben is tárgyalt *tidy* formára hozzuk. A különböző szentiment értékeket tartalmazó oszlopokat fogjuk átrendezni úgy hogy kreálunk egy "sent_type" változót ahol a kategória nevet fogjuk eltárolni és egy "sent_score" változót, ahol a szentiment értéket. Ehhez a `tidyr`-ben található `pivot_longer()` -t használjuk.
 
 ```{r}
-mnb_df <- mnb_df %>% 
+mnb_df <- mnb_df %>%
   pivot_longer(
     cols = negative:superfluous,
     names_to = "sent_type",
     values_to = "sent_score"
-    )
-
+  )
 ```
 
 
