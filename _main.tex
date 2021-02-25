@@ -125,7 +125,7 @@
 
 \title{Szövegbányászat és mesterséges intelligencia R-ben}
 \author{Sebők Miklós, Ring Orsolya}
-\date{2021-02-25 13:44:38}
+\date{2021-02-25 15:07:35}
 
 \begin{document}
 \frontmatter
@@ -1072,9 +1072,14 @@ szövegtisztitó lépéseket is.
 
 \NormalTok{lawtext\_corpus }\OtherTok{\textless{}{-}} \FunctionTok{corpus}\NormalTok{(lawtext\_df)}
 
-\NormalTok{lawtext\_dfm }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(lawtext\_corpus,}
-  \AttributeTok{tolower =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove =}
-    \FunctionTok{stopwords}\NormalTok{(}\StringTok{"hungarian"}\NormalTok{), }\AttributeTok{stem =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_symbols =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_numbers =} \ConstantTok{TRUE}
+\NormalTok{lawtext\_dfm }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(}
+\NormalTok{  lawtext\_corpus,}
+  \AttributeTok{tolower =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{remove =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"hungarian"}\NormalTok{),}
+  \AttributeTok{stem =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{remove\_symbols =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{remove\_numbers =} \ConstantTok{TRUE}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -1954,8 +1959,14 @@ Vizuálisan is megjeleníthetjük a kialakított csoportokat.
 
 \begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-68-1} \end{center}
 
-\hypertarget{a-topik-modellezuxe9s}{%
-\section{A topik modellezés}\label{a-topik-modellezuxe9s}}
+\hypertarget{luxe1tens-dirichlet-allokuxe1ciuxf3-topik-modellekklasztering_topicmodellek-2}{%
+\section[Látens Dirichlet Allokáció topik
+modellek]{\texorpdfstring{Látens Dirichlet Allokáció topik
+modellek\footnote{a kód részben az alábbiakon alapul:
+  tidytextmining.com/topicmodeling.html Az általunk is használt
+  \texttt{topicmodels} csomag interfészt biztosít az LDA modellek és a
+  korrelált témamodellek (CTM) C kódjához, valamint az LDA modellek
+  illesztéséhez szükséges C ++ kódhoz.}}{Látens Dirichlet Allokáció topik modellek}}\label{luxe1tens-dirichlet-allokuxe1ciuxf3-topik-modellekklasztering_topicmodellek-2}}
 
 A topik-modellezés a dokumentumok téma-klasztereinek meghatározására
 szolgáló valószínűség-alapú eljárás, amely szó-gyakoriságot állapít meg
@@ -1983,16 +1994,6 @@ amelyek eloszlása kirajzolja a topikokat
 \protect\hyperlink{ref-burtejin2016b}{\textbf{burtejin2016b?}};
 \protect\hyperlink{ref-jacobi2016}{Jacobi, Van Atteveldt, and Welbers
 2016}).
-
-\hypertarget{topik-modellezuxe9s-magyar-tuxf6rvuxe9nyszuxf6vegeken}{%
-\section{Topik modellezés magyar
-törvényszövegeken}\label{topik-modellezuxe9s-magyar-tuxf6rvuxe9nyszuxf6vegeken}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"figures/08{-}01\_topik\_modell.png"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{center}\includegraphics[width=0.9\linewidth]{figures/08-01_topik_modell} \end{center}
 
@@ -2261,14 +2262,6 @@ Ezután újra ellenőrízzük az eredményt.
 
 \begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-82-1} \end{center}
 
-\hypertarget{a-topik-modellezuxe9s-klasztering_topicmodellek-2}{%
-\subsection[A topik modellezés]{\texorpdfstring{A topik
-modellezés\footnote{a kód részben az alábbiakon alapul:
-  tidytextmining.com/topicmodeling.html Az általunk is használt
-  \texttt{topicmodels} csomag interfészt biztosít az LDA modellek és a
-  korrelált témamodellek (CTM) C kódjához, valamint az LDA modellek
-  illesztéséhez szükséges C ++ kódhoz.}}{A topik modellezés}}\label{a-topik-modellezuxe9s-klasztering_topicmodellek-2}}
-
 A szövegtisztító és korpusz előkészítő műveletek után következhet az LDA
 illesztése. Az alábbiakban az LDA illesztés két módszerét a
 \texttt{VEM}-et és a \texttt{Gibbs}-et mutatjuk be. A modell minkét
@@ -2302,7 +2295,7 @@ feldarabolni a már elkészült és tisztított mátrixunkat.
 \end{Shaded}
 
 \hypertarget{a-vem-muxf3dszer-alkalmazuxe1sa-a-magyar-tuxf6rvuxe9nyek-korpuszuxe1n}{%
-\subsubsection{A „VEM" módszer alkalmazása a magyar törvények
+\subsection{A „VEM" módszer alkalmazása a magyar törvények
 korpuszán}\label{a-vem-muxf3dszer-alkalmazuxe1sa-a-magyar-tuxf6rvuxe9nyek-korpuszuxe1n}}
 
 Saját korpuszunkon először a \texttt{VEM} a módszert alkalmazzuk, ahol
@@ -2468,7 +2461,7 @@ egyes topikok 10 legfontosabb kifejezését.
 \begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-91-1} \end{center}
 
 \hypertarget{az-lda-gibbs-muxf3dszer-alkalmazuxe1sa-a-magyar-tuxf6rvuxe9nyek-korpuszuxe1n}{%
-\subsubsection{Az „LDA Gibbs" módszer alkalmazása a magyar törvények
+\subsection{Az „LDA Gibbs" módszer alkalmazása a magyar törvények
 korpuszán}\label{az-lda-gibbs-muxf3dszer-alkalmazuxe1sa-a-magyar-tuxf6rvuxe9nyek-korpuszuxe1n}}
 
 A következőkben ugyanazon a korpuszon az LDA Gibbs módszert alkalmazzuk.
@@ -2552,8 +2545,9 @@ Majd a \texttt{ggplot2} csomag segítségével ábrán is megjeleníthetjük.
 
 \begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-96-1} \end{center}
 
-\hypertarget{structural-topic-models}{%
-\chapter{Structural Topic Models}\label{structural-topic-models}}
+\hypertarget{struktuxfaruxe1lis-topik-modellek}{%
+\section{Struktúrális topik
+modellek}\label{struktuxfaruxe1lis-topik-modellek}}
 
 A kvantitatív szövegelemzés elterjedésével együtt megjelentek a
 módszertani innovációk is és a probabilisztikus topic modellek esetében
@@ -2652,7 +2646,7 @@ futási idő kicsit hosszabb mint az LDA modellek esetében.
 \CommentTok{\#\textgreater{} Completed M{-}Step. }
 \CommentTok{\#\textgreater{} Completing Iteration 1 (approx. per word bound = {-}9.208) }
 \CommentTok{\#\textgreater{} .......................................................................................................}
-\CommentTok{\#\textgreater{} Completed E{-}Step (4 seconds). }
+\CommentTok{\#\textgreater{} Completed E{-}Step (3 seconds). }
 \CommentTok{\#\textgreater{} Completed M{-}Step. }
 \CommentTok{\#\textgreater{} Completing Iteration 2 (approx. per word bound = {-}8.098, relative change = 1.205e{-}01) }
 \CommentTok{\#\textgreater{} .......................................................................................................}
@@ -2682,11 +2676,11 @@ futási idő kicsit hosszabb mint az LDA modellek esetében.
 \CommentTok{\#\textgreater{} Completed M{-}Step. }
 \CommentTok{\#\textgreater{} Completing Iteration 6 (approx. per word bound = {-}7.999, relative change = 1.006e{-}03) }
 \CommentTok{\#\textgreater{} .......................................................................................................}
-\CommentTok{\#\textgreater{} Completed E{-}Step (2 seconds). }
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
 \CommentTok{\#\textgreater{} Completed M{-}Step. }
 \CommentTok{\#\textgreater{} Completing Iteration 7 (approx. per word bound = {-}7.993, relative change = 7.504e{-}04) }
 \CommentTok{\#\textgreater{} .......................................................................................................}
-\CommentTok{\#\textgreater{} Completed E{-}Step (2 seconds). }
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
 \CommentTok{\#\textgreater{} Completed M{-}Step. }
 \CommentTok{\#\textgreater{} Completing Iteration 8 (approx. per word bound = {-}7.989, relative change = 5.475e{-}04) }
 \CommentTok{\#\textgreater{} .......................................................................................................}
@@ -2720,7 +2714,7 @@ futási idő kicsit hosszabb mint az LDA modellek esetében.
 \CommentTok{\#\textgreater{} Completed M{-}Step. }
 \CommentTok{\#\textgreater{} Completing Iteration 13 (approx. per word bound = {-}7.976, relative change = 2.765e{-}04) }
 \CommentTok{\#\textgreater{} .......................................................................................................}
-\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed E{-}Step (2 seconds). }
 \CommentTok{\#\textgreater{} Completed M{-}Step. }
 \CommentTok{\#\textgreater{} Completing Iteration 14 (approx. per word bound = {-}7.973, relative change = 2.550e{-}04) }
 \CommentTok{\#\textgreater{} .......................................................................................................}
