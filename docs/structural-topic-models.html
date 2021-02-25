@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>10 Structural Topic Models | Szövegbányászat és mesterséges intelligencia R-ben</title>
+  <meta name="description" content="10 Structural Topic Models | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="10 Structural Topic Models | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="10 Structural Topic Models | Szövegbányászat és mesterséges intelligencia R-ben" />
+  
+  
+  
+
+<meta name="author" content="Sebők Miklós, Ring Orsolya" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"/>
+<link rel="next" href="szóbeágyazások.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Bevezetés</a></li>
+<li class="chapter" data-level="2" data-path="a-kvantitatív-szövegelemzés-és-szövegbányászat-alapfogalmai.html"><a href="a-kvantitatív-szövegelemzés-és-szövegbányászat-alapfogalmai.html"><i class="fa fa-check"></i><b>2</b> A kvantitatív szövegelemzés és szövegbányászat alapfogalmai</a></li>
+<li class="chapter" data-level="3" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html"><i class="fa fa-check"></i><b>3</b> Az adatkezelés R-ben</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#adatok-importálása-és-exportálása"><i class="fa fa-check"></i><b>3.1</b> Adatok importálása és exportálása</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#szöveges-dokumentumok-importálása"><i class="fa fa-check"></i><b>3.1.1</b> Szöveges dokumentumok importálása</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#adatok-exportálása"><i class="fa fa-check"></i><b>3.2</b> Adatok exportálása</a></li>
+<li class="chapter" data-level="3.3" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#a-pipe-operátor"><i class="fa fa-check"></i><b>3.3</b> A pipe operátor</a></li>
+<li class="chapter" data-level="3.4" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#muveletek-a-date-framekkel"><i class="fa fa-check"></i><b>3.4</b> Muveletek a date framekkel</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#megfigyelések-szűrése-filter"><i class="fa fa-check"></i><b>3.4.1</b> Megfigyelések szűrése: <code>filter()</code></a></li>
+<li class="chapter" data-level="3.4.2" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#változók-kiválogatása-select"><i class="fa fa-check"></i><b>3.4.2</b> Változók kiválogatása: <code>select()</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#új-változók-létrehozása-mutate"><i class="fa fa-check"></i><b>3.4.3</b> Új változók létrehozása: <code>mutate()</code></a></li>
+<li class="chapter" data-level="3.4.4" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#csoportonkénti-statisztikák-group_by-és-summarize"><i class="fa fa-check"></i><b>3.4.4</b> Csoportonkénti statisztikák: <code>group_by()</code> és <code>summarize()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#munka-karakter-vektorokkaladatkezeles-4"><i class="fa fa-check"></i><b>3.5</b> Munka karakter vektorokkal</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html"><i class="fa fa-check"></i><b>4</b> Korpuszépítés és szövegelőkészítés</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#szövegbeszerzés"><i class="fa fa-check"></i><b>4.1</b> Szövegbeszerzés</a></li>
+<li class="chapter" data-level="4.2" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#szövegelőkészítés"><i class="fa fa-check"></i><b>4.2</b> Szövegelőkészítés</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#string-műveletek"><i class="fa fa-check"></i><b>4.2.1</b> String műveletek</a></li>
+<li class="chapter" data-level="4.2.2" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#tokenizálás-szótövezés-kisbetűsítés-és-a-stopszavak-eltávolítása"><i class="fa fa-check"></i><b>4.2.2</b> Tokenizálás, szótövezés, kisbetűsítés és a stopszavak eltávolítása</a></li>
+<li class="chapter" data-level="4.2.3" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#dokumentum-kifejezés-mátrix-dtm"><i class="fa fa-check"></i><b>4.2.3</b> Dokumentum kifejezés mátrix (DTM)</a></li>
+<li class="chapter" data-level="4.2.4" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#súlyozás"><i class="fa fa-check"></i><b>4.2.4</b> Súlyozás</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="leíró-statisztika-szózsák-és-szóeloszlások.html"><a href="leíró-statisztika-szózsák-és-szóeloszlások.html"><i class="fa fa-check"></i><b>5</b> Leíró statisztika: szózsák és szóeloszlások</a></li>
+<li class="chapter" data-level="6" data-path="a-szövegek-reprezentálása-a-vektortérben.html"><a href="a-szövegek-reprezentálása-a-vektortérben.html"><i class="fa fa-check"></i><b>6</b> A szövegek reprezentálása a vektortérben</a></li>
+<li class="chapter" data-level="7" data-path="a-korpuszépítés-problémái-és-a-szövegel-készítés.html"><a href="a-korpuszépítés-problémái-és-a-szövegel-készítés.html"><i class="fa fa-check"></i><b>7</b> A korpuszépítés problémái és a szövegelőkészítés</a></li>
+<li class="chapter" data-level="8" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html"><i class="fa fa-check"></i><b>8</b> Szótáralapú elemzések, érzelem-elemzés</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html#szótárak-az-r-ben"><i class="fa fa-check"></i><b>8.1</b> Szótárak az R-ben</a></li>
+<li class="chapter" data-level="8.2" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html#magyar-nemzet-cikkek"><i class="fa fa-check"></i><b>8.2</b> Magyar Nemzet cikkek</a></li>
+<li class="chapter" data-level="8.3" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html#mnb-sajtóközlemények"><i class="fa fa-check"></i><b>8.3</b> MNB sajtóközlemények</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"><i class="fa fa-check"></i><b>9</b> Felügyelet nélküli tanulás: Topik modellezés magyar törvényszövegeken</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#k-közép-klaszterezés-kvalitatív-adatokkal"><i class="fa fa-check"></i><b>9.1</b> K közép klaszterezés kvalitatív adatokkal</a></li>
+<li class="chapter" data-level="9.2" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#a-topik-modellezés"><i class="fa fa-check"></i><b>9.2</b> A topik modellezés</a></li>
+<li class="chapter" data-level="9.3" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#topik-modellezés-magyar-törvényszövegeken"><i class="fa fa-check"></i><b>9.3</b> Topik modellezés magyar törvényszövegeken</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#a-topik-modellezés-klasztering_topicmodellek-2"><i class="fa fa-check"></i><b>9.3.1</b> A topik modellezés</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="structural-topic-models.html"><a href="structural-topic-models.html"><i class="fa fa-check"></i><b>10</b> Structural Topic Models</a></li>
+<li class="chapter" data-level="11" data-path="szóbeágyazások.html"><a href="szóbeágyazások.html"><i class="fa fa-check"></i><b>11</b> Szóbeágyazások</a></li>
+<li class="chapter" data-level="12" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html"><i class="fa fa-check"></i><b>12</b> Szövegösszehasonlítás</a></li>
+<li class="chapter" data-level="13" data-path="természetes-nyelv-feldolgozás-nlp.html"><a href="természetes-nyelv-feldolgozás-nlp.html"><i class="fa fa-check"></i><b>13</b> Természetes-nyelv feldolgozás (NLP)</a></li>
+<li class="chapter" data-level="14" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html"><i class="fa fa-check"></i><b>14</b> Osztályozás és felügyelt tanulás</a></li>
+<li class="chapter" data-level="15" data-path="függelék.html"><a href="függelék.html"><i class="fa fa-check"></i><b>15</b> Függelék</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="függelék.html"><a href="függelék.html#az-r-és-az-rstudio-használata"><i class="fa fa-check"></i><b>15.1</b> Az R és az RStudio használata</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="függelék.html"><a href="függelék.html#az-rstudio-kezdőfelülete"><i class="fa fa-check"></i><b>15.1.1</b> Az RStudio kezdőfelülete</a></li>
+<li class="chapter" data-level="15.1.2" data-path="függelék.html"><a href="függelék.html#projektmunka"><i class="fa fa-check"></i><b>15.1.2</b> Projekt alapú munka</a></li>
+<li class="chapter" data-level="15.1.3" data-path="függelék.html"><a href="függelék.html#scriptek-szerkesztése-függvények-használata"><i class="fa fa-check"></i><b>15.1.3</b> Scriptek szerkesztése, függvények használata</a></li>
+<li class="chapter" data-level="15.1.4" data-path="függelék.html"><a href="függelék.html#packages"><i class="fa fa-check"></i><b>15.1.4</b> R csomagok</a></li>
+<li class="chapter" data-level="15.1.5" data-path="függelék.html"><a href="függelék.html#objektumok-tárolása-értékadás"><i class="fa fa-check"></i><b>15.1.5</b> Objektumok tárolása, értékadás</a></li>
+<li class="chapter" data-level="15.1.6" data-path="függelék.html"><a href="függelék.html#vektorok"><i class="fa fa-check"></i><b>15.1.6</b> Vektorok</a></li>
+<li class="chapter" data-level="15.1.7" data-path="függelék.html"><a href="függelék.html#faktorok"><i class="fa fa-check"></i><b>15.1.7</b> Faktorok</a></li>
+<li class="chapter" data-level="15.1.8" data-path="függelék.html"><a href="függelék.html#data-frame"><i class="fa fa-check"></i><b>15.1.8</b> Data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="függelék.html"><a href="függelék.html#vizualizáció"><i class="fa fa-check"></i><b>15.2</b> Vizualizáció</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Szövegbányászat és mesterséges intelligencia R-ben</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="structural-topic-models" class="section level1" number="10">
+<h1><span class="header-section-number">10</span> Structural Topic Models</h1>
+<p>A kvantitatív szövegelemzés elterjedésével együtt megjelentek a módszertani innovációk is és a probabilisztikus topic modellek esetében ez a politikatudomány területéről érkezett. <span class="citation"><a href="függelék.html#ref-roberts2014structural" role="doc-biblioref">Roberts et al.</a> (<a href="függelék.html#ref-roberts2014structural" role="doc-biblioref">2014</a>)</span> egy kíváló cikkben mutatta be a struktúrális topic modelleket (structural topic models, stm) ahol a fő újítás az az hogy a dokumentumok metaadatai kovariánsként tudják befolyásolni hogy egy-egy kifejezés mekkora valószínűséggel lesz egy-egy téma része. A kovariánsok egyrészről megmagyarázhatják hogy egy-egy dokumentum mennyire függ össze egy-egy témával (<em>topical prevalence</em>), illetve hogy egy-egy szó mennyire függ össze egy-egy témán belül (t<em>opical content</em>).</p>
+<p>Az stm modell becslése során mindkét típusú kovariánst használhatjuk, illetve hogyha nem adunk meg dokumentum meta adatot akkor az <code>stm</code> csomag <code>stm</code> függvénye a Korrelált Topic Modell-t fogja becsülni.</p>
+<p>Az stm modelleket az R-ben az <code>stm</code> csomaggal tudjuk kivitelezni. A csomag fejlesztői között van a módszer kidolgozója is, ami nem ritka az R csomagok esetében.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="structural-topic-models.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stm)</span></code></pre></div>
+<p>A lenti lépésekben a csomag dokumentációjában szereplő ajánlásokat követjük, habár a könyv írásakor a <code>stm</code> már képes volt a <code>quanteda</code>-ban létrehozott dfm-ek kezelésére is. A kiinduló adatbázisunk a <code>törvény_final</code> amit a fejezet elején hoztunk létre a dokuemntumokból és a metaadatokból. A javasolt munkafolyamat a <code>textProcessor()</code>-használatával indul, ami szintén tartalmazza az alap szöveg előkészítési lépéseket. Az egyszerűség és futási sebesség érdekében itt most ezek többségétől eltekintünk, mivel a fejezet korábbi részeiben részletesen tárgyaltuk őket.</p>
+<p>Az előkészítés utolsó szakaszában az <code>out</code> objektumban tároljuk el a dokumentumokat, egyedi szavakat, illetve a meta adatokat (kovariánsokat).</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="structural-topic-models.html#cb93-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-2"><a href="structural-topic-models.html#cb93-2" aria-hidden="true" tabindex="-1"></a>data_stm <span class="ot">&lt;-</span> torveny_final</span>
+<span id="cb93-3"><a href="structural-topic-models.html#cb93-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-4"><a href="structural-topic-models.html#cb93-4" aria-hidden="true" tabindex="-1"></a>processed_stm <span class="ot">&lt;-</span> <span class="fu">textProcessor</span>(</span>
+<span id="cb93-5"><a href="structural-topic-models.html#cb93-5" aria-hidden="true" tabindex="-1"></a>  torveny_final<span class="sc">$</span>text,</span>
+<span id="cb93-6"><a href="structural-topic-models.html#cb93-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">metadata =</span> torveny_final,</span>
+<span id="cb93-7"><a href="structural-topic-models.html#cb93-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">lowercase =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb93-8"><a href="structural-topic-models.html#cb93-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">removestopwords =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb93-9"><a href="structural-topic-models.html#cb93-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">removenumbers =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb93-10"><a href="structural-topic-models.html#cb93-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">removepunctuation =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb93-11"><a href="structural-topic-models.html#cb93-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ucp =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb93-12"><a href="structural-topic-models.html#cb93-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">stem =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb93-13"><a href="structural-topic-models.html#cb93-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">language =</span> <span class="st">&quot;hungarian&quot;</span>,</span>
+<span id="cb93-14"><a href="structural-topic-models.html#cb93-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb93-15"><a href="structural-topic-models.html#cb93-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb93-16"><a href="structural-topic-models.html#cb93-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-17"><a href="structural-topic-models.html#cb93-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb93-18"><a href="structural-topic-models.html#cb93-18" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">prepDocuments</span>(processed_stm<span class="sc">$</span>documents, processed_stm<span class="sc">$</span>vocab, processed_stm<span class="sc">$</span>meta)</span>
+<span id="cb93-19"><a href="structural-topic-models.html#cb93-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Removing 96264 of 180243 terms (96264 of 1252793 tokens) due to frequency </span></span>
+<span id="cb93-20"><a href="structural-topic-models.html#cb93-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Your corpus now has 1032 documents, 83979 terms and 1156529 tokens.</span></span></code></pre></div>
+<p>A struktúrális topic modellünket az <code>stm</code> függvénnyel becsüljük és a kovariánsokat a <code>prevalence</code> opciónál tudjuk formulaként megadni. A lenti példában a Comparative Agendas Projekt kategóriáit (pl.: gazdaság, egészségügy, stb.) és a kormányciklusokat használjuk. A futási idő kicsit hosszabb mint az LDA modellek esetében.</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="structural-topic-models.html#cb94-1" aria-hidden="true" tabindex="-1"></a>stm_fit <span class="ot">&lt;-</span> <span class="fu">stm</span>(</span>
+<span id="cb94-2"><a href="structural-topic-models.html#cb94-2" aria-hidden="true" tabindex="-1"></a>  out<span class="sc">$</span>documents,</span>
+<span id="cb94-3"><a href="structural-topic-models.html#cb94-3" aria-hidden="true" tabindex="-1"></a>  out<span class="sc">$</span>vocab,</span>
+<span id="cb94-4"><a href="structural-topic-models.html#cb94-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">K =</span> <span class="dv">10</span>,</span>
+<span id="cb94-5"><a href="structural-topic-models.html#cb94-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">prevalence =</span> <span class="sc">~</span> majortopic <span class="sc">+</span> electoral_cycle,</span>
+<span id="cb94-6"><a href="structural-topic-models.html#cb94-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> out<span class="sc">$</span>meta,</span>
+<span id="cb94-7"><a href="structural-topic-models.html#cb94-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">init.type =</span> <span class="st">&quot;Spectral&quot;</span>,</span>
+<span id="cb94-8"><a href="structural-topic-models.html#cb94-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">1234</span></span>
+<span id="cb94-9"><a href="structural-topic-models.html#cb94-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb94-10"><a href="structural-topic-models.html#cb94-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Beginning Spectral Initialization </span></span>
+<span id="cb94-11"><a href="structural-topic-models.html#cb94-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Calculating the gram matrix...</span></span>
+<span id="cb94-12"><a href="structural-topic-models.html#cb94-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Using only 10000 most frequent terms during initialization...</span></span>
+<span id="cb94-13"><a href="structural-topic-models.html#cb94-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Finding anchor words...</span></span>
+<span id="cb94-14"><a href="structural-topic-models.html#cb94-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      ..........</span></span>
+<span id="cb94-15"><a href="structural-topic-models.html#cb94-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Recovering initialization...</span></span>
+<span id="cb94-16"><a href="structural-topic-models.html#cb94-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      ....................................................................................................</span></span>
+<span id="cb94-17"><a href="structural-topic-models.html#cb94-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Initialization complete.</span></span>
+<span id="cb94-18"><a href="structural-topic-models.html#cb94-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-19"><a href="structural-topic-models.html#cb94-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (4 seconds). </span></span>
+<span id="cb94-20"><a href="structural-topic-models.html#cb94-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-21"><a href="structural-topic-models.html#cb94-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 1 (approx. per word bound = -9.208) </span></span>
+<span id="cb94-22"><a href="structural-topic-models.html#cb94-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-23"><a href="structural-topic-models.html#cb94-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (3 seconds). </span></span>
+<span id="cb94-24"><a href="structural-topic-models.html#cb94-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-25"><a href="structural-topic-models.html#cb94-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 2 (approx. per word bound = -8.098, relative change = 1.205e-01) </span></span>
+<span id="cb94-26"><a href="structural-topic-models.html#cb94-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-27"><a href="structural-topic-models.html#cb94-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (2 seconds). </span></span>
+<span id="cb94-28"><a href="structural-topic-models.html#cb94-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-29"><a href="structural-topic-models.html#cb94-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 3 (approx. per word bound = -8.039, relative change = 7.395e-03) </span></span>
+<span id="cb94-30"><a href="structural-topic-models.html#cb94-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-31"><a href="structural-topic-models.html#cb94-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-32"><a href="structural-topic-models.html#cb94-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-33"><a href="structural-topic-models.html#cb94-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 4 (approx. per word bound = -8.019, relative change = 2.411e-03) </span></span>
+<span id="cb94-34"><a href="structural-topic-models.html#cb94-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-35"><a href="structural-topic-models.html#cb94-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-36"><a href="structural-topic-models.html#cb94-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-37"><a href="structural-topic-models.html#cb94-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 5 (approx. per word bound = -8.007, relative change = 1.480e-03) </span></span>
+<span id="cb94-38"><a href="structural-topic-models.html#cb94-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1: vagi, szerzodo, fél, egyezméni, államban </span></span>
+<span id="cb94-39"><a href="structural-topic-models.html#cb94-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 2: muködési, célú, támogatások, felhalmozási, intézményi </span></span>
+<span id="cb94-40"><a href="structural-topic-models.html#cb94-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 3: muködési, célú, támogatások, törvéni, évi </span></span>
+<span id="cb94-41"><a href="structural-topic-models.html#cb94-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 4: vagi, nem, más, meg, valamennyi </span></span>
+<span id="cb94-42"><a href="structural-topic-models.html#cb94-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 5: vagi, nem, kell, szolgálati, törvéni </span></span>
+<span id="cb94-43"><a href="structural-topic-models.html#cb94-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 6: következo, helyéb, törvéni, ának, rendelkezé </span></span>
+<span id="cb94-44"><a href="structural-topic-models.html#cb94-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 7: törvéni, vagi, nem, kell, valamint </span></span>
+<span id="cb94-45"><a href="structural-topic-models.html#cb94-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 8: vagi, nem, következo, kell, illetv </span></span>
+<span id="cb94-46"><a href="structural-topic-models.html#cb94-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 9: the, and, shall, vagi, parti </span></span>
+<span id="cb94-47"><a href="structural-topic-models.html#cb94-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 10: nem, vagi, kell, törvéni, szerinti </span></span>
+<span id="cb94-48"><a href="structural-topic-models.html#cb94-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-49"><a href="structural-topic-models.html#cb94-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (2 seconds). </span></span>
+<span id="cb94-50"><a href="structural-topic-models.html#cb94-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-51"><a href="structural-topic-models.html#cb94-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 6 (approx. per word bound = -7.999, relative change = 1.006e-03) </span></span>
+<span id="cb94-52"><a href="structural-topic-models.html#cb94-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-53"><a href="structural-topic-models.html#cb94-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-54"><a href="structural-topic-models.html#cb94-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-55"><a href="structural-topic-models.html#cb94-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 7 (approx. per word bound = -7.993, relative change = 7.504e-04) </span></span>
+<span id="cb94-56"><a href="structural-topic-models.html#cb94-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-57"><a href="structural-topic-models.html#cb94-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-58"><a href="structural-topic-models.html#cb94-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-59"><a href="structural-topic-models.html#cb94-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 8 (approx. per word bound = -7.989, relative change = 5.475e-04) </span></span>
+<span id="cb94-60"><a href="structural-topic-models.html#cb94-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-61"><a href="structural-topic-models.html#cb94-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-62"><a href="structural-topic-models.html#cb94-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-63"><a href="structural-topic-models.html#cb94-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 9 (approx. per word bound = -7.985, relative change = 4.234e-04) </span></span>
+<span id="cb94-64"><a href="structural-topic-models.html#cb94-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-65"><a href="structural-topic-models.html#cb94-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-66"><a href="structural-topic-models.html#cb94-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-67"><a href="structural-topic-models.html#cb94-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 10 (approx. per word bound = -7.983, relative change = 3.574e-04) </span></span>
+<span id="cb94-68"><a href="structural-topic-models.html#cb94-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1: vagi, szerzodo, fél, egyezméni, államban </span></span>
+<span id="cb94-69"><a href="structural-topic-models.html#cb94-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 2: muködési, célú, támogatások, felhalmozási, költségvetésegyéb </span></span>
+<span id="cb94-70"><a href="structural-topic-models.html#cb94-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 3: muködési, törvéni, támogatások, célú, nem </span></span>
+<span id="cb94-71"><a href="structural-topic-models.html#cb94-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 4: vagi, nem, más, meg, valamennyi </span></span>
+<span id="cb94-72"><a href="structural-topic-models.html#cb94-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 5: vagi, kell, nem, törvéni, meghatározott </span></span>
+<span id="cb94-73"><a href="structural-topic-models.html#cb94-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 6: következo, helyéb, törvéni, ának, rendelkezé </span></span>
+<span id="cb94-74"><a href="structural-topic-models.html#cb94-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 7: vagi, törvéni, nem, kell, valamint </span></span>
+<span id="cb94-75"><a href="structural-topic-models.html#cb94-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 8: vagi, nem, következo, kell, illetv </span></span>
+<span id="cb94-76"><a href="structural-topic-models.html#cb94-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 9: the, and, shall, vagi, parti </span></span>
+<span id="cb94-77"><a href="structural-topic-models.html#cb94-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 10: nem, vagi, kell, törvéni, szerinti </span></span>
+<span id="cb94-78"><a href="structural-topic-models.html#cb94-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-79"><a href="structural-topic-models.html#cb94-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-80"><a href="structural-topic-models.html#cb94-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-81"><a href="structural-topic-models.html#cb94-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 11 (approx. per word bound = -7.980, relative change = 3.136e-04) </span></span>
+<span id="cb94-82"><a href="structural-topic-models.html#cb94-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-83"><a href="structural-topic-models.html#cb94-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-84"><a href="structural-topic-models.html#cb94-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-85"><a href="structural-topic-models.html#cb94-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 12 (approx. per word bound = -7.978, relative change = 2.986e-04) </span></span>
+<span id="cb94-86"><a href="structural-topic-models.html#cb94-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-87"><a href="structural-topic-models.html#cb94-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-88"><a href="structural-topic-models.html#cb94-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-89"><a href="structural-topic-models.html#cb94-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 13 (approx. per word bound = -7.976, relative change = 2.765e-04) </span></span>
+<span id="cb94-90"><a href="structural-topic-models.html#cb94-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-91"><a href="structural-topic-models.html#cb94-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-92"><a href="structural-topic-models.html#cb94-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-93"><a href="structural-topic-models.html#cb94-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 14 (approx. per word bound = -7.973, relative change = 2.550e-04) </span></span>
+<span id="cb94-94"><a href="structural-topic-models.html#cb94-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-95"><a href="structural-topic-models.html#cb94-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-96"><a href="structural-topic-models.html#cb94-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-97"><a href="structural-topic-models.html#cb94-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 15 (approx. per word bound = -7.971, relative change = 2.569e-04) </span></span>
+<span id="cb94-98"><a href="structural-topic-models.html#cb94-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1: vagi, szerzodo, fél, egyezméni, államban </span></span>
+<span id="cb94-99"><a href="structural-topic-models.html#cb94-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 2: muködési, célú, támogatások, felhalmozási, költségvetésegyéb </span></span>
+<span id="cb94-100"><a href="structural-topic-models.html#cb94-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 3: muködési, törvéni, nem, évi, támogatások </span></span>
+<span id="cb94-101"><a href="structural-topic-models.html#cb94-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 4: vagi, nem, más, részes, meg </span></span>
+<span id="cb94-102"><a href="structural-topic-models.html#cb94-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 5: vagi, nem, kell, törvéni, meghatározott </span></span>
+<span id="cb94-103"><a href="structural-topic-models.html#cb94-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 6: következo, helyéb, törvéni, ának, rendelkezé </span></span>
+<span id="cb94-104"><a href="structural-topic-models.html#cb94-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 7: vagi, nem, törvéni, kell, valamint </span></span>
+<span id="cb94-105"><a href="structural-topic-models.html#cb94-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 8: vagi, nem, következo, illetv, kell </span></span>
+<span id="cb94-106"><a href="structural-topic-models.html#cb94-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 9: the, and, shall, vagi, parti </span></span>
+<span id="cb94-107"><a href="structural-topic-models.html#cb94-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 10: nem, vagi, kell, törvéni, szerinti </span></span>
+<span id="cb94-108"><a href="structural-topic-models.html#cb94-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-109"><a href="structural-topic-models.html#cb94-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-110"><a href="structural-topic-models.html#cb94-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-111"><a href="structural-topic-models.html#cb94-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 16 (approx. per word bound = -7.969, relative change = 2.704e-04) </span></span>
+<span id="cb94-112"><a href="structural-topic-models.html#cb94-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-113"><a href="structural-topic-models.html#cb94-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-114"><a href="structural-topic-models.html#cb94-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-115"><a href="structural-topic-models.html#cb94-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 17 (approx. per word bound = -7.967, relative change = 2.647e-04) </span></span>
+<span id="cb94-116"><a href="structural-topic-models.html#cb94-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-117"><a href="structural-topic-models.html#cb94-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-118"><a href="structural-topic-models.html#cb94-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-119"><a href="structural-topic-models.html#cb94-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 18 (approx. per word bound = -7.965, relative change = 2.463e-04) </span></span>
+<span id="cb94-120"><a href="structural-topic-models.html#cb94-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-121"><a href="structural-topic-models.html#cb94-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-122"><a href="structural-topic-models.html#cb94-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-123"><a href="structural-topic-models.html#cb94-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 19 (approx. per word bound = -7.963, relative change = 2.195e-04) </span></span>
+<span id="cb94-124"><a href="structural-topic-models.html#cb94-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-125"><a href="structural-topic-models.html#cb94-125" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-126"><a href="structural-topic-models.html#cb94-126" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-127"><a href="structural-topic-models.html#cb94-127" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 20 (approx. per word bound = -7.962, relative change = 1.905e-04) </span></span>
+<span id="cb94-128"><a href="structural-topic-models.html#cb94-128" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1: szerzodo, vagi, fél, egyezméni, államban </span></span>
+<span id="cb94-129"><a href="structural-topic-models.html#cb94-129" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 2: muködési, célú, támogatások, felhalmozási, költségvetésegyéb </span></span>
+<span id="cb94-130"><a href="structural-topic-models.html#cb94-130" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 3: törvéni, nem, muködési, évi, alapján </span></span>
+<span id="cb94-131"><a href="structural-topic-models.html#cb94-131" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 4: vagi, nem, részes, más, valamennyi </span></span>
+<span id="cb94-132"><a href="structural-topic-models.html#cb94-132" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 5: vagi, nem, kell, bíróság, következo </span></span>
+<span id="cb94-133"><a href="structural-topic-models.html#cb94-133" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 6: következo, törvéni, helyéb, ának, évi </span></span>
+<span id="cb94-134"><a href="structural-topic-models.html#cb94-134" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 7: vagi, nem, törvéni, kell, illetv </span></span>
+<span id="cb94-135"><a href="structural-topic-models.html#cb94-135" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 8: vagi, nem, következo, illetv, meghatározott </span></span>
+<span id="cb94-136"><a href="structural-topic-models.html#cb94-136" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 9: the, and, shall, vagi, parti </span></span>
+<span id="cb94-137"><a href="structural-topic-models.html#cb94-137" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 10: nem, vagi, kell, törvéni, szerinti </span></span>
+<span id="cb94-138"><a href="structural-topic-models.html#cb94-138" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-139"><a href="structural-topic-models.html#cb94-139" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-140"><a href="structural-topic-models.html#cb94-140" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-141"><a href="structural-topic-models.html#cb94-141" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 21 (approx. per word bound = -7.961, relative change = 1.611e-04) </span></span>
+<span id="cb94-142"><a href="structural-topic-models.html#cb94-142" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-143"><a href="structural-topic-models.html#cb94-143" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-144"><a href="structural-topic-models.html#cb94-144" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-145"><a href="structural-topic-models.html#cb94-145" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 22 (approx. per word bound = -7.959, relative change = 1.442e-04) </span></span>
+<span id="cb94-146"><a href="structural-topic-models.html#cb94-146" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-147"><a href="structural-topic-models.html#cb94-147" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-148"><a href="structural-topic-models.html#cb94-148" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-149"><a href="structural-topic-models.html#cb94-149" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 23 (approx. per word bound = -7.958, relative change = 1.388e-04) </span></span>
+<span id="cb94-150"><a href="structural-topic-models.html#cb94-150" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-151"><a href="structural-topic-models.html#cb94-151" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-152"><a href="structural-topic-models.html#cb94-152" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-153"><a href="structural-topic-models.html#cb94-153" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 24 (approx. per word bound = -7.957, relative change = 1.355e-04) </span></span>
+<span id="cb94-154"><a href="structural-topic-models.html#cb94-154" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-155"><a href="structural-topic-models.html#cb94-155" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-156"><a href="structural-topic-models.html#cb94-156" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-157"><a href="structural-topic-models.html#cb94-157" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 25 (approx. per word bound = -7.956, relative change = 1.351e-04) </span></span>
+<span id="cb94-158"><a href="structural-topic-models.html#cb94-158" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1: szerzodo, vagi, egyezméni, fél, államban </span></span>
+<span id="cb94-159"><a href="structural-topic-models.html#cb94-159" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 2: muködési, célú, támogatások, felhalmozási, költségvetésegyéb </span></span>
+<span id="cb94-160"><a href="structural-topic-models.html#cb94-160" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 3: törvéni, nem, muködési, helyi, alapján </span></span>
+<span id="cb94-161"><a href="structural-topic-models.html#cb94-161" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 4: vagi, nem, részes, más, valamennyi </span></span>
+<span id="cb94-162"><a href="structural-topic-models.html#cb94-162" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 5: vagi, nem, kell, következo, bíróság </span></span>
+<span id="cb94-163"><a href="structural-topic-models.html#cb94-163" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 6: törvéni, következo, helyéb, ának, nem </span></span>
+<span id="cb94-164"><a href="structural-topic-models.html#cb94-164" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 7: vagi, nem, törvéni, kell, illetv </span></span>
+<span id="cb94-165"><a href="structural-topic-models.html#cb94-165" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 8: vagi, nem, illetv, meghatározott, következo </span></span>
+<span id="cb94-166"><a href="structural-topic-models.html#cb94-166" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 9: the, and, shall, vagi, parti </span></span>
+<span id="cb94-167"><a href="structural-topic-models.html#cb94-167" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 10: nem, vagi, kell, törvéni, következo </span></span>
+<span id="cb94-168"><a href="structural-topic-models.html#cb94-168" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-169"><a href="structural-topic-models.html#cb94-169" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-170"><a href="structural-topic-models.html#cb94-170" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-171"><a href="structural-topic-models.html#cb94-171" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 26 (approx. per word bound = -7.955, relative change = 1.335e-04) </span></span>
+<span id="cb94-172"><a href="structural-topic-models.html#cb94-172" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-173"><a href="structural-topic-models.html#cb94-173" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-174"><a href="structural-topic-models.html#cb94-174" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-175"><a href="structural-topic-models.html#cb94-175" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 27 (approx. per word bound = -7.954, relative change = 1.306e-04) </span></span>
+<span id="cb94-176"><a href="structural-topic-models.html#cb94-176" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-177"><a href="structural-topic-models.html#cb94-177" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-178"><a href="structural-topic-models.html#cb94-178" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-179"><a href="structural-topic-models.html#cb94-179" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 28 (approx. per word bound = -7.953, relative change = 1.362e-04) </span></span>
+<span id="cb94-180"><a href="structural-topic-models.html#cb94-180" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-181"><a href="structural-topic-models.html#cb94-181" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-182"><a href="structural-topic-models.html#cb94-182" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-183"><a href="structural-topic-models.html#cb94-183" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 29 (approx. per word bound = -7.952, relative change = 1.348e-04) </span></span>
+<span id="cb94-184"><a href="structural-topic-models.html#cb94-184" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-185"><a href="structural-topic-models.html#cb94-185" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-186"><a href="structural-topic-models.html#cb94-186" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-187"><a href="structural-topic-models.html#cb94-187" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 30 (approx. per word bound = -7.951, relative change = 1.236e-04) </span></span>
+<span id="cb94-188"><a href="structural-topic-models.html#cb94-188" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1: szerzodo, vagi, egyezméni, fél, államban </span></span>
+<span id="cb94-189"><a href="structural-topic-models.html#cb94-189" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási </span></span>
+<span id="cb94-190"><a href="structural-topic-models.html#cb94-190" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 3: törvéni, nem, helyi, alapján, szóló </span></span>
+<span id="cb94-191"><a href="structural-topic-models.html#cb94-191" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 4: vagi, nem, részes, más, valamennyi </span></span>
+<span id="cb94-192"><a href="structural-topic-models.html#cb94-192" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 5: vagi, nem, következo, kell, bíróság </span></span>
+<span id="cb94-193"><a href="structural-topic-models.html#cb94-193" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 6: törvéni, következo, helyéb, ának, nem </span></span>
+<span id="cb94-194"><a href="structural-topic-models.html#cb94-194" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 7: vagi, nem, törvéni, kell, illetv </span></span>
+<span id="cb94-195"><a href="structural-topic-models.html#cb94-195" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 8: vagi, nem, illetv, kell, meghatározott </span></span>
+<span id="cb94-196"><a href="structural-topic-models.html#cb94-196" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 9: the, and, shall, vagi, parti </span></span>
+<span id="cb94-197"><a href="structural-topic-models.html#cb94-197" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 10: nem, vagi, kell, törvéni, következo </span></span>
+<span id="cb94-198"><a href="structural-topic-models.html#cb94-198" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-199"><a href="structural-topic-models.html#cb94-199" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-200"><a href="structural-topic-models.html#cb94-200" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-201"><a href="structural-topic-models.html#cb94-201" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 31 (approx. per word bound = -7.950, relative change = 1.025e-04) </span></span>
+<span id="cb94-202"><a href="structural-topic-models.html#cb94-202" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-203"><a href="structural-topic-models.html#cb94-203" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-204"><a href="structural-topic-models.html#cb94-204" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-205"><a href="structural-topic-models.html#cb94-205" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 32 (approx. per word bound = -7.949, relative change = 8.923e-05) </span></span>
+<span id="cb94-206"><a href="structural-topic-models.html#cb94-206" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-207"><a href="structural-topic-models.html#cb94-207" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-208"><a href="structural-topic-models.html#cb94-208" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-209"><a href="structural-topic-models.html#cb94-209" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 33 (approx. per word bound = -7.949, relative change = 8.413e-05) </span></span>
+<span id="cb94-210"><a href="structural-topic-models.html#cb94-210" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-211"><a href="structural-topic-models.html#cb94-211" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-212"><a href="structural-topic-models.html#cb94-212" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-213"><a href="structural-topic-models.html#cb94-213" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 34 (approx. per word bound = -7.948, relative change = 7.261e-05) </span></span>
+<span id="cb94-214"><a href="structural-topic-models.html#cb94-214" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-215"><a href="structural-topic-models.html#cb94-215" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-216"><a href="structural-topic-models.html#cb94-216" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-217"><a href="structural-topic-models.html#cb94-217" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 35 (approx. per word bound = -7.948, relative change = 7.164e-05) </span></span>
+<span id="cb94-218"><a href="structural-topic-models.html#cb94-218" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1: szerzodo, vagi, egyezméni, fél, államban </span></span>
+<span id="cb94-219"><a href="structural-topic-models.html#cb94-219" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási </span></span>
+<span id="cb94-220"><a href="structural-topic-models.html#cb94-220" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 3: törvéni, nem, helyi, szóló, alapján </span></span>
+<span id="cb94-221"><a href="structural-topic-models.html#cb94-221" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 4: vagi, nem, részes, más, valamennyi </span></span>
+<span id="cb94-222"><a href="structural-topic-models.html#cb94-222" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 5: vagi, nem, következo, kell, bíróság </span></span>
+<span id="cb94-223"><a href="structural-topic-models.html#cb94-223" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 6: törvéni, következo, helyéb, ának, nem </span></span>
+<span id="cb94-224"><a href="structural-topic-models.html#cb94-224" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 7: vagi, nem, törvéni, kell, illetv </span></span>
+<span id="cb94-225"><a href="structural-topic-models.html#cb94-225" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 8: vagi, nem, illetv, kell, meghatározott </span></span>
+<span id="cb94-226"><a href="structural-topic-models.html#cb94-226" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 9: the, and, shall, vagi, parti </span></span>
+<span id="cb94-227"><a href="structural-topic-models.html#cb94-227" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 10: nem, vagi, kell, törvéni, következo </span></span>
+<span id="cb94-228"><a href="structural-topic-models.html#cb94-228" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-229"><a href="structural-topic-models.html#cb94-229" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-230"><a href="structural-topic-models.html#cb94-230" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-231"><a href="structural-topic-models.html#cb94-231" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 36 (approx. per word bound = -7.947, relative change = 5.604e-05) </span></span>
+<span id="cb94-232"><a href="structural-topic-models.html#cb94-232" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-233"><a href="structural-topic-models.html#cb94-233" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-234"><a href="structural-topic-models.html#cb94-234" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-235"><a href="structural-topic-models.html#cb94-235" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 37 (approx. per word bound = -7.947, relative change = 4.236e-05) </span></span>
+<span id="cb94-236"><a href="structural-topic-models.html#cb94-236" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-237"><a href="structural-topic-models.html#cb94-237" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-238"><a href="structural-topic-models.html#cb94-238" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-239"><a href="structural-topic-models.html#cb94-239" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 38 (approx. per word bound = -7.947, relative change = 3.844e-05) </span></span>
+<span id="cb94-240"><a href="structural-topic-models.html#cb94-240" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-241"><a href="structural-topic-models.html#cb94-241" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-242"><a href="structural-topic-models.html#cb94-242" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-243"><a href="structural-topic-models.html#cb94-243" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 39 (approx. per word bound = -7.946, relative change = 3.543e-05) </span></span>
+<span id="cb94-244"><a href="structural-topic-models.html#cb94-244" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-245"><a href="structural-topic-models.html#cb94-245" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-246"><a href="structural-topic-models.html#cb94-246" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-247"><a href="structural-topic-models.html#cb94-247" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 40 (approx. per word bound = -7.946, relative change = 3.214e-05) </span></span>
+<span id="cb94-248"><a href="structural-topic-models.html#cb94-248" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1: szerzodo, vagi, egyezméni, fél, államban </span></span>
+<span id="cb94-249"><a href="structural-topic-models.html#cb94-249" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási </span></span>
+<span id="cb94-250"><a href="structural-topic-models.html#cb94-250" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 3: törvéni, nem, helyi, szóló, alapján </span></span>
+<span id="cb94-251"><a href="structural-topic-models.html#cb94-251" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 4: vagi, nem, részes, más, valamennyi </span></span>
+<span id="cb94-252"><a href="structural-topic-models.html#cb94-252" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 5: vagi, nem, következo, kell, bíróság </span></span>
+<span id="cb94-253"><a href="structural-topic-models.html#cb94-253" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 6: törvéni, következo, helyéb, ának, nem </span></span>
+<span id="cb94-254"><a href="structural-topic-models.html#cb94-254" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 7: vagi, nem, törvéni, kell, illetv </span></span>
+<span id="cb94-255"><a href="structural-topic-models.html#cb94-255" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 8: vagi, nem, illetv, kell, meghatározott </span></span>
+<span id="cb94-256"><a href="structural-topic-models.html#cb94-256" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 9: the, and, shall, vagi, parti </span></span>
+<span id="cb94-257"><a href="structural-topic-models.html#cb94-257" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 10: nem, vagi, kell, törvéni, következo </span></span>
+<span id="cb94-258"><a href="structural-topic-models.html#cb94-258" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-259"><a href="structural-topic-models.html#cb94-259" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-260"><a href="structural-topic-models.html#cb94-260" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-261"><a href="structural-topic-models.html#cb94-261" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 41 (approx. per word bound = -7.946, relative change = 3.036e-05) </span></span>
+<span id="cb94-262"><a href="structural-topic-models.html#cb94-262" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-263"><a href="structural-topic-models.html#cb94-263" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-264"><a href="structural-topic-models.html#cb94-264" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-265"><a href="structural-topic-models.html#cb94-265" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 42 (approx. per word bound = -7.946, relative change = 2.929e-05) </span></span>
+<span id="cb94-266"><a href="structural-topic-models.html#cb94-266" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-267"><a href="structural-topic-models.html#cb94-267" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-268"><a href="structural-topic-models.html#cb94-268" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-269"><a href="structural-topic-models.html#cb94-269" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 43 (approx. per word bound = -7.945, relative change = 3.259e-05) </span></span>
+<span id="cb94-270"><a href="structural-topic-models.html#cb94-270" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-271"><a href="structural-topic-models.html#cb94-271" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-272"><a href="structural-topic-models.html#cb94-272" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-273"><a href="structural-topic-models.html#cb94-273" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 44 (approx. per word bound = -7.945, relative change = 3.274e-05) </span></span>
+<span id="cb94-274"><a href="structural-topic-models.html#cb94-274" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-275"><a href="structural-topic-models.html#cb94-275" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-276"><a href="structural-topic-models.html#cb94-276" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-277"><a href="structural-topic-models.html#cb94-277" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 45 (approx. per word bound = -7.945, relative change = 2.418e-05) </span></span>
+<span id="cb94-278"><a href="structural-topic-models.html#cb94-278" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1: szerzodo, vagi, egyezméni, fél, államban </span></span>
+<span id="cb94-279"><a href="structural-topic-models.html#cb94-279" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási </span></span>
+<span id="cb94-280"><a href="structural-topic-models.html#cb94-280" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 3: törvéni, nem, helyi, szóló, alapján </span></span>
+<span id="cb94-281"><a href="structural-topic-models.html#cb94-281" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 4: vagi, nem, részes, más, valamennyi </span></span>
+<span id="cb94-282"><a href="structural-topic-models.html#cb94-282" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 5: vagi, nem, következo, kell, bíróság </span></span>
+<span id="cb94-283"><a href="structural-topic-models.html#cb94-283" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 6: törvéni, következo, helyéb, ának, nem </span></span>
+<span id="cb94-284"><a href="structural-topic-models.html#cb94-284" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 7: vagi, nem, törvéni, kell, illetv </span></span>
+<span id="cb94-285"><a href="structural-topic-models.html#cb94-285" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 8: nem, vagi, illetv, kell, meghatározott </span></span>
+<span id="cb94-286"><a href="structural-topic-models.html#cb94-286" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 9: the, and, shall, vagi, parti </span></span>
+<span id="cb94-287"><a href="structural-topic-models.html#cb94-287" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 10: nem, vagi, kell, törvéni, következo </span></span>
+<span id="cb94-288"><a href="structural-topic-models.html#cb94-288" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-289"><a href="structural-topic-models.html#cb94-289" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-290"><a href="structural-topic-models.html#cb94-290" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-291"><a href="structural-topic-models.html#cb94-291" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 46 (approx. per word bound = -7.945, relative change = 1.928e-05) </span></span>
+<span id="cb94-292"><a href="structural-topic-models.html#cb94-292" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-293"><a href="structural-topic-models.html#cb94-293" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-294"><a href="structural-topic-models.html#cb94-294" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-295"><a href="structural-topic-models.html#cb94-295" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 47 (approx. per word bound = -7.945, relative change = 1.847e-05) </span></span>
+<span id="cb94-296"><a href="structural-topic-models.html#cb94-296" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-297"><a href="structural-topic-models.html#cb94-297" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-298"><a href="structural-topic-models.html#cb94-298" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-299"><a href="structural-topic-models.html#cb94-299" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 48 (approx. per word bound = -7.944, relative change = 2.003e-05) </span></span>
+<span id="cb94-300"><a href="structural-topic-models.html#cb94-300" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-301"><a href="structural-topic-models.html#cb94-301" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-302"><a href="structural-topic-models.html#cb94-302" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-303"><a href="structural-topic-models.html#cb94-303" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 49 (approx. per word bound = -7.944, relative change = 2.081e-05) </span></span>
+<span id="cb94-304"><a href="structural-topic-models.html#cb94-304" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-305"><a href="structural-topic-models.html#cb94-305" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-306"><a href="structural-topic-models.html#cb94-306" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-307"><a href="structural-topic-models.html#cb94-307" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 50 (approx. per word bound = -7.944, relative change = 2.015e-05) </span></span>
+<span id="cb94-308"><a href="structural-topic-models.html#cb94-308" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1: szerzodo, vagi, egyezméni, fél, államban </span></span>
+<span id="cb94-309"><a href="structural-topic-models.html#cb94-309" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási </span></span>
+<span id="cb94-310"><a href="structural-topic-models.html#cb94-310" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 3: törvéni, nem, helyi, szóló, alapján </span></span>
+<span id="cb94-311"><a href="structural-topic-models.html#cb94-311" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 4: vagi, nem, részes, más, valamennyi </span></span>
+<span id="cb94-312"><a href="structural-topic-models.html#cb94-312" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 5: vagi, nem, következo, kell, bíróság </span></span>
+<span id="cb94-313"><a href="structural-topic-models.html#cb94-313" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 6: törvéni, következo, helyéb, nem, ának </span></span>
+<span id="cb94-314"><a href="structural-topic-models.html#cb94-314" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 7: vagi, nem, törvéni, kell, illetv </span></span>
+<span id="cb94-315"><a href="structural-topic-models.html#cb94-315" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 8: nem, vagi, illetv, kell, meghatározott </span></span>
+<span id="cb94-316"><a href="structural-topic-models.html#cb94-316" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 9: the, and, shall, vagi, parti </span></span>
+<span id="cb94-317"><a href="structural-topic-models.html#cb94-317" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 10: nem, vagi, kell, törvéni, következo </span></span>
+<span id="cb94-318"><a href="structural-topic-models.html#cb94-318" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-319"><a href="structural-topic-models.html#cb94-319" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-320"><a href="structural-topic-models.html#cb94-320" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-321"><a href="structural-topic-models.html#cb94-321" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 51 (approx. per word bound = -7.944, relative change = 1.924e-05) </span></span>
+<span id="cb94-322"><a href="structural-topic-models.html#cb94-322" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-323"><a href="structural-topic-models.html#cb94-323" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-324"><a href="structural-topic-models.html#cb94-324" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-325"><a href="structural-topic-models.html#cb94-325" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 52 (approx. per word bound = -7.944, relative change = 1.757e-05) </span></span>
+<span id="cb94-326"><a href="structural-topic-models.html#cb94-326" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-327"><a href="structural-topic-models.html#cb94-327" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-328"><a href="structural-topic-models.html#cb94-328" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-329"><a href="structural-topic-models.html#cb94-329" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 53 (approx. per word bound = -7.944, relative change = 1.808e-05) </span></span>
+<span id="cb94-330"><a href="structural-topic-models.html#cb94-330" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-331"><a href="structural-topic-models.html#cb94-331" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-332"><a href="structural-topic-models.html#cb94-332" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-333"><a href="structural-topic-models.html#cb94-333" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 54 (approx. per word bound = -7.943, relative change = 1.908e-05) </span></span>
+<span id="cb94-334"><a href="structural-topic-models.html#cb94-334" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-335"><a href="structural-topic-models.html#cb94-335" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-336"><a href="structural-topic-models.html#cb94-336" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-337"><a href="structural-topic-models.html#cb94-337" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 55 (approx. per word bound = -7.943, relative change = 1.895e-05) </span></span>
+<span id="cb94-338"><a href="structural-topic-models.html#cb94-338" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1: szerzodo, vagi, egyezméni, fél, államban </span></span>
+<span id="cb94-339"><a href="structural-topic-models.html#cb94-339" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási </span></span>
+<span id="cb94-340"><a href="structural-topic-models.html#cb94-340" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 3: törvéni, nem, helyi, szóló, alapján </span></span>
+<span id="cb94-341"><a href="structural-topic-models.html#cb94-341" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 4: vagi, nem, részes, más, meg </span></span>
+<span id="cb94-342"><a href="structural-topic-models.html#cb94-342" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 5: vagi, nem, következo, kell, bíróság </span></span>
+<span id="cb94-343"><a href="structural-topic-models.html#cb94-343" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 6: törvéni, következo, nem, helyéb, ának </span></span>
+<span id="cb94-344"><a href="structural-topic-models.html#cb94-344" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 7: vagi, nem, törvéni, kell, illetv </span></span>
+<span id="cb94-345"><a href="structural-topic-models.html#cb94-345" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 8: nem, vagi, illetv, kell, meghatározott </span></span>
+<span id="cb94-346"><a href="structural-topic-models.html#cb94-346" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 9: the, and, shall, vagi, parti </span></span>
+<span id="cb94-347"><a href="structural-topic-models.html#cb94-347" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 10: nem, vagi, kell, törvéni, következo </span></span>
+<span id="cb94-348"><a href="structural-topic-models.html#cb94-348" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-349"><a href="structural-topic-models.html#cb94-349" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-350"><a href="structural-topic-models.html#cb94-350" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-351"><a href="structural-topic-models.html#cb94-351" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 56 (approx. per word bound = -7.943, relative change = 1.725e-05) </span></span>
+<span id="cb94-352"><a href="structural-topic-models.html#cb94-352" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-353"><a href="structural-topic-models.html#cb94-353" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-354"><a href="structural-topic-models.html#cb94-354" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-355"><a href="structural-topic-models.html#cb94-355" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 57 (approx. per word bound = -7.943, relative change = 1.752e-05) </span></span>
+<span id="cb94-356"><a href="structural-topic-models.html#cb94-356" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-357"><a href="structural-topic-models.html#cb94-357" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-358"><a href="structural-topic-models.html#cb94-358" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-359"><a href="structural-topic-models.html#cb94-359" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 58 (approx. per word bound = -7.943, relative change = 1.794e-05) </span></span>
+<span id="cb94-360"><a href="structural-topic-models.html#cb94-360" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-361"><a href="structural-topic-models.html#cb94-361" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-362"><a href="structural-topic-models.html#cb94-362" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-363"><a href="structural-topic-models.html#cb94-363" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 59 (approx. per word bound = -7.943, relative change = 1.734e-05) </span></span>
+<span id="cb94-364"><a href="structural-topic-models.html#cb94-364" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-365"><a href="structural-topic-models.html#cb94-365" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-366"><a href="structural-topic-models.html#cb94-366" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-367"><a href="structural-topic-models.html#cb94-367" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 60 (approx. per word bound = -7.943, relative change = 1.739e-05) </span></span>
+<span id="cb94-368"><a href="structural-topic-models.html#cb94-368" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1: szerzodo, vagi, egyezméni, fél, államban </span></span>
+<span id="cb94-369"><a href="structural-topic-models.html#cb94-369" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási </span></span>
+<span id="cb94-370"><a href="structural-topic-models.html#cb94-370" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 3: törvéni, nem, helyi, szóló, alapján </span></span>
+<span id="cb94-371"><a href="structural-topic-models.html#cb94-371" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 4: vagi, nem, részes, más, meg </span></span>
+<span id="cb94-372"><a href="structural-topic-models.html#cb94-372" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 5: vagi, nem, következo, kell, bíróság </span></span>
+<span id="cb94-373"><a href="structural-topic-models.html#cb94-373" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 6: törvéni, következo, nem, helyéb, ának </span></span>
+<span id="cb94-374"><a href="structural-topic-models.html#cb94-374" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 7: vagi, nem, törvéni, kell, illetv </span></span>
+<span id="cb94-375"><a href="structural-topic-models.html#cb94-375" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 8: nem, vagi, illetv, kell, meghatározott </span></span>
+<span id="cb94-376"><a href="structural-topic-models.html#cb94-376" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 9: the, and, shall, vagi, parti </span></span>
+<span id="cb94-377"><a href="structural-topic-models.html#cb94-377" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 10: nem, vagi, kell, törvéni, következo </span></span>
+<span id="cb94-378"><a href="structural-topic-models.html#cb94-378" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-379"><a href="structural-topic-models.html#cb94-379" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-380"><a href="structural-topic-models.html#cb94-380" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-381"><a href="structural-topic-models.html#cb94-381" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 61 (approx. per word bound = -7.943, relative change = 1.459e-05) </span></span>
+<span id="cb94-382"><a href="structural-topic-models.html#cb94-382" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-383"><a href="structural-topic-models.html#cb94-383" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-384"><a href="structural-topic-models.html#cb94-384" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-385"><a href="structural-topic-models.html#cb94-385" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 62 (approx. per word bound = -7.942, relative change = 1.407e-05) </span></span>
+<span id="cb94-386"><a href="structural-topic-models.html#cb94-386" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-387"><a href="structural-topic-models.html#cb94-387" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-388"><a href="structural-topic-models.html#cb94-388" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-389"><a href="structural-topic-models.html#cb94-389" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 63 (approx. per word bound = -7.942, relative change = 1.342e-05) </span></span>
+<span id="cb94-390"><a href="structural-topic-models.html#cb94-390" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-391"><a href="structural-topic-models.html#cb94-391" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-392"><a href="structural-topic-models.html#cb94-392" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-393"><a href="structural-topic-models.html#cb94-393" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 64 (approx. per word bound = -7.942, relative change = 1.328e-05) </span></span>
+<span id="cb94-394"><a href="structural-topic-models.html#cb94-394" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-395"><a href="structural-topic-models.html#cb94-395" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-396"><a href="structural-topic-models.html#cb94-396" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-397"><a href="structural-topic-models.html#cb94-397" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 65 (approx. per word bound = -7.942, relative change = 1.414e-05) </span></span>
+<span id="cb94-398"><a href="structural-topic-models.html#cb94-398" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1: szerzodo, vagi, egyezméni, fél, államban </span></span>
+<span id="cb94-399"><a href="structural-topic-models.html#cb94-399" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási </span></span>
+<span id="cb94-400"><a href="structural-topic-models.html#cb94-400" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 3: törvéni, nem, helyi, szóló, alapján </span></span>
+<span id="cb94-401"><a href="structural-topic-models.html#cb94-401" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 4: vagi, nem, részes, más, hogi </span></span>
+<span id="cb94-402"><a href="structural-topic-models.html#cb94-402" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 5: vagi, nem, következo, kell, bíróság </span></span>
+<span id="cb94-403"><a href="structural-topic-models.html#cb94-403" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 6: törvéni, következo, nem, helyéb, ának </span></span>
+<span id="cb94-404"><a href="structural-topic-models.html#cb94-404" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 7: vagi, nem, törvéni, kell, illetv </span></span>
+<span id="cb94-405"><a href="structural-topic-models.html#cb94-405" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 8: nem, vagi, illetv, kell, meghatározott </span></span>
+<span id="cb94-406"><a href="structural-topic-models.html#cb94-406" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 9: the, and, shall, vagi, parti </span></span>
+<span id="cb94-407"><a href="structural-topic-models.html#cb94-407" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Topic 10: nem, vagi, kell, törvéni, következo </span></span>
+<span id="cb94-408"><a href="structural-topic-models.html#cb94-408" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-409"><a href="structural-topic-models.html#cb94-409" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-410"><a href="structural-topic-models.html#cb94-410" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-411"><a href="structural-topic-models.html#cb94-411" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 66 (approx. per word bound = -7.942, relative change = 1.318e-05) </span></span>
+<span id="cb94-412"><a href="structural-topic-models.html#cb94-412" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-413"><a href="structural-topic-models.html#cb94-413" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-414"><a href="structural-topic-models.html#cb94-414" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-415"><a href="structural-topic-models.html#cb94-415" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 67 (approx. per word bound = -7.942, relative change = 1.203e-05) </span></span>
+<span id="cb94-416"><a href="structural-topic-models.html#cb94-416" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-417"><a href="structural-topic-models.html#cb94-417" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-418"><a href="structural-topic-models.html#cb94-418" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-419"><a href="structural-topic-models.html#cb94-419" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completing Iteration 68 (approx. per word bound = -7.942, relative change = 1.077e-05) </span></span>
+<span id="cb94-420"><a href="structural-topic-models.html#cb94-420" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; .......................................................................................................</span></span>
+<span id="cb94-421"><a href="structural-topic-models.html#cb94-421" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed E-Step (1 seconds). </span></span>
+<span id="cb94-422"><a href="structural-topic-models.html#cb94-422" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Completed M-Step. </span></span>
+<span id="cb94-423"><a href="structural-topic-models.html#cb94-423" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Model Converged</span></span></code></pre></div>
+<p>Amennyiben a kutatási kérdés megkívánja, akkor megvizsálhatjuk hogy a kategórikus változóinknak milyen hatása volt egyes topikok esetében. Ehhez az <code>estimateEffect()</code> függvénnyel lefuttatunk egy lineáris regressziót és a <code>summary()</code> használatával láthatjuk az egyes kovariánsok koefficienseit. Itt az első topikkal illusztráljuk az eredményt, ami azt mutatja hogy (a kategórikus változóink első kategoriájához mérten) statisztikailag szignifikáns mint a téma mind pedig a kormányzati ciklusok abban hogy egyes dokumentumok milyen témákból épülnek fel.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="structural-topic-models.html#cb95-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-2"><a href="structural-topic-models.html#cb95-2" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>meta<span class="sc">$</span>electoral_cycle <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(out<span class="sc">$</span>meta<span class="sc">$</span>electoral_cycle)</span>
+<span id="cb95-3"><a href="structural-topic-models.html#cb95-3" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>meta<span class="sc">$</span>majortopic <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(out<span class="sc">$</span>meta<span class="sc">$</span>majortopic)</span>
+<span id="cb95-4"><a href="structural-topic-models.html#cb95-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-5"><a href="structural-topic-models.html#cb95-5" aria-hidden="true" tabindex="-1"></a>cov_estimate <span class="ot">&lt;-</span> <span class="fu">estimateEffect</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">~</span> majortopic <span class="sc">+</span> electoral_cycle, stm_fit, <span class="at">meta =</span> out<span class="sc">$</span>meta, <span class="at">uncertainty =</span> <span class="st">&quot;Global&quot;</span>)</span>
+<span id="cb95-6"><a href="structural-topic-models.html#cb95-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-7"><a href="structural-topic-models.html#cb95-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cov_estimate, <span class="at">topics =</span> <span class="dv">1</span>)</span>
+<span id="cb95-8"><a href="structural-topic-models.html#cb95-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb95-9"><a href="structural-topic-models.html#cb95-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb95-10"><a href="structural-topic-models.html#cb95-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimateEffect(formula = 1:10 ~ majortopic + electoral_cycle, </span></span>
+<span id="cb95-11"><a href="structural-topic-models.html#cb95-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     stmobj = stm_fit, metadata = out$meta, uncertainty = &quot;Global&quot;)</span></span>
+<span id="cb95-12"><a href="structural-topic-models.html#cb95-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb95-13"><a href="structural-topic-models.html#cb95-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb95-14"><a href="structural-topic-models.html#cb95-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1:</span></span>
+<span id="cb95-15"><a href="structural-topic-models.html#cb95-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb95-16"><a href="structural-topic-models.html#cb95-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb95-17"><a href="structural-topic-models.html#cb95-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                          Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb95-18"><a href="structural-topic-models.html#cb95-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)               0.30340    0.03100   9.787  &lt; 2e-16 ***</span></span>
+<span id="cb95-19"><a href="structural-topic-models.html#cb95-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic2              -0.20400    0.06769  -3.014 0.002646 ** </span></span>
+<span id="cb95-20"><a href="structural-topic-models.html#cb95-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic3              -0.20439    0.05955  -3.432 0.000623 ***</span></span>
+<span id="cb95-21"><a href="structural-topic-models.html#cb95-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic4              -0.22113    0.05892  -3.753 0.000185 ***</span></span>
+<span id="cb95-22"><a href="structural-topic-models.html#cb95-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic5               0.10304    0.04720   2.183 0.029280 *  </span></span>
+<span id="cb95-23"><a href="structural-topic-models.html#cb95-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic6              -0.22311    0.05868  -3.802 0.000152 ***</span></span>
+<span id="cb95-24"><a href="structural-topic-models.html#cb95-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic7              -0.15568    0.06809  -2.286 0.022436 *  </span></span>
+<span id="cb95-25"><a href="structural-topic-models.html#cb95-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic8              -0.21569    0.07288  -2.959 0.003155 ** </span></span>
+<span id="cb95-26"><a href="structural-topic-models.html#cb95-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic9               0.52502    0.08761   5.992 2.87e-09 ***</span></span>
+<span id="cb95-27"><a href="structural-topic-models.html#cb95-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic10             -0.10869    0.05491  -1.979 0.048045 *  </span></span>
+<span id="cb95-28"><a href="structural-topic-models.html#cb95-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic12             -0.17410    0.04066  -4.281 2.03e-05 ***</span></span>
+<span id="cb95-29"><a href="structural-topic-models.html#cb95-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic13             -0.13579    0.05597  -2.426 0.015432 *  </span></span>
+<span id="cb95-30"><a href="structural-topic-models.html#cb95-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic14             -0.21725    0.07553  -2.876 0.004107 ** </span></span>
+<span id="cb95-31"><a href="structural-topic-models.html#cb95-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic15             -0.14752    0.04267  -3.457 0.000568 ***</span></span>
+<span id="cb95-32"><a href="structural-topic-models.html#cb95-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic16             -0.09594    0.05308  -1.807 0.071004 .  </span></span>
+<span id="cb95-33"><a href="structural-topic-models.html#cb95-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic17             -0.22433    0.05805  -3.864 0.000118 ***</span></span>
+<span id="cb95-34"><a href="structural-topic-models.html#cb95-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic18              0.21036    0.05727   3.673 0.000252 ***</span></span>
+<span id="cb95-35"><a href="structural-topic-models.html#cb95-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic19              0.07385    0.05122   1.442 0.149659    </span></span>
+<span id="cb95-36"><a href="structural-topic-models.html#cb95-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic20             -0.21048    0.03923  -5.366 1.00e-07 ***</span></span>
+<span id="cb95-37"><a href="structural-topic-models.html#cb95-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic21             -0.22473    0.06975  -3.222 0.001314 ** </span></span>
+<span id="cb95-38"><a href="structural-topic-models.html#cb95-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic23             -0.16701    0.09392  -1.778 0.075662 .  </span></span>
+<span id="cb95-39"><a href="structural-topic-models.html#cb95-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; electoral_cycle2002-2006 -0.10358    0.02097  -4.939 9.17e-07 ***</span></span>
+<span id="cb95-40"><a href="structural-topic-models.html#cb95-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb95-41"><a href="structural-topic-models.html#cb95-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+<p>Az LDA modelleknél már bemutatott munkafolyamat az stm modellünk esetében is alkalmazható, hogy vizuálisan is megjelenítsük az eredményeinket. A <code>tidy()</code> data frammé alakítja az stm objektumot, amit aztán a már ismerős <code>dplyr</code> csomagban lévő fügvényekkel tudunk átalakítani és végül vizualizálni a <code>ggplot2</code> csomaggal. A lenti ábrán az egyes témákhoz tartozó 5 legvalószűbb szót mutatjuk be.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="structural-topic-models.html#cb96-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-2"><a href="structural-topic-models.html#cb96-2" aria-hidden="true" tabindex="-1"></a>tidy_stm <span class="ot">&lt;-</span> <span class="fu">tidy</span>(stm_fit)</span>
+<span id="cb96-3"><a href="structural-topic-models.html#cb96-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-4"><a href="structural-topic-models.html#cb96-4" aria-hidden="true" tabindex="-1"></a>tidy_stm <span class="sc">%&gt;%</span></span>
+<span id="cb96-5"><a href="structural-topic-models.html#cb96-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic) <span class="sc">%&gt;%</span></span>
+<span id="cb96-6"><a href="structural-topic-models.html#cb96-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">5</span>, beta) <span class="sc">%&gt;%</span></span>
+<span id="cb96-7"><a href="structural-topic-models.html#cb96-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb96-8"><a href="structural-topic-models.html#cb96-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb96-9"><a href="structural-topic-models.html#cb96-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">topic =</span> <span class="fu">paste0</span>(<span class="st">&quot;Topic &quot;</span>, topic),</span>
+<span id="cb96-10"><a href="structural-topic-models.html#cb96-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">term =</span> <span class="fu">reorder_within</span>(term, beta, topic)</span>
+<span id="cb96-11"><a href="structural-topic-models.html#cb96-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb96-12"><a href="structural-topic-models.html#cb96-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(term, beta)) <span class="sc">+</span></span>
+<span id="cb96-13"><a href="structural-topic-models.html#cb96-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb96-14"><a href="structural-topic-models.html#cb96-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>topic, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb96-15"><a href="structural-topic-models.html#cb96-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb96-16"><a href="structural-topic-models.html#cb96-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
+<span id="cb96-17"><a href="structural-topic-models.html#cb96-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb96-18"><a href="structural-topic-models.html#cb96-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb96-19"><a href="structural-topic-models.html#cb96-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta),</span>
+<span id="cb96-20"><a href="structural-topic-models.html#cb96-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Topikonkénti legmagasabb valószínuségu szavak&quot;</span></span>
+<span id="cb96-21"><a href="structural-topic-models.html#cb96-21" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-101-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Egy-egy topichoz tartozó meghatározó szavak annak függvényében változhatnak hogy milyen algoritmust használunk. A <code>labelTopics()</code> a már becsült stm modellünket alapul véve kínál 4 féle alternatív opciót. Az egyes algoritmusok részletes magyarázatáért érdemes elolvasni a csomag részletes leírását.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="structural-topic-models.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">labelTopics</span>(stm_fit, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>))</span>
+<span id="cb97-2"><a href="structural-topic-models.html#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1 Top Words:</span></span>
+<span id="cb97-3"><a href="structural-topic-models.html#cb97-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Highest Prob: szerzodo, vagi, egyezméni, fél, államban, nem, másik </span></span>
+<span id="cb97-4"><a href="structural-topic-models.html#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       FREX: megadóztatható, haszonhúzója, beruházóinak, segélycsapatok, adóztatást, jövedelemadók, kijelölések </span></span>
+<span id="cb97-5"><a href="structural-topic-models.html#cb97-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Lift: árucikkeket, átalányösszegben, átléphetik, átszállítást, beruházóikat, célországban, cikktanulók </span></span>
+<span id="cb97-6"><a href="structural-topic-models.html#cb97-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Score: szerzodo, államban, illetoségu, egyezméni, megadóztatható, adóztatható, cikka </span></span>
+<span id="cb97-7"><a href="structural-topic-models.html#cb97-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 2 Top Words:</span></span>
+<span id="cb97-8"><a href="structural-topic-models.html#cb97-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Highest Prob: muködési, célú, támogatások, költségvetésegyéb, felhalmozási, terhelo, beruházási </span></span>
+<span id="cb97-9"><a href="structural-topic-models.html#cb97-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       FREX: kiadásokfelújításegyéb, kiadásokintézményi, kiadásokközponti, költségvetésfelhalmozási, kiadásokkormányzati, felújításegyéb, rek </span></span>
+<span id="cb97-10"><a href="structural-topic-models.html#cb97-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Lift: a+b+c, a+b+c+d, adago, adódóa, adósságállományából, adósságrendezésr, adótartozásának </span></span>
+<span id="cb97-11"><a href="structural-topic-models.html#cb97-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Score: költségvetésegyéb, költségvetésszemélyi, kiadásokfelhalmozási, járulékokdolog, költségvetésintézményi, kiadásokegyéb, juttatásokmunkaadókat</span></span></code></pre></div>
+<p>A korpuszunkon belüli témák megoszlását a <code>plot.STM()</code>-el tudjuk ábrázolni. Jól látszik hogy a Topic 2-be tartozó szavak vannak jelen a legnagyobb arányban a dokumentumaink között.</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="structural-topic-models.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.STM</span>(stm_fit, <span class="st">&quot;summary&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-103-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Végezetül, a témák közötti korrelációt a <code>topicCorr</code> függvénnyel becsülhetjük és az <code>igraph</code> csomagot betöltve a <code>plot()</code> paranccsal tudjuk vizualizálni. Az eredmény egy hálózat lesz amit gráfként ábrázolunk. Az élei a gráfoknak a témák közötti összefüggést jelölik.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="structural-topic-models.html#cb99-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-2"><a href="structural-topic-models.html#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb99-3"><a href="structural-topic-models.html#cb99-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-4"><a href="structural-topic-models.html#cb99-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">topicCorr</span>(stm_fit))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-104-1.png" width="90%" style="display: block; margin: auto;" /></p>
+
+</div>
+<div class="footnotes">
+<hr />
+<ol start="15">
+<li id="fn15"><p>Az `stm` csomaghoz tartozó leírás: <a href="https://cran.r-project.org/web/packages/stm/vignettes/stmVignette.pdf" class="uri">https://cran.r-project.org/web/packages/stm/vignettes/stmVignette.pdf</a><a href="structural-topic-models.html#fnref15" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="szóbeágyazások.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

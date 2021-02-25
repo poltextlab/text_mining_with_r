@@ -35,11 +35,11 @@ A nagy mennyiségű szöveges dokumentum (a legyakrabban előforduló kiterjeszt
 
 ```{r, eval=FALSE}
 df_text <- readtext(
-  "data/*.txt", 
-  docvarsfrom = "filenames", 
+  "data/*.txt",
+  docvarsfrom = "filenames",
   dvsep = "_",
   docvarnames = c("nev", "ev", "part")
-  )
+)
 ```
 
 ## Adatok exportálása
@@ -59,10 +59,10 @@ Az úgynevezett *pipe* operátor alapjaiban határozta meg a modern R fejlődés
 ```{r, eval=FALSE}
 reggeli(oltozkodes(felkeles(ebredes(en, idopont = "8:00"), oldal = "jobb"), nadrag = TRUE, ing = TRUE))
 
-en %>% 
-  ebredes(idopont = "8:00") %>% 
-  felkeles(oldal = "jobb") %>% 
-  oltozkodes(nadrag = TRUE, ing = TRUE) %>% 
+en %>%
+  ebredes(idopont = "8:00") %>%
+  felkeles(oldal = "jobb") %>%
+  oltozkodes(nadrag = TRUE, ing = TRUE) %>%
   reggeli()
 ```
 
@@ -100,9 +100,8 @@ Itt tehát a data frame azon sorait szeretnénk látni, ahol az ország megegyez
 A `select()` függvény segítségével válogathatunk oszlopokat a data frame-ből. A változók kiválasztására több megoldás is van. A `dplyr` csomag tartalmaz apróbb kisegítő függvényeket, amik megkönnyítik a nagy adatbázisok esetén a változók kiválogatását a nevük alapján. Ezek a függvények a `contains()`, `starts_with()`, `ends_with()`, `matches()` és beszédesen arra szolgálnak hogy bizonyos nevű változókat ne kelljen egyenként felsorolni. A `select()`-en belüli változó sorrend egyben az eredmény data frame változó sorrendjet is megadja. A negatív kiválasztás is lehetséges, ebben az esetben egy `-` kell tennünk a nemkívánt változó(k) elé (pl.: `select(df, year, country, -continent`).
 
 ```{r warning=FALSE, message=FALSE}
-gapminder %>% 
+gapminder %>%
   select(contains("ea"), starts_with("co"), pop)
-  
 ```
 
 ### Új változók létrehozása: `mutate()`
@@ -110,8 +109,8 @@ gapminder %>%
 Az elemzési munkafolyamat elkerülhetetlen része hogy új változókat hozzunk létre, vagy a meglévőket módosítsuk. Ezt a `mutate()`-el tehetjuk meg, ahol a szintaxis a következő: `mutate(data frame, uj valtozo = ertekek)`. Példaként kiszámoljuk a Svéd GDP-t (milliárd dollárban) 1992-től kezdve. A `mutate()` alkalmazásával részletesebben is foglalkozunk a szövegek előkészítésével foglalkozó fejezetben.
 
 ```{r}
-gapminder %>% 
-  filter(country == "Sweden", year >= 1992) %>% 
+gapminder %>%
+  filter(country == "Sweden", year >= 1992) %>%
   mutate(gdp = (gdpPercap * pop) / 10^9)
 ```
 
@@ -120,8 +119,8 @@ gapminder %>%
 Az adataink részletesebb és alaposabb megismerésében segítenek a különböző szintű leíró statisztikai adatok. A szintek megadására a `group_by()` használható, a csoportokon belüli számításokhoz pedig a `summarize()`. A lenti példa azt illusztrálja, hogyha kontinensenként csoportosítjuk a `gapminder` data framet, akkor a `summarise()` használatával megkaphatjuk a megfigyelések számát, illetve az átlagos per capita GDP-t. A `summarise()` a `mutate()` közeli rokona, hasonló szintaxissal és logikával használható. Ezt a függvény párost fogjuk majd használni a szöveges adataink leíró statisztikáinál is a 4. fejezetben.
 
 ```{r}
-gapminder %>% 
-  group_by(continent) %>% 
+gapminder %>%
+  group_by(continent) %>%
   summarise(megfigyelesek = n(), atlag_gdp = mean(gdpPercap))
 ```
 
@@ -136,7 +135,7 @@ library(stringr)
 ```
 
 ```{r eval=FALSE}
-szoveg <- c('gitar', 'ukulele', 'nagybogo')
+szoveg <- c("gitar", "ukulele", "nagybogo")
 
 str_view(szoveg, pattern = "ar")
 ```
