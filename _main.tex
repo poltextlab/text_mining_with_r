@@ -125,7 +125,7 @@
 
 \title{Szövegbányászat és mesterséges intelligencia R-ben}
 \author{Sebők Miklós, Ring Orsolya}
-\date{2021-02-18 15:30:15}
+\date{2021-02-25 13:44:38}
 
 \begin{document}
 \frontmatter
@@ -596,6 +596,553 @@ Néhány hasznos regex kifejezés:
   \texttt{*} - bármi
 \end{itemize}
 
+\hypertarget{korpuszuxe9puxedtuxe9s-uxe9s-szuxf6vegelux151kuxe9szuxedtuxe9s}{%
+\chapter{Korpuszépítés és
+szövegelőkészítés}\label{korpuszuxe9puxedtuxe9s-uxe9s-szuxf6vegelux151kuxe9szuxedtuxe9s}}
+
+\hypertarget{szuxf6vegbeszerzuxe9s}{%
+\section{Szövegbeszerzés}\label{szuxf6vegbeszerzuxe9s}}
+
+A szövebányászati elemzések egyik első lépése az elemzés alapjául
+szolgáló korpusz megépítése. A korpuszt alkotó szövegek beszerzésének
+egyik módja a webscarping, melynek során weboldalakról történik az
+információ kinyerése.
+
+A scrapelést végezhetjük R-ben az \texttt{rvest} csomomag segítségével.
+Fejezetünkben a scrapelésnek csupán néhány alaplépését mutatjuk meg, a
+folyamatról bővebb információ található például az alábbi
+oldalakon:\url{https://cran.r-project.org/web/packages/rvest/rvest.pdf},
+\url{https://rvest.tidyverse.org/}.
+
+Telepítsük, majd olvassuk be az \texttt{rvest} csomagot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"rvest"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{library}\NormalTok{(rvest)}
+\FunctionTok{library}\NormalTok{(readr)}
+\end{Highlighting}
+\end{Shaded}
+
+Majd a \texttt{read\_html()} függvény segítségével az adott weboldal
+adatait kérjük le a szerverről. A \texttt{read\_html()} függvény
+argumentuma az adott weblap URL-je.
+
+Ha például a \texttt{poltextLAB} projekt honlapjáról szeretnénk adatokat
+gyűjteni, azt az alábbi módon tehetjük meg:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{r }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(}\StringTok{"https://poltextlab.tk.hu/hu"}\NormalTok{)}
+
+\NormalTok{r}
+\CommentTok{\#\textgreater{} \{html\_document\}}
+\CommentTok{\#\textgreater{} \textless{}html lang="hu" class="no{-}js"\textgreater{}}
+\CommentTok{\#\textgreater{} [1] \textless{}head\textgreater{}\textbackslash{}n\textless{}meta http{-}equiv="Content{-}Type" content="text/html; charset=UTF{-}8 ...}
+\CommentTok{\#\textgreater{} [2] \textless{}body class="index"\textgreater{}\textbackslash{}n\textbackslash{}n\textbackslash{}t\textless{}script\textgreater{}\textbackslash{}n\textbackslash{}t  (function(i,s,o,g,r,a,m)\{i[\textquotesingle{}Googl ...}
+\end{Highlighting}
+\end{Shaded}
+
+Ezután a \texttt{html\_nodes()} függvény argumentumaként meg kell adnunk
+azt a HTML címkét vagy CSS azonosítót, ami a legyűjteni kívánt elemeket
+azonosítja a weboldalon. Ezeket az azonosítókat az adott weboldal
+forráskódjának megtekintésével tudhatjuk meg, amire a különböző
+böngészők különböző lehetőségeket kínálnak. Majd a \texttt{html\_text()}
+függvény segítségével megkapjuk azokat a szövegeket, amely az adott
+weblapon az adott azonosítóval rendelkeznek.
+
+Példánkban a \url{https://poltextlab.tk.hu/hu} weboldalról azokat az
+információkat szeretnénk kigyűjteni, amelyek az
+
+címke alatt szerepenek:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{title }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(}\StringTok{"https://poltextlab.tk.hu/hu"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{html\_nodes}\NormalTok{(}\StringTok{"title"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{html\_text}\NormalTok{()}
+
+
+\NormalTok{title}
+\CommentTok{\#\textgreater{} [1] "MTA TK Political and Legal Text Mining and Artificial Intelligence Laboratory (poltextLAB)"}
+\end{Highlighting}
+\end{Shaded}
+
+A kigyűjtött információkat pedig ezután kiíratjuk egy \texttt{csv}
+fájlba.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{write\_csv}\NormalTok{(title, }\StringTok{"title.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+A web scraping során az egyik nehézség, ha a weboldal letiltja az
+automatikus letöltést, ezt kivédhetjük például különböző
+böngészőbővítmények segítségével, illetve a fejléc (header) vagy a user
+agent megváltoztatásával, de segíthet véletlenszerű proxy vagy VPN
+szolgáltatás használata is, valamint ha az egyes kérések között időt
+hagynunk. A weboldalakon legtöbbször a legyűjtött szövegekhez tartozó
+különböző metaadatok is szerepelnek (például egy parlamenti beszéd
+dátuma, az azt elmondó képviselő neve), melyeket érdemes a scarpelés
+során szintén összegyűjteni. A scrapelés során fontos figyelnünk arra,
+hogy később jól használható formában mentsük el az adatokat, például
+\texttt{.csv},\texttt{.json} vagy \texttt{.txt} kiterjesztésekkel. A
+karakterkódolási problémák elkerülése érdekében érdemes UTF-8 vagy
+UTF-16-os kódolást alkalmazni, mivel ezek tartalmazzák a magyar nyelv
+ékezetes karaktereit is. A karakterkódolással kapcsolatosan hasznos
+további információk találhatóak az alábbi oldalon:
+\url{http://www.cs.bme.hu/~egmont/utf8/}
+
+Arra is van lehetőség, hogy az elemezni kívánt korpuszt papíron
+keletkezett, majd szkennelt és szükség szerint optikai
+karakterfelismerés (OCR, Optical Character Recognition) segítségével
+feldolgozott szövegekből építsük fel. Azonban mivel ezeket a feladatokat
+nem R-ben végezzük, ezekről itt nem szólunk bővebben. Az így beszerzett
+és \texttt{.txt}, vagy \texttt{.csv} fájlá alakított szövegekből való
+korpuszépítés a következő lépésekben megegyezik a weboldalakról gyűjtött
+szövegekével.
+
+\hypertarget{szuxf6vegelux151kuxe9szuxedtuxe9s}{%
+\section{Szövegelőkészítés}\label{szuxf6vegelux151kuxe9szuxedtuxe9s}}
+
+Az elemzéshez vezető következő lépés a szövegelőkészítés, amit a szöveg
+tisztításával kell megkezdenünk. A szövegtisztításnél mindig járjunk el
+körültekintően és az egyes lépéseket a kutatási kérdésünknek megfelelően
+tervezzük meg, a folyamat során pedig időnként végezzünk ellenőrzést,
+ezzel elkerülhetjük a kutatásunkhoz szükséges információk elvesztését.
+
+A korpusz előkészítéséhez az \texttt{install.packages()} paranccsal
+telepítsük, majd a \texttt{library()} paranccsal olvassuk be az alábbi
+csomagokat.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"lubridate"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"stringr"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"quanteda"}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"quanteda.textmodels"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\FunctionTok{library}\NormalTok{(quanteda)}
+\FunctionTok{library}\NormalTok{(quanteda.textmodels)}
+\end{Highlighting}
+\end{Shaded}
+
+Miután az elemezni kívánt szövegeinket beszereztük, majd a ``Szöveges
+dokumentumok importálása''{[}BE KELL MAJD ÍRNI A VÉLGLEGES
+FEJEZETSZÁMOT{]} című aljezetben leírtak szerint importáltuk,
+következhetnek az alapvető előfeldolgozási lépések, ezek közé tartozik
+például a scrapelés során a kopuszba került html címkék, számok és egyéb
+zajok (például a speciális karakterek, írásjelek) eltávolítása a
+korpuszból, valamint a kisbetűsítés, a tokenizálás, a szótövezés és a
+stopszavazás.
+
+\hypertarget{string-mux171veletek}{%
+\subsection{String műveletek}\label{string-mux171veletek}}
+
+A \texttt{stringr} csomag segítségével először eltávolíthatjuk a
+felesleges \texttt{html} címkéket a kopruszból. Ehhez először
+létrehozzuk a \texttt{text1} nevű objektumot ami egy karaktervektoból
+áll.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{text1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"MTA TK"}\NormalTok{, }\StringTok{"\textless{}font size=\textquotesingle{}6\textquotesingle{}\textgreater{} Political and Legal Text Mining and Artificial Intelligence Laboratory (poltextLAB)"}\NormalTok{)}
+
+\NormalTok{text1}
+\CommentTok{\#\textgreater{} [1] "MTA TK"                                                                                             }
+\CommentTok{\#\textgreater{} [2] "\textless{}font size=\textquotesingle{}6\textquotesingle{}\textgreater{} Political and Legal Text Mining and Artificial Intelligence Laboratory (poltextLAB)"}
+\end{Highlighting}
+\end{Shaded}
+
+Majd a \texttt{str\_replace\_all()}függvény segítségével eltávolítjuk
+két html címke közötti szövegrészt. Ehhez a függvény argumentumában
+létrehozunk egy regex kifejezést, aminek segítségével a függvény minden
+\textless\textgreater{} közötti szövegrészt üres karakterekre cserél.
+Ezután a \texttt{str\_to\_lower()}mindent kisbetűvé konvertál, majd a
+\texttt{str\_trim()}eltávolítja a szóközöket a karekterláncok elejéről
+és végéről.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{text1 }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{str\_replace\_all}\NormalTok{(}\AttributeTok{pattern =} \StringTok{"\textless{}.*?\textgreater{}"}\NormalTok{, }\AttributeTok{replacement =} \StringTok{""}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{str\_to\_lower}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{str\_trim}\NormalTok{()}
+\CommentTok{\#\textgreater{} [1] "mta tk"                                                                             }
+\CommentTok{\#\textgreater{} [2] "political and legal text mining and artificial intelligence laboratory (poltextlab)"}
+\end{Highlighting}
+\end{Shaded}
+
+A string műveletekről bővebben:
+\url{https://r4ds.had.co.nz/strings.html}
+
+\hypertarget{tokenizuxe1luxe1s-szuxf3tuxf6vezuxe9s-kisbetux171suxedtuxe9s-uxe9s-a-stopszavak-eltuxe1voluxedtuxe1sa}{%
+\subsection{Tokenizálás, szótövezés, kisbetűsítés és a stopszavak
+eltávolítása}\label{tokenizuxe1luxe1s-szuxf3tuxf6vezuxe9s-kisbetux171suxedtuxe9s-uxe9s-a-stopszavak-eltuxe1voluxedtuxe1sa}}
+
+Az előkészítés következő lépésében tokenizáljuk, azaz egységeire bontjuk
+az elemezni kívánt szöveget, a tokenek így pedig az egyes szavakat vagy
+kifejezéseket fogják jelölni. Ennek eredményeként kapjuk meg az
+n-gramokat, amik a vizsgált egységek (számok, betűk, szavak,
+kifejezések) n-elemű sorozatát alkotják.
+
+A következőkben a ``Példa az előkészítésre'' mondatot bontjuk először
+tokenekre a \texttt{tokens()} függvénnyel, majd a tokeneket a
+\texttt{tokens\_tolower()} segítségével kisbetűsítjük, a
+\texttt{tokens\_wordstem()} függvénnyel pedig szótövezzük. Végezetül a
+\texttt{quanteda} csomagban található magyar nyelvű stopszótár
+segítségével, elvégezzük a stopszavak eltávolítását.Ehhez először
+létrehozzuk az \texttt{sw} elenevezésű karaktervektort a magyar
+stopszvakból. A \texttt{head()} függvény segítségével belenézhetünk a
+szótárba, és a console-ra kiírathatjuk a szótár első hat szavát. Végül a
+\texttt{tokens\_remove()}segítségével eltávolítjuk a stopszavakat.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{text }\OtherTok{\textless{}{-}} \StringTok{"Példa az elokészítésre"}
+
+\NormalTok{toks }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(text)}
+
+\NormalTok{toks }\OtherTok{\textless{}{-}} \FunctionTok{tokens\_tolower}\NormalTok{(toks)}
+
+\NormalTok{toks }\OtherTok{\textless{}{-}} \FunctionTok{tokens\_wordstem}\NormalTok{(toks)}
+
+\NormalTok{toks}
+\CommentTok{\#\textgreater{} Tokens consisting of 1 document.}
+\CommentTok{\#\textgreater{} text1 :}
+\CommentTok{\#\textgreater{} [1] "példa"        "az"           "elokészítésr"}
+
+\NormalTok{sw }\OtherTok{\textless{}{-}} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"hungarian"}\NormalTok{)}
+
+\FunctionTok{head}\NormalTok{(sw)}
+\CommentTok{\#\textgreater{} [1] "a"     "ahogy" "ahol"  "aki"   "akik"  "akkor"}
+
+\FunctionTok{tokens\_remove}\NormalTok{(toks, sw)}
+\CommentTok{\#\textgreater{} Tokens consisting of 1 document.}
+\CommentTok{\#\textgreater{} text1 :}
+\CommentTok{\#\textgreater{} [1] "példa"        "elokészítésr"}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{stemmeluxe9s-vagy-lemmatizuxe1luxe1s}{%
+\subsubsection{Stemmelés vagy
+lemmatizálás}\label{stemmeluxe9s-vagy-lemmatizuxe1luxe1s}}
+
+Ezt követi a szótövezés lépése, melynek során az alkalmazott stemmelő
+algoritmus egyszerűen levágja a szavak összes toldalékát, a képzőket,
+jelzőket és ragokat. A stemmelés helyett alkalmazhatunk lemmatizálást,
+melynek során a szavakat a szótári alakjukra formáljuk. A stemming és
+lemmatizálás közötti különbség abban rejlik, hogy a szótövezés során
+csupán eltávolítjuk a szavak toldalékként azonosított végződéseit, hogy
+ugyanannak a szónak különböző megjelenési formáit közös törzsre
+redukáljuk, míg a lemmatizálás esetében rögtön az értelmes, szótári
+formát kapjuk vissza. A két módszer közötti választás a kutatási kérdés
+alapján meghozott kutatói döntésen
+alapul.(\protect\hyperlink{ref-grimmer2013a}{\textbf{grimmer2013a?}})
+
+\hypertarget{lemmatizuxe1luxe1s}{%
+\paragraph{Lemmatizálás}\label{lemmatizuxe1luxe1s}}
+
+Az alábbi példában egyetlen szó különböző alakjainak szótári alakra
+hozásával szemléltetjük a lemmatizáslás működését.
+
+Ehhez először a \texttt{text1} nevű objektumban tároljuk a lemmatizálni
+kívánt szöveget, majd tokenizáljuk és eltávolítjuk a központozást.
+Ezután definiáljuk azt a megfelelő szótövet és azt, hogy mely szavak
+alakjait szeretnénk erre a szótőre egységesíteni majd a \texttt{rep()}
+függvény segítségével elvégezzük a lemmatizálást, amely a korábban
+definiált szólakokat az általunk megadott szótári alakkal helyettesíti.
+Hosszabb szövegek lemmatizálásához előre létrehozott szótárakat
+használhatunk, ilyen például a Wordnet, ami magyar nyelven is elérhető:
+\url{https://github.com/mmihaltz/huwn} A magyar nyelvű szövegek
+lemmatizálását elvégezhetjük a szövegek R-be való beolvasása előtt is a
+\texttt{magyarlánc}nyelvi elemző segítségével, melyről a kötet
+függelékében, a Magyar nyelvű NLP és nyelvtechnológiai eszközök között
+szólunk részletesebben.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{text1 }\OtherTok{\textless{}{-}} \StringTok{"Példa az elokészítésre. Az elokészítést a szövetisztítással kell megkezdenünk. Az elokészített korpuszon elemzést végzünk"}
+
+\NormalTok{toks1 }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(text1, }\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{)}
+
+\NormalTok{elokészítés }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"elokészítésre"}\NormalTok{, }\StringTok{"elokészítést"}\NormalTok{, }\StringTok{"elokészített"}\NormalTok{)}
+
+\NormalTok{lemma }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\StringTok{"elokészítés"}\NormalTok{, }\FunctionTok{length}\NormalTok{(elokészítés))}
+
+\NormalTok{toks1 }\OtherTok{\textless{}{-}} \FunctionTok{tokens\_replace}\NormalTok{(toks1, elokészítés, lemma, }\AttributeTok{valuetype =} \StringTok{"fixed"}\NormalTok{)}
+
+\NormalTok{toks1}
+\CommentTok{\#\textgreater{} Tokens consisting of 1 document.}
+\CommentTok{\#\textgreater{} text1 :}
+\CommentTok{\#\textgreater{}  [1] "Példa"             "az"                "elokészítés"      }
+\CommentTok{\#\textgreater{}  [4] "Az"                "elokészítés"       "a"                }
+\CommentTok{\#\textgreater{}  [7] "szövetisztítással" "kell"              "megkezdenünk"     }
+\CommentTok{\#\textgreater{} [10] "Az"                "elokészítés"       "korpuszon"        }
+\CommentTok{\#\textgreater{} [ ... and 2 more ]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{stemmeluxe9s}{%
+\paragraph{Stemmelés}\label{stemmeluxe9s}}
+
+A fenti \texttt{text1} objektumban tárolt szöveg stemmelését az alábbiak
+szerint tudjuk elvégezni. Megvizsgálva az előkészítés különböző
+alakjainak lemmatizált és stemmelt változatát jól láthatjuk a két
+módszer közötti különbséget.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{text1 }\OtherTok{\textless{}{-}} \StringTok{"Példa az elokészítésre. Az elokészítést a szövetisztítással kell megkezdenünk. Az elokészített korpuszon elemzést végzünk"}
+
+\NormalTok{toks2 }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(text1, }\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{)}
+
+\NormalTok{toks2 }\OtherTok{\textless{}{-}} \FunctionTok{tokens\_wordstem}\NormalTok{(toks2)}
+
+\NormalTok{toks2}
+\CommentTok{\#\textgreater{} Tokens consisting of 1 document.}
+\CommentTok{\#\textgreater{} text1 :}
+\CommentTok{\#\textgreater{}  [1] "Példa"           "az"              "elokészítésr"    "Az"             }
+\CommentTok{\#\textgreater{}  [5] "elokészítést"    "a"               "szövetisztításs" "kell"           }
+\CommentTok{\#\textgreater{}  [9] "megkezdenünk"    "Az"              "elokészített"    "korpuszon"      }
+\CommentTok{\#\textgreater{} [ ... and 2 more ]}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{dokumentum-kifejezuxe9s-muxe1trix-dtm}{%
+\subsection{Dokumentum kifejezés mátrix
+(DTM)}\label{dokumentum-kifejezuxe9s-muxe1trix-dtm}}
+
+A szövegbányászati elemzések nagy részéhez szükségünk van arra, hogy a
+szövegeinkből dokumentum kifejezés matrix-ot (DTM), vagy dokumentum
+feature matrxi-ot (DFM) hozzunk létre. Ezzel a lépéssel alkaítjuk a
+szövegeinket számokká, ami lehetővé teszi, hogy utána különböző
+staisztikai műveleteket végezzünk velük.
+
+A dokumentumk kifejezés mátrix minden sora egy dokumentum, minden
+oszlopa egy kifejezés, az oszlopokban szereplő változók pedig az egyes
+kifejezések számát mutatják meg az egyes dokumnetumokban. A legtöbb DTM
+ritka mátrix, mivel a legtöbb dokumentum és kifejezés párosítása nem
+történik meg, mivel a kifejezések nagy része csak néhány dokumentumban
+szerepel, ezek értéke nulla lesz.
+
+Az alábbi példában három egy-egy mondatos dokumentumon szemléltetjük a
+fentieket. A korábban megismert módon előkészítjük, azaz kisbetűsítjük,
+stemmeljük és stopszavazzuk a dokumentumokat, majd létrehozzuk belőlük a
+sokumentum kifejezés mátrixot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{text }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+  \AttributeTok{d1 =} \StringTok{"Ez egy példa az elofeldolgozásra"}\NormalTok{,}
+  \AttributeTok{d2 =} \StringTok{"Egy másik lehetséges példa"}\NormalTok{,}
+  \AttributeTok{d3 =} \StringTok{"Ez pedig egy harmadik példa"}
+\NormalTok{)}
+
+\NormalTok{dtm }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(}
+\NormalTok{  text,}
+  \AttributeTok{tolower =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{stem =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{remove =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"hungarian"}\NormalTok{)}
+\NormalTok{)}
+
+\NormalTok{dtm}
+\CommentTok{\#\textgreater{} Document{-}feature matrix of: 3 documents, 4 features (50.0\% sparse).}
+\CommentTok{\#\textgreater{}     features}
+\CommentTok{\#\textgreater{} docs példa elofeldolgozásra lehetség harmadik}
+\CommentTok{\#\textgreater{}   d1     1                1        0        0}
+\CommentTok{\#\textgreater{}   d2     1                0        1        0}
+\CommentTok{\#\textgreater{}   d3     1                0        0        1}
+\end{Highlighting}
+\end{Shaded}
+
+Egy másik szövegbányáaszati megközelítés a mátrixot nem DTM-nek, hanem
+DFM-nek nevezi, például a \texttt{quanteda} csomag használata során nem
+DTM-et, hanem DFM-et kell létrehoznunk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{text }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+  \AttributeTok{d1 =} \StringTok{"Ez egy példa az elofeldolgozásra"}\NormalTok{,}
+  \AttributeTok{d2 =} \StringTok{"Egy másik lehetséges példa"}\NormalTok{,}
+  \AttributeTok{d3 =} \StringTok{"Ez pedig egy harmadik példa"}
+\NormalTok{)}
+
+\NormalTok{dfm }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(}
+\NormalTok{  text,}
+  \AttributeTok{tolower =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{stem =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{remove =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"hungarian"}\NormalTok{)}
+\NormalTok{)}
+
+\NormalTok{dfm}
+\CommentTok{\#\textgreater{} Document{-}feature matrix of: 3 documents, 4 features (50.0\% sparse).}
+\CommentTok{\#\textgreater{}     features}
+\CommentTok{\#\textgreater{} docs példa elofeldolgozásra lehetség harmadik}
+\CommentTok{\#\textgreater{}   d1     1                1        0        0}
+\CommentTok{\#\textgreater{}   d2     1                0        1        0}
+\CommentTok{\#\textgreater{}   d3     1                0        0        1}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{suxfalyozuxe1s}{%
+\subsection{Súlyozás}\label{suxfalyozuxe1s}}
+
+A dokumentum kifejezés mátrix lehet egy egyszerű bináris mátrix, ami
+csak azt az információt tartalmazza, hogy egy adott szó előfordul-e egy
+adott dokumentumban. Míg az egyszerű bináris mátrixban ugyanakkora súlya
+van egy szónak ha egyszer és ha tízszer szerepel, készíthetünk olyan
+mátrixot is, ahol egy szónak annál nagyobb a súlya egy dokumentumban,
+minél többször fordul elő. A szógyakoriság (term frequency, TM) szerint
+súlyozott TD mátrixnál azt is figyelembe vesszük, hogy az adott szó hány
+dokumentumban szerepel. Minél több dokumentumban szerepel egy szó, annál
+kisebb a jelentősége. Ilyen szavak például a névelők, amelyek sok
+dokumentumban előfordulnak ugyan, de nem sok tartalmi jelentőséggel
+bírnak. Két szó közül általában az a fontosabb, amelyik koncentráltan,
+kevés dokumentumban, de azokon belül nagy gyakorisággal fordul elő. A
+dokumentum gyakorisági érték (document frequency, df) egy szó ritkaságát
+jellemzi egy korpuszon belül, azaz megadja, hogy mekkora megkülönböztető
+ereje van egy szónak a dokumentum tartalmára vonatkozóan. A súlyozási
+sémákban általában a dokumentum gyakorisági érték inverzével számolnak
+(inverse document frequency, idf) ez a leggyakrabban használt td-idf
+súlyozás (term frequency \& inverse document frequency. Az így súlyozott
+TD mátrix egy-egy cellájában található érték azt mutatja, hogy egy adott
+szónak mekkora a jelentősége egy adott dokumentumban. A tf -idf súlyozás
+értéke tehát magas azon szavak esetén, amelyek az adott dokumentumban
+gyakran fordulnak elő, míg a teljes korpuszban ritkán, alacsonyabb azon
+szavak esetén, amelyek az adott dokumentumban ritkábban, vagy a
+korpuszban gyakrabban fordulnak elő és kicsi azon szavaknál, amelyek a
+korpusz lényegében összes dokumentumában előfordulnak
+(\protect\hyperlink{ref-Tikk2007:33-37}{\textbf{Tikk2007:33-37?}})
+
+Az alábbiakban az 1999-es törvényszöveken szemlétetjük hogy egy 125
+dokumentumból létrehozott mátrix segítségével milyen alapvető
+statisztikai műveleteket végezhetünk.\footnote{Az itt használt kódok az
+  alábbiakon alapulnak:
+  \url{http://www.akosmate.com/QTA_SZISZ_2019/week03_descriptives_i/session3_r_script.html},
+  \url{https://rdrr.io/cran/quanteda/man/dfm_weight.html},
+  \url{https://rdrr.io/cran/quanteda/man/dfm_tfidf.html}}
+
+Ehhez először importáljuk a törvények egy \texttt{.csv} kiterjesztésű
+fájlból. A \texttt{read\_csv()} használatának az az előnye, hogy
+alapbeállításként UTF-8 formátumban importálja be a szöveges oszlopokat.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{lawtext\_df }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/lawtext\_1999.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Majd az importált fájlokból létrehozzuk a korpusz
+\texttt{lawtext\_corpus} néven. Ezt követi a dokumnetum kifejezés mátrix
+kialakítása (mivel a \texttt{quanteda} csomaggal dolgozunk, \texttt{dfm}
+mátrixot hozunk létre), és ezzel egy lépésben, elvégezzük az alapvető
+szövegtisztitó lépéseket is.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{lawtext\_corpus }\OtherTok{\textless{}{-}} \FunctionTok{corpus}\NormalTok{(lawtext\_df)}
+
+\NormalTok{lawtext\_dfm }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(lawtext\_corpus,}
+  \AttributeTok{tolower =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove =}
+    \FunctionTok{stopwords}\NormalTok{(}\StringTok{"hungarian"}\NormalTok{), }\AttributeTok{stem =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_symbols =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_numbers =} \ConstantTok{TRUE}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+A \texttt{topfeatures} függvény segítségével megnézhetjük a mátrix
+leggyakoribb szavait a függvény argumentumában a dokumnetum kifejezés
+mátrix nevét és a kívánt kifejezésszámot megadva.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{topfeatures}\NormalTok{(lawtext\_dfm, }\DecValTok{15}\NormalTok{)}
+\CommentTok{\#\textgreater{}       the        of  szerzodo        to         b        ha       and  kiadások }
+\CommentTok{\#\textgreater{}      7902      5665      3619      3290      2831      2794      2712      2447 }
+\CommentTok{\#\textgreater{}   törvéni        in következo  muködési        or       évi        is }
+\CommentTok{\#\textgreater{}      2385      2253      2178      2038      2034      1908      1864}
+\end{Highlighting}
+\end{Shaded}
+
+Mivel látható, hogy a szövegekben sok angol kifejezés is volt egy
+következő lépcsőben, az angol stopszavakat is eltávolitjuk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{lawtext\_dfm\_2 }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(lawtext\_dfm, }\AttributeTok{remove =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"english"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Majd ismét megnézzük a leggyakoribb 15 kifejezést.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{topfeatures}\NormalTok{(lawtext\_dfm\_2, }\DecValTok{15}\NormalTok{)}
+\CommentTok{\#\textgreater{}      szerzodo             b            ha      kiadások       törvéni }
+\CommentTok{\#\textgreater{}          3619          2831          2794          2447          2385 }
+\CommentTok{\#\textgreater{}     következo      muködési           évi         állam             c }
+\CommentTok{\#\textgreater{}          2178          2038          1908          1718          1713 }
+\CommentTok{\#\textgreater{} meghatározott   költségveté      államban           lép           fél }
+\CommentTok{\#\textgreater{}          1654          1637          1622          1616          1533}
+\end{Highlighting}
+\end{Shaded}
+
+Ezután tf-idf súlyozású statisztikát készítünk, a dokumentum kifejezés
+mátrix alapján. Ehhez először létrehozzuk a \texttt{lawtext\_tfidf} nevű
+objektumot, majd a \texttt{textstat\_frequency} függvény segítségével,
+és kilistázzuk annak első 10 elemét.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lawtext\_tfidf }\OtherTok{\textless{}{-}} \FunctionTok{dfm\_tfidf}\NormalTok{(lawtext\_dfm\_2)}
+
+\FunctionTok{textstat\_frequency}\NormalTok{(lawtext\_tfidf, }\AttributeTok{force =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{n =} \DecValTok{10}\NormalTok{)}
+\CommentTok{\#\textgreater{}         feature frequency rank docfreq group}
+\CommentTok{\#\textgreater{} 1      kiadások 2120.2303    1      17   all}
+\CommentTok{\#\textgreater{} 2  felhalmozási 1448.3465    2       7   all}
+\CommentTok{\#\textgreater{} 3      szerzodo 1378.5012    3      52   all}
+\CommentTok{\#\textgreater{} 4   költségveté 1302.8556    4      20   all}
+\CommentTok{\#\textgreater{} 5         shall 1291.1619    5      14   all}
+\CommentTok{\#\textgreater{} 6      államban 1223.7785    6      22   all}
+\CommentTok{\#\textgreater{} 7        részes 1155.9688    7      13   all}
+\CommentTok{\#\textgreater{} 8      muködési 1101.7581    8      36   all}
+\CommentTok{\#\textgreater{} 9        articl  967.8961    9      14   all}
+\CommentTok{\#\textgreater{} 10        parti  845.2246   10      20   all}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{leuxedruxf3-statisztika-szuxf3zsuxe1k-uxe9s-szuxf3eloszluxe1sok}{%
 \chapter{Leíró statisztika: szózsák és
 szóeloszlások}\label{leuxedruxf3-statisztika-szuxf3zsuxe1k-uxe9s-szuxf3eloszluxe1sok}}
@@ -1031,7 +1578,7 @@ alsó szélső értékeit.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-35-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-55-1} \end{center}
 
 \hypertarget{mnb-sajtuxf3kuxf6zlemuxe9nyek}{%
 \section{MNB sajtóközlemények}\label{mnb-sajtuxf3kuxf6zlemuxe9nyek}}
@@ -1228,13 +1775,1431 @@ validálása a kapott eredményeknek ezért is nagyon fontos, illetve
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-43-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-63-1} \end{center}
 
-\hypertarget{klaszterelemzuxe9s-uxe9s-topic-modellezuxe9s}{%
-\chapter{Klaszterelemzés és topic
-modellezés}\label{klaszterelemzuxe9s-uxe9s-topic-modellezuxe9s}}
+\hypertarget{feluxfcgyelet-nuxe9lkuxfcli-tanuluxe1s-topik-modellezuxe9s-magyar-tuxf6rvuxe9nyszuxf6vegeken}{%
+\chapter{Felügyelet nélküli tanulás: Topik modellezés magyar
+törvényszövegeken}\label{feluxfcgyelet-nuxe9lkuxfcli-tanuluxe1s-topik-modellezuxe9s-magyar-tuxf6rvuxe9nyszuxf6vegeken}}
 
-nyolcadik fejezet
+A klaszterezés egy adathalmaz pontjainak, rekordjainak hasonlóság
+alapján való csoportosítása, ami szinte minden nagyméretű adathalmaz
+leíró modellezésére alkalmas. A klaszterezés során az adatpontokat
+diszjunkt halmazokba, azaz klaszterekbe soroljuk, hogy az elemeknek egy
+olyan partíciója jöjjön létre, amelyben a közös csoportokba kerülő
+elempárok lényegesen hasonlóbbak egymáshoz, mint azok a pontpárok,
+melyek két különböző csoportba sorolódtak. Klaszterezés során a
+megfelelő csoportok kialakítása nem egyértelmű feladat, mivel a
+különböző adatok eltérő jelentése és felhasználása miatt
+adathalmazonként más szempontokat kell figyelembe vennünk. Egy
+klaszterezési feladat megoldásához ismernünk kell a különböző
+algoritmusok alapvető tulajdonságait és mindig szükség van az
+eredményként kapott klaszterezés kiértékelésére. Mivel egy klaszterezés
+az adatpontok hasonlóságából indul ki, ezért az eljárás során az első
+fontos lépés az adatpontok páronkénti hasonlóságát lehető legjobban
+megragadó hasonlósági függvény kiválasztása
+(\protect\hyperlink{ref-tan2011}{\textbf{tan2011?}}). Számos
+klaszterezési eljárás létezik, melyek között az egyik leggyakoribb
+különbségtétel, hogy a klaszterek egymásba ágyazottak vagy sem. Ez
+alapján beszélhetünk hierarchikus és felosztó klaszterezésről.
+
+A hierarchikus klaszterezés egymásba ágyazott klaszterek egy fába
+rendezett halmaza, azaz ahol a klaszterek alklaszterekkel rendelkeznek.
+A fa minden csúcsa (klasztere), a levélcsúcsokat kivéve, a gyermekei
+(alklaszterei) uniója, és a fa gyökere az összes objektumot tartalmazó
+klaszter. Felosztó (partitional) klaszterezés esetén az adathalmazt
+olyan, nem átfedő alcsoportokra bontjuk, ahol minden adatobjektum
+pontosan egy részhalmazba kerül
+(\protect\hyperlink{ref-tikk2007}{\textbf{tikk2007?}};
+\protect\hyperlink{ref-tan2011b}{\textbf{tan2011b?}}). A klaszterezési
+eljárások között aszerint is különbséget tehetünk, hogy azok egy
+objektumot csak egy vagy több klaszterbe is beilleszthetnek. Ez alapján
+beszélhetünk kizáró (exclusive), illetve nem-kizáró (non exclusive),
+vagy átfedő (overlapping) klaszterezésről. Az előbbi minden objektumot
+csak egyetlen klaszterhez rendel hozzá, az utóbbi esetén egy pont több
+klaszterbe is beleillik. Fuzzy klaszterezés esetén minden objektum
+minden klaszterbe beletartozik egy tagsági súly erejéig, melynek értéke
+0 (egyáltalán nem tartozik bele) és 1 (teljesen beletartozik) közé esik.
+A klasztereknek is különböző típusai vannak, így beszélhetünk
+prototípus-alapú, gráf-alapú vagy sűrűség-alapú klaszterekről.
+
+A prototípus-alapú klaszter olyan objektumokat tartalmazó halmaz,
+amelynek mindegyik objektuma jobban hasonlít a klasztert definiáló
+objektumhoz, mint bármelyik másik klasztert definiáló objektumhoz. A
+prototípus-alapú klaszter klaszterek közül a K-közép klaszter az egyik
+leggyakrabban alkalmazott. A K-közép klaszterezési módszer első lépése K
+darab kezdő középpontot kijelölése, ahol K a klaszterek kívánt számával
+egyenlő. Ezután minden adatpontot a hozzá legközelebb eső középponthoz
+rendelünk. Az így képzett csoportok lesznek a kiinduló klaszterek.
+Ezután újra meghatározzuk mindegyik klaszter középpontját a klaszterhez
+rendelt pontok alapján. A hozzárendelési és frissítési lépéseket
+felváltva folytatjuk addig, amíg egyetlen pont sem vált klasztert, vagy
+ameddig a középpontok ugyanazok nem maradnak
+(\protect\hyperlink{ref-tan2011c}{\textbf{tan2011c?}}).
+
+\hypertarget{k-kuxf6zuxe9p-klaszterezuxe9s-kvalitatuxedv-adatokkal}{%
+\section{K közép klaszterezés kvalitatív
+adatokkal}\label{k-kuxf6zuxe9p-klaszterezuxe9s-kvalitatuxedv-adatokkal}}
+
+A K közép klaszterezés tehát a dokumentumokat alkotó szavak alapján
+keresi meg a felhasználó által megadott számú (K) klasztert, amelyeket a
+középpontjaik képviselnek, és így rendezi a dokumentumokat csoportokba.
+A klaszterezés vagy csoportosítás egy induktív kategorizálás, ami akkor
+hasznos, amikor nem állnak a kutató rendelkezésére előzetesen ismert
+csoportok, amelyek szerint a vizsgált dokumentumokat rendezni tudná.
+Hiszen ebben az esetben a korpusz elemeinek rendezéséhez nem határozunk
+meg előzetesen csoportokat, hanem az eljárás során olyan különálló
+csoportokat hozunk létre a dokumentumokból, amelynek tagjai valamilyen
+szempontból hasonlítanak egymásra. A csoportosítás legfőbb célja az,
+hogy az egy csoportba kerülő szövegek minél inkább hasonlítsanak
+egymásra, miközben a különböző csoportba kerülők minél inkább eltérjenek
+egymástól. Azaz klaszterezésnél nem egy-egy szöveg jellemzőire vagyunk
+kíváncsiak, hanem arra, hogy a szövegek egy-egy csoportja milyen
+hasonlóságokkal bír.
+(\protect\hyperlink{ref-tikk2007a}{\textbf{tikk2007a?}} ;
+\protect\hyperlink{ref-burtejin2016}{\textbf{burtejin2016?}}) A gépi
+kódolással végzett klaszterezés egy felügyelet nélküli tanulás, mely a
+szöveg tulajdonságaiból tanul, anélkül, hogy előre meghatározott
+csoportokat ismerne. Alkalmazása során a dokumentum tulajdonságait és a
+modell becsléseit felhasználva jönnek létre a különböző kategóriák,
+melyekhez később hozzárendeli a szöveget
+(\protect\hyperlink{ref-grimmer2013:15}{\textbf{grimmer2013:15?}}). Az
+osztályozással ellentétben a csoportosítás esetén tehát nincs ismert
+„címkékkel" ellátott kategóriarendszer vagy olyan minta, mint az
+osztályozás esetében a tanítókörnyezet, amiből tanulva a modellt fel
+lehet építeni
+(\protect\hyperlink{ref-tikk2007b:145}{\textbf{tikk2007b:145?}}). A gépi
+kódolással végzett csoportosítás (klaszterezés) esetén a kutató feladata
+a megfelelő csoportosító mechanizmus kiválasztása, mely alapján egy
+program végzi el a szövegek különböző kategóriákba sorolását. Ezt követi
+a hasonló szövegeket tömörítő csoportok elnevezésének lépése. A több
+dokumentumból álló korpuszok esetében a gépi klaszterelemzés különösen
+eredményes és költséghatékony lehet, mivel egy nagy korpusz vizsgálata
+sok erőforrást igényel
+(\protect\hyperlink{ref-grimmer2013a:1}{\textbf{grimmer2013a:1?}}).
+
+A klaszterezés bemutatásához a rendszerváltás utáni magyar
+miniszterelnökök egy-egy véletlenszerűen kiválasztott beszédét
+használjuk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\FunctionTok{library}\NormalTok{(readtext)}
+\FunctionTok{library}\NormalTok{(quanteda)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(topicmodels)}
+\FunctionTok{library}\NormalTok{(factoextra)}
+\end{Highlighting}
+\end{Shaded}
+
+A beszédek szövege meglehetősen tiszta, ezért az egyszerűség kedvéért a
+most kihagyjuk a szövegtisztítás lépéseit. Az elemzés első lépéseként a
+\texttt{quanteda} csomaggal egy korpusz kreálunk, majd abból egy
+dokumentum-kifejezés mátrixot készítünk a \texttt{dfm()} függvénnyel.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beszedek }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/miniszterelnokok.csv"}\NormalTok{)}
+
+\NormalTok{beszedek\_corpus }\OtherTok{\textless{}{-}} \FunctionTok{corpus}\NormalTok{(beszedek)}
+
+\NormalTok{beszedek\_dfm }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(beszedek\_corpus)}
+\end{Highlighting}
+\end{Shaded}
+
+A beszédek klaszterekbe rendezését az R egyik alapfüggvénye végzi, a
+\texttt{kmeans}. Első lépésben 3 klasztert készítünk. A \texttt{table()}
+függvénnyel megnézhetjük hogy egy-egy csoportba hány dokumentum került.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beszedek\_klaszter }\OtherTok{\textless{}{-}} \FunctionTok{kmeans}\NormalTok{(beszedek\_dfm, }\AttributeTok{centers =} \DecValTok{2}\NormalTok{)}
+
+
+\FunctionTok{table}\NormalTok{(beszedek\_klaszter}\SpecialCharTok{$}\NormalTok{cluster)}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} 1 2 }
+\CommentTok{\#\textgreater{} 2 5}
+\end{Highlighting}
+\end{Shaded}
+
+A felügyelet nélküli klasszifikáció nagy kérdése, hogy hány klasztert
+készítsünk, hogy megközelítsük a valóságot és ne csak mesterségesen
+kreáljunk csoportokat abban az esetben is amikor ténylegesen nem
+léteznek. A kvalitatív megközelítések mellett kvantitatív opciók is
+vannak. A \texttt{factoextra} csomagban több ilyen módszer is van
+implementálva. A lenti ábra azt mutatja hogy a klasztereken belüli
+négyzetösszegek hogyan változnak a \emph{k} paraméter változásának
+függvényében. A lenti ábra alapján az ideális klaszter szám 2.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{fviz\_nbclust}\NormalTok{(}\FunctionTok{as.matrix}\NormalTok{(beszedek\_dfm), kmeans, }\AttributeTok{method =} \StringTok{"wss"}\NormalTok{, }\AttributeTok{k.max =} \DecValTok{5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-67-1} \end{center}
+
+Vizuálisan is megjeleníthetjük a kialakított csoportokat.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{fviz\_cluster}\NormalTok{(beszedek\_klaszter, }\AttributeTok{data =}\NormalTok{ beszedek\_dfm)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-68-1} \end{center}
+
+\hypertarget{a-topik-modellezuxe9s}{%
+\section{A topik modellezés}\label{a-topik-modellezuxe9s}}
+
+A topik-modellezés a dokumentumok téma-klasztereinek meghatározására
+szolgáló valószínűség-alapú eljárás, amely szó-gyakoriságot állapít meg
+minden témához, és minden dokumentumhoz hozzárendeli az adott témák
+valószínűségét. A topik modellezés egy felügyelet nélküli tanulási
+módszer, amely során az alkalmazott algoritmus a dokumentum
+tulajdonságait és a modell becsléseit felhasználva hoz létre különböző
+kategóriákat, melyekhez később hozzárendeli a szöveget
+(\protect\hyperlink{ref-tikk2007c}{\textbf{tikk2007c?}};
+\protect\hyperlink{ref-grimmer2013b}{\textbf{grimmer2013b?}};
+\protect\hyperlink{ref-burtejin2016a}{\textbf{burtejin2016a?}}). Az
+egyik leggyakrabban alkalmazott topik modellezési eljárás, a Látens
+Dirichlet Allokáció (LDA) alapja az a feltételezés, hogy minden korpusz
+topikok/témák keverékéből áll, ezen témák pedig statisztikailag a
+korpusz szókészlete valószínűségi függvényeinek (eloszlásának)
+tekinthetőek (\protect\hyperlink{ref-blei2003}{\textbf{blei2003?}}). Az
+LDA a korpusz dokumentumainak csoportosítása során az egyes
+dokumentumokhoz topik szavakat rendel, a topikok megbecsléséhez pedig a
+szavak együttes megjelenését vizsgálja a dokumentum egészében. Az LDA
+algoritmusnak előzetesen meg kell adni a keresett klaszterek (azaz a
+keresett topikok) számát, ezt követően a dokumentumhalmazban szereplő
+szavak eloszlása alapján az algoritmus azonosítja a kulcsszavakat,
+amelyek eloszlása kirajzolja a topikokat
+(\protect\hyperlink{ref-blei2003a}{\textbf{blei2003a?}};
+\protect\hyperlink{ref-burtejin2016b}{\textbf{burtejin2016b?}};
+\protect\hyperlink{ref-jacobi2016}{Jacobi, Van Atteveldt, and Welbers
+2016}).
+
+\hypertarget{topik-modellezuxe9s-magyar-tuxf6rvuxe9nyszuxf6vegeken}{%
+\section{Topik modellezés magyar
+törvényszövegeken}\label{topik-modellezuxe9s-magyar-tuxf6rvuxe9nyszuxf6vegeken}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"figures/08{-}01\_topik\_modell.png"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{figures/08-01_topik_modell} \end{center}
+
+A következőkben a magyar törvények korpuszán szemléltetjük a topik
+modellezés módszerét, hogy a mesterséges intelligencia segítségével
+feltárjuk a korpuszon belüli rejtett összefüggéseket. A korábban leírtak
+szerint tehát nincsenek előre meghatározott kategóriáink,
+dokumentumainkat a klaszterezés segítségével szeretnénk csoportosítani.
+Egy-egy dokumentumban keveredhetnek a témák és az azokat reprezentáló
+szavak. Mivel ugyanaz a szó több topikhoz is kapcsolódhat, így az
+eljárás komplex elemzési lehetőséget nyújt, az egy szövegen belül témák
+és akár azok dokumentumon belüli súlyának azonosítására. Példánkban csak
+a korpusz egy részén szemléltetjük a topik modellezést, a teljes korpusz
+és annak elemzéséhez szükséges kód elérhető az alábbi github linken:
+\url{https://github.com/poltextlab}
+
+Az alábbiakban 1998-2002 és a 2002-2006-os parlamenti ciklus 1032
+törvényszövegének topik modellezését és a szükséges előkészítő,
+korpusztisztító lépéseket mutatjuk be. Az következőkben használt fájlok
+letölthetőek az alábbi github linkről:
+\url{https://github.com/poltextlab/text_mining_with_r} A fájlokat
+töltsük be az R által használt munkakönyvtárba.\footnote{A teljes
+  törvényeket és a metadatokat tartalmazó adatbázisokat a
+  \url{https://cap.tk.hu/} honlapról lehet letölteni.}
+
+Töltsük be az elemezni kívánt csv fájlt, megadva az elérési útvonalát.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{torvenyek }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/lawtext\_1998\_2006.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Az előző fejezetekben láthattuk hogy hogyan lehet használni a
+\texttt{stringr} csomagot a szövegtisztításra. A lépések a már megismert
+sztenderd folyamatot követik: számok, központozás, sortörések, extra
+szóközök eltávolítása, illetve a szöveg kisbetűsítése. Az eddigieket
+további szövegtisztító lépésekkel is kiegészíthetjük. Olyan elemek
+esetében, amelyek nem feltétlenül különálló szavak és el akarjuk
+távolítani őket a korpuszból szintén az \texttt{str\_remove\_all()} a
+legegyszerűbb megoldás.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{torvenyek\_tiszta }\OtherTok{\textless{}{-}}\NormalTok{ torvenyek }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:cntrl:]"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:punct:]"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:digit:]"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_to\_lower}\NormalTok{(text),}
+    \AttributeTok{text =} \FunctionTok{str\_trim}\NormalTok{(text),}
+    \AttributeTok{text =} \FunctionTok{str\_squish}\NormalTok{(text),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"’"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"…"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"–"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"“"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"”"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"„"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"«"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"»"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"§"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"°"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"\textless{}U+25A1\textgreater{}"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"\textless{}U+25A1\textgreater{}"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"@"}\NormalTok{)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+A dokumentum változókat egy külön fájlból adjuk hozzá, ami a törvények
+keletkezési évét tartalmazza, illetve hogy melyik kormányzati ciklusban
+születtek. Mindkét adatbázisban egy közös egyedi azonosító jelöli az
+egyes törvényeket, így ki tudjuk használni a \texttt{dplyr}
+\texttt{left\_join()} függvényét, ami hatékonyan és gyorsan kapcsol
+össze adatbázisokat közös egyedi azonosító mentén. Jelen esetben ez az
+egyedi azonosító a \texttt{txt\_filename} oszlopból fog elkészülni,
+amely a torvenyek neveit tartalmazza. Első lépésben betöltjük a meta
+adatokat tartalmazó .csv fájlt, majd a \texttt{.txt} rész előtti
+törvényneveket tartjuk csak meg a létrehozott \texttt{doc\_id}-
+oszlopban. A \texttt{{[}\^{}\textbackslash{}\textbackslash{}.{]}*}
+regular expression itt a string elejétől indulva kijelöl mindent az elso
+\texttt{.} karakterig. Az \texttt{str\_extract()} pedig ezt a kijelölt
+string szakaszt (ami a törvények neve) menti át az új változónkba.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{torveny\_meta }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/cap\_law\_meta.csv"}\NormalTok{)}
+
+\NormalTok{torveny\_meta }\OtherTok{\textless{}{-}}\NormalTok{ torveny\_meta }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{doc\_id =} \FunctionTok{str\_extract}\NormalTok{(txt\_filename, }\StringTok{"[\^{}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{.]*"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{txt\_filename)}
+
+\FunctionTok{head}\NormalTok{(torveny\_meta, }\DecValTok{5}\NormalTok{)}
+\CommentTok{\#\textgreater{} \# A tibble: 5 x 4}
+\CommentTok{\#\textgreater{}    year electoral\_cycle majortopic doc\_id     }
+\CommentTok{\#\textgreater{}   \textless{}dbl\textgreater{} \textless{}chr\textgreater{}                \textless{}dbl\textgreater{} \textless{}chr\textgreater{}      }
+\CommentTok{\#\textgreater{} 1  1998 1998{-}2002               13 1998XXXV   }
+\CommentTok{\#\textgreater{} 2  1998 1998{-}2002               20 1998XXXVI  }
+\CommentTok{\#\textgreater{} 3  1998 1998{-}2002                3 1998XXXVII }
+\CommentTok{\#\textgreater{} 4  1998 1998{-}2002                6 1998XXXVIII}
+\CommentTok{\#\textgreater{} 5  1998 1998{-}2002               13 1998XXXIX}
+\end{Highlighting}
+\end{Shaded}
+
+Végül összefűzzük a dokumentumokat és a meta adatokat tartalmazó data
+frameket.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{torveny\_final }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(torvenyek\_tiszta, torveny\_meta, }\AttributeTok{by =} \StringTok{"doc\_id"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Majd hozzuk létre a korpuszt és ellenőrizzük azt.
+
+\begin{verbatim}
+#>       Text Types Tokens Sentences year electoral_cycle majortopic
+#> 1    1998L  2879   9628         1 1998       1998-2002          3
+#> 2   1998LI   352    680         1 1998       1998-2002         20
+#> 3  1998LII   446    992         1 1998       1998-2002          9
+#> 4 1998LIII   126    221         1 1998       1998-2002          9
+#> 5  1998LIV   835   2013         1 1998       1998-2002          9
+\end{verbatim}
+
+Az RStudio environments fülén láthatjuk, hogy egy 1032 elemből álló
+korpusz jött létre, amelynek tartalmát a \texttt{summary()} paranccsal
+kiíratva a console ablakban megjelenik a dokumentumok listája és a főbb
+leíró statisztikai adatok (egyedi szavak - types; szószám - tokens;
+mondatok - sentences). Az előbbi fejezettől eltérően most a tokenizálás
+során is végzünk még egy kis tisztítást: a felesleges stop szavakat
+kitöröljük a \texttt{tokens\_remove()} és \texttt{stopwords()}
+kombinálásával. A \texttt{quanteda} tartalmaz egy beépített magyar
+stopszó szótárat. A második lépésben szótövesítjük a tokeneket a
+\texttt{tokens\_words()} használatával, ami szintén képes a magyar
+nyelvű szövegeket kezelni.
+
+Szükség esetén a beépített magyar nyelvű stopszó szótárat saját
+stopszavakkal is kiegészíthetjük. Ehhez először \texttt{csv} fájlba el
+kell mentenünk a stopszavakat, majd a \texttt{csv} fájlt be kell
+olvasnunk. Az \texttt{pull()} egy karaktervektort fog kreálni a data
+frame \texttt{text} oszlopából.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom\_stopwords }\OtherTok{\textless{}{-}} \FunctionTok{readtext}\NormalTok{(}\StringTok{"data/custom\_legal\_stopwords.csv"}\NormalTok{, }\AttributeTok{encoding =} \StringTok{"UTF8"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pull}\NormalTok{(text)}
+\end{Highlighting}
+\end{Shaded}
+
+Mivel jogi szövegekről van szó, ezért még egy kis extra szószedetet is
+készítűnk a felesleges szavakról.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom\_stopwords\_egyeb }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"lábjegyzet"}\NormalTok{, }\StringTok{"országgyulés"}\NormalTok{, }\StringTok{"ülésnap"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Aztán pedig a pipe használatával elkészítjük a token objektumunkat. A
+szótövesített tokeneket egy külön objektumban tároljuk, mert gyakran
+előfordul hogy
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{torvenyek\_tokens }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(torvenyek\_corpus) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(}\FunctionTok{stopwords}\NormalTok{(}\StringTok{"hungarian"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(custom\_stopwords) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(custom\_stopwords\_egyeb) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_wordstem}\NormalTok{(}\AttributeTok{language =} \StringTok{"hun"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Végül eltávolítjuk a dokumentum kifejezés mátrixból a túl gyakori
+kifejezéseket. A \texttt{dfm\_trim()} függvénnyel a nagyon ritka és
+nagyon gyakori szavak megjelenését kontrollálhatjuk. A
+\texttt{termfreq\_type} opció \texttt{"prop"} akkor 0 és 1.0 közötti
+értéket vehetnek fel a \texttt{max\_termfreq/docfreq} és
+\texttt{min\_termfreq/docfreq} paraméterek. A lenti példában azokat a
+tokeneket tartjuk meg, amelyek legalább egyszer előfordulnak ezer
+dokumentumonként (így kizárva a nagyon ritka kifejezéseket).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{torvenyek\_dfm }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(torvenyek\_tokens) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{dfm\_trim}\NormalTok{(}\AttributeTok{min\_termfreq =} \FloatTok{0.001}\NormalTok{, }\AttributeTok{termfreq\_type =} \StringTok{"prop"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+A szövegtisztító lépesek eredményét úgy ellenőrizhetjük, hogy az 2.
+fejezetben bemutatottak szerint szógyakorisági listát készítünk a
+korpuszban maradt kifejezésekről. Itt kihasználhatjuk a korpuszunkban
+lévő meta adatokat és megnézhetjük ciklus szerinti bontásban a
+szófrekvencia ábrát. Az ábránál figyeljünk arra hogy a tidytext
+reorder\_within fuggvenyet használjuk, ami egy nagyon hasznos megoldás a
+csoportosított sorrendbe rendezésre a ggplot ábránál.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidytext)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+
+\NormalTok{top\_tokens }\OtherTok{\textless{}{-}} \FunctionTok{textstat\_frequency}\NormalTok{(torvenyek\_dfm, }\AttributeTok{n =} \DecValTok{15}\NormalTok{, }\AttributeTok{groups =} \FunctionTok{docvars}\NormalTok{(torvenyek\_dfm, }\AttributeTok{field =} \StringTok{"electoral\_cycle"}\NormalTok{))}
+
+\FunctionTok{ggplot}\NormalTok{(top\_tokens, }\FunctionTok{aes}\NormalTok{(}\FunctionTok{reorder\_within}\NormalTok{(feature, frequency, group), frequency)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{shape =}\NormalTok{ group), }\AttributeTok{size =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{y =} \ConstantTok{NULL}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"szófrekvencia"}\NormalTok{,}
+    \AttributeTok{title =} \StringTok{"A 15 leggyakoribb token a korpuszban"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{group, }\AttributeTok{nrow =} \DecValTok{2}\NormalTok{, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{  tidytext}\SpecialCharTok{::}\FunctionTok{scale\_x\_reordered}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-80-1} \end{center}
+
+A szövegtisztító lépéseket később újabbakkal is kiegészíthetjük, ha
+észrevesszük, hogy az elemzést zavaró tisztítási lépés maradt ki. Ilyen
+esetben tovább tisztíthatjuk a korpuszt, majd újra lefuttathatjuk az
+elemzést. Például, ha szükséges, további stopszavak eltávolítását is
+elvégezhetjük egy újabb stopszólista hozzáadásával. Ilyenkor ugyanúgy
+járunk el, mint az előző stopszólista esetén, vagyis beolvassuk a
+munkakönyvtárban elhelyezett a \texttt{csv} fájlt, a beolvasott
+stopszólistából karakter vektort majd objektumot hozunk létre, végezetül
+pedig ezeket a szavakat is eltávolítjuk a kopuszból.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom\_stopwords2 }\OtherTok{\textless{}{-}} \FunctionTok{readtext}\NormalTok{(}\StringTok{"data/custom\_stopwords2.csv"}\NormalTok{, }\AttributeTok{encoding =} \StringTok{"UTF8"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pull}\NormalTok{(text)}
+
+\NormalTok{torvenyek\_tokens\_final }\OtherTok{\textless{}{-}}\NormalTok{ torvenyek\_tokens }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(custom\_stopwords2)}
+\end{Highlighting}
+\end{Shaded}
+
+Ezután újra ellenőrízzük az eredményt.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{torvenyek\_dfm\_final }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(torvenyek\_tokens\_final) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{dfm\_trim}\NormalTok{(}\AttributeTok{min\_termfreq =} \FloatTok{0.001}\NormalTok{, }\AttributeTok{termfreq\_type =} \StringTok{"prop"}\NormalTok{)}
+
+\NormalTok{top\_tokens\_final }\OtherTok{\textless{}{-}} \FunctionTok{textstat\_frequency}\NormalTok{(torvenyek\_dfm\_final, }\AttributeTok{n =} \DecValTok{15}\NormalTok{, }\AttributeTok{groups =} \FunctionTok{docvars}\NormalTok{(torvenyek\_dfm, }\AttributeTok{field =} \StringTok{"electoral\_cycle"}\NormalTok{))}
+
+\FunctionTok{ggplot}\NormalTok{(top\_tokens\_final, }\FunctionTok{aes}\NormalTok{(}\FunctionTok{reorder\_within}\NormalTok{(feature, frequency, group), frequency)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{shape =}\NormalTok{ group), }\AttributeTok{size =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{y =} \ConstantTok{NULL}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"szófrekvencia"}\NormalTok{,}
+    \AttributeTok{title =} \StringTok{"A 15 leggyakoribb token a korpuszban"}\NormalTok{,}
+    \AttributeTok{subtitle =} \StringTok{"Eredmény a bovített stop szó listával"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{group, }\AttributeTok{nrow =} \DecValTok{2}\NormalTok{, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{  tidytext}\SpecialCharTok{::}\FunctionTok{scale\_x\_reordered}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-82-1} \end{center}
+
+\hypertarget{a-topik-modellezuxe9s-klasztering_topicmodellek-2}{%
+\subsection[A topik modellezés]{\texorpdfstring{A topik
+modellezés\footnote{a kód részben az alábbiakon alapul:
+  tidytextmining.com/topicmodeling.html Az általunk is használt
+  \texttt{topicmodels} csomag interfészt biztosít az LDA modellek és a
+  korrelált témamodellek (CTM) C kódjához, valamint az LDA modellek
+  illesztéséhez szükséges C ++ kódhoz.}}{A topik modellezés}}\label{a-topik-modellezuxe9s-klasztering_topicmodellek-2}}
+
+A szövegtisztító és korpusz előkészítő műveletek után következhet az LDA
+illesztése. Az alábbiakban az LDA illesztés két módszerét a
+\texttt{VEM}-et és a \texttt{Gibbs}-et mutatjuk be. A modell minkét
+módszer esetén ugyanaz, a különbség a következtetés módjában van. A
+\texttt{VEM} módszer variációs következtetés, míg a \texttt{Gibbs}
+mintavételen alapuló következtetés.
+(\protect\hyperlink{ref-blei2003}{\textbf{blei2003?}};
+\protect\hyperlink{ref-Griffiths2002}{\textbf{Griffiths2002?}};
+\protect\hyperlink{ref-Phan2008}{\textbf{Phan2008?}})
+
+A két modell illesztése nagyon hasonló, meg kell adnunk, az elemezni
+kívánt \texttt{dfm} nevét, majd a \emph{„k"} értékét, ami egyenlő az
+általunk létrehozni kívánt topikok számával, ezt követően meg kell
+jelölnünk, hogy a \texttt{VEM} vagy a \texttt{Gibbs} módszert
+alkalmazzuk. A \texttt{set.seed()} a funkció az R véletlen szám
+generátor magjának beállítására szolgál, ami ahhoz kell, hogy az
+eredmény, ábra, stb. pontosan reprodukálható legyen. A
+\texttt{set.seed()} bármilyen tetszőleges egész szám lehet.
+Kihasználhatjuk hogy minden dokumentumhoz tartozik egy kormányzati
+ciklus azonosító, mivel ésszerű lehet a feltételezés, hogy különböző
+parlamentek és kormányok más-más jogalkotási fokusszal rendelkeznek. A
+dokumentum változók alapján a \texttt{dfm\_subset()}-el tudjuk
+feldarabolni a már elkészült és tisztított mátrixunkat.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfm\_98\_02 }\OtherTok{\textless{}{-}} \FunctionTok{dfm\_subset}\NormalTok{(torvenyek\_dfm\_final, electoral\_cycle }\SpecialCharTok{==} \StringTok{"1998{-}2002"}\NormalTok{)}
+
+\NormalTok{dfm\_02\_06 }\OtherTok{\textless{}{-}} \FunctionTok{dfm\_subset}\NormalTok{(torvenyek\_dfm\_final, electoral\_cycle }\SpecialCharTok{==} \StringTok{"2002{-}2006"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{a-vem-muxf3dszer-alkalmazuxe1sa-a-magyar-tuxf6rvuxe9nyek-korpuszuxe1n}{%
+\subsubsection{A „VEM" módszer alkalmazása a magyar törvények
+korpuszán}\label{a-vem-muxf3dszer-alkalmazuxe1sa-a-magyar-tuxf6rvuxe9nyek-korpuszuxe1n}}
+
+Saját korpuszunkon először a \texttt{VEM} a módszert alkalmazzuk, ahol
+\texttt{k\ =\ 10} azaz a modell 10 témacsoportot alakít ki. Mint arról
+korábban már volt szó a \texttt{k} értékét szabadon változtathatjuk,
+aszerint hogy hány topik kialakítását szeretnénk. Bár a \texttt{k}
+értékének meghatározása kutatói döntésen alapul, és a modell futtatása
+során bevett gyakorlat a különböző \emph{„k"} értékekkel való
+kísérletezés, miután elkészült az elemzés a \texttt{perplexity()}
+funkció segítségével -- ahol a \emph{theta} az adott topikhoz való
+tartozás valószínűsége -- lehetőségünk van az elkészült modell
+kiértékelésére. A függvény a topikok által reprezentált elméleti
+szóeloszlásokat hasonlítja össze a szavak tényleges eloszlásával a
+dokumentumokban. A függvény értéke nem önmagában értelmezendő, hanem két
+modell összehasonlításában, ahol a legalacsonyabb \emph{perplexity}
+(zavarodottság) értékkel rendelkező modellt tekintik a
+legjobbnak.{[}\^{}klaszeterzes-2{]} Az illusztráció kedvéért
+lefuttatunk5 LDA modellt az 1998-2002 kormánzyati ciklushoz tartozó
+dfm-en. Az iterációhoz a \texttt{purrr} csomag \texttt{map} függvényét
+használjuk (ez a \texttt{lapply} \emph{tidyverse} ekvivalense). Fontos
+emlékezni arra, hogy minél nagyobb a korpuszunk annál több számítási
+kapacitásra van szükség (és annál tovább tart a számítás).
+
+{[}\^{}klaszeterzes-2{]}
+\url{http://brooksandrew.github.io/simpleblog/articles/latent-dirichlet-allocation-under-the-hood/}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(purrr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{k\_topics }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{25}\NormalTok{)}
+
+\NormalTok{lda\_98\_02 }\OtherTok{\textless{}{-}}\NormalTok{ k\_topics }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{map}\NormalTok{(LDA, }\AttributeTok{x =}\NormalTok{ dfm\_98\_02, }\AttributeTok{control =} \FunctionTok{list}\NormalTok{(}\AttributeTok{seed =} \DecValTok{1234}\NormalTok{))}
+
+
+\FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{k =}\NormalTok{ k\_topics,}
+  \AttributeTok{perplexity =} \FunctionTok{map\_dbl}\NormalTok{(lda\_98\_02, perplexity)}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(k, perplexity)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Mekkora k?"}\NormalTok{,}
+    \AttributeTok{subtitle =} \StringTok{"Perplexity változása a k függvényében"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"k"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Perplexity"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-85-1} \end{center}
+
+A perplexity pontszám alapján a 25 topikos modell szerepel a legjobban,
+de fontos emlékezni arra hogy a megfelelő \emph{k} kiválasztása a kutató
+kvalitatív döntésén múlik. Ehhez természetesen kvantitatív szempontokat
+is figyelembe vehetünk, mint például a perplexity indikátor.\footnote{A
+  \texttt{ldatuning} R csomagban további indikátor implementációja
+  található, ami a perplexityhez hasonlóan minimalizásra alapoz
+  (\protect\hyperlink{ref-arun2010finding}{Arun et al.}
+  (\protect\hyperlink{ref-arun2010finding}{2010}),
+  \protect\hyperlink{ref-cao2009density}{Cao et al.}
+  (\protect\hyperlink{ref-cao2009density}{2009})), illetve
+  maximalizálásra (\protect\hyperlink{ref-deveaud2014accurate}{Deveaud,
+  SanJuan, and Bellot}
+  (\protect\hyperlink{ref-deveaud2014accurate}{2014}),
+  \protect\hyperlink{ref-griffiths2004}{Griffiths and Steyvers}
+  (\protect\hyperlink{ref-griffiths2004}{2004}))}
+
+A reprodukálhatóság és futási sebesség érdekében a fejezet további
+részeiben a \emph{k} paraméternek 10-es értéket adunk. Ezzel
+lefututtatunk egy-egy modellt a két ciklusra.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{vem\_98\_02 }\OtherTok{\textless{}{-}} \FunctionTok{LDA}\NormalTok{(dfm\_98\_02, }\AttributeTok{k =} \DecValTok{10}\NormalTok{, }\AttributeTok{method =} \StringTok{"VEM"}\NormalTok{, }\AttributeTok{control =} \FunctionTok{list}\NormalTok{(}\AttributeTok{seed =} \DecValTok{1234}\NormalTok{))}
+
+\NormalTok{vem\_02\_06 }\OtherTok{\textless{}{-}} \FunctionTok{LDA}\NormalTok{(dfm\_02\_06, }\AttributeTok{k =} \DecValTok{10}\NormalTok{, }\AttributeTok{method =} \StringTok{"VEM"}\NormalTok{, }\AttributeTok{control =} \FunctionTok{list}\NormalTok{(}\AttributeTok{seed =} \DecValTok{1234}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Ezt követően a modell által létrehozott topic-okat tidy formátumba
+tesszük és egyesítjük egy data frameben.\footnote{a tidy formátumról
+  bővebben:
+  \url{https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidytext)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{topics\_98\_02 }\OtherTok{\textless{}{-}} \FunctionTok{tidy}\NormalTok{(vem\_98\_02, }\AttributeTok{matrix =} \StringTok{"beta"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{electoral\_cycle =} \StringTok{"1998{-}2002"}\NormalTok{)}
+
+\NormalTok{topics\_02\_06 }\OtherTok{\textless{}{-}} \FunctionTok{tidy}\NormalTok{(vem\_02\_06, }\AttributeTok{matrix =} \StringTok{"beta"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{electoral\_cycle =} \StringTok{"2002{-}2006"}\NormalTok{)}
+
+\NormalTok{lda\_vem }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(topics\_98\_02, topics\_02\_06)}
+\end{Highlighting}
+\end{Shaded}
+
+Majd listázzuk az egyes topikokhoz tartozó leggyakoribb kifejezéseket.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{top\_terms }\OtherTok{\textless{}{-}}\NormalTok{ lda\_vem }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(electoral\_cycle, topic) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{top\_n}\NormalTok{(}\DecValTok{5}\NormalTok{, beta) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{top\_n}\NormalTok{(}\DecValTok{5}\NormalTok{, term) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(topic, }\SpecialCharTok{{-}}\NormalTok{beta)}
+\end{Highlighting}
+\end{Shaded}
+
+Majd a \texttt{ggplot2} csomag segítségével ábrán is megjeleníthetjük az
+egyes topikok 10 legfontosabb kifejezését.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{top\_terms }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(electoral\_cycle }\SpecialCharTok{==} \StringTok{"1998{-}2002"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\FunctionTok{reorder\_within}\NormalTok{(term, beta, topic), beta)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{topic, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"1998{-}2002 ciklus topikok és kifejezések"}\NormalTok{,}
+    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{,}
+    \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(beta)}
+\NormalTok{  ) }\SpecialCharTok{+}
+\NormalTok{  tidytext}\SpecialCharTok{::}\FunctionTok{scale\_x\_reordered}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-90-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{top\_terms }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(electoral\_cycle }\SpecialCharTok{==} \StringTok{"2002{-}2006"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\FunctionTok{reorder\_within}\NormalTok{(term, beta, topic), beta)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{topic, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"2002{-}2006 ciklus topikok és kifejezések"}\NormalTok{,}
+    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{,}
+    \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(beta)}
+\NormalTok{  ) }\SpecialCharTok{+}
+\NormalTok{  tidytext}\SpecialCharTok{::}\FunctionTok{scale\_x\_reordered}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-91-1} \end{center}
+
+\hypertarget{az-lda-gibbs-muxf3dszer-alkalmazuxe1sa-a-magyar-tuxf6rvuxe9nyek-korpuszuxe1n}{%
+\subsubsection{Az „LDA Gibbs" módszer alkalmazása a magyar törvények
+korpuszán}\label{az-lda-gibbs-muxf3dszer-alkalmazuxe1sa-a-magyar-tuxf6rvuxe9nyek-korpuszuxe1n}}
+
+A következőkben ugyanazon a korpuszon az LDA Gibbs módszert alkalmazzuk.
+A szövegelőkészítő és tisztító lépések ennél a módszernél is ugyanazok
+mint a fentebb bemutatott ``VEM'' módszer esetében, így itt most csak a
+modell illesztését mutatjuk be.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{gibbs\_98\_02 }\OtherTok{\textless{}{-}} \FunctionTok{LDA}\NormalTok{(dfm\_98\_02, }\AttributeTok{k =} \DecValTok{10}\NormalTok{, }\AttributeTok{method =} \StringTok{"Gibbs"}\NormalTok{, }\AttributeTok{control =} \FunctionTok{list}\NormalTok{(}\AttributeTok{seed =} \DecValTok{1234}\NormalTok{))}
+
+\NormalTok{gibbs\_02\_06 }\OtherTok{\textless{}{-}} \FunctionTok{LDA}\NormalTok{(dfm\_02\_06, }\AttributeTok{k =} \DecValTok{10}\NormalTok{, }\AttributeTok{method =} \StringTok{"Gibbs"}\NormalTok{, }\AttributeTok{control =} \FunctionTok{list}\NormalTok{(}\AttributeTok{seed =} \DecValTok{1234}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Itt is elvégezzük a topikok tidy formátumra alakítását.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{topics\_g98\_02 }\OtherTok{\textless{}{-}} \FunctionTok{tidy}\NormalTok{(gibbs\_98\_02, }\AttributeTok{matrix =} \StringTok{"beta"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{electoral\_cycle =} \StringTok{"1998{-}2002"}\NormalTok{)}
+
+\NormalTok{topics\_g02\_06 }\OtherTok{\textless{}{-}} \FunctionTok{tidy}\NormalTok{(gibbs\_02\_06, }\AttributeTok{matrix =} \StringTok{"beta"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{electoral\_cycle =} \StringTok{"2002{-}2006"}\NormalTok{)}
+
+\NormalTok{lda\_gibbs }\OtherTok{\textless{}{-}} \FunctionTok{bind\_rows}\NormalTok{(topics\_g98\_02, topics\_g02\_06)}
+\end{Highlighting}
+\end{Shaded}
+
+Majd listázzuk az egyes topikokhoz tartozó leggyakoribb kifejezéseket.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{top\_terms\_gibbs }\OtherTok{\textless{}{-}}\NormalTok{ lda\_gibbs }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(electoral\_cycle, topic) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{top\_n}\NormalTok{(}\DecValTok{5}\NormalTok{, beta) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{top\_n}\NormalTok{(}\DecValTok{5}\NormalTok{, term) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(topic, }\SpecialCharTok{{-}}\NormalTok{beta)}
+\end{Highlighting}
+\end{Shaded}
+
+Majd a \texttt{ggplot2} csomag segítségével ábrán is megjeleníthetjük.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{top\_terms\_gibbs }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(electoral\_cycle }\SpecialCharTok{==} \StringTok{"1998{-}2002"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\FunctionTok{reorder\_within}\NormalTok{(term, beta, topic), beta)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{topic, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"1998{-}2002 ciklus topikok és kifejezések"}\NormalTok{,}
+    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{,}
+    \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(beta)}
+\NormalTok{  ) }\SpecialCharTok{+}
+\NormalTok{  tidytext}\SpecialCharTok{::}\FunctionTok{scale\_x\_reordered}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-95-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{top\_terms\_gibbs }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(electoral\_cycle }\SpecialCharTok{==} \StringTok{"2002{-}2006"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\FunctionTok{reorder\_within}\NormalTok{(term, beta, topic), beta)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{(}\AttributeTok{show.legend =} \ConstantTok{FALSE}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{topic, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"2002{-}2006 ciklus topikok és kifejezések"}\NormalTok{,}
+    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{,}
+    \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(beta)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_reordered}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-96-1} \end{center}
+
+\hypertarget{structural-topic-models}{%
+\chapter{Structural Topic Models}\label{structural-topic-models}}
+
+A kvantitatív szövegelemzés elterjedésével együtt megjelentek a
+módszertani innovációk is és a probabilisztikus topic modellek esetében
+ez a politikatudomány területéről érkezett.
+\protect\hyperlink{ref-roberts2014structural}{Roberts et al.}
+(\protect\hyperlink{ref-roberts2014structural}{2014}) egy kíváló cikkben
+mutatta be a struktúrális topic modelleket (structural topic models,
+stm) ahol a fő újítás az az hogy a dokumentumok metaadatai kovariánsként
+tudják befolyásolni hogy egy-egy kifejezés mekkora valószínűséggel lesz
+egy-egy téma része. A kovariánsok egyrészről megmagyarázhatják hogy
+egy-egy dokumentum mennyire függ össze egy-egy témával (\emph{topical
+prevalence}), illetve hogy egy-egy szó mennyire függ össze egy-egy témán
+belül (t\emph{opical content}).
+
+Az stm modell becslése során mindkét típusú kovariánst használhatjuk,
+illetve hogyha nem adunk meg dokumentum meta adatot akkor az
+\texttt{stm} csomag \texttt{stm} függvénye a Korrelált Topic Modell-t
+fogja becsülni.
+
+Az stm modelleket az R-ben az \texttt{stm} csomaggal tudjuk kivitelezni.
+A csomag fejlesztői között van a módszer kidolgozója is, ami nem ritka
+az R csomagok esetében.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(stm)}
+\end{Highlighting}
+\end{Shaded}
+
+A lenti lépésekben a csomag dokumentációjában szereplő ajánlásokat
+követjük, habár a könyv írásakor a \texttt{stm} már képes volt a
+\texttt{quanteda}-ban létrehozott dfm-ek kezelésére is. A kiinduló
+adatbázisunk a \texttt{törvény\_final} amit a fejezet elején hoztunk
+létre a dokuemntumokból és a metaadatokból. A javasolt munkafolyamat a
+\texttt{textProcessor()}-használatával indul, ami szintén tartalmazza az
+alap szöveg előkészítési lépéseket. Az egyszerűség és futási sebesség
+érdekében itt most ezek többségétől eltekintünk, mivel a fejezet korábbi
+részeiben részletesen tárgyaltuk őket.
+
+Az előkészítés utolsó szakaszában az \texttt{out} objektumban tároljuk
+el a dokumentumokat, egyedi szavakat, illetve a meta adatokat
+(kovariánsokat).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{data\_stm }\OtherTok{\textless{}{-}}\NormalTok{ torveny\_final}
+
+\NormalTok{processed\_stm }\OtherTok{\textless{}{-}} \FunctionTok{textProcessor}\NormalTok{(}
+\NormalTok{  torveny\_final}\SpecialCharTok{$}\NormalTok{text,}
+  \AttributeTok{metadata =}\NormalTok{ torveny\_final,}
+  \AttributeTok{lowercase =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{removestopwords =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{removenumbers =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{removepunctuation =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{ucp =} \ConstantTok{FALSE}\NormalTok{,}
+  \AttributeTok{stem =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{language =} \StringTok{"hungarian"}\NormalTok{,}
+  \AttributeTok{verbose =} \ConstantTok{FALSE}
+\NormalTok{)}
+
+
+\NormalTok{out }\OtherTok{\textless{}{-}} \FunctionTok{prepDocuments}\NormalTok{(processed\_stm}\SpecialCharTok{$}\NormalTok{documents, processed\_stm}\SpecialCharTok{$}\NormalTok{vocab, processed\_stm}\SpecialCharTok{$}\NormalTok{meta)}
+\CommentTok{\#\textgreater{} Removing 96264 of 180243 terms (96264 of 1252793 tokens) due to frequency }
+\CommentTok{\#\textgreater{} Your corpus now has 1032 documents, 83979 terms and 1156529 tokens.}
+\end{Highlighting}
+\end{Shaded}
+
+A struktúrális topic modellünket az \texttt{stm} függvénnyel becsüljük
+és a kovariánsokat a \texttt{prevalence} opciónál tudjuk formulaként
+megadni. A lenti példában a Comparative Agendas Projekt kategóriáit
+(pl.: gazdaság, egészségügy, stb.) és a kormányciklusokat használjuk. A
+futási idő kicsit hosszabb mint az LDA modellek esetében.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{stm\_fit }\OtherTok{\textless{}{-}} \FunctionTok{stm}\NormalTok{(}
+\NormalTok{  out}\SpecialCharTok{$}\NormalTok{documents,}
+\NormalTok{  out}\SpecialCharTok{$}\NormalTok{vocab,}
+  \AttributeTok{K =} \DecValTok{10}\NormalTok{,}
+  \AttributeTok{prevalence =} \SpecialCharTok{\textasciitilde{}}\NormalTok{ majortopic }\SpecialCharTok{+}\NormalTok{ electoral\_cycle,}
+  \AttributeTok{data =}\NormalTok{ out}\SpecialCharTok{$}\NormalTok{meta,}
+  \AttributeTok{init.type =} \StringTok{"Spectral"}\NormalTok{,}
+  \AttributeTok{seed =} \DecValTok{1234}
+\NormalTok{)}
+\CommentTok{\#\textgreater{} Beginning Spectral Initialization }
+\CommentTok{\#\textgreater{}   Calculating the gram matrix...}
+\CommentTok{\#\textgreater{}   Using only 10000 most frequent terms during initialization...}
+\CommentTok{\#\textgreater{}   Finding anchor words...}
+\CommentTok{\#\textgreater{}      ..........}
+\CommentTok{\#\textgreater{}   Recovering initialization...}
+\CommentTok{\#\textgreater{}      ....................................................................................................}
+\CommentTok{\#\textgreater{} Initialization complete.}
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (4 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 1 (approx. per word bound = {-}9.208) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (4 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 2 (approx. per word bound = {-}8.098, relative change = 1.205e{-}01) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (2 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 3 (approx. per word bound = {-}8.039, relative change = 7.395e{-}03) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (2 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 4 (approx. per word bound = {-}8.019, relative change = 2.411e{-}03) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (2 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 5 (approx. per word bound = {-}8.007, relative change = 1.480e{-}03) }
+\CommentTok{\#\textgreater{} Topic 1: vagi, szerzodo, fél, egyezméni, államban }
+\CommentTok{\#\textgreater{}  Topic 2: muködési, célú, támogatások, felhalmozási, intézményi }
+\CommentTok{\#\textgreater{}  Topic 3: muködési, célú, támogatások, törvéni, évi }
+\CommentTok{\#\textgreater{}  Topic 4: vagi, nem, más, meg, valamennyi }
+\CommentTok{\#\textgreater{}  Topic 5: vagi, nem, kell, szolgálati, törvéni }
+\CommentTok{\#\textgreater{}  Topic 6: következo, helyéb, törvéni, ának, rendelkezé }
+\CommentTok{\#\textgreater{}  Topic 7: törvéni, vagi, nem, kell, valamint }
+\CommentTok{\#\textgreater{}  Topic 8: vagi, nem, következo, kell, illetv }
+\CommentTok{\#\textgreater{}  Topic 9: the, and, shall, vagi, parti }
+\CommentTok{\#\textgreater{}  Topic 10: nem, vagi, kell, törvéni, szerinti }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (2 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 6 (approx. per word bound = {-}7.999, relative change = 1.006e{-}03) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (2 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 7 (approx. per word bound = {-}7.993, relative change = 7.504e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (2 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 8 (approx. per word bound = {-}7.989, relative change = 5.475e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 9 (approx. per word bound = {-}7.985, relative change = 4.234e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 10 (approx. per word bound = {-}7.983, relative change = 3.574e{-}04) }
+\CommentTok{\#\textgreater{} Topic 1: vagi, szerzodo, fél, egyezméni, államban }
+\CommentTok{\#\textgreater{}  Topic 2: muködési, célú, támogatások, felhalmozási, költségvetésegyéb }
+\CommentTok{\#\textgreater{}  Topic 3: muködési, törvéni, támogatások, célú, nem }
+\CommentTok{\#\textgreater{}  Topic 4: vagi, nem, más, meg, valamennyi }
+\CommentTok{\#\textgreater{}  Topic 5: vagi, kell, nem, törvéni, meghatározott }
+\CommentTok{\#\textgreater{}  Topic 6: következo, helyéb, törvéni, ának, rendelkezé }
+\CommentTok{\#\textgreater{}  Topic 7: vagi, törvéni, nem, kell, valamint }
+\CommentTok{\#\textgreater{}  Topic 8: vagi, nem, következo, kell, illetv }
+\CommentTok{\#\textgreater{}  Topic 9: the, and, shall, vagi, parti }
+\CommentTok{\#\textgreater{}  Topic 10: nem, vagi, kell, törvéni, szerinti }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 11 (approx. per word bound = {-}7.980, relative change = 3.136e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 12 (approx. per word bound = {-}7.978, relative change = 2.986e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 13 (approx. per word bound = {-}7.976, relative change = 2.765e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 14 (approx. per word bound = {-}7.973, relative change = 2.550e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 15 (approx. per word bound = {-}7.971, relative change = 2.569e{-}04) }
+\CommentTok{\#\textgreater{} Topic 1: vagi, szerzodo, fél, egyezméni, államban }
+\CommentTok{\#\textgreater{}  Topic 2: muködési, célú, támogatások, felhalmozási, költségvetésegyéb }
+\CommentTok{\#\textgreater{}  Topic 3: muködési, törvéni, nem, évi, támogatások }
+\CommentTok{\#\textgreater{}  Topic 4: vagi, nem, más, részes, meg }
+\CommentTok{\#\textgreater{}  Topic 5: vagi, nem, kell, törvéni, meghatározott }
+\CommentTok{\#\textgreater{}  Topic 6: következo, helyéb, törvéni, ának, rendelkezé }
+\CommentTok{\#\textgreater{}  Topic 7: vagi, nem, törvéni, kell, valamint }
+\CommentTok{\#\textgreater{}  Topic 8: vagi, nem, következo, illetv, kell }
+\CommentTok{\#\textgreater{}  Topic 9: the, and, shall, vagi, parti }
+\CommentTok{\#\textgreater{}  Topic 10: nem, vagi, kell, törvéni, szerinti }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 16 (approx. per word bound = {-}7.969, relative change = 2.704e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 17 (approx. per word bound = {-}7.967, relative change = 2.647e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 18 (approx. per word bound = {-}7.965, relative change = 2.463e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 19 (approx. per word bound = {-}7.963, relative change = 2.195e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 20 (approx. per word bound = {-}7.962, relative change = 1.905e{-}04) }
+\CommentTok{\#\textgreater{} Topic 1: szerzodo, vagi, fél, egyezméni, államban }
+\CommentTok{\#\textgreater{}  Topic 2: muködési, célú, támogatások, felhalmozási, költségvetésegyéb }
+\CommentTok{\#\textgreater{}  Topic 3: törvéni, nem, muködési, évi, alapján }
+\CommentTok{\#\textgreater{}  Topic 4: vagi, nem, részes, más, valamennyi }
+\CommentTok{\#\textgreater{}  Topic 5: vagi, nem, kell, bíróság, következo }
+\CommentTok{\#\textgreater{}  Topic 6: következo, törvéni, helyéb, ának, évi }
+\CommentTok{\#\textgreater{}  Topic 7: vagi, nem, törvéni, kell, illetv }
+\CommentTok{\#\textgreater{}  Topic 8: vagi, nem, következo, illetv, meghatározott }
+\CommentTok{\#\textgreater{}  Topic 9: the, and, shall, vagi, parti }
+\CommentTok{\#\textgreater{}  Topic 10: nem, vagi, kell, törvéni, szerinti }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 21 (approx. per word bound = {-}7.961, relative change = 1.611e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 22 (approx. per word bound = {-}7.959, relative change = 1.442e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 23 (approx. per word bound = {-}7.958, relative change = 1.388e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 24 (approx. per word bound = {-}7.957, relative change = 1.355e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 25 (approx. per word bound = {-}7.956, relative change = 1.351e{-}04) }
+\CommentTok{\#\textgreater{} Topic 1: szerzodo, vagi, egyezméni, fél, államban }
+\CommentTok{\#\textgreater{}  Topic 2: muködési, célú, támogatások, felhalmozási, költségvetésegyéb }
+\CommentTok{\#\textgreater{}  Topic 3: törvéni, nem, muködési, helyi, alapján }
+\CommentTok{\#\textgreater{}  Topic 4: vagi, nem, részes, más, valamennyi }
+\CommentTok{\#\textgreater{}  Topic 5: vagi, nem, kell, következo, bíróság }
+\CommentTok{\#\textgreater{}  Topic 6: törvéni, következo, helyéb, ának, nem }
+\CommentTok{\#\textgreater{}  Topic 7: vagi, nem, törvéni, kell, illetv }
+\CommentTok{\#\textgreater{}  Topic 8: vagi, nem, illetv, meghatározott, következo }
+\CommentTok{\#\textgreater{}  Topic 9: the, and, shall, vagi, parti }
+\CommentTok{\#\textgreater{}  Topic 10: nem, vagi, kell, törvéni, következo }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 26 (approx. per word bound = {-}7.955, relative change = 1.335e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 27 (approx. per word bound = {-}7.954, relative change = 1.306e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 28 (approx. per word bound = {-}7.953, relative change = 1.362e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 29 (approx. per word bound = {-}7.952, relative change = 1.348e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 30 (approx. per word bound = {-}7.951, relative change = 1.236e{-}04) }
+\CommentTok{\#\textgreater{} Topic 1: szerzodo, vagi, egyezméni, fél, államban }
+\CommentTok{\#\textgreater{}  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási }
+\CommentTok{\#\textgreater{}  Topic 3: törvéni, nem, helyi, alapján, szóló }
+\CommentTok{\#\textgreater{}  Topic 4: vagi, nem, részes, más, valamennyi }
+\CommentTok{\#\textgreater{}  Topic 5: vagi, nem, következo, kell, bíróság }
+\CommentTok{\#\textgreater{}  Topic 6: törvéni, következo, helyéb, ának, nem }
+\CommentTok{\#\textgreater{}  Topic 7: vagi, nem, törvéni, kell, illetv }
+\CommentTok{\#\textgreater{}  Topic 8: vagi, nem, illetv, kell, meghatározott }
+\CommentTok{\#\textgreater{}  Topic 9: the, and, shall, vagi, parti }
+\CommentTok{\#\textgreater{}  Topic 10: nem, vagi, kell, törvéni, következo }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 31 (approx. per word bound = {-}7.950, relative change = 1.025e{-}04) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 32 (approx. per word bound = {-}7.949, relative change = 8.923e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 33 (approx. per word bound = {-}7.949, relative change = 8.413e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 34 (approx. per word bound = {-}7.948, relative change = 7.261e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 35 (approx. per word bound = {-}7.948, relative change = 7.164e{-}05) }
+\CommentTok{\#\textgreater{} Topic 1: szerzodo, vagi, egyezméni, fél, államban }
+\CommentTok{\#\textgreater{}  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási }
+\CommentTok{\#\textgreater{}  Topic 3: törvéni, nem, helyi, szóló, alapján }
+\CommentTok{\#\textgreater{}  Topic 4: vagi, nem, részes, más, valamennyi }
+\CommentTok{\#\textgreater{}  Topic 5: vagi, nem, következo, kell, bíróság }
+\CommentTok{\#\textgreater{}  Topic 6: törvéni, következo, helyéb, ának, nem }
+\CommentTok{\#\textgreater{}  Topic 7: vagi, nem, törvéni, kell, illetv }
+\CommentTok{\#\textgreater{}  Topic 8: vagi, nem, illetv, kell, meghatározott }
+\CommentTok{\#\textgreater{}  Topic 9: the, and, shall, vagi, parti }
+\CommentTok{\#\textgreater{}  Topic 10: nem, vagi, kell, törvéni, következo }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 36 (approx. per word bound = {-}7.947, relative change = 5.604e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 37 (approx. per word bound = {-}7.947, relative change = 4.236e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 38 (approx. per word bound = {-}7.947, relative change = 3.844e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 39 (approx. per word bound = {-}7.946, relative change = 3.543e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 40 (approx. per word bound = {-}7.946, relative change = 3.214e{-}05) }
+\CommentTok{\#\textgreater{} Topic 1: szerzodo, vagi, egyezméni, fél, államban }
+\CommentTok{\#\textgreater{}  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási }
+\CommentTok{\#\textgreater{}  Topic 3: törvéni, nem, helyi, szóló, alapján }
+\CommentTok{\#\textgreater{}  Topic 4: vagi, nem, részes, más, valamennyi }
+\CommentTok{\#\textgreater{}  Topic 5: vagi, nem, következo, kell, bíróság }
+\CommentTok{\#\textgreater{}  Topic 6: törvéni, következo, helyéb, ának, nem }
+\CommentTok{\#\textgreater{}  Topic 7: vagi, nem, törvéni, kell, illetv }
+\CommentTok{\#\textgreater{}  Topic 8: vagi, nem, illetv, kell, meghatározott }
+\CommentTok{\#\textgreater{}  Topic 9: the, and, shall, vagi, parti }
+\CommentTok{\#\textgreater{}  Topic 10: nem, vagi, kell, törvéni, következo }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 41 (approx. per word bound = {-}7.946, relative change = 3.036e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 42 (approx. per word bound = {-}7.946, relative change = 2.929e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 43 (approx. per word bound = {-}7.945, relative change = 3.259e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 44 (approx. per word bound = {-}7.945, relative change = 3.274e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 45 (approx. per word bound = {-}7.945, relative change = 2.418e{-}05) }
+\CommentTok{\#\textgreater{} Topic 1: szerzodo, vagi, egyezméni, fél, államban }
+\CommentTok{\#\textgreater{}  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási }
+\CommentTok{\#\textgreater{}  Topic 3: törvéni, nem, helyi, szóló, alapján }
+\CommentTok{\#\textgreater{}  Topic 4: vagi, nem, részes, más, valamennyi }
+\CommentTok{\#\textgreater{}  Topic 5: vagi, nem, következo, kell, bíróság }
+\CommentTok{\#\textgreater{}  Topic 6: törvéni, következo, helyéb, ának, nem }
+\CommentTok{\#\textgreater{}  Topic 7: vagi, nem, törvéni, kell, illetv }
+\CommentTok{\#\textgreater{}  Topic 8: nem, vagi, illetv, kell, meghatározott }
+\CommentTok{\#\textgreater{}  Topic 9: the, and, shall, vagi, parti }
+\CommentTok{\#\textgreater{}  Topic 10: nem, vagi, kell, törvéni, következo }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 46 (approx. per word bound = {-}7.945, relative change = 1.928e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 47 (approx. per word bound = {-}7.945, relative change = 1.847e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 48 (approx. per word bound = {-}7.944, relative change = 2.003e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 49 (approx. per word bound = {-}7.944, relative change = 2.081e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 50 (approx. per word bound = {-}7.944, relative change = 2.015e{-}05) }
+\CommentTok{\#\textgreater{} Topic 1: szerzodo, vagi, egyezméni, fél, államban }
+\CommentTok{\#\textgreater{}  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási }
+\CommentTok{\#\textgreater{}  Topic 3: törvéni, nem, helyi, szóló, alapján }
+\CommentTok{\#\textgreater{}  Topic 4: vagi, nem, részes, más, valamennyi }
+\CommentTok{\#\textgreater{}  Topic 5: vagi, nem, következo, kell, bíróság }
+\CommentTok{\#\textgreater{}  Topic 6: törvéni, következo, helyéb, nem, ának }
+\CommentTok{\#\textgreater{}  Topic 7: vagi, nem, törvéni, kell, illetv }
+\CommentTok{\#\textgreater{}  Topic 8: nem, vagi, illetv, kell, meghatározott }
+\CommentTok{\#\textgreater{}  Topic 9: the, and, shall, vagi, parti }
+\CommentTok{\#\textgreater{}  Topic 10: nem, vagi, kell, törvéni, következo }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 51 (approx. per word bound = {-}7.944, relative change = 1.924e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 52 (approx. per word bound = {-}7.944, relative change = 1.757e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 53 (approx. per word bound = {-}7.944, relative change = 1.808e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 54 (approx. per word bound = {-}7.943, relative change = 1.908e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 55 (approx. per word bound = {-}7.943, relative change = 1.895e{-}05) }
+\CommentTok{\#\textgreater{} Topic 1: szerzodo, vagi, egyezméni, fél, államban }
+\CommentTok{\#\textgreater{}  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási }
+\CommentTok{\#\textgreater{}  Topic 3: törvéni, nem, helyi, szóló, alapján }
+\CommentTok{\#\textgreater{}  Topic 4: vagi, nem, részes, más, meg }
+\CommentTok{\#\textgreater{}  Topic 5: vagi, nem, következo, kell, bíróság }
+\CommentTok{\#\textgreater{}  Topic 6: törvéni, következo, nem, helyéb, ának }
+\CommentTok{\#\textgreater{}  Topic 7: vagi, nem, törvéni, kell, illetv }
+\CommentTok{\#\textgreater{}  Topic 8: nem, vagi, illetv, kell, meghatározott }
+\CommentTok{\#\textgreater{}  Topic 9: the, and, shall, vagi, parti }
+\CommentTok{\#\textgreater{}  Topic 10: nem, vagi, kell, törvéni, következo }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 56 (approx. per word bound = {-}7.943, relative change = 1.725e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 57 (approx. per word bound = {-}7.943, relative change = 1.752e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 58 (approx. per word bound = {-}7.943, relative change = 1.794e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 59 (approx. per word bound = {-}7.943, relative change = 1.734e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 60 (approx. per word bound = {-}7.943, relative change = 1.739e{-}05) }
+\CommentTok{\#\textgreater{} Topic 1: szerzodo, vagi, egyezméni, fél, államban }
+\CommentTok{\#\textgreater{}  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási }
+\CommentTok{\#\textgreater{}  Topic 3: törvéni, nem, helyi, szóló, alapján }
+\CommentTok{\#\textgreater{}  Topic 4: vagi, nem, részes, más, meg }
+\CommentTok{\#\textgreater{}  Topic 5: vagi, nem, következo, kell, bíróság }
+\CommentTok{\#\textgreater{}  Topic 6: törvéni, következo, nem, helyéb, ának }
+\CommentTok{\#\textgreater{}  Topic 7: vagi, nem, törvéni, kell, illetv }
+\CommentTok{\#\textgreater{}  Topic 8: nem, vagi, illetv, kell, meghatározott }
+\CommentTok{\#\textgreater{}  Topic 9: the, and, shall, vagi, parti }
+\CommentTok{\#\textgreater{}  Topic 10: nem, vagi, kell, törvéni, következo }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 61 (approx. per word bound = {-}7.943, relative change = 1.459e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 62 (approx. per word bound = {-}7.942, relative change = 1.407e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 63 (approx. per word bound = {-}7.942, relative change = 1.342e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 64 (approx. per word bound = {-}7.942, relative change = 1.328e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 65 (approx. per word bound = {-}7.942, relative change = 1.414e{-}05) }
+\CommentTok{\#\textgreater{} Topic 1: szerzodo, vagi, egyezméni, fél, államban }
+\CommentTok{\#\textgreater{}  Topic 2: muködési, célú, támogatások, költségvetésegyéb, felhalmozási }
+\CommentTok{\#\textgreater{}  Topic 3: törvéni, nem, helyi, szóló, alapján }
+\CommentTok{\#\textgreater{}  Topic 4: vagi, nem, részes, más, hogi }
+\CommentTok{\#\textgreater{}  Topic 5: vagi, nem, következo, kell, bíróság }
+\CommentTok{\#\textgreater{}  Topic 6: törvéni, következo, nem, helyéb, ának }
+\CommentTok{\#\textgreater{}  Topic 7: vagi, nem, törvéni, kell, illetv }
+\CommentTok{\#\textgreater{}  Topic 8: nem, vagi, illetv, kell, meghatározott }
+\CommentTok{\#\textgreater{}  Topic 9: the, and, shall, vagi, parti }
+\CommentTok{\#\textgreater{}  Topic 10: nem, vagi, kell, törvéni, következo }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 66 (approx. per word bound = {-}7.942, relative change = 1.318e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 67 (approx. per word bound = {-}7.942, relative change = 1.203e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Completing Iteration 68 (approx. per word bound = {-}7.942, relative change = 1.077e{-}05) }
+\CommentTok{\#\textgreater{} .......................................................................................................}
+\CommentTok{\#\textgreater{} Completed E{-}Step (1 seconds). }
+\CommentTok{\#\textgreater{} Completed M{-}Step. }
+\CommentTok{\#\textgreater{} Model Converged}
+\end{Highlighting}
+\end{Shaded}
+
+Amennyiben a kutatási kérdés megkívánja, akkor megvizsálhatjuk hogy a
+kategórikus változóinknak milyen hatása volt egyes topikok esetében.
+Ehhez az \texttt{estimateEffect()} függvénnyel lefuttatunk egy lineáris
+regressziót és a \texttt{summary()} használatával láthatjuk az egyes
+kovariánsok koefficienseit. Itt az első topikkal illusztráljuk az
+eredményt, ami azt mutatja hogy (a kategórikus változóink első
+kategoriájához mérten) statisztikailag szignifikáns mint a téma mind
+pedig a kormányzati ciklusok abban hogy egyes dokumentumok milyen
+témákból épülnek fel.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{out}\SpecialCharTok{$}\NormalTok{meta}\SpecialCharTok{$}\NormalTok{electoral\_cycle }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(out}\SpecialCharTok{$}\NormalTok{meta}\SpecialCharTok{$}\NormalTok{electoral\_cycle)}
+\NormalTok{out}\SpecialCharTok{$}\NormalTok{meta}\SpecialCharTok{$}\NormalTok{majortopic }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(out}\SpecialCharTok{$}\NormalTok{meta}\SpecialCharTok{$}\NormalTok{majortopic)}
+
+\NormalTok{cov\_estimate }\OtherTok{\textless{}{-}} \FunctionTok{estimateEffect}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10} \SpecialCharTok{\textasciitilde{}}\NormalTok{ majortopic }\SpecialCharTok{+}\NormalTok{ electoral\_cycle, stm\_fit, }\AttributeTok{meta =}\NormalTok{ out}\SpecialCharTok{$}\NormalTok{meta, }\AttributeTok{uncertainty =} \StringTok{"Global"}\NormalTok{)}
+
+\FunctionTok{summary}\NormalTok{(cov\_estimate, }\AttributeTok{topics =} \DecValTok{1}\NormalTok{)}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Call:}
+\CommentTok{\#\textgreater{} estimateEffect(formula = 1:10 \textasciitilde{} majortopic + electoral\_cycle, }
+\CommentTok{\#\textgreater{}     stmobj = stm\_fit, metadata = out$meta, uncertainty = "Global")}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Topic 1:}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Coefficients:}
+\CommentTok{\#\textgreater{}                          Estimate Std. Error t value Pr(\textgreater{}|t|)    }
+\CommentTok{\#\textgreater{} (Intercept)               0.30340    0.03100   9.787  \textless{} 2e{-}16 ***}
+\CommentTok{\#\textgreater{} majortopic2              {-}0.20400    0.06769  {-}3.014 0.002646 ** }
+\CommentTok{\#\textgreater{} majortopic3              {-}0.20439    0.05955  {-}3.432 0.000623 ***}
+\CommentTok{\#\textgreater{} majortopic4              {-}0.22113    0.05892  {-}3.753 0.000185 ***}
+\CommentTok{\#\textgreater{} majortopic5               0.10304    0.04720   2.183 0.029280 *  }
+\CommentTok{\#\textgreater{} majortopic6              {-}0.22311    0.05868  {-}3.802 0.000152 ***}
+\CommentTok{\#\textgreater{} majortopic7              {-}0.15568    0.06809  {-}2.286 0.022436 *  }
+\CommentTok{\#\textgreater{} majortopic8              {-}0.21569    0.07288  {-}2.959 0.003155 ** }
+\CommentTok{\#\textgreater{} majortopic9               0.52502    0.08761   5.992 2.87e{-}09 ***}
+\CommentTok{\#\textgreater{} majortopic10             {-}0.10869    0.05491  {-}1.979 0.048045 *  }
+\CommentTok{\#\textgreater{} majortopic12             {-}0.17410    0.04066  {-}4.281 2.03e{-}05 ***}
+\CommentTok{\#\textgreater{} majortopic13             {-}0.13579    0.05597  {-}2.426 0.015432 *  }
+\CommentTok{\#\textgreater{} majortopic14             {-}0.21725    0.07553  {-}2.876 0.004107 ** }
+\CommentTok{\#\textgreater{} majortopic15             {-}0.14752    0.04267  {-}3.457 0.000568 ***}
+\CommentTok{\#\textgreater{} majortopic16             {-}0.09594    0.05308  {-}1.807 0.071004 .  }
+\CommentTok{\#\textgreater{} majortopic17             {-}0.22433    0.05805  {-}3.864 0.000118 ***}
+\CommentTok{\#\textgreater{} majortopic18              0.21036    0.05727   3.673 0.000252 ***}
+\CommentTok{\#\textgreater{} majortopic19              0.07385    0.05122   1.442 0.149659    }
+\CommentTok{\#\textgreater{} majortopic20             {-}0.21048    0.03923  {-}5.366 1.00e{-}07 ***}
+\CommentTok{\#\textgreater{} majortopic21             {-}0.22473    0.06975  {-}3.222 0.001314 ** }
+\CommentTok{\#\textgreater{} majortopic23             {-}0.16701    0.09392  {-}1.778 0.075662 .  }
+\CommentTok{\#\textgreater{} electoral\_cycle2002{-}2006 {-}0.10358    0.02097  {-}4.939 9.17e{-}07 ***}
+\CommentTok{\#\textgreater{} {-}{-}{-}}
+\CommentTok{\#\textgreater{} Signif. codes:  0 \textquotesingle{}***\textquotesingle{} 0.001 \textquotesingle{}**\textquotesingle{} 0.01 \textquotesingle{}*\textquotesingle{} 0.05 \textquotesingle{}.\textquotesingle{} 0.1 \textquotesingle{} \textquotesingle{} 1}
+\end{Highlighting}
+\end{Shaded}
+
+Az LDA modelleknél már bemutatott munkafolyamat az stm modellünk
+esetében is alkalmazható, hogy vizuálisan is megjelenítsük az
+eredményeinket. A \texttt{tidy()} data frammé alakítja az stm
+objektumot, amit aztán a már ismerős \texttt{dplyr} csomagban lévő
+fügvényekkel tudunk átalakítani és végül vizualizálni a \texttt{ggplot2}
+csomaggal. A lenti ábrán az egyes témákhoz tartozó 5 legvalószűbb szót
+mutatjuk be.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{tidy\_stm }\OtherTok{\textless{}{-}} \FunctionTok{tidy}\NormalTok{(stm\_fit)}
+
+\NormalTok{tidy\_stm }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(topic) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{top\_n}\NormalTok{(}\DecValTok{5}\NormalTok{, beta) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{topic =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"Topic "}\NormalTok{, topic),}
+    \AttributeTok{term =} \FunctionTok{reorder\_within}\NormalTok{(term, beta, topic)}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(term, beta)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_col}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{topic, }\AttributeTok{scales =} \StringTok{"free\_y"}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{3}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_reordered}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{,}
+    \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(beta),}
+    \AttributeTok{title =} \StringTok{"Topikonkénti legmagasabb valószínuségu szavak"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-101-1} \end{center}
+
+Egy-egy topichoz tartozó meghatározó szavak annak függvényében
+változhatnak hogy milyen algoritmust használunk. A
+\texttt{labelTopics()} a már becsült stm modellünket alapul véve kínál 4
+féle alternatív opciót. Az egyes algoritmusok részletes magyarázatáért
+érdemes elolvasni a csomag részletes leírását.\footnote{Az `stm`
+  csomaghoz tartozó leírás:
+  \url{https://cran.r-project.org/web/packages/stm/vignettes/stmVignette.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{labelTopics}\NormalTok{(stm\_fit, }\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{))}
+\CommentTok{\#\textgreater{} Topic 1 Top Words:}
+\CommentTok{\#\textgreater{}       Highest Prob: szerzodo, vagi, egyezméni, fél, államban, nem, másik }
+\CommentTok{\#\textgreater{}       FREX: megadóztatható, haszonhúzója, beruházóinak, segélycsapatok, adóztatást, jövedelemadók, kijelölések }
+\CommentTok{\#\textgreater{}       Lift: árucikkeket, átalányösszegben, átléphetik, átszállítást, beruházóikat, célországban, cikktanulók }
+\CommentTok{\#\textgreater{}       Score: szerzodo, államban, illetoségu, egyezméni, megadóztatható, adóztatható, cikka }
+\CommentTok{\#\textgreater{} Topic 2 Top Words:}
+\CommentTok{\#\textgreater{}       Highest Prob: muködési, célú, támogatások, költségvetésegyéb, felhalmozási, terhelo, beruházási }
+\CommentTok{\#\textgreater{}       FREX: kiadásokfelújításegyéb, kiadásokintézményi, kiadásokközponti, költségvetésfelhalmozási, kiadásokkormányzati, felújításegyéb, rek }
+\CommentTok{\#\textgreater{}       Lift: a+b+c, a+b+c+d, adago, adódóa, adósságállományából, adósságrendezésr, adótartozásának }
+\CommentTok{\#\textgreater{}       Score: költségvetésegyéb, költségvetésszemélyi, kiadásokfelhalmozási, járulékokdolog, költségvetésintézményi, kiadásokegyéb, juttatásokmunkaadókat}
+\end{Highlighting}
+\end{Shaded}
+
+A korpuszunkon belüli témák megoszlását a \texttt{plot.STM()}-el tudjuk
+ábrázolni. Jól látszik hogy a Topic 2-be tartozó szavak vannak jelen a
+legnagyobb arányban a dokumentumaink között.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot.STM}\NormalTok{(stm\_fit, }\StringTok{"summary"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-103-1} \end{center}
+
+Végezetül, a témák közötti korrelációt a \texttt{topicCorr} függvénnyel
+becsülhetjük és az \texttt{igraph} csomagot betöltve a \texttt{plot()}
+paranccsal tudjuk vizualizálni. Az eredmény egy hálózat lesz amit
+gráfként ábrázolunk. Az élei a gráfoknak a témák közötti összefüggést
+jelölik.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{library}\NormalTok{(igraph)}
+
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{topicCorr}\NormalTok{(stm\_fit))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-104-1} \end{center}
 
 \hypertarget{szuxf3beuxe1gyazuxe1sok}{%
 \chapter{Szóbeágyazások}\label{szuxf3beuxe1gyazuxe1sok}}
@@ -1296,7 +3261,7 @@ Az RStudio kezdőfelülete négy panelből, eszközsorból és menüsorból áll
 
 }
 
-\caption{RStudio felhasználói felület}\label{fig:unnamed-chunk-44}
+\caption{RStudio felhasználói felület}\label{fig:unnamed-chunk-105}
 \end{figure}
 
 Az \textbf{\emph{(1) editor}} ablak szolgál a kód beírására, futtatására
@@ -1338,7 +3303,7 @@ exit''} értékre be kell állítani a \emph{„Never''} értéket.
 
 }
 
-\caption{RStudio projekt beállítások}\label{fig:unnamed-chunk-45}
+\caption{RStudio projekt beállítások}\label{fig:unnamed-chunk-106}
 \end{figure}
 
 A szükséges beállítások után a
@@ -1393,7 +3358,7 @@ munkakönyvtárnak állíthatjuk be az a mappát, amelyben épp benne vagyunk.
 
 }
 
-\caption{Working directory beállítások}\label{fig:unnamed-chunk-46}
+\caption{Working directory beállítások}\label{fig:unnamed-chunk-107}
 \end{figure}
 
 A munkafolyamat befejezésére a \texttt{q()} vagy \texttt{quit()}
@@ -1463,7 +3428,7 @@ a ()-be a telepíteni kívánt csomag nevét kell beírnunk (pl.:
 
 }
 
-\caption{Packages fül}\label{fig:unnamed-chunk-47}
+\caption{Packages fül}\label{fig:unnamed-chunk-108}
 \end{figure}
 
 \hypertarget{objektumok-tuxe1roluxe1sa-uxe9rtuxe9kaduxe1s}{%
@@ -1695,7 +3660,7 @@ készítünk.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-57-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-118-1} \end{center}
 
 Lehetőségünk van arra, hogy az alakzat színét megváltoztatássuk. A
 használható színek és színkódok megtalálhatóak a \texttt{ggplot2}
@@ -1711,7 +3676,7 @@ leírásában: \url{https://ggplot2-book.org/scale-colour.html}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-58-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-119-1} \end{center}
 
 Meghatározhatjuk külön-külön a histogram x és y tengelyén ábrázolni
 kívánt adatokat és választhatjuk azok pontszerű ábrázolását is.
@@ -1729,7 +3694,7 @@ kívánt adatokat és választhatjuk azok pontszerű ábrázolását is.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-59-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-120-1} \end{center}
 
 Ahogy az előzőekben, itt is megváltoztathatjuk az ábra színét.
 
@@ -1746,7 +3711,7 @@ Ahogy az előzőekben, itt is megváltoztathatjuk az ábra színét.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-60-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-121-1} \end{center}
 
 Az fenti script kibővítésével az egyes kontinensek adatait különböző
 színnel ábrázolhatjuk, az x és y tengelyt elnevezhetjük, a histogramnak
@@ -1774,7 +3739,7 @@ feltüntethetjük az alábbi módon:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-61-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-122-1} \end{center}
 
 Az ábrán található feliratok méretének, betűtípusának és betűszínének
 megválasztásra is lehetőségünk van.
@@ -1804,7 +3769,7 @@ megválasztásra is lehetőségünk van.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-62-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-123-1} \end{center}
 
 Készíthetünk oszlopdiagramot is, amit a \texttt{ggplot2} diamonds
 adatkészletén személtetünk
@@ -1816,7 +3781,7 @@ adatkészletén személtetünk
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-63-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-124-1} \end{center}
 
 Itt is lehetőségünk van arra, hogy a diagram színét megváltoztassuk.
 
@@ -1827,7 +3792,7 @@ Itt is lehetőségünk van arra, hogy a diagram színét megváltoztassuk.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-64-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-125-1} \end{center}
 
 De arra is lehetőségünk van, hogy az egyes oszlopok eltérő színűek
 legyenek.
@@ -1839,7 +3804,7 @@ legyenek.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-65-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-126-1} \end{center}
 
 Arra is van lehetőségünk, hogy egyszerre több változót is ábrázoljunk.
 
@@ -1850,7 +3815,7 @@ Arra is van lehetőségünk, hogy egyszerre több változót is ábrázoljunk.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-66-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-127-1} \end{center}
 
 Arra ggplot2 segítségével arra is lehetőségünk van, hogy csv-ből
 beolvasott adatainkat vizualizáljuk.
@@ -1892,10 +3857,35 @@ A csv-ből belolvasott adatainból kördiagramot is készíthetünk
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
+\leavevmode\hypertarget{ref-arun2010finding}{}%
+Arun, Rajkumar, Venkatasubramaniyan Suresh, CE Veni Madhavan, and MN
+Narasimha Murthy. 2010. {``On Finding the Natural Number of Topics with
+Latent Dirichlet Allocation: Some Observations.''} In, 391402.
+
+\leavevmode\hypertarget{ref-cao2009density}{}%
+Cao, Juan, Tian Xia, Jintao Li, Yongdong Zhang, and Sheng Tang. 2009.
+{``A Density-Based Method for Adaptive LDA Model Selection.''}
+\emph{Neurocomputing} 72 (7-9): 17751781.
+
+\leavevmode\hypertarget{ref-deveaud2014accurate}{}%
+Deveaud, Romain, Eric SanJuan, and Patrice Bellot. 2014. {``Accurate and
+Effective Latent Concept Modeling for Ad Hoc Information Retrieval.''}
+\emph{Document Numérique} 17 (1): 6184.
+
+\leavevmode\hypertarget{ref-griffiths2004}{}%
+Griffiths, T. L., and M. Steyvers. 2004. {``Finding Scientific
+Topics.''} \emph{Proceedings of the National Academy of Sciences} 101
+(Supplement 1): 5228--35. \url{https://doi.org/10.1073/pnas.0307752101}.
+
 \leavevmode\hypertarget{ref-grimmer2013text}{}%
 Grimmer, Justin, and Brandon M Stewart. 2013. {``Text as Data: The
 Promise and Pitfalls of Automatic Content Analysis Methods for Political
 Texts.''} \emph{Political Analysis} 21 (3): 267297.
+
+\leavevmode\hypertarget{ref-jacobi2016}{}%
+Jacobi, Carina, Wouter Van Atteveldt, and Kasper Welbers. 2016.
+{``Quantitative Analysis of Large Amounts of Journalistic Texts Using
+Topic Modelling.''} \emph{Digital Journalism} 4 (1): 89--106.
 
 \leavevmode\hypertarget{ref-laver2000estimating}{}%
 Laver, Michael, and John Garry. 2000. {``Estimating Policy Positions
@@ -1912,6 +3902,13 @@ Máté, Ákos, Miklós Sebők, and Tamás Barczikay. 2021. {``The Effect of
 Central Bank Communication on Sovereign Bond Yields: The Case of
 Hungary.''} Edited by Hiranya K. Nath. \emph{PLOS ONE} 16 (2): e0245515.
 \url{https://doi.org/10.1371/journal.pone.0245515}.
+
+\leavevmode\hypertarget{ref-roberts2014structural}{}%
+Roberts, Margaret E, Brandon M Stewart, Dustin Tingley, Christopher
+Lucas, Jetson Leder-Luis, Shana Kushner Gadarian, Bethany Albertson, and
+David G Rand. 2014. {``Structural Topic Models for Open-Ended Survey
+Responses.''} \emph{American Journal of Political Science} 58 (4):
+10641082.
 
 \leavevmode\hypertarget{ref-silge2017text}{}%
 Silge, Julia, and David Robinson. 2017. \emph{Text Mining with r: A Tidy
