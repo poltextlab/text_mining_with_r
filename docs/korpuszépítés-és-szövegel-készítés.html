@@ -238,9 +238,7 @@ oldalakon:<a href="https://cran.r-project.org/web/packages/rvest/rvest.pdf" clas
 <span id="cb19-8"><a href="korpuszépítés-és-szövegel-készítés.html#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &lt;body class=&quot;index&quot;&gt;\n\n\t&lt;script&gt;\n\t  (function(i,s,o,g,r,a,m){i[&#39;Googl ...</span></span></code></pre></div>
 <p>Ezután a <code>html_nodes()</code> függvény argumentumaként meg kell adnunk azt a HTML címkét vagy CSS azonosítót, ami a legyűjteni kívánt elemeket azonosítja a weboldalon. Ezeket az azonosítókat az adott weboldal forráskódjának megtekintésével tudhatjuk meg, amire a különböző böngészők különböző lehetőségeket kínálnak. Majd a <code>html_text()</code>
 függvény segítségével megkapjuk azokat a szövegeket, amely az adott weblapon az adott azonosítóval rendelkeznek.</p>
-Példánkban a <a href="https://poltextlab.tk.hu/hu" class="uri">https://poltextlab.tk.hu/hu</a> weboldalról azokat az információkat szeretnénk kigyűjteni, amelyek az
-<title>
-<p>címke alatt szerepenek:</p>
+<p>Példánkban a <a href="https://poltextlab.tk.hu/hu" class="uri">https://poltextlab.tk.hu/hu</a> weboldalról azokat az információkat szeretnénk kigyűjteni, amelyek az <code>&lt;title&gt;</code> címke alatt szerepenek:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="korpuszépítés-és-szövegel-készítés.html#cb20-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-2"><a href="korpuszépítés-és-szövegel-készítés.html#cb20-2" aria-hidden="true" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://poltextlab.tk.hu/hu&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb20-3"><a href="korpuszépítés-és-szövegel-készítés.html#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="st">&quot;title&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -294,7 +292,6 @@ kisbetűvé konvertál, majd a <code>str_trim()</code>eltávolítja a szóközö
 <span id="cb25-5"><a href="korpuszépítés-és-szövegel-készítés.html#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_trim</span>()</span>
 <span id="cb25-6"><a href="korpuszépítés-és-szövegel-készítés.html#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;mta tk&quot;                                                                             </span></span>
 <span id="cb25-7"><a href="korpuszépítés-és-szövegel-készítés.html#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &quot;political and legal text mining and artificial intelligence laboratory (poltextlab)&quot;</span></span></code></pre></div>
-<p>A string műveletekről bővebben: <a href="https://r4ds.had.co.nz/strings.html" class="uri">https://r4ds.had.co.nz/strings.html</a></p>
 </div>
 <div id="tokenizálás-szótövezés-kisbetűsítés-és-a-stopszavak-eltávolítása" class="section level3" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> Tokenizálás, szótövezés, kisbetűsítés és a stopszavak eltávolítása</h3>

@@ -453,7 +453,8 @@ stm_fit <- stm(
   prevalence = ~ majortopic + electoral_cycle,
   data = out$meta,
   init.type = "Spectral",
-  seed = 1234
+  seed = 1234,
+  verbose = FALSE
 )
 ```
 

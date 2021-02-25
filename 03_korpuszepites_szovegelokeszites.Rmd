@@ -37,7 +37,7 @@ r
 Ezután a `html_nodes()` függvény argumentumaként meg kell adnunk azt a HTML címkét vagy CSS azonosítót, ami a legyűjteni kívánt elemeket azonosítja a weboldalon. Ezeket az azonosítókat az adott weboldal forráskódjának megtekintésével tudhatjuk meg, amire a különböző böngészők különböző lehetőségeket kínálnak. Majd a `html_text()`
 függvény segítségével megkapjuk azokat a szövegeket, amely az adott weblapon az adott azonosítóval rendelkeznek.
 
-Példánkban a <https://poltextlab.tk.hu/hu> weboldalról azokat az információkat szeretnénk kigyűjteni, amelyek az <title> címke alatt szerepenek:
+Példánkban a <https://poltextlab.tk.hu/hu> weboldalról azokat az információkat szeretnénk kigyűjteni, amelyek az `<title>` címke alatt szerepenek:
 
 ```{r}
 
@@ -48,6 +48,7 @@ title <- read_html("https://poltextlab.tk.hu/hu") %>%
 
 title
 ```
+
 A kigyűjtött információkat pedig ezután kiíratjuk egy `csv` fájlba.
 
 ```{r eval=FALSE}
@@ -114,7 +115,6 @@ text1 %>%
   str_trim()
 ```
 
-A string műveletekről bővebben: <https://r4ds.had.co.nz/strings.html>
 
 ### Tokenizálás, szótövezés, kisbetűsítés és a stopszavak eltávolítása
 
