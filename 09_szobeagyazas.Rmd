@@ -1,3 +1,105 @@
 # Szóbeágyazások
 
-kilencedik fejezet
+
+A szóbeágyazás a topikmodellekhez hasonlóan szintén a felügyelet nélküli tanulás módszerére épül, azonban itt a dokumentum domináns kifejezéseinek és témáinak feltárása helyett a szavak közötti szemantikai kapcsolat megértése a cél. Vagyis a modellnek képesnek kell lennie az egyes szavak esetén szinonimáik, és ellentétpárjaik megtalálására.
+A hagyományos topikmodellezés esetén a modell a szavak dokumentumokon belüli együttes megjelenési statisztikái alapján becsül dokumentum-topik, illetve topik-szó eloszlásokat, azzal a céllal, hogy koherens téma-csoportokat képezzen a modell, ezzel szemben a szóbeágyazás (word embedding) legújabb iskolája már neurális halókon alapul. A neurális háló a tanítási folyamata során az egyes szavak vektorreprezentációját állítja elő. A vektorok jellemzően 100-300 dimenzióból állnak, a cosinus távolságuk alapján pedig megállapítható, hogy az egyes kifejezések milyen szemantikai kapcsolatban állnak egymással. A szóvektorok szemantikai reprezentációjának személéltesére klasszikus példa, hogy a király szóvektorból kivonva a férfi szóvektort, és hozzá adva a nő szóvektort a királynő szóvektorát kapjuk eredményként.
+A szóbeágyazás célja tehát a szemantikai relációk feltárása. A szavak vektorizálásának köszönhetően bármely (a korpuszunkban szereplő) tetszőleges számú szóról eldönthetjük, hogy azok milyen szemantikai kapcsolatban állnak egymással – szinonimaként, vagy ellentétes fogalompárként szerepelnek.
+A szóvektorokon dimenziócsökkentő eljárást alkalmazva, s a multidimenzionális (100-300 dimenziós) teret 2 dimenziósra szűkítve könnyen vizualizálhatjuk is a korpuszunk kifejezései között fennálló szemantikai távolságot, és ahogy a lenti ábrákon is, láthatjuk, hogy az egyes kifejezések milyen relációban állnak egymással – a szemantikailag hasanló tartalmú kifejezések egymáshoz közel, míg a távolabbi jelentéstartalmú kifejezések egymástól távolabb foglalnak helyet.
+ 
+A szóbeágyazásra alkalmazott két klasszikus algoritmus – Word2Vec és a GloVe – a kontextuális szövegeloszláson  (Distributional Similarity based Representations) alapszik, vagyis abból a feltevésből indul ki, hogy a hasonló kifejezések hasonló kontextusban fordulnak elő, valamint mindkettő sekély neurális hálón (2 rejtett réteg) alapuló modell. A Word2Vec-nek két verziója van: Continuous Bag-of-words (CBOW) és SkipGram (SG) – előbbi a kontextuális szavakból jelzi előre (predicting) a kontextushoz legszorosabban kapcsolódó kifejezést, míg utóbbi adott kifejezésből jelzi előre a kontextust. A GloVe (Global Vectors for Word Representation) a Word2Vec-hez hasonlóan neurális hálón alapuló, szóvektorok előállítását célzó modell, a Word2Vec-kel szemben azonban nem a meghatározott kontextus-ablakban (context window) megjelenő kifejezések közti kapcsolatokat tárja fel, hanem a szöveg globális jellemzőit igyekszik megragadni az egész szöveget jellemző együttes előfordulási gyakoriságok (co-occurrance) meghatározásával. Míg a Word2Vec modell prediktív jellegű, addig a GloVe egy statisztikai alapú (count-based) modell, melyek gyakorlati hasznosításukat tekintve nagyon hasonlóak (Cothenet, 2020; Mikolov, Chen, Corrado, & Dean, 2013; Mikolov, Grave, Bojanowski, Puhrsch, & Joulin, 2019; Pennington, Socher, & Manning, 2014; Sarkar, 2018).
+
+A szóvektor modellek között érdemes megemlíteni a fastText-et is, mely 157  nyelvre kínál (köztük magyarra is) Word2Vec módszeren alapuló, előre tanított szóvektorokat, melyet tovább lehet tanítani speciális szövegkorpuszokra, ezzel jelentősen lerövidítve a modell tanításához szükséges idő-, és kapacitásszükségletet (fasttext.cc, n.d.).
+Az eddig ismertetett kontextuális szövegeloszláson  (Distributional Similarity based Representations) alapuló modellek egyik nagy hátránya, hogy a különböző mondatokban előforduló azonos kifejezéseket azonos jelentésűnek tételezi fel, vagyis nem foglalkoznak azzal, hogy egy szónak több jelentése, vagy eltérő, finomabb jelentéstartamai is lehetnek. Ezen a hiányosságon igyekeznek túllépni azok az elő-tanított (pre-trained) modellek, melyek a kontextus mellett az adott környezetre jellemző szemantikai tartalmat is igyekeznek elsajátítani. Míg a Word2Vec, a GloVe és a fastText esetén ugyanaz a vektorreprezentáció kerül hozzárendelésre két azonos szó estén, addig az előre tanított, mélytanuláson (deep-learning – 2-nál több rejtett réteg) alapuló ELMO, BERT és GPT2 modellek estén adott kifejezéshez kontextusuk függvényében különböző vektorok kerülnek hozzárendelésre. Vegyük a következő két mondatot a különbség mibenlétének megértésére: (1) a börtönből tegnap éjjel megszökött két fogoly; (2) Magyarországon a fogoly őshonos madár. Míg a sekély tanuláson (swallow learning) alapuló modellek (Word2Vec, GloVe) azonos vektorreprezentációval fejezik ki a „fogoly” szót a két példamondat esetén, addig az elő-tanított modellek (ELMO, BERT, GPT2) képesek a két „fogoly” kifejezés közti különbség megragadására (Alammar, 2018; Ghati, 2020; Ghelani, 2019a, 2019b; LyrnAI, 2018; Taylor, 2019).
+
+
+```{r}
+library(text2vec)
+library(readtext)
+library(readr)
+
+mn <- read_csv("data/magyar_nemzet_small.csv")
+
+mn_text <- mn$text
+
+
+# Create iterator over tokens
+tokens <- space_tokenizer(mn_text)
+# Create vocabulary. Terms will be unigrams (simple words).
+it = itoken(tokens, progressbar = FALSE)
+vocab <- create_vocabulary(it)
+
+
+vocab <- prune_vocabulary(vocab, term_count_min = 5L)
+
+vocab
+
+
+# Use our filtered vocabulary
+vectorizer <- vocab_vectorizer(vocab)
+# use window of 5 for context words
+tcm <- create_tcm(it, vectorizer, skip_grams_window = 10)
+
+
+glove = GlobalVectors$new(rank = 50, x_max = 10)
+wv_main = glove$fit_transform(tcm, n_iter = 100, convergence_tol = 0.01)
+
+
+
+
+
+
+
+
+
+
+mn_large <- read_csv("data/mn_complete.csv")
+
+mn_text_all <- mn_large$text_complete
+
+
+# Create iterator over tokens
+tokens_large <- space_tokenizer(mn_text_all)
+# Create vocabulary. Terms will be unigrams (simple words).
+it_large = itoken(tokens_large, progressbar = FALSE)
+
+vocab_large <- create_vocabulary(it_large)
+
+
+vocab_large <- prune_vocabulary(vocab_large, term_count_min = 10)
+
+
+
+# Use our filtered vocabulary
+vectorizer_large <- vocab_vectorizer(vocab_large)
+# use window of 5 for context words
+tcm_large <- create_tcm(it_large, vectorizer_large, skip_grams_window = 10)
+
+
+glove_large  <-  GlobalVectors$new(rank = 50, x_max = 10)
+
+mn_main  <-  glove_large$fit_transform(tcm_large, n_iter = 100, convergence_tol = 0.01)
+
+
+mn_context  <-  glove_large$components
+
+
+word_vectors <-  mn_main + t(mn_context)
+
+saveRDS(word_vectors, "data/mn_pretrained.rds")
+
+```
+
+check the vectors
+
+```{r}
+viktor <- word_vectors["Ferenc", , drop = F]
+
+cos_sim_rom <-  sim2(x = word_vectors, y = viktor, method = "cosine", norm = "l2")
+
+head(sort(cos_sim_rom[, 1], decreasing = TRUE), 5)
+```
+
+```{r}
+mn_large$text[1]
+```
+
