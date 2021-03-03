@@ -177,7 +177,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="9.3" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#struktúrális-topik-modellek"><i class="fa fa-check"></i><b>9.3</b> Struktúrális topik modellek</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="szóbeágyazások.html"><a href="szóbeágyazások.html"><i class="fa fa-check"></i><b>10</b> Szóbeágyazások</a></li>
+<li class="chapter" data-level="10" data-path="szóbeágyazások.html"><a href="szóbeágyazások.html"><i class="fa fa-check"></i><b>10</b> Szóbeágyazások</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="szóbeágyazások.html"><a href="szóbeágyazások.html#word2vec-glove-és-fasttext"><i class="fa fa-check"></i><b>10.1</b> Word2Vec, GloVe és fastText</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="szóbeágyazások.html"><a href="szóbeágyazások.html#glove-használata-magyar-média-korpuszon"><i class="fa fa-check"></i><b>10.1.1</b> GloVe használata magyar média korpuszon</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="11" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html"><i class="fa fa-check"></i><b>11</b> Szövegösszehasonlítás</a></li>
 <li class="chapter" data-level="12" data-path="természetes-nyelv-feldolgozás-nlp.html"><a href="természetes-nyelv-feldolgozás-nlp.html"><i class="fa fa-check"></i><b>12</b> Természetes-nyelv feldolgozás (NLP)</a></li>
 <li class="chapter" data-level="13" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html"><i class="fa fa-check"></i><b>13</b> Osztályozás és felügyelt tanulás</a></li>
@@ -394,7 +400,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb79-17"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb79-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;k&quot;</span>,</span>
 <span id="cb79-18"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb79-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Perplexity&quot;</span></span>
 <span id="cb79-19"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb79-19" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-85-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/purrr_lda-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>A perplexity pontszám alapján a 25 topikos modell szerepel a legjobban, de fontos emlékezni arra hogy a megfelelő <em>k</em> kiválasztása a kutató kvalitatív döntésén múlik. Ehhez természetesen kvantitatív szempontokat is figyelembe vehetünk, mint például a perplexity indikátor.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
 <p>A reprodukálhatóság és futási sebesség érdekében a fejezet további részeiben a <em>k</em> paraméternek 10-es értéket adunk. Ezzel lefututtatunk egy-egy modellt a két ciklusra.</p>
 <div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb80-1" aria-hidden="true" tabindex="-1"></a>vem_98_02 <span class="ot">&lt;-</span> <span class="fu">LDA</span>(dfm_98_02, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">method =</span> <span class="st">&quot;VEM&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">seed =</span> <span class="dv">1234</span>))</span>
@@ -430,7 +436,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb84-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb84-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta)</span>
 <span id="cb84-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb84-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb84-12"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb84-12" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-90-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-88-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb85-1" aria-hidden="true" tabindex="-1"></a>top_terms <span class="sc">%&gt;%</span></span>
 <span id="cb85-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(electoral_cycle <span class="sc">==</span> <span class="st">&quot;2002-2006&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb85-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder_within</span>(term, beta, topic), beta)) <span class="sc">+</span></span>
@@ -443,7 +449,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb85-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb85-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta)</span>
 <span id="cb85-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb85-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb85-12"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb85-12" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-91-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-89-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="az-lda-gibbs-módszer-alkalmazása-a-magyar-törvények-korpuszán" class="section level3" number="9.2.2">
 <h3><span class="header-section-number">9.2.2</span> Az „LDA Gibbs" módszer alkalmazása a magyar törvények korpuszán</h3>
@@ -480,7 +486,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb89-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb89-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta)</span>
 <span id="cb89-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb89-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb89-12"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb89-12" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-95-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-92-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb90-1" aria-hidden="true" tabindex="-1"></a>top_terms_gibbs <span class="sc">%&gt;%</span></span>
 <span id="cb90-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(electoral_cycle <span class="sc">==</span> <span class="st">&quot;2002-2006&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb90-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder_within</span>(term, beta, topic), beta)) <span class="sc">+</span></span>
@@ -493,7 +499,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb90-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb90-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta)</span>
 <span id="cb90-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb90-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb90-12"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb90-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>()</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-96-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-93-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="struktúrális-topik-modellek" class="section level2" number="9.3">
@@ -599,7 +605,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb95-19"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb95-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta),</span>
 <span id="cb95-20"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb95-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Topikonkénti legmagasabb valószínuségu szavak&quot;</span></span>
 <span id="cb95-21"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb95-21" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-101-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-96-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Egy-egy topichoz tartozó meghatározó szavak annak függvényében változhatnak hogy milyen algoritmust használunk. A <code>labelTopics()</code> a már becsült stm modellünket alapul véve kínál 4 féle alternatív opciót. Az egyes algoritmusok részletes magyarázatáért érdemes elolvasni a csomag részletes leírását.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a></p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">labelTopics</span>(stm_fit, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>))</span>
 <span id="cb96-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1 Top Words:</span></span>
@@ -614,13 +620,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb96-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb96-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Score: költségvetésegyéb, költségvetésszemélyi, kiadásokfelhalmozási, járulékokdolog, költségvetésintézményi, kiadásokegyéb, juttatásokmunkaadókat</span></span></code></pre></div>
 <p>A korpuszunkon belüli témák megoszlását a <code>plot.STM()</code>-el tudjuk ábrázolni. Jól látszik hogy a Topic 2-be tartozó szavak vannak jelen a legnagyobb arányban a dokumentumaink között.</p>
 <div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.STM</span>(stm_fit, <span class="st">&quot;summary&quot;</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-103-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-98-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>Végezetül, a témák közötti korrelációt a <code>topicCorr</code> függvénnyel becsülhetjük és az <code>igraph</code> csomagot betöltve a <code>plot()</code> paranccsal tudjuk vizualizálni. Az eredmény egy hálózat lesz amit gráfként ábrázolunk. Az élei a gráfoknak a témák közötti összefüggést jelölik.</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb98-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
 <span id="cb98-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb98-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb98-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#cb98-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">topicCorr</span>(stm_fit))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-104-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-99-1.png" width="90%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
