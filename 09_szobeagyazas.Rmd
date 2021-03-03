@@ -124,18 +124,9 @@ show_vector(mn_word_vectors, "barack", 10)
 ```
 
 
-
-
-
-
-Szupervised learning applikacio
+Ugyanez működik magyar vezetőkkel is.
 
 ```{r}
-
-library(quanteda.textmodels)
-```
-
-```{r}
-
+show_vector(mn_word_vectors, "orbán", 10)
 ```
 
