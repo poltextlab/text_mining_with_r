@@ -243,7 +243,7 @@ Saját korpuszunkon először a `VEM` a módszert alkalmazzuk, ahol `k = 10` aza
 library(purrr)
 ```
 
-```{r, cache=TRUE}
+```{r purrr_lda, cache=TRUE}
 k_topics <- c(5, 10, 15, 20, 25)
 
 lda_98_02 <- k_topics %>%
@@ -271,7 +271,7 @@ A perplexity pontszám alapján a 25 topikos modell szerepel a legjobban, de fon
 
 A reprodukálhatóság és futási sebesség érdekében a fejezet további részeiben a *k* paraméternek 10-es értéket adunk. Ezzel lefututtatunk egy-egy modellt a két ciklusra.
 
-```{r, cache=TRUE}
+```{r double_vem, cache=TRUE}
 vem_98_02 <- LDA(dfm_98_02, k = 10, method = "VEM", control = list(seed = 1234))
 
 vem_02_06 <- LDA(dfm_02_06, k = 10, method = "VEM", control = list(seed = 1234))
@@ -343,7 +343,7 @@ top_terms %>%
 
 A következőkben ugyanazon a korpuszon az LDA Gibbs módszert alkalmazzuk. A szövegelőkészítő és tisztító lépések ennél a módszernél is ugyanazok mint a fentebb bemutatott "VEM" módszer esetében, így itt most csak a modell illesztését mutatjuk be.
 
-```{r, cache=TRUE}
+```{r double_gibbs, cache=TRUE}
 
 gibbs_98_02 <- LDA(dfm_98_02, k = 10, method = "Gibbs", control = list(seed = 1234))
 
@@ -422,7 +422,7 @@ A lenti lépésekben a csomag dokumentációjában szereplő ajánlásokat köve
 
 Az előkészítés utolsó szakaszában az `out` objektumban tároljuk el a dokumentumokat, egyedi szavakat, illetve a meta adatokat (kovariánsokat).
 
-```{r, cache=TRUE}
+```{r stm_preprocess, cache=TRUE}
 
 data_stm <- torveny_final
 
@@ -445,7 +445,7 @@ out <- prepDocuments(processed_stm$documents, processed_stm$vocab, processed_stm
 
 A struktúrális topic modellünket az `stm` függvénnyel becsüljük és a kovariánsokat a `prevalence` opciónál tudjuk formulaként megadni. A lenti példában a Comparative Agendas Projekt kategóriáit (pl.: gazdaság, egészségügy, stb.) és a kormányciklusokat használjuk. A futási idő kicsit hosszabb mint az LDA modellek esetében.
 
-```{r, cache=TRUE}
+```{r stm_fit, cache=TRUE}
 stm_fit <- stm(
   out$documents,
   out$vocab,

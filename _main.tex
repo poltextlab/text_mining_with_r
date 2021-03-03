@@ -125,7 +125,7 @@
 
 \title{Szövegbányászat és mesterséges intelligencia R-ben}
 \author{Sebők Miklós, Ring Orsolya}
-\date{2021-02-25 16:15:24}
+\date{2021-03-03 01:29:37}
 
 \begin{document}
 \frontmatter
@@ -2348,7 +2348,7 @@ kapacitásra van szükség (és annál tovább tart a számítás).
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-85-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/purrr_lda-1} \end{center}
 
 A perplexity pontszám alapján a 25 topikos modell szerepel a legjobban,
 de fontos emlékezni arra hogy a megfelelő \emph{k} kiválasztása a kutató
@@ -2435,7 +2435,7 @@ egyes topikok 10 legfontosabb kifejezését.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-90-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-88-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2454,7 +2454,7 @@ egyes topikok 10 legfontosabb kifejezését.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-91-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-89-1} \end{center}
 
 \hypertarget{az-lda-gibbs-muxf3dszer-alkalmazuxe1sa-a-magyar-tuxf6rvuxe9nyek-korpuszuxe1n}{%
 \subsection{Az „LDA Gibbs" módszer alkalmazása a magyar törvények
@@ -2520,7 +2520,7 @@ Majd a \texttt{ggplot2} csomag segítségével ábrán is megjeleníthetjük.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-95-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-92-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2539,7 +2539,7 @@ Majd a \texttt{ggplot2} csomag segítségével ábrán is megjeleníthetjük.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-96-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-93-1} \end{center}
 
 \hypertarget{struktuxfaruxe1lis-topik-modellek}{%
 \section{Struktúrális topik
@@ -2723,7 +2723,7 @@ mutatjuk be.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-101-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-96-1} \end{center}
 
 Egy-egy topichoz tartozó meghatározó szavak annak függvényében
 változhatnak hogy milyen algoritmust használunk. A
@@ -2759,7 +2759,7 @@ legnagyobb arányban a dokumentumaink között.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-103-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-98-1} \end{center}
 
 Végezetül, a témák közötti korrelációt a \texttt{topicCorr} függvénnyel
 becsülhetjük és az \texttt{igraph} csomagot betöltve a \texttt{plot()}
@@ -2776,12 +2776,311 @@ jelölik.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-104-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-99-1} \end{center}
 
 \hypertarget{szuxf3beuxe1gyazuxe1sok}{%
 \chapter{Szóbeágyazások}\label{szuxf3beuxe1gyazuxe1sok}}
 
-kilencedik fejezet
+Az eddigi fejezetekben elsősorban a szózsák (bag of words) alapú
+módszerek voltak előtérben. Ez a reprezentálása a szövegnek szigorúan
+véve nem felel meg a valóságnak a kotextuális tartalom elvesztése miatt,
+de ezt az esetek többségében figyelmen kívül hagyhatjuk. A
+szóbeágyazáson (word embedding) alapuló modellek viszont kimondottan a
+kotextuális információt ragadják meg. A szóbeágyazás a topikmodellekhez
+hasonlóan szintén a felügyelet nélküli tanulás módszerére épül, azonban
+itt a dokumentum domináns kifejezéseinek és témáinak feltárása helyett a
+szavak közötti szemantikai kapcsolat megértése a cél. Vagyis a modellnek
+képesnek kell lennie az egyes szavak esetén szinonimáik, és
+ellentétpárjaik megtalálására.
+
+A hagyományos topikmodellezés esetén a modell a szavak dokumentumokon
+belüli együttes megjelenési statisztikái alapján becsül
+dokumentum-topik, illetve topik-szó eloszlásokat, azzal a céllal, hogy
+koherens téma-csoportokat képezzen a modell, ezzel szemben a
+szóbeágyazás legújabb iskolája már neurális halókon alapul. A neurális
+háló a tanítási folyamata során az egyes szavak vektorreprezentációját
+állítja elő. A vektorok jellemzően 100-300 dimenzióból állnak, a
+távolságuk alapján pedig megállapítható, hogy az egyes kifejezések
+milyen szemantikai kapcsolatban állnak egymással.
+
+A szóbeágyazás célja tehát a szemantikai relációk feltárása. A szavak
+vektorizálásának köszönhetően bármely (a korpuszunkban szereplő)
+tetszőleges számú szóról eldönthetjük, hogy azok milyen szemantikai
+kapcsolatban állnak egymással -- szinonimaként, vagy ellentétes
+fogalompárként szerepelnek. A szóvektorokon dimenziócsökkentő eljárást
+alkalmazva, s a multidimenzionális (100-300 dimenziós) teret 2
+dimenziósra szűkítve könnyen vizualizálhatjuk is a korpuszunk
+kifejezései között fennálló szemantikai távolságot, és ahogy a lenti
+ábrákon is, láthatjuk, hogy az egyes kifejezések milyen relációban
+állnak egymással -- a szemantikailag hasanló tartalmú kifejezések
+egymáshoz közel, míg a távolabbi jelentéstartalmú kifejezések egymástól
+távolabb foglalnak helyet. A klasszkus példa, amivel jól lehet
+szemléltetni a szóvektorok közötti összefüggést:
+\texttt{king\ -\ man\ +\ woman\ =\ queen}
+
+\hypertarget{word2vec-glove-uxe9s-fasttext}{%
+\section{Word2Vec, GloVe és
+fastText}\label{word2vec-glove-uxe9s-fasttext}}
+
+A szóbeágyazásra társadalomtudományokban a két legnépszerűbb algoritmus
+-- Word2Vec és a GloVe -- a \emph{kontextuális szövegeloszláson}
+(distributional similarity based representations) alapszik, vagyis abból
+a feltevésből indul ki, hogy a hasonló kifejezések hasonló kontextusban
+fordulnak elő, valamint mindkettő sekély neurális hálón (2 rejtett
+réteg) alapuló modell.\footnote{Egy kíváló tanulmányban
+  \protect\hyperlink{ref-spirlingword}{Spirling and Rodriguez}
+  (\protect\hyperlink{ref-spirlingword}{n.d.a}) összehasonlítják a
+  Word2Vec és GloVe módszereket, különbözö paraméterekkel,
+  adatbázisokkal. Amennyiben valakit komolyabban érdekelnek a
+  szóbeágyazás gyakorlati alkalmazásának a részletei annak mindenképp
+  ajánljuk elolvasásra.} A Word2Vec-nek két verziója van: Continuous
+Bag-of-words (CBOW) és SkipGram (SG) -- előbbi a kontextuális szavakból
+jelzi előre (predicting) a kontextushoz legszorosabban kapcsolódó
+kifejezést, míg utóbbi adott kifejezésből jelzi előre a kontextust
+\protect\hyperlink{ref-mikolov2013efficient}{Mikolov et al.}
+(\protect\hyperlink{ref-mikolov2013efficient}{2013}). A GloVe (Global
+Vectors for Word Representation) a Word2Vec-hez hasonlóan neurális hálón
+alapuló, szóvektorok előállítását célzó modell, a Word2Vec-kel szemben
+azonban nem a meghatározott kontextus-ablakban (context window)
+megjelenő kifejezések közti kapcsolatokat tárja fel, hanem a szöveg
+globális jellemzőit igyekszik megragadni az egész szöveget jellemző
+együttes előfordulási gyakoriságok (co-occurrance) meghatározásával
+\protect\hyperlink{ref-pennington2014glove}{Pennington, Socher, and
+Manning} (\protect\hyperlink{ref-pennington2014glove}{2014}). Míg a
+Word2Vec modell prediktív jellegű, addig a GloVe egy statisztikai alapú
+(count-based) modell, melyek gyakorlati hasznosításukat tekintve nagyon
+hasonlóak.
+
+A szóvektor modellek között érdemes megemlíteni a fastText-et is, mely
+157 nyelvre kínál (köztük magyarra is) a szóbeágyazás módszeren alapuló,
+előre tanított szóvektorokat, melyet tovább lehet tanítani speciális
+szövegkorpuszokra, ezzel jelentősen lerövidítve a modell tanításához
+szükséges idő-, és kapacitásszükségletet
+\protect\hyperlink{ref-mikolov2018advances}{Mikolov et al.}
+(\protect\hyperlink{ref-mikolov2018advances}{2018}). Habár a GloVe és
+Word2Vec skip-gram módszerek hasonlóságát a szakirodalom adottnak veszi,
+a tényleges kép ennél árnyaltabb. A GloVe esetében a ritkán előforduló
+szavak kisebb súlyt kapnak a szóvektorok számításánal, míg a Word2Vec
+alulsúlyozz a nagy frekvenciájú szavakat. Ennek a következménye, hogy a
+Word2Vec esetében gyakori hogy a szemantikailag legközelebbi szó az egy
+elütés, nem pedig valid találat. Ennek ellenére a két módszer
+(amennyiben a Word2Vec algoritmusnál a kisfrekvenciájú tokeneket
+kiszűrjük) az emberi validálás során nagyon hasonló eredményeket hozott
+\protect\hyperlink{ref-spirlingworda}{Spirling and Rodriguez}
+(\protect\hyperlink{ref-spirlingworda}{n.d.b}).
+
+A fejezetben a gyakorlati példa során a GloVe algoritmust használjuk
+majd, mivel véleményünk szerint az implementációt tartalmazó R csomagnak
+jobb a dokumentációja mint a többi alternatívának.
+
+\hypertarget{glove-hasznuxe1lata-magyar-muxe9dia-korpuszon}{%
+\subsection{GloVe használata magyar média
+korpuszon}\label{glove-hasznuxe1lata-magyar-muxe9dia-korpuszon}}
+
+Az elemzéshez a \texttt{text2vec} csomagot fogjuk használni, ami a GloVe
+implementációt tartalmazza. A lenti kód a csomag dokumentáción alapul és
+a Társadalomtudományi Kutatóközpont által a \emph{Hungarian Comparative
+Agendas Project (CAP)} adatbázisában tárolt Magyar Nemzet korpuszt
+használja.\footnote{A Magyar CAP Projekt által kezelt adatbázisok itt
+  megtalálhatóak: \url{https://cap.tk.hu/adatbazisok}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(text2vec)}
+\FunctionTok{library}\NormalTok{(quanteda)}
+\FunctionTok{library}\NormalTok{(readtext)}
+\FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(tibble)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\end{Highlighting}
+\end{Shaded}
+
+A lenti kód blokk azt mutatja be, hogy hogyan kell a betöltött korpuszt
+tokenizálni és mátrix formátumba alakítani. A korpusz az a Magyar Nemzet
+2004 és 2014 közötti címlapos cikkeit tartalmazza. Az eddigi előkészítő
+lépéseket most is megtesszük: kitöröljük a központozást, számokat,
+magyar töltelékszavakat, illetve kisbetűsítünk és eltávolítjuk a
+felesleges szóközöket és tördeléseket.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mn }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/mn\_large.csv"}\NormalTok{)}
+
+\NormalTok{mn\_clean }\OtherTok{\textless{}{-}}\NormalTok{ mn }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:cntrl:]"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:punct:]"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:digit:]"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_to\_lower}\NormalTok{(text),}
+    \AttributeTok{text =} \FunctionTok{str\_trim}\NormalTok{(text),}
+    \AttributeTok{text =} \FunctionTok{str\_squish}\NormalTok{(text)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+Fontos különbség hogy az eddigi munkafolyamatokkal ellentétben a GloVe
+algoritmus nem egy dokumentum-kifejezés mátrixon dolgozik, hanem egy
+kifejezések együttes előfordulását tartalmazó mátrixot (feature
+co-occurence matrix) kell készíteni inputként. Ezt a \texttt{quanteda}
+\texttt{fcm()} függvényével tudjuk előállítani, ami a tokenekből készíti
+el a mátrixot. A tokenek sorrendiségét úgy tudjuk megőrízni, hogy egy
+\texttt{dfm} objektumból csak a kifejezéseket tartjuk meg a
+\texttt{featnames()} függvény segítségével, majd a teljes token
+halmazból a \texttt{tokens\_select()} függvénnyel kiválasztjuk őket.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mn\_corpus }\OtherTok{\textless{}{-}} \FunctionTok{corpus}\NormalTok{(mn\_clean)}
+
+\NormalTok{mn\_tokens }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(mn\_corpus) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(}\FunctionTok{stopwords}\NormalTok{(}\AttributeTok{language =} \StringTok{"hungarian"}\NormalTok{))}
+
+\NormalTok{features }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(mn\_tokens) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{dfm\_trim}\NormalTok{(}\AttributeTok{min\_termfreq =} \DecValTok{5}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{featnames}\NormalTok{()}
+
+\NormalTok{mn\_tokens }\OtherTok{\textless{}{-}} \FunctionTok{tokens\_select}\NormalTok{(mn\_tokens, features, }\AttributeTok{padding =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Az \texttt{fcm} megalkotása során a célkifejezéstől való távolság
+függvényében súlyozzuk a tokeneket.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mn\_fcm }\OtherTok{\textless{}{-}} \FunctionTok{fcm}\NormalTok{(mn\_tokens, }\AttributeTok{context =} \StringTok{"window"}\NormalTok{, }\AttributeTok{count =} \StringTok{"weighted"}\NormalTok{, }\AttributeTok{weights =} \DecValTok{1} \SpecialCharTok{/}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{), }\AttributeTok{tri =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+A tényleges szóbeágyazás a \texttt{text2vec} csomaggal történik. A
+\texttt{GlobalVector} egy új ``környezetet'' (environment) hoz létre.
+Itt adhatjuk meg az alapvető paramétereket. A \texttt{rank} a vektor
+dimenziót adja meg (az irodalomban a 300-500 dimenzió a megszokott). A
+többi paraméterrel is lehet kísérletezni, hogy mennyire változtatja meg
+a kapott szóbeágyazásokat. A \texttt{fit\_transform} pedig a tényleges
+becslést végzi. Itt az iterációk számát (a gépi tanulásos irodalomban
+\emph{epoch}-nak is hívják a tanulási köröket) és a korai leállás
+(\emph{early stopping}) kritériumát a \texttt{convergence\_tol}
+megadásával. Minél több dimenziót szeretnénk és minél több iterációt,
+annál tovább fog tartani a szóbeágyazás futtatása.
+
+Az egyszerűség és gyorsaság miatt a lenti kód 10 körös tanulást ad meg,
+ami a relatíve kicsi Magyar Nemzet korpuszon \textasciitilde3 perc alatt
+fut le.\footnote{A futtatásra használt PC nem különösebben erős: 4 magos
+  Intel Core i5-4460 (3.2GHz) CPU és 16GB RAM} Természetesen minél
+nagyobb korpuszon, minél több iterációt futtatunk, annál pontosabb
+eredményt fogunk kapni. A \texttt{text2vec} csomag képes a számítások
+párhuzamosítására, így alapbeállításként a rendelkezésre álló összes CPU
+magot teljesen kihasználja a számításhoz. Ennek ellenére egy százezres,
+milliós korpusz esetén több óra is lehet a tanítás.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{glove }\OtherTok{\textless{}{-}}\NormalTok{ GlobalVectors}\SpecialCharTok{$}\FunctionTok{new}\NormalTok{(}\AttributeTok{rank =} \DecValTok{300}\NormalTok{, }\AttributeTok{x\_max =} \DecValTok{10}\NormalTok{, }\AttributeTok{learning\_rate =} \FloatTok{0.1}\NormalTok{)}
+
+\NormalTok{mn\_main }\OtherTok{\textless{}{-}}\NormalTok{ glove}\SpecialCharTok{$}\FunctionTok{fit\_transform}\NormalTok{(mn\_fcm, }\AttributeTok{n\_iter =} \DecValTok{10}\NormalTok{, }\AttributeTok{convergence\_tol =} \FloatTok{0.01}\NormalTok{)}
+\CommentTok{\#\textgreater{} INFO  [01:43:22.065] epoch 1, loss 0.2292 }
+\CommentTok{\#\textgreater{} INFO  [01:43:57.686] epoch 2, loss 0.0964 }
+\CommentTok{\#\textgreater{} INFO  [01:44:33.274] epoch 3, loss 0.0704 }
+\CommentTok{\#\textgreater{} INFO  [01:45:08.847] epoch 4, loss 0.0492 }
+\CommentTok{\#\textgreater{} INFO  [01:45:44.427] epoch 5, loss 0.0412 }
+\CommentTok{\#\textgreater{} INFO  [01:46:20.005] epoch 6, loss 0.0361 }
+\CommentTok{\#\textgreater{} INFO  [01:46:55.623] epoch 7, loss 0.0325 }
+\CommentTok{\#\textgreater{} INFO  [01:47:31.203] epoch 8, loss 0.0297 }
+\CommentTok{\#\textgreater{} INFO  [01:48:06.762] epoch 9, loss 0.0274 }
+\CommentTok{\#\textgreater{} INFO  [01:48:42.381] epoch 10, loss 0.0255}
+\end{Highlighting}
+\end{Shaded}
+
+A végleges szóvektorokat a becslés során elkészült két mátrix
+összegeként kapjuk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mn\_context }\OtherTok{\textless{}{-}}\NormalTok{ glove}\SpecialCharTok{$}\NormalTok{components}
+
+\NormalTok{mn\_word\_vectors }\OtherTok{\textless{}{-}}\NormalTok{ mn\_main }\SpecialCharTok{+} \FunctionTok{t}\NormalTok{(mn\_context)}
+\end{Highlighting}
+\end{Shaded}
+
+Az egyes szavakhoz legközelebb álló szavakat a koszinusz hasonlóság
+alapján kapjuk, a \texttt{sim2()} függvénnyel. A lenti példában ``l2''
+normalizálást alkalmazunk, majd a kapott hasonlósági vektort csökkenő
+sorrendbe rendezzük. Példaként a ``polgármester'' szónak a környezetét
+nézzük meg. Mivel a korpuszunk egy politikai napilap, ezért nem meglepő,
+hogy a legközelebbi szavak a politikához kapcsolódnak.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{teszt }\OtherTok{\textless{}{-}}\NormalTok{ mn\_word\_vectors[}\StringTok{"polgármester"}\NormalTok{, , drop }\OtherTok{=}\NormalTok{ F]}
+
+\NormalTok{cos\_sim\_rom }\OtherTok{\textless{}{-}} \FunctionTok{sim2}\NormalTok{(}\AttributeTok{x =}\NormalTok{ mn\_word\_vectors, }\AttributeTok{y =}\NormalTok{ teszt, }\AttributeTok{method =} \StringTok{"cosine"}\NormalTok{, }\AttributeTok{norm =} \StringTok{"l2"}\NormalTok{)}
+
+\FunctionTok{head}\NormalTok{(}\FunctionTok{sort}\NormalTok{(cos\_sim\_rom[, }\DecValTok{1}\NormalTok{], }\AttributeTok{decreasing =} \ConstantTok{TRUE}\NormalTok{), }\DecValTok{5}\NormalTok{)}
+\CommentTok{\#\textgreater{} polgármester        mszps  szocialista     fideszes       györgy }
+\CommentTok{\#\textgreater{}    1.0000000    0.5334754    0.4883677    0.4842430    0.4762200}
+\end{Highlighting}
+\end{Shaded}
+
+A lenti \texttt{show\_vector()} függvényt definiálva a kapott eredmény
+egy data frame lesz, és az \texttt{n} változtatásával a kapcsolódó
+szavak számát is könnyen változtathatjuk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{show\_vector }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(vectors, pattern, }\AttributeTok{n =} \DecValTok{5}\NormalTok{) \{}
+\NormalTok{  term }\OtherTok{\textless{}{-}}\NormalTok{ mn\_word\_vectors[pattern, , drop }\OtherTok{=}\NormalTok{ F]}
+\NormalTok{  cos\_sim }\OtherTok{\textless{}{-}} \FunctionTok{sim2}\NormalTok{(}\AttributeTok{x =}\NormalTok{ vectors, }\AttributeTok{y =}\NormalTok{ term, }\AttributeTok{method =} \StringTok{"cosine"}\NormalTok{, }\AttributeTok{norm =} \StringTok{"l2"}\NormalTok{)}
+\NormalTok{  cos\_sim\_head }\OtherTok{\textless{}{-}} \FunctionTok{head}\NormalTok{(}\FunctionTok{sort}\NormalTok{(cos\_sim[, }\DecValTok{1}\NormalTok{], }\AttributeTok{decreasing =} \ConstantTok{TRUE}\NormalTok{), n)}
+\NormalTok{  output }\OtherTok{\textless{}{-}} \FunctionTok{enframe}\NormalTok{(cos\_sim\_head, }\AttributeTok{name =} \StringTok{"term"}\NormalTok{, }\AttributeTok{value =} \StringTok{"dist"}\NormalTok{)}
+  \FunctionTok{return}\NormalTok{(output)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Példaként a ``barack'' nem gyümölcsöket fog adni, hanem az Egyesült
+Államok elnökét és hozzá kapcsolódó szavakat.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{show\_vector}\NormalTok{(mn\_word\_vectors, }\StringTok{"barack"}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\CommentTok{\#\textgreater{} \# A tibble: 10 x 2}
+\CommentTok{\#\textgreater{}    term          dist}
+\CommentTok{\#\textgreater{}    \textless{}chr\textgreater{}        \textless{}dbl\textgreater{}}
+\CommentTok{\#\textgreater{}  1 barack       1    }
+\CommentTok{\#\textgreater{}  2 obama        0.727}
+\CommentTok{\#\textgreater{}  3 elnök        0.431}
+\CommentTok{\#\textgreater{}  4 amerikai     0.375}
+\CommentTok{\#\textgreater{}  5 demokrata    0.303}
+\CommentTok{\#\textgreater{}  6 bush         0.274}
+\CommentTok{\#\textgreater{}  7 elnököt      0.267}
+\CommentTok{\#\textgreater{}  8 republikánus 0.267}
+\CommentTok{\#\textgreater{}  9 köztársasági 0.259}
+\CommentTok{\#\textgreater{} 10 egyesült     0.247}
+\end{Highlighting}
+\end{Shaded}
+
+Ugyanez működik magyar vezetőkkel is.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{show\_vector}\NormalTok{(mn\_word\_vectors, }\StringTok{"orbán"}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\CommentTok{\#\textgreater{} \# A tibble: 10 x 2}
+\CommentTok{\#\textgreater{}    term            dist}
+\CommentTok{\#\textgreater{}    \textless{}chr\textgreater{}          \textless{}dbl\textgreater{}}
+\CommentTok{\#\textgreater{}  1 orbán          1.00 }
+\CommentTok{\#\textgreater{}  2 viktor         0.935}
+\CommentTok{\#\textgreater{}  3 miniszterelnök 0.734}
+\CommentTok{\#\textgreater{}  4 mondta         0.680}
+\CommentTok{\#\textgreater{}  5 kormányfo      0.672}
+\CommentTok{\#\textgreater{}  6 hangsúlyozta   0.661}
+\CommentTok{\#\textgreater{}  7 fidesz         0.638}
+\CommentTok{\#\textgreater{}  8 fogalmazott    0.627}
+\CommentTok{\#\textgreater{}  9 jelentette     0.621}
+\CommentTok{\#\textgreater{} 10 beszélt        0.604}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{szuxf6veguxf6sszehasonluxedtuxe1s}{%
 \chapter{Szövegösszehasonlítás}\label{szuxf6veguxf6sszehasonluxedtuxe1s}}
@@ -2838,7 +3137,7 @@ Az RStudio kezdőfelülete négy panelből, eszközsorból és menüsorból áll
 
 }
 
-\caption{RStudio felhasználói felület}\label{fig:unnamed-chunk-105}
+\caption{RStudio felhasználói felület}\label{fig:unnamed-chunk-109}
 \end{figure}
 
 Az \textbf{\emph{(1) editor}} ablak szolgál a kód beírására, futtatására
@@ -2880,7 +3179,7 @@ exit''} értékre be kell állítani a \emph{„Never''} értéket.
 
 }
 
-\caption{RStudio projekt beállítások}\label{fig:unnamed-chunk-106}
+\caption{RStudio projekt beállítások}\label{fig:unnamed-chunk-110}
 \end{figure}
 
 A szükséges beállítások után a
@@ -2935,7 +3234,7 @@ munkakönyvtárnak állíthatjuk be az a mappát, amelyben épp benne vagyunk.
 
 }
 
-\caption{Working directory beállítások}\label{fig:unnamed-chunk-107}
+\caption{Working directory beállítások}\label{fig:unnamed-chunk-111}
 \end{figure}
 
 A munkafolyamat befejezésére a \texttt{q()} vagy \texttt{quit()}
@@ -3005,7 +3304,7 @@ a ()-be a telepíteni kívánt csomag nevét kell beírnunk (pl.:
 
 }
 
-\caption{Packages fül}\label{fig:unnamed-chunk-108}
+\caption{Packages fül}\label{fig:unnamed-chunk-112}
 \end{figure}
 
 \hypertarget{objektumok-tuxe1roluxe1sa-uxe9rtuxe9kaduxe1s}{%
@@ -3237,7 +3536,7 @@ készítünk.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-118-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-122-1} \end{center}
 
 Lehetőségünk van arra, hogy az alakzat színét megváltoztatássuk. A
 használható színek és színkódok megtalálhatóak a \texttt{ggplot2}
@@ -3253,7 +3552,7 @@ leírásában: \url{https://ggplot2-book.org/scale-colour.html}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-119-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-123-1} \end{center}
 
 Meghatározhatjuk külön-külön a histogram x és y tengelyén ábrázolni
 kívánt adatokat és választhatjuk azok pontszerű ábrázolását is.
@@ -3271,7 +3570,7 @@ kívánt adatokat és választhatjuk azok pontszerű ábrázolását is.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-120-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-124-1} \end{center}
 
 Ahogy az előzőekben, itt is megváltoztathatjuk az ábra színét.
 
@@ -3288,7 +3587,7 @@ Ahogy az előzőekben, itt is megváltoztathatjuk az ábra színét.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-121-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-125-1} \end{center}
 
 Az fenti script kibővítésével az egyes kontinensek adatait különböző
 színnel ábrázolhatjuk, az x és y tengelyt elnevezhetjük, a histogramnak
@@ -3316,7 +3615,7 @@ feltüntethetjük az alábbi módon:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-122-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-126-1} \end{center}
 
 Az ábrán található feliratok méretének, betűtípusának és betűszínének
 megválasztásra is lehetőségünk van.
@@ -3346,7 +3645,7 @@ megválasztásra is lehetőségünk van.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-123-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-127-1} \end{center}
 
 Készíthetünk oszlopdiagramot is, amit a \texttt{ggplot2} diamonds
 adatkészletén személtetünk
@@ -3358,7 +3657,7 @@ adatkészletén személtetünk
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-124-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-128-1} \end{center}
 
 Itt is lehetőségünk van arra, hogy a diagram színét megváltoztassuk.
 
@@ -3369,7 +3668,7 @@ Itt is lehetőségünk van arra, hogy a diagram színét megváltoztassuk.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-125-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-129-1} \end{center}
 
 De arra is lehetőségünk van, hogy az egyes oszlopok eltérő színűek
 legyenek.
@@ -3381,7 +3680,7 @@ legyenek.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-126-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-130-1} \end{center}
 
 Arra is van lehetőségünk, hogy egyszerre több változót is ábrázoljunk.
 
@@ -3392,7 +3691,7 @@ Arra is van lehetőségünk, hogy egyszerre több változót is ábrázoljunk.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-127-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-131-1} \end{center}
 
 Arra ggplot2 segítségével arra is lehetőségünk van, hogy csv-ből
 beolvasott adatainkat vizualizáljuk.
@@ -3480,6 +3779,20 @@ Central Bank Communication on Sovereign Bond Yields: The Case of
 Hungary.''} Edited by Hiranya K. Nath. \emph{PLOS ONE} 16 (2): e0245515.
 \url{https://doi.org/10.1371/journal.pone.0245515}.
 
+\leavevmode\hypertarget{ref-mikolov2013efficient}{}%
+Mikolov, Tomas, Kai Chen, Greg Corrado, and Jeffrey Dean. 2013.
+{``Efficient Estimation of Word Representations in Vector Space.''}
+\emph{arXiv Preprint arXiv:1301.3781}.
+
+\leavevmode\hypertarget{ref-mikolov2018advances}{}%
+Mikolov, Tomas, Edouard Grave, Piotr Bojanowski, Christian Puhrsch, and
+Armand Joulin. 2018. {``Advances in Pre-Training Distributed Word
+Representations.''} In.
+
+\leavevmode\hypertarget{ref-pennington2014glove}{}%
+Pennington, Jeffrey, Richard Socher, and Christopher D Manning. 2014.
+{``Glove: Global Vectors for Word Representation.''} In, 15321543.
+
 \leavevmode\hypertarget{ref-roberts2014structural}{}%
 Roberts, Margaret E, Brandon M Stewart, Dustin Tingley, Christopher
 Lucas, Jetson Leder-Luis, Shana Kushner Gadarian, Bethany Albertson, and
@@ -3490,6 +3803,14 @@ Responses.''} \emph{American Journal of Political Science} 58 (4):
 \leavevmode\hypertarget{ref-silge2017text}{}%
 Silge, Julia, and David Robinson. 2017. \emph{Text Mining with r: A Tidy
 Approach}. {"} O'Reilly Media, Inc.{"}.
+
+\leavevmode\hypertarget{ref-spirlingword}{}%
+Spirling, Arthur, and Pedro L Rodriguez. n.d.a. {``Word Embeddings.''}
+\url{https://polmeth.mit.edu/sites/default/files/documents/Pedro_Rodriguez.pdf}.
+
+\leavevmode\hypertarget{ref-spirlingworda}{}%
+---------. n.d.b. {``Word Embeddings.''}
+\url{https://polmeth.mit.edu/sites/default/files/documents/Pedro_Rodriguez.pdf}.
 
 \leavevmode\hypertarget{ref-wickham2016r}{}%
 Wickham, Hadley, and Garrett Grolemund. 2016. \emph{R for Data Science:
