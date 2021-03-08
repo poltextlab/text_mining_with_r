@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>11 Szövegskálázás: felügyelet nélküli és felügyelt megoldások | Szövegbányászat és mesterséges intelligencia R-ben</title>
+  <meta name="description" content="11 Szövegskálázás: felügyelet nélküli és felügyelt megoldások | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="11 Szövegskálázás: felügyelet nélküli és felügyelt megoldások | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="11 Szövegskálázás: felügyelet nélküli és felügyelt megoldások | Szövegbányászat és mesterséges intelligencia R-ben" />
+  
+  
+  
+
+<meta name="author" content="Sebők Miklós, Ring Orsolya" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="szóbeágyazások.html"/>
+<link rel="next" href="szövegösszehasonlítás.html"/>
+<script src="libs/header-attrs-2.6/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Bevezetés</a></li>
+<li class="chapter" data-level="2" data-path="a-kvantitatív-szövegelemzés-és-szövegbányászat-alapfogalmai.html"><a href="a-kvantitatív-szövegelemzés-és-szövegbányászat-alapfogalmai.html"><i class="fa fa-check"></i><b>2</b> A kvantitatív szövegelemzés és szövegbányászat alapfogalmai</a></li>
+<li class="chapter" data-level="3" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html"><i class="fa fa-check"></i><b>3</b> Az adatkezelés R-ben</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#adatok-importálása-és-exportálása"><i class="fa fa-check"></i><b>3.1</b> Adatok importálása és exportálása</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#szöveges-dokumentumok-importálása"><i class="fa fa-check"></i><b>3.1.1</b> Szöveges dokumentumok importálása</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#adatok-exportálása"><i class="fa fa-check"></i><b>3.2</b> Adatok exportálása</a></li>
+<li class="chapter" data-level="3.3" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#a-pipe-operátor"><i class="fa fa-check"></i><b>3.3</b> A pipe operátor</a></li>
+<li class="chapter" data-level="3.4" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#muveletek-a-date-framekkel"><i class="fa fa-check"></i><b>3.4</b> Muveletek a date framekkel</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#megfigyelések-szűrése-filter"><i class="fa fa-check"></i><b>3.4.1</b> Megfigyelések szűrése: <code>filter()</code></a></li>
+<li class="chapter" data-level="3.4.2" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#változók-kiválogatása-select"><i class="fa fa-check"></i><b>3.4.2</b> Változók kiválogatása: <code>select()</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#új-változók-létrehozása-mutate"><i class="fa fa-check"></i><b>3.4.3</b> Új változók létrehozása: <code>mutate()</code></a></li>
+<li class="chapter" data-level="3.4.4" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#csoportonkénti-statisztikák-group_by-és-summarize"><i class="fa fa-check"></i><b>3.4.4</b> Csoportonkénti statisztikák: <code>group_by()</code> és <code>summarize()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="az-adatkezelés-r-ben.html"><a href="az-adatkezelés-r-ben.html#munka-karakter-vektorokkaladatkezeles-4"><i class="fa fa-check"></i><b>3.5</b> Munka karakter vektorokkal</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html"><i class="fa fa-check"></i><b>4</b> Korpuszépítés és szövegelőkészítés</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#szövegbeszerzés"><i class="fa fa-check"></i><b>4.1</b> Szövegbeszerzés</a></li>
+<li class="chapter" data-level="4.2" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#szövegelőkészítés"><i class="fa fa-check"></i><b>4.2</b> Szövegelőkészítés</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#string-műveletek"><i class="fa fa-check"></i><b>4.2.1</b> String műveletek</a></li>
+<li class="chapter" data-level="4.2.2" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#tokenizálás-szótövezés-kisbetűsítés-és-a-stopszavak-eltávolítása"><i class="fa fa-check"></i><b>4.2.2</b> Tokenizálás, szótövezés, kisbetűsítés és a stopszavak eltávolítása</a></li>
+<li class="chapter" data-level="4.2.3" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#dokumentum-kifejezés-mátrix-dtm"><i class="fa fa-check"></i><b>4.2.3</b> Dokumentum kifejezés mátrix (DTM)</a></li>
+<li class="chapter" data-level="4.2.4" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#súlyozás"><i class="fa fa-check"></i><b>4.2.4</b> Súlyozás</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="leíró-statisztika-szózsák-és-szóeloszlások.html"><a href="leíró-statisztika-szózsák-és-szóeloszlások.html"><i class="fa fa-check"></i><b>5</b> Leíró statisztika: szózsák és szóeloszlások</a></li>
+<li class="chapter" data-level="6" data-path="a-szövegek-reprezentálása-a-vektortérben.html"><a href="a-szövegek-reprezentálása-a-vektortérben.html"><i class="fa fa-check"></i><b>6</b> A szövegek reprezentálása a vektortérben</a></li>
+<li class="chapter" data-level="7" data-path="a-korpuszépítés-problémái-és-a-szövegel-készítés.html"><a href="a-korpuszépítés-problémái-és-a-szövegel-készítés.html"><i class="fa fa-check"></i><b>7</b> A korpuszépítés problémái és a szövegelőkészítés</a></li>
+<li class="chapter" data-level="8" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html"><i class="fa fa-check"></i><b>8</b> Szótáralapú elemzések, érzelem-elemzés</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html#szótárak-az-r-ben"><i class="fa fa-check"></i><b>8.1</b> Szótárak az R-ben</a></li>
+<li class="chapter" data-level="8.2" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html#magyar-nemzet-cikkek"><i class="fa fa-check"></i><b>8.2</b> Magyar Nemzet cikkek</a></li>
+<li class="chapter" data-level="8.3" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html#mnb-sajtóközlemények"><i class="fa fa-check"></i><b>8.3</b> MNB sajtóközlemények</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"><i class="fa fa-check"></i><b>9</b> Felügyelet nélküli tanulás: Topik modellezés magyar törvényszövegeken</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#k-közép-klaszterezés-kvalitatív-adatokkal"><i class="fa fa-check"></i><b>9.1</b> K közép klaszterezés kvalitatív adatokkal</a></li>
+<li class="chapter" data-level="9.2" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#látens-dirichlet-allokáció-topik-modellekklasztering_topicmodellek-1"><i class="fa fa-check"></i><b>9.2</b> Látens Dirichlet Allokáció topik modellek</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#a-vem-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>9.2.1</b> A „VEM" módszer alkalmazása a magyar törvények korpuszán</a></li>
+<li class="chapter" data-level="9.2.2" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#az-lda-gibbs-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>9.2.2</b> Az „LDA Gibbs" módszer alkalmazása a magyar törvények korpuszán</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken.html#struktúrális-topik-modellek"><i class="fa fa-check"></i><b>9.3</b> Struktúrális topik modellek</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="szóbeágyazások.html"><a href="szóbeágyazások.html"><i class="fa fa-check"></i><b>10</b> Szóbeágyazások</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="szóbeágyazások.html"><a href="szóbeágyazások.html#word2vec-glove-és-fasttext"><i class="fa fa-check"></i><b>10.1</b> Word2Vec, GloVe és fastText</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="szóbeágyazások.html"><a href="szóbeágyazások.html#glove-használata-magyar-média-korpuszon"><i class="fa fa-check"></i><b>10.1.1</b> GloVe használata magyar média korpuszon</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html"><i class="fa fa-check"></i><b>11</b> Szövegskálázás: felügyelet nélküli és felügyelt megoldások</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#wordfish"><i class="fa fa-check"></i><b>11.1</b> Wordfish</a></li>
+<li class="chapter" data-level="11.2" data-path="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#wordscores"><i class="fa fa-check"></i><b>11.2</b> Wordscores</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html"><i class="fa fa-check"></i><b>12</b> Szövegösszehasonlítás</a></li>
+<li class="chapter" data-level="13" data-path="természetes-nyelv-feldolgozás-nlp.html"><a href="természetes-nyelv-feldolgozás-nlp.html"><i class="fa fa-check"></i><b>13</b> Természetes-nyelv feldolgozás (NLP)</a></li>
+<li class="chapter" data-level="14" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html"><i class="fa fa-check"></i><b>14</b> Osztályozás és felügyelt tanulás</a></li>
+<li class="chapter" data-level="15" data-path="függelék.html"><a href="függelék.html"><i class="fa fa-check"></i><b>15</b> Függelék</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="függelék.html"><a href="függelék.html#az-r-és-az-rstudio-használata"><i class="fa fa-check"></i><b>15.1</b> Az R és az RStudio használata</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="függelék.html"><a href="függelék.html#az-rstudio-kezdőfelülete"><i class="fa fa-check"></i><b>15.1.1</b> Az RStudio kezdőfelülete</a></li>
+<li class="chapter" data-level="15.1.2" data-path="függelék.html"><a href="függelék.html#projektmunka"><i class="fa fa-check"></i><b>15.1.2</b> Projekt alapú munka</a></li>
+<li class="chapter" data-level="15.1.3" data-path="függelék.html"><a href="függelék.html#scriptek-szerkesztése-függvények-használata"><i class="fa fa-check"></i><b>15.1.3</b> Scriptek szerkesztése, függvények használata</a></li>
+<li class="chapter" data-level="15.1.4" data-path="függelék.html"><a href="függelék.html#packages"><i class="fa fa-check"></i><b>15.1.4</b> R csomagok</a></li>
+<li class="chapter" data-level="15.1.5" data-path="függelék.html"><a href="függelék.html#objektumok-tárolása-értékadás"><i class="fa fa-check"></i><b>15.1.5</b> Objektumok tárolása, értékadás</a></li>
+<li class="chapter" data-level="15.1.6" data-path="függelék.html"><a href="függelék.html#vektorok"><i class="fa fa-check"></i><b>15.1.6</b> Vektorok</a></li>
+<li class="chapter" data-level="15.1.7" data-path="függelék.html"><a href="függelék.html#faktorok"><i class="fa fa-check"></i><b>15.1.7</b> Faktorok</a></li>
+<li class="chapter" data-level="15.1.8" data-path="függelék.html"><a href="függelék.html#data-frame"><i class="fa fa-check"></i><b>15.1.8</b> Data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="függelék.html"><a href="függelék.html#vizualizáció"><i class="fa fa-check"></i><b>15.2</b> Vizualizáció</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Szövegbányászat és mesterséges intelligencia R-ben</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások" class="section level1" number="11">
+<h1><span class="header-section-number">11</span> Szövegskálázás: felügyelet nélküli és felügyelt megoldások</h1>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb109-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb109-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb109-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb109-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb109-5"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb109-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb109-6"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb109-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textmodels)</span></code></pre></div>
+<p>A skálázási algoritmusokat egy kicsi korpuszon fogjuk bemutatni. A minta dokumentumok a 2014-2018 parlamenti ciklusban frakcióvezető politikusok egy-egy véletlenszerűen kiválasztott napirend előtti felszólalása. Összes a ciklusban 11 frakcióvezetője volt a két kormánypárti és öt ellenzéki frakciónak.<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a> A dokumentumokon a rutin előkészítési lépéseket végezzük csak el (tördelések, számok, központozás kitörlése, kisbetűsítés). Természetesen minél alaposabbak vagyunk a szövegek tisztításával, annál pontosabb végeredményt fogunk kapni.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb110-1" aria-hidden="true" tabindex="-1"></a>parl_beszedek <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;data/ps_sample.csv&quot;</span>)</span>
+<span id="cb110-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb110-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb110-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb110-3" aria-hidden="true" tabindex="-1"></a>beszedek_tiszta <span class="ot">&lt;-</span> parl_beszedek <span class="sc">%&gt;%</span></span>
+<span id="cb110-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb110-5"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb110-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:cntrl:]&quot;</span>),</span>
+<span id="cb110-6"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb110-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:punct:]&quot;</span>),</span>
+<span id="cb110-7"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb110-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:digit:]&quot;</span>),</span>
+<span id="cb110-8"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb110-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_to_lower</span>(text),</span>
+<span id="cb110-9"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb110-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_trim</span>(text),</span>
+<span id="cb110-10"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb110-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_squish</span>(text)</span>
+<span id="cb110-11"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb110-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>A <em>Wordfish</em> és <em>Wordscores</em> algoritmus is ugyanazt a kiinduló corpus és dfm objektumot fogja használni, amit a szokásos módon a <code>quanteda</code> csomag <code>corpus()</code> függvényével hozunk létre. A leíró statisztikai tááblázatban látszik, hogy a beszédek hosszúsága nem egységes, a leghosszabb 10267 szavas, a legrövidebb pedig 1976. Az átlagos dokumentum hossz az 5135.5714286. A korpusz szemléltető célú, az eddig megszokott módon minél több/hosszabb dokumentummal dolgozunk, annál könnyebb dolga van az algoritmusoknak.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-1" aria-hidden="true" tabindex="-1"></a>beszedek_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(beszedek_tiszta)</span>
+<span id="cb111-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(beszedek_corpus)</span>
+<span id="cb111-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Corpus consisting of 10 documents, showing 10 documents:</span></span>
+<span id="cb111-5"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb111-6"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Text Types Tokens Sentences                     id</span></span>
+<span id="cb111-7"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text1   442    819         1 20142018_024_0002_0002</span></span>
+<span id="cb111-8"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text2   354    607         1 20142018_055_0002_0002</span></span>
+<span id="cb111-9"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text3   426    736         1 20142018_064_0002_0002</span></span>
+<span id="cb111-10"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text4   314    538         1 20142018_115_0002_0002</span></span>
+<span id="cb111-11"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text5   354    589         1 20142018_158_0002_0002</span></span>
+<span id="cb111-12"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text6   333    538         1 20142018_172_0002_0002</span></span>
+<span id="cb111-13"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text7   344    559         1 20142018_206_0002_0002</span></span>
+<span id="cb111-14"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text8   352    628         1 20142018_212_0002_0002</span></span>
+<span id="cb111-15"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   text9   317    492         1 20142018_236_0002_0002</span></span>
+<span id="cb111-16"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  text10   343    600         1 20142018_249_0002_0002</span></span>
+<span id="cb111-17"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                   felszolalo   part</span></span>
+<span id="cb111-18"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          Vona Gábor (Jobbik) Jobbik</span></span>
+<span id="cb111-19"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    Dr. Schiffer András (LMP)    LMP</span></span>
+<span id="cb111-20"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Dr. Szél Bernadett (LMP)    LMP</span></span>
+<span id="cb111-21"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Tóbiás József (MSZP)   MSZP</span></span>
+<span id="cb111-22"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Schmuck Erzsébet (LMP)    LMP</span></span>
+<span id="cb111-23"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Dr. Tóth Bertalan (MSZP)   MSZP</span></span>
+<span id="cb111-24"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        Volner János (Jobbik) Jobbik</span></span>
+<span id="cb111-25"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          Kósa Lajos (Fidesz) Fidesz</span></span>
+<span id="cb111-26"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         Harrach Péter (KDNP)   KDNP</span></span>
+<span id="cb111-27"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb111-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Dr. Gulyás Gergely (Fidesz) Fidesz</span></span></code></pre></div>
+<p>Végezetül elkészítjük a dfm mátrixot és a magyar stopszavakat kitöröljük.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb112-1" aria-hidden="true" tabindex="-1"></a>beszedek_dfm <span class="ot">&lt;-</span> beszedek_corpus <span class="sc">%&gt;%</span></span>
+<span id="cb112-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb112-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb112-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb112-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(<span class="fu">stopwords</span>(<span class="st">&quot;hungarian&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb112-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb112-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm</span>()</span></code></pre></div>
+<div id="wordfish" class="section level2" number="11.1">
+<h2><span class="header-section-number">11.1</span> Wordfish</h2>
+<p>A wordfish felügyelet nélküli skálázást a <code>quanteda_textmodels</code> csomagban implementált <code>textmodel_wordfish()</code> függvény fogja végezni. A megadott <code>dir = c(1, 2)</code> paraméterrel a két dokumentum relatív <span class="math inline">\(\theta\)</span> értékét tudjuk rögzíteni, mégpedig úgy hogy <span class="math inline">\(\theta_{dir1} &lt; \theta_{dir2}\)</span>. Alapbeállításként az első és utolsó dokumentumot teszi ide be az algoritmus. A lenti példánál mi a pártpozíciók alapján a Jobbikos Vona Gábor és az LMP-s Schiffer András egy-egy beszédét használtuk. A <code>summary()</code> használható az illesztett modellel, és a dokumentumonkénti <span class="math inline">\(\theta\)</span> koefficienst tudjuk így megnézni.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-1" aria-hidden="true" tabindex="-1"></a>beszedek_wf <span class="ot">&lt;-</span> <span class="fu">textmodel_wordfish</span>(beszedek_dfm, <span class="at">dir =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb113-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(beszedek_wf)</span>
+<span id="cb113-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb113-5"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb113-6"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; textmodel_wordfish.dfm(x = beszedek_dfm, dir = c(2, 1))</span></span>
+<span id="cb113-7"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb113-8"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimated Document Positions:</span></span>
+<span id="cb113-9"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           theta      se</span></span>
+<span id="cb113-10"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1   1.79474 0.04219</span></span>
+<span id="cb113-11"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text2   0.08931 0.04001</span></span>
+<span id="cb113-12"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text3   1.00137 0.03908</span></span>
+<span id="cb113-13"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text4  -0.09988 0.04232</span></span>
+<span id="cb113-14"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text5   0.73596 0.04355</span></span>
+<span id="cb113-15"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text6   0.18572 0.04452</span></span>
+<span id="cb113-16"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text7  -0.72832 0.03590</span></span>
+<span id="cb113-17"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text8  -0.80587 0.03358</span></span>
+<span id="cb113-18"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text9  -0.52028 0.04005</span></span>
+<span id="cb113-19"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text10 -1.65273 0.03794</span></span>
+<span id="cb113-20"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb113-21"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimated Feature Scores:</span></span>
+<span id="cb113-22"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        vona  gábor  jobbik tisztelt    elnök      úr országgyulés tegnapi</span></span>
+<span id="cb113-23"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; beta  3.675  2.321  1.9710   0.2391 -0.11149 0.02755       1.2286   4.372</span></span>
+<span id="cb113-24"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; psi  -4.980 -2.734 -0.7531   0.4566 -0.05693 0.28721      -0.6705  -5.314</span></span>
+<span id="cb113-25"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       napon helyen tartottak idoközi önkormányzati választásokat     két</span></span>
+<span id="cb113-26"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; beta  2.991  3.103     3.675   3.675         3.675         3.675  1.1894</span></span>
+<span id="cb113-27"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; psi  -3.009 -2.630    -4.980  -4.980        -4.980        -4.980 -0.9439</span></span>
+<span id="cb113-28"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      érdekelt recsken  ózdon október nyertünk örömmel közlöm  ország</span></span>
+<span id="cb113-29"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; beta    3.675   4.372  4.774   3.405    3.675   3.675  3.675  1.7470</span></span>
+<span id="cb113-30"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; psi    -4.980  -5.314 -5.545  -3.230   -4.980  -4.980 -4.980 -0.3643</span></span>
+<span id="cb113-31"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      közvéleményével  amúgy     is tudnak mindkét jobbikos polgármester</span></span>
+<span id="cb113-32"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; beta           3.675  3.675 0.9128  1.433   3.675    3.675        3.675</span></span>
+<span id="cb113-33"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb113-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; psi           -4.980 -4.980 1.8345 -1.737  -4.980   -4.980       -4.980</span></span></code></pre></div>
+<p>Amennyiben szeretnénk a szavak szintjén is megnézni a <span class="math inline">\(\beta\)</span> (a szavakhoz társított súly, ami a relatív fontosságát mutatja) és <span class="math inline">\(\psi\)</span> (a szó fix effekt, ami az eltérő szófrekvencia kezeléséért felelős) koefficiensekhez, akkor a <code>beszedek_wf</code> objektumban tárolt értékeket egy data frame-be tudjuk bemásolni. A dokumentumok hosszára és a szófrekfenviát figyelembe véve, a negatív <span class="math inline">\(\beta\)</span> értékű szavakat gyakrabban használják a negatív <span class="math inline">\(\theta\)</span> koefficienssel rendelkező politikusok.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-2" aria-hidden="true" tabindex="-1"></a>szavak_wf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb114-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">word =</span> beszedek_wf<span class="sc">$</span>features,</span>
+<span id="cb114-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta =</span> beszedek_wf<span class="sc">$</span>beta,</span>
+<span id="cb114-5"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">psi =</span> beszedek_wf<span class="sc">$</span>psi</span>
+<span id="cb114-6"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb114-7"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-8"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-8" aria-hidden="true" tabindex="-1"></a>szavak_wf <span class="sc">%&gt;%</span></span>
+<span id="cb114-9"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(beta) <span class="sc">%&gt;%</span></span>
+<span id="cb114-10"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">15</span>)</span>
+<span id="cb114-11"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              word      beta       psi</span></span>
+<span id="cb114-12"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1        czeglédy -5.900663 -6.222629</span></span>
+<span id="cb114-13"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2           csaba -5.769959 -6.151399</span></span>
+<span id="cb114-14"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3           human -5.438681 -5.975155</span></span>
+<span id="cb114-15"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        operator -5.438681 -5.975155</span></span>
+<span id="cb114-16"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5             zrt -5.216835 -5.860931</span></span>
+<span id="cb114-17"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6         fizette -4.927204 -5.717002</span></span>
+<span id="cb114-18"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7           gyanú -4.927204 -5.717002</span></span>
+<span id="cb114-19"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     szocialista -4.927204 -5.717002</span></span>
+<span id="cb114-20"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9      elkövetett -4.509192 -5.521276</span></span>
+<span id="cb114-21"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10         tárgya -4.509192 -5.521276</span></span>
+<span id="cb114-22"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11     céghálózat -4.509192 -5.521276</span></span>
+<span id="cb114-23"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12         diákok -4.509192 -5.521276</span></span>
+<span id="cb114-24"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13         májusi -4.509192 -5.521276</span></span>
+<span id="cb114-25"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14        júniusi -4.509192 -5.521276</span></span>
+<span id="cb114-26"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb114-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15 büntetoeljárás -4.509192 -5.521276</span></span></code></pre></div>
+<p>Ez a pozitív értékekre is igaz.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-1" aria-hidden="true" tabindex="-1"></a>szavak_wf <span class="sc">%&gt;%</span></span>
+<span id="cb115-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(beta)) <span class="sc">%&gt;%</span></span>
+<span id="cb115-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">15</span>)</span>
+<span id="cb115-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            word     beta       psi</span></span>
+<span id="cb115-5"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    nemzetközi 5.057078 -5.720709</span></span>
+<span id="cb115-6"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2       önöknek 4.977502 -4.778607</span></span>
+<span id="cb115-7"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         ózdon 4.773523 -5.544626</span></span>
+<span id="cb115-8"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4   kétharmados 4.773523 -5.544626</span></span>
+<span id="cb115-9"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5        igenis 4.773523 -5.544626</span></span>
+<span id="cb115-10"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6    választási 4.773523 -5.544626</span></span>
+<span id="cb115-11"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  geopolitikai 4.773523 -5.544626</span></span>
+<span id="cb115-12"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8   ártatlanság 4.773523 -5.544626</span></span>
+<span id="cb115-13"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9       vélelme 4.773523 -5.544626</span></span>
+<span id="cb115-14"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10      tegnapi 4.372320 -5.314088</span></span>
+<span id="cb115-15"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11      recsken 4.372320 -5.314088</span></span>
+<span id="cb115-16"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12       lássuk 4.372320 -5.314088</span></span>
+<span id="cb115-17"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13       tolünk 4.372320 -5.314088</span></span>
+<span id="cb115-18"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14     janiczak 4.372320 -5.314088</span></span>
+<span id="cb115-19"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb115-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15  szavazattal 4.372320 -5.314088</span></span></code></pre></div>
+<p>Az eredményeinket mind a szavak és mind a dokumentumok szintjén tudjuk vizualizálni. Elsőként a klasszikus “Eiffel-torony” ábrát reprodukáljuk, ami a szavak gyakorisága és skálára gyakorolt befolyásának az illusztrálására szolgál. Ehhez a már elkészült <code>szavak_wf</code> data framet és a <code>ggplot2</code> csomagot fogjuk használni. Mivel a korpuszunk nagyon kicsi ezért csak 2410 kifejezést fogunk ábrázolni. Ennek ellenére a lényeg kirajzolódik a lenti ábrán is.<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a></p>
+<p>Kihasználhatjuk, hogy a <code>ggplot</code> ábra definiálása közben a felhasznált bemeneti data frame-t különböző szempontok alapján lehet szűrni. így ábrázolni tudjuk a gyakran használt ám semleges szavakat (magas <span class="math inline">\(\psi\)</span>, alacsony <span class="math inline">\(\beta\)</span>), illetve a ritkább de meghatározóbb szavakat (magas <span class="math inline">\(\beta\)</span>, alacsony <span class="math inline">\(\psi\)</span>).</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(szavak_wf, <span class="fu">aes</span>(<span class="at">x =</span> beta, <span class="at">y =</span> psi)) <span class="sc">+</span></span>
+<span id="cb116-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb116-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb116-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb116-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb116-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb116-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> <span class="fu">filter</span>(szavak_wf, beta <span class="sc">&gt;</span> <span class="dv">5</span> <span class="sc">|</span> beta <span class="sc">&lt;</span> <span class="sc">-</span><span class="fl">4.5</span> <span class="sc">|</span> psi <span class="sc">&gt;</span> <span class="dv">0</span>),</span>
+<span id="cb116-5"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb116-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(beta, psi, <span class="at">label =</span> word),</span>
+<span id="cb116-6"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb116-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.7</span></span>
+<span id="cb116-7"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb116-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb116-8"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb116-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb116-9"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb116-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(beta),</span>
+<span id="cb116-10"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb116-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(psi)</span>
+<span id="cb116-11"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb116-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-116-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>A dokumentumok szintjén is érdemes megvizsgálni az eredményeket. Ehhez a dokumentum szintű paramétereket fogjuk egy data framebe gyűjteni: a <span class="math inline">\(\theta\)</span> ideológiai pozíciót, illetve a beszélő nevét. A vizualizáció kedvéért a párttagságot is hozzáadjuk. A data frame összerakása után az alsó és felső határát is kiszámoljuk a konfidencia intervallumnak és azt is ábrázoljuk.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-2" aria-hidden="true" tabindex="-1"></a>dokumentumok_wf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb117-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">speaker =</span> beszedek_wf<span class="sc">$</span>x<span class="sc">@</span>docvars<span class="sc">$</span>felszolalo,</span>
+<span id="cb117-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">part =</span> beszedek_wf<span class="sc">$</span>x<span class="sc">@</span>docvars<span class="sc">$</span>part,</span>
+<span id="cb117-5"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">theta =</span> beszedek_wf<span class="sc">$</span>theta,</span>
+<span id="cb117-6"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">theta_se =</span> beszedek_wf<span class="sc">$</span>se.theta</span>
+<span id="cb117-7"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb117-8"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb117-9"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">lower =</span> theta <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> theta_se,</span>
+<span id="cb117-10"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">upper =</span> theta <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> theta_se</span>
+<span id="cb117-11"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb117-12"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb117-13"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dokumentumok_wf, <span class="fu">aes</span>(theta, <span class="fu">reorder</span>(speaker, theta))) <span class="sc">+</span></span>
+<span id="cb117-14"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb117-15"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lower, <span class="at">xmax =</span> upper), <span class="at">height =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb117-16"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb117-17"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb117-18"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(theta)</span>
+<span id="cb117-19"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb117-19" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-117-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>A párt metaadattal összehasonlíthatjuk az egy párthoz tartozó frakcióvezetők értékeit a <code>facet_wrap()</code> használatával. Figzeljünk arra hogy az <code>y</code> tengelyen szabadon</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dokumentumok_wf, <span class="fu">aes</span>(theta, <span class="fu">reorder</span>(speaker, theta))) <span class="sc">+</span></span>
+<span id="cb118-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb118-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lower, <span class="at">xmax =</span> upper), <span class="at">height =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb118-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb118-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb118-5"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb118-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb118-6"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb118-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">expression</span>(theta)</span>
+<span id="cb118-7"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb118-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb118-8"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb118-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>part, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-118-1.png" width="90%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="wordscores" class="section level2" number="11.2">
+<h2><span class="header-section-number">11.2</span> Wordscores</h2>
+<p>A wordscores egy felügyelt gépi tanulásos skálázási algoritmus, ahol a a referencia dokumentumok szövege a tanító halmaz. A modell illesztést a wordfish-ez hasonlóan a <code>quanteda.textmodels</code> csomagban található <code>textmodel_wordscores()</code> függvény végzi. A kiinduló dfm ugyanaz mint amit a fejezet elején elkészítettünk, a <code>beszedek_dfm</code>.</p>
+<p>A referencia pontokat dokumentumváltozóként hozzáadjuk a dfm-hez a <code>refrencia_pont</code> oszlopot, ami <code>NA</code> értéket kap alapértelmezetten. A kiválasztott referencia dokumentumoknál pedig egyenként hozzáadjuk az értékeket. Erre több megoldás is van, az egyszerűbb út, hogy az egyik és másik végletet a <code>-1; 1</code> intervallummal jelöljük. Ennek a lehetséges alternatívája, hogy egy külső, már validált forrást használunk. Pártok esetén ilyen lehet a Chapel Hill szakértői kérdőívének a pontszámai, a Manifesto projekt által kódolt jobb-bal (<em>rile</em>) dimenzó. A lenti példánál mi maradunk az egyszerűbb bináris kódolásnál. A wordfish eredményt alapul véve a két referencia pont a Gulyás Gergely és Szél Bernadett beszédei lesznek.<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> Ezek a 3. és 10. dokumentumok.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-2" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>) <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb119-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-3" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>)[<span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb119-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-4" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>)[<span class="dv">10</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb119-5"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-6"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-6" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(beszedek_dfm)</span>
+<span id="cb119-7"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                        id                  felszolalo   part referencia_pont</span></span>
+<span id="cb119-8"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  20142018_024_0002_0002         Vona Gábor (Jobbik) Jobbik              NA</span></span>
+<span id="cb119-9"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  20142018_055_0002_0002   Dr. Schiffer András (LMP)    LMP              NA</span></span>
+<span id="cb119-10"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  20142018_064_0002_0002    Dr. Szél Bernadett (LMP)    LMP              -1</span></span>
+<span id="cb119-11"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  20142018_115_0002_0002        Tóbiás József (MSZP)   MSZP              NA</span></span>
+<span id="cb119-12"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  20142018_158_0002_0002      Schmuck Erzsébet (LMP)    LMP              NA</span></span>
+<span id="cb119-13"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  20142018_172_0002_0002    Dr. Tóth Bertalan (MSZP)   MSZP              NA</span></span>
+<span id="cb119-14"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  20142018_206_0002_0002       Volner János (Jobbik) Jobbik              NA</span></span>
+<span id="cb119-15"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  20142018_212_0002_0002         Kósa Lajos (Fidesz) Fidesz              NA</span></span>
+<span id="cb119-16"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  20142018_236_0002_0002        Harrach Péter (KDNP)   KDNP              NA</span></span>
+<span id="cb119-17"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb119-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 20142018_249_0002_0002 Dr. Gulyás Gergely (Fidesz) Fidesz               1</span></span></code></pre></div>
+<p>A lenti wordscore model specifikáció követi a <span class="citation"><a href="függelék.html#ref-laver2003extracting" role="doc-biblioref">Laver, Benoit, and Garry</a> (<a href="függelék.html#ref-laver2003extracting" role="doc-biblioref">2003</a>)</span> - ben leírtakat.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-1" aria-hidden="true" tabindex="-1"></a>beszedek_ws <span class="ot">&lt;-</span> <span class="fu">textmodel_wordscores</span>(</span>
+<span id="cb120-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> beszedek_dfm,</span>
+<span id="cb120-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">docvars</span>(beszedek_dfm, <span class="st">&quot;referencia_pont&quot;</span>),</span>
+<span id="cb120-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">scale =</span> <span class="st">&quot;linear&quot;</span>,</span>
+<span id="cb120-5"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">smooth =</span> <span class="dv">0</span></span>
+<span id="cb120-6"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb120-7"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-8"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(beszedek_ws, <span class="dv">10</span>)</span>
+<span id="cb120-9"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb120-10"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb120-11"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; textmodel_wordscores.dfm(x = beszedek_dfm, y = docvars(beszedek_dfm, </span></span>
+<span id="cb120-12"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     &quot;referencia_pont&quot;), scale = &quot;linear&quot;, smooth = 0)</span></span>
+<span id="cb120-13"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb120-14"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Reference Document Statistics:</span></span>
+<span id="cb120-15"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        score total min max   mean median</span></span>
+<span id="cb120-16"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1     NA   486   0  18 0.2017      0</span></span>
+<span id="cb120-17"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text2     NA   395   0  12 0.1639      0</span></span>
+<span id="cb120-18"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text3     -1   439   0  12 0.1822      0</span></span>
+<span id="cb120-19"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text4     NA   330   0   7 0.1369      0</span></span>
+<span id="cb120-20"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text5     NA   360   0   8 0.1494      0</span></span>
+<span id="cb120-21"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text6     NA   328   0   5 0.1361      0</span></span>
+<span id="cb120-22"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text7     NA   349   0   5 0.1448      0</span></span>
+<span id="cb120-23"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text8     NA   387   0  10 0.1606      0</span></span>
+<span id="cb120-24"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text9     NA   307   0  13 0.1274      0</span></span>
+<span id="cb120-25"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text10     1   383   0   8 0.1589      0</span></span>
+<span id="cb120-26"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb120-27"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Wordscores:</span></span>
+<span id="cb120-28"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (showing first 10 elements)</span></span>
+<span id="cb120-29"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     tisztelt        elnök           úr országgyulés       ország           is </span></span>
+<span id="cb120-30"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     -0.07547      0.39255      0.06813      0.06813     -1.00000     -0.19859 </span></span>
+<span id="cb120-31"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          sot      nemhogy        tette       fidesz </span></span>
+<span id="cb120-32"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb120-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     -1.00000     -1.00000     -1.00000      1.00000</span></span></code></pre></div>
+<p>Az illesztett wordscores modellünkkel ezek után már meg tudjuk becsülni a korpuszban lévő többi dokumentum pozícióját. Ehhez az R beépített <code>predict()</code> megoldását használjuk. A kiegészítő opciókkal a konfidencia intervallum alsó és felső határát is meg tudjuk becsülni, ami jól jön hogyha szeretnénk ábrázolni az eredményt.</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-1" aria-hidden="true" tabindex="-1"></a>beszedek_ws_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb121-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-2" aria-hidden="true" tabindex="-1"></a>  beszedek_ws,</span>
+<span id="cb121-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">newdata =</span> beszedek_dfm,</span>
+<span id="cb121-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">interval =</span> <span class="st">&quot;confidence&quot;</span></span>
+<span id="cb121-5"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb121-6"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-7"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-7" aria-hidden="true" tabindex="-1"></a>beszedek_ws_pred <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(beszedek_ws_pred<span class="sc">$</span>fit)</span>
+<span id="cb121-8"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-9"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-9" aria-hidden="true" tabindex="-1"></a>beszedek_ws_pred</span>
+<span id="cb121-10"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 fit         lwr         upr</span></span>
+<span id="cb121-11"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1  -0.489860579 -0.62138707 -0.35833409</span></span>
+<span id="cb121-12"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text2  -0.234609623 -0.39658117 -0.07263807</span></span>
+<span id="cb121-13"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text3  -0.909048451 -0.93507086 -0.88302605</span></span>
+<span id="cb121-14"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text4  -0.296528588 -0.47539855 -0.11765863</span></span>
+<span id="cb121-15"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text5  -0.259074418 -0.44948427 -0.06866457</span></span>
+<span id="cb121-16"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text6   0.006320468 -0.23056645  0.24320738</span></span>
+<span id="cb121-17"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text7   0.165042014 -0.06144022  0.39152425</span></span>
+<span id="cb121-18"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text8  -0.077739857 -0.27645536  0.12097565</span></span>
+<span id="cb121-19"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text9  -0.123985348 -0.31176579  0.06379509</span></span>
+<span id="cb121-20"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb121-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text10  0.909048451  0.87934394  0.93875296</span></span></code></pre></div>
+<p>A kapott modellünket a wordfishez hasonlóan tudjuk ábrázolni, miután a <code>beszedek_ws_pred</code> objektumból egy data framet csinálunk és a <code>ggplot2</code>-vel elkészítjük a vizualizációt. A <code>dokumentumok_ws</code> két részből áll össze. Először a wordscores modell objektumunkból a frakcióvezetők neveit és pártjaikat emeljük ki (kicsit körülményes a dolog mert egy komplexebb objektumban tárolja őket a <code>quanteda</code>, de az <code>str()</code> függvény tud segíteni ilyen esetekben). A dokumentumok becsült pontszámait pedig a <code>beszedek_ws_pred</code> objektumból készített data frame hozzácsatolásával tesszük meg. Ehhez a <code>dplyr</code> csomag <code>bind_cols</code> függvényét használjuk. Fontos, hogy itt teljesen biztosnak kell lennünk abban, hogy a sorok a két data frame esetében ugyanarra a dokumentumra vonatkoznak.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-1" aria-hidden="true" tabindex="-1"></a>dokumentumok_ws <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb122-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">speaker =</span> beszedek_ws<span class="sc">$</span>x<span class="sc">@</span>docvars<span class="sc">$</span>felszolalo,</span>
+<span id="cb122-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">part =</span> beszedek_ws<span class="sc">$</span>x<span class="sc">@</span>docvars<span class="sc">$</span>part</span>
+<span id="cb122-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb122-5"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-6"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-6" aria-hidden="true" tabindex="-1"></a>dokumentumok_ws <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(dokumentumok_ws, beszedek_ws_pred)</span>
+<span id="cb122-7"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb122-8"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-8" aria-hidden="true" tabindex="-1"></a>dokumentumok_ws</span>
+<span id="cb122-9"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                            speaker   part          fit         lwr         upr</span></span>
+<span id="cb122-10"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1          Vona Gábor (Jobbik) Jobbik -0.489860579 -0.62138707 -0.35833409</span></span>
+<span id="cb122-11"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text2    Dr. Schiffer András (LMP)    LMP -0.234609623 -0.39658117 -0.07263807</span></span>
+<span id="cb122-12"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text3     Dr. Szél Bernadett (LMP)    LMP -0.909048451 -0.93507086 -0.88302605</span></span>
+<span id="cb122-13"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text4         Tóbiás József (MSZP)   MSZP -0.296528588 -0.47539855 -0.11765863</span></span>
+<span id="cb122-14"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text5       Schmuck Erzsébet (LMP)    LMP -0.259074418 -0.44948427 -0.06866457</span></span>
+<span id="cb122-15"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text6     Dr. Tóth Bertalan (MSZP)   MSZP  0.006320468 -0.23056645  0.24320738</span></span>
+<span id="cb122-16"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text7        Volner János (Jobbik) Jobbik  0.165042014 -0.06144022  0.39152425</span></span>
+<span id="cb122-17"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text8          Kósa Lajos (Fidesz) Fidesz -0.077739857 -0.27645536  0.12097565</span></span>
+<span id="cb122-18"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text9         Harrach Péter (KDNP)   KDNP -0.123985348 -0.31176579  0.06379509</span></span>
+<span id="cb122-19"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb122-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text10 Dr. Gulyás Gergely (Fidesz) Fidesz  0.909048451  0.87934394  0.93875296</span></span></code></pre></div>
+<p>A lenti példánál a párton belüli bontást illusztráljuk, a <code>facet_wrap()</code> segítségével.</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb123-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-2"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb123-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dokumentumok_ws, <span class="fu">aes</span>(fit, <span class="fu">reorder</span>(speaker, fit))) <span class="sc">+</span></span>
+<span id="cb123-3"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb123-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb123-4"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb123-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbarh</span>(<span class="fu">aes</span>(<span class="at">xmin =</span> lwr, <span class="at">xmax =</span> upr), <span class="at">height =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb123-5"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb123-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb123-6"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb123-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb123-7"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb123-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Wordscore&quot;</span></span>
+<span id="cb123-8"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb123-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb123-9"><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#cb123-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>part, <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-123-1.png" width="90%" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="19">
+<li id="fn19"><p>A mintába nem került be Rogán Antal, akinek csak egy darab napirend előtti felszólalása volt.<a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#fnref19" class="footnote-back">↩︎</a></p></li>
+<li id="fn20"><p>A <code>quanteda.textplots</code> csomag több megoldást is kínál az ábrák elkészítésére. Mivel ezek a megoldások kifejezetten a quanteda elemzések ábrázolására készültek, ezért rövid egysoros függvényekkel tudunk gyorsan ábrákat készíteni. A hátrányuk, hogy kevésbé tudjuk “személyre szabni” az ábráinkat, mint a <code>ggplot2</code> példák esetében. A <code>quanteda.textplots</code> megoldásokat ezen a linken demonstrálják a csomag készítői: <a href="https://quanteda.io/articles/pkgdown/examples/plotting.html" class="uri">https://quanteda.io/articles/pkgdown/examples/plotting.html</a><a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#fnref20" class="footnote-back">↩︎</a></p></li>
+<li id="fn21"><p>Azért nem a Vona Gábor beszédét választottuk, mert az gyaníthatóan egy kiugró érték ami nem reprezentálja a sokaságot megfelően.<a href="szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások.html#fnref21" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="szóbeágyazások.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="szövegösszehasonlítás.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
