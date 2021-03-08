@@ -125,7 +125,7 @@
 
 \title{Szövegbányászat és mesterséges intelligencia R-ben}
 \author{Sebők Miklós, Ring Orsolya}
-\date{2021-03-03 01:29:37}
+\date{2021-03-08 11:35:44}
 
 \begin{document}
 \frontmatter
@@ -1180,7 +1180,7 @@ kvantitatív szövegelemzési kontextusban az osztályozáson
 (classification) belül a felügyelt módszerekhez hasonlóan itt is ismert
 kategóriákkal dolgozunk (pl.: egy kulcsszó az ``öröm'' kategóriába
 tartozik), csak egyszerűbb módszertannal
-(\protect\hyperlink{ref-grimmer2013text}{Grimmer and Stewart 2013}).
+(\protect\hyperlink{ref-grimmer2013text}{Grimmer and Stewart 2013a}).
 
 A kulcsszavakra építés miatt a módszer a kvalitatív és kvantitatív
 kutatási vonalak találkozásának is tekinthető, hiszen egy-egy szónak az
@@ -1798,10 +1798,11 @@ eredményként kapott klaszterezés kiértékelésére. Mivel egy klaszterezés
 az adatpontok hasonlóságából indul ki, ezért az eljárás során az első
 fontos lépés az adatpontok páronkénti hasonlóságát lehető legjobban
 megragadó hasonlósági függvény kiválasztása
-(\protect\hyperlink{ref-tan2011}{\textbf{tan2011?}}). Számos
-klaszterezési eljárás létezik, melyek között az egyik leggyakoribb
-különbségtétel, hogy a klaszterek egymásba ágyazottak vagy sem. Ez
-alapján beszélhetünk hierarchikus és felosztó klaszterezésről.
+\protect\hyperlink{ref-tan2011a}{Tan, Steinbach, and Kumar}
+(\protect\hyperlink{ref-tan2011a}{2011}). Számos klaszterezési eljárás
+létezik, melyek között az egyik leggyakoribb különbségtétel, hogy a
+klaszterek egymásba ágyazottak vagy sem. Ez alapján beszélhetünk
+hierarchikus és felosztó klaszterezésről.
 
 A hierarchikus klaszterezés egymásba ágyazott klaszterek egy fába
 rendezett halmaza, azaz ahol a klaszterek alklaszterekkel rendelkeznek.
@@ -1809,19 +1810,20 @@ A fa minden csúcsa (klasztere), a levélcsúcsokat kivéve, a gyermekei
 (alklaszterei) uniója, és a fa gyökere az összes objektumot tartalmazó
 klaszter. Felosztó (partitional) klaszterezés esetén az adathalmazt
 olyan, nem átfedő alcsoportokra bontjuk, ahol minden adatobjektum
-pontosan egy részhalmazba kerül
-(\protect\hyperlink{ref-tikk2007}{\textbf{tikk2007?}};
-\protect\hyperlink{ref-tan2011b}{\textbf{tan2011b?}}). A klaszterezési
-eljárások között aszerint is különbséget tehetünk, hogy azok egy
-objektumot csak egy vagy több klaszterbe is beilleszthetnek. Ez alapján
-beszélhetünk kizáró (exclusive), illetve nem-kizáró (non exclusive),
-vagy átfedő (overlapping) klaszterezésről. Az előbbi minden objektumot
-csak egyetlen klaszterhez rendel hozzá, az utóbbi esetén egy pont több
-klaszterbe is beleillik. Fuzzy klaszterezés esetén minden objektum
-minden klaszterbe beletartozik egy tagsági súly erejéig, melynek értéke
-0 (egyáltalán nem tartozik bele) és 1 (teljesen beletartozik) közé esik.
-A klasztereknek is különböző típusai vannak, így beszélhetünk
-prototípus-alapú, gráf-alapú vagy sűrűség-alapú klaszterekről.
+pontosan egy részhalmazba kerül \protect\hyperlink{ref-tan2011a}{Tan,
+Steinbach, and Kumar} (\protect\hyperlink{ref-tan2011a}{2011}),
+\protect\hyperlink{ref-tikk2007}{Tikk}
+(\protect\hyperlink{ref-tikk2007}{2007a}). A klaszterezési eljárások
+között aszerint is különbséget tehetünk, hogy azok egy objektumot csak
+egy vagy több klaszterbe is beilleszthetnek. Ez alapján beszélhetünk
+kizáró (exclusive), illetve nem-kizáró (non exclusive), vagy átfedő
+(overlapping) klaszterezésről. Az előbbi minden objektumot csak egyetlen
+klaszterhez rendel hozzá, az utóbbi esetén egy pont több klaszterbe is
+beleillik. Fuzzy klaszterezés esetén minden objektum minden klaszterbe
+beletartozik egy tagsági súly erejéig, melynek értéke 0 (egyáltalán nem
+tartozik bele) és 1 (teljesen beletartozik) közé esik. A klasztereknek
+is különböző típusai vannak, így beszélhetünk prototípus-alapú,
+gráf-alapú vagy sűrűség-alapú klaszterekről.
 
 A prototípus-alapú klaszter olyan objektumokat tartalmazó halmaz,
 amelynek mindegyik objektuma jobban hasonlít a klasztert definiáló
@@ -1835,7 +1837,8 @@ Ezután újra meghatározzuk mindegyik klaszter középpontját a klaszterhez
 rendelt pontok alapján. A hozzárendelési és frissítési lépéseket
 felváltva folytatjuk addig, amíg egyetlen pont sem vált klasztert, vagy
 ameddig a középpontok ugyanazok nem maradnak
-(\protect\hyperlink{ref-tan2011c}{\textbf{tan2011c?}}).
+\protect\hyperlink{ref-tan2011a}{Tan, Steinbach, and Kumar}
+(\protect\hyperlink{ref-tan2011a}{2011}).
 
 \hypertarget{k-kuxf6zuxe9p-klaszterezuxe9s-kvalitatuxedv-adatokkal}{%
 \section{K közép klaszterezés kvalitatív
@@ -1855,28 +1858,29 @@ hogy az egy csoportba kerülő szövegek minél inkább hasonlítsanak
 egymásra, miközben a különböző csoportba kerülők minél inkább eltérjenek
 egymástól. Azaz klaszterezésnél nem egy-egy szöveg jellemzőire vagyunk
 kíváncsiak, hanem arra, hogy a szövegek egy-egy csoportja milyen
-hasonlóságokkal bír.
-(\protect\hyperlink{ref-tikk2007a}{\textbf{tikk2007a?}} ;
-\protect\hyperlink{ref-burtejin2016}{\textbf{burtejin2016?}}) A gépi
-kódolással végzett klaszterezés egy felügyelet nélküli tanulás, mely a
-szöveg tulajdonságaiból tanul, anélkül, hogy előre meghatározott
-csoportokat ismerne. Alkalmazása során a dokumentum tulajdonságait és a
-modell becsléseit felhasználva jönnek létre a különböző kategóriák,
-melyekhez később hozzárendeli a szöveget
-(\protect\hyperlink{ref-grimmer2013:15}{\textbf{grimmer2013:15?}}). Az
-osztályozással ellentétben a csoportosítás esetén tehát nincs ismert
-„címkékkel" ellátott kategóriarendszer vagy olyan minta, mint az
-osztályozás esetében a tanítókörnyezet, amiből tanulva a modellt fel
-lehet építeni
-(\protect\hyperlink{ref-tikk2007b:145}{\textbf{tikk2007b:145?}}). A gépi
-kódolással végzett csoportosítás (klaszterezés) esetén a kutató feladata
-a megfelelő csoportosító mechanizmus kiválasztása, mely alapján egy
-program végzi el a szövegek különböző kategóriákba sorolását. Ezt követi
-a hasonló szövegeket tömörítő csoportok elnevezésének lépése. A több
-dokumentumból álló korpuszok esetében a gépi klaszterelemzés különösen
-eredményes és költséghatékony lehet, mivel egy nagy korpusz vizsgálata
-sok erőforrást igényel
-(\protect\hyperlink{ref-grimmer2013a:1}{\textbf{grimmer2013a:1?}}).
+hasonlóságokkal bír \protect\hyperlink{ref-tikk2007}{Tikk}
+(\protect\hyperlink{ref-tikk2007}{2007a}),
+\protect\hyperlink{ref-burtejin2016}{Burtejin}
+(\protect\hyperlink{ref-burtejin2016}{2016}). A gépi kódolással végzett
+klaszterezés egy felügyelet nélküli tanulás, mely a szöveg
+tulajdonságaiból tanul, anélkül, hogy előre meghatározott csoportokat
+ismerne. Alkalmazása során a dokumentum tulajdonságait és a modell
+becsléseit felhasználva jönnek létre a különböző kategóriák, melyekhez
+később hozzárendeli a szöveget
+\protect\hyperlink{ref-grimmer2013texta}{Grimmer and Stewart}
+(\protect\hyperlink{ref-grimmer2013texta}{2013b}) . Az osztályozással
+ellentétben a csoportosítás esetén tehát nincs ismert „címkékkel"
+ellátott kategóriarendszer vagy olyan minta, mint az osztályozás
+esetében a tanítókörnyezet, amiből tanulva a modellt fel lehet építeni
+\protect\hyperlink{ref-tikk2007}{Tikk}
+(\protect\hyperlink{ref-tikk2007}{2007a}). A gépi kódolással végzett
+csoportosítás (klaszterezés) esetén a kutató feladata a megfelelő
+csoportosító mechanizmus kiválasztása, mely alapján egy program végzi el
+a szövegek különböző kategóriákba sorolását. Ezt követi a hasonló
+szövegeket tömörítő csoportok elnevezésének lépése. A több dokumentumból
+álló korpuszok esetében a gépi klaszterelemzés különösen eredményes és
+költséghatékony lehet, mivel egy nagy korpusz vizsgálata sok erőforrást
+igényel @grimmer2013texta:1.
 
 A klaszterezés bemutatásához a rendszerváltás utáni magyar
 miniszterelnökök egy-egy véletlenszerűen kiválasztott beszédét
@@ -1955,14 +1959,14 @@ Vizuálisan is megjeleníthetjük a kialakított csoportokat.
 
 \begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-68-1} \end{center}
 
-\hypertarget{luxe1tens-dirichlet-allokuxe1ciuxf3-topik-modellekklasztering_topicmodellek-2}{%
+\hypertarget{luxe1tens-dirichlet-allokuxe1ciuxf3-topik-modellekklasztering_topicmodellek-1}{%
 \section[Látens Dirichlet Allokáció topik
 modellek]{\texorpdfstring{Látens Dirichlet Allokáció topik
 modellek\footnote{a kód részben az alábbiakon alapul:
   tidytextmining.com/topicmodeling.html Az általunk is használt
   \texttt{topicmodels} csomag interfészt biztosít az LDA modellek és a
   korrelált témamodellek (CTM) C kódjához, valamint az LDA modellek
-  illesztéséhez szükséges C ++ kódhoz.}}{Látens Dirichlet Allokáció topik modellek}}\label{luxe1tens-dirichlet-allokuxe1ciuxf3-topik-modellekklasztering_topicmodellek-2}}
+  illesztéséhez szükséges C ++ kódhoz.}}{Látens Dirichlet Allokáció topik modellek}}\label{luxe1tens-dirichlet-allokuxe1ciuxf3-topik-modellekklasztering_topicmodellek-1}}
 
 A topik-modellezés a dokumentumok téma-klasztereinek meghatározására
 szolgáló valószínűség-alapú eljárás, amely szó-gyakoriságot állapít meg
@@ -1971,25 +1975,30 @@ valószínűségét. A topik modellezés egy felügyelet nélküli tanulási
 módszer, amely során az alkalmazott algoritmus a dokumentum
 tulajdonságait és a modell becsléseit felhasználva hoz létre különböző
 kategóriákat, melyekhez később hozzárendeli a szöveget
-(\protect\hyperlink{ref-tikk2007c}{\textbf{tikk2007c?}};
-\protect\hyperlink{ref-grimmer2013b}{\textbf{grimmer2013b?}};
-\protect\hyperlink{ref-burtejin2016a}{\textbf{burtejin2016a?}}). Az
-egyik leggyakrabban alkalmazott topik modellezési eljárás, a Látens
-Dirichlet Allokáció (LDA) alapja az a feltételezés, hogy minden korpusz
-topikok/témák keverékéből áll, ezen témák pedig statisztikailag a
-korpusz szókészlete valószínűségi függvényeinek (eloszlásának)
-tekinthetőek (\protect\hyperlink{ref-blei2003}{\textbf{blei2003?}}). Az
-LDA a korpusz dokumentumainak csoportosítása során az egyes
-dokumentumokhoz topik szavakat rendel, a topikok megbecsléséhez pedig a
-szavak együttes megjelenését vizsgálja a dokumentum egészében. Az LDA
-algoritmusnak előzetesen meg kell adni a keresett klaszterek (azaz a
-keresett topikok) számát, ezt követően a dokumentumhalmazban szereplő
-szavak eloszlása alapján az algoritmus azonosítja a kulcsszavakat,
-amelyek eloszlása kirajzolja a topikokat
-(\protect\hyperlink{ref-blei2003a}{\textbf{blei2003a?}};
-\protect\hyperlink{ref-burtejin2016b}{\textbf{burtejin2016b?}};
-\protect\hyperlink{ref-jacobi2016}{Jacobi, Van Atteveldt, and Welbers
-2016}).
+\protect\hyperlink{ref-tikk2007a}{Tikk}
+(\protect\hyperlink{ref-tikk2007a}{2007b}),
+\protect\hyperlink{ref-grimmer2013texta}{Grimmer and Stewart}
+(\protect\hyperlink{ref-grimmer2013texta}{2013b}),
+\protect\hyperlink{ref-burtejin2016}{Burtejin}
+(\protect\hyperlink{ref-burtejin2016}{2016}) . Az egyik leggyakrabban
+alkalmazott topik modellezési eljárás, a Látens Dirichlet Allokáció
+(LDA) alapja az a feltételezés, hogy minden korpusz topikok/témák
+keverékéből áll, ezen témák pedig statisztikailag a korpusz szókészlete
+valószínűségi függvényeinek (eloszlásának) tekinthetőek
+\protect\hyperlink{ref-blei2003}{Blei, Ng, and Jordan}
+(\protect\hyperlink{ref-blei2003}{2003}) . Az LDA a korpusz
+dokumentumainak csoportosítása során az egyes dokumentumokhoz topik
+szavakat rendel, a topikok megbecsléséhez pedig a szavak együttes
+megjelenését vizsgálja a dokumentum egészében. Az LDA algoritmusnak
+előzetesen meg kell adni a keresett klaszterek (azaz a keresett topikok)
+számát, ezt követően a dokumentumhalmazban szereplő szavak eloszlása
+alapján az algoritmus azonosítja a kulcsszavakat, amelyek eloszlása
+kirajzolja a topikokat \protect\hyperlink{ref-blei2003}{Blei, Ng, and
+Jordan} (\protect\hyperlink{ref-blei2003}{2003}),
+\protect\hyperlink{ref-burtejin2016}{Burtejin}
+(\protect\hyperlink{ref-burtejin2016}{2016}),
+\protect\hyperlink{ref-jacobi2016a}{Jacobi, Van Atteveldt, and Welbers}
+(\protect\hyperlink{ref-jacobi2016a}{2016}) .
 
 \begin{center}\includegraphics[width=0.9\linewidth]{figures/08-01_topik_modell} \end{center}
 
@@ -2264,7 +2273,7 @@ illesztése. Az alábbiakban az LDA illesztés két módszerét a
 módszer esetén ugyanaz, a különbség a következtetés módjában van. A
 \texttt{VEM} módszer variációs következtetés, míg a \texttt{Gibbs}
 mintavételen alapuló következtetés.
-(\protect\hyperlink{ref-blei2003}{\textbf{blei2003?}};
+(\protect\hyperlink{ref-blei2003}{Blei, Ng, and Jordan 2003};
 \protect\hyperlink{ref-Griffiths2002}{\textbf{Griffiths2002?}};
 \protect\hyperlink{ref-Phan2008}{\textbf{Phan2008?}})
 
@@ -3082,6 +3091,486 @@ Ugyanez működik magyar vezetőkkel is.
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{szuxf6vegskuxe1luxe1zuxe1s-feluxfcgyelet-nuxe9lkuxfcli-uxe9s-feluxfcgyelt-megolduxe1sok}{%
+\chapter{Szövegskálázás: felügyelet nélküli és felügyelt
+megoldások}\label{szuxf6vegskuxe1luxe1zuxe1s-feluxfcgyelet-nuxe9lkuxfcli-uxe9s-feluxfcgyelt-megolduxe1sok}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(quanteda)}
+\FunctionTok{library}\NormalTok{(quanteda.textmodels)}
+\end{Highlighting}
+\end{Shaded}
+
+A skálázási algoritmusokat egy kicsi korpuszon fogjuk bemutatni. A minta
+dokumentumok a 2014-2018 parlamenti ciklusban frakcióvezető politikusok
+egy-egy véletlenszerűen kiválasztott napirend előtti felszólalása.
+Összes a ciklusban 11 frakcióvezetője volt a két kormánypárti és öt
+ellenzéki frakciónak.\footnote{A mintába nem került be Rogán Antal,
+  akinek csak egy darab napirend előtti felszólalása volt.} A
+dokumentumokon a rutin előkészítési lépéseket végezzük csak el
+(tördelések, számok, központozás kitörlése, kisbetűsítés). Természetesen
+minél alaposabbak vagyunk a szövegek tisztításával, annál pontosabb
+végeredményt fogunk kapni.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{parl\_beszedek }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(}\StringTok{"data/ps\_sample.csv"}\NormalTok{)}
+
+\NormalTok{beszedek\_tiszta }\OtherTok{\textless{}{-}}\NormalTok{ parl\_beszedek }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:cntrl:]"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:punct:]"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:digit:]"}\NormalTok{),}
+    \AttributeTok{text =} \FunctionTok{str\_to\_lower}\NormalTok{(text),}
+    \AttributeTok{text =} \FunctionTok{str\_trim}\NormalTok{(text),}
+    \AttributeTok{text =} \FunctionTok{str\_squish}\NormalTok{(text)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+A \emph{Wordfish} és \emph{Wordscores} algoritmus is ugyanazt a kiinduló
+corpus és dfm objektumot fogja használni, amit a szokásos módon a
+\texttt{quanteda} csomag \texttt{corpus()} függvényével hozunk létre. A
+leíró statisztikai tááblázatban látszik, hogy a beszédek hosszúsága nem
+egységes, a leghosszabb 10267 szavas, a legrövidebb pedig 1976. Az
+átlagos dokumentum hossz az 5135.5714286. A korpusz szemléltető célú, az
+eddig megszokott módon minél több/hosszabb dokumentummal dolgozunk,
+annál könnyebb dolga van az algoritmusoknak.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beszedek\_corpus }\OtherTok{\textless{}{-}} \FunctionTok{corpus}\NormalTok{(beszedek\_tiszta)}
+
+\FunctionTok{summary}\NormalTok{(beszedek\_corpus)}
+\CommentTok{\#\textgreater{} Corpus consisting of 10 documents, showing 10 documents:}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{}    Text Types Tokens Sentences                     id}
+\CommentTok{\#\textgreater{}   text1   442    819         1 20142018\_024\_0002\_0002}
+\CommentTok{\#\textgreater{}   text2   354    607         1 20142018\_055\_0002\_0002}
+\CommentTok{\#\textgreater{}   text3   426    736         1 20142018\_064\_0002\_0002}
+\CommentTok{\#\textgreater{}   text4   314    538         1 20142018\_115\_0002\_0002}
+\CommentTok{\#\textgreater{}   text5   354    589         1 20142018\_158\_0002\_0002}
+\CommentTok{\#\textgreater{}   text6   333    538         1 20142018\_172\_0002\_0002}
+\CommentTok{\#\textgreater{}   text7   344    559         1 20142018\_206\_0002\_0002}
+\CommentTok{\#\textgreater{}   text8   352    628         1 20142018\_212\_0002\_0002}
+\CommentTok{\#\textgreater{}   text9   317    492         1 20142018\_236\_0002\_0002}
+\CommentTok{\#\textgreater{}  text10   343    600         1 20142018\_249\_0002\_0002}
+\CommentTok{\#\textgreater{}                   felszolalo   part}
+\CommentTok{\#\textgreater{}          Vona Gábor (Jobbik) Jobbik}
+\CommentTok{\#\textgreater{}    Dr. Schiffer András (LMP)    LMP}
+\CommentTok{\#\textgreater{}     Dr. Szél Bernadett (LMP)    LMP}
+\CommentTok{\#\textgreater{}         Tóbiás József (MSZP)   MSZP}
+\CommentTok{\#\textgreater{}       Schmuck Erzsébet (LMP)    LMP}
+\CommentTok{\#\textgreater{}     Dr. Tóth Bertalan (MSZP)   MSZP}
+\CommentTok{\#\textgreater{}        Volner János (Jobbik) Jobbik}
+\CommentTok{\#\textgreater{}          Kósa Lajos (Fidesz) Fidesz}
+\CommentTok{\#\textgreater{}         Harrach Péter (KDNP)   KDNP}
+\CommentTok{\#\textgreater{}  Dr. Gulyás Gergely (Fidesz) Fidesz}
+\end{Highlighting}
+\end{Shaded}
+
+Végezetül elkészítjük a dfm mátrixot és a magyar stopszavakat
+kitöröljük.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beszedek\_dfm }\OtherTok{\textless{}{-}}\NormalTok{ beszedek\_corpus }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(}\FunctionTok{stopwords}\NormalTok{(}\StringTok{"hungarian"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{dfm}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{wordfish}{%
+\section{Wordfish}\label{wordfish}}
+
+A wordfish felügyelet nélküli skálázást a \texttt{quanteda\_textmodels}
+csomagban implementált \texttt{textmodel\_wordfish()} függvény fogja
+végezni. A megadott \texttt{dir\ =\ c(1,\ 2)} paraméterrel a két
+dokumentum relatív \(\theta\) értékét tudjuk rögzíteni, mégpedig úgy
+hogy \(\theta_{dir1} < \theta_{dir2}\). Alapbeállításként az első és
+utolsó dokumentumot teszi ide be az algoritmus. A lenti példánál mi a
+pártpozíciók alapján a Jobbikos Vona Gábor és az LMP-s Schiffer András
+egy-egy beszédét használtuk. A \texttt{summary()} használható az
+illesztett modellel, és a dokumentumonkénti \(\theta\) koefficienst
+tudjuk így megnézni.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beszedek\_wf }\OtherTok{\textless{}{-}} \FunctionTok{textmodel\_wordfish}\NormalTok{(beszedek\_dfm, }\AttributeTok{dir =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+
+\FunctionTok{summary}\NormalTok{(beszedek\_wf)}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Call:}
+\CommentTok{\#\textgreater{} textmodel\_wordfish.dfm(x = beszedek\_dfm, dir = c(2, 1))}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Estimated Document Positions:}
+\CommentTok{\#\textgreater{}           theta      se}
+\CommentTok{\#\textgreater{} text1   1.79474 0.04219}
+\CommentTok{\#\textgreater{} text2   0.08931 0.04001}
+\CommentTok{\#\textgreater{} text3   1.00137 0.03908}
+\CommentTok{\#\textgreater{} text4  {-}0.09988 0.04232}
+\CommentTok{\#\textgreater{} text5   0.73596 0.04355}
+\CommentTok{\#\textgreater{} text6   0.18572 0.04452}
+\CommentTok{\#\textgreater{} text7  {-}0.72832 0.03590}
+\CommentTok{\#\textgreater{} text8  {-}0.80587 0.03358}
+\CommentTok{\#\textgreater{} text9  {-}0.52028 0.04005}
+\CommentTok{\#\textgreater{} text10 {-}1.65273 0.03794}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Estimated Feature Scores:}
+\CommentTok{\#\textgreater{}        vona  gábor  jobbik tisztelt    elnök      úr országgyulés tegnapi}
+\CommentTok{\#\textgreater{} beta  3.675  2.321  1.9710   0.2391 {-}0.11149 0.02755       1.2286   4.372}
+\CommentTok{\#\textgreater{} psi  {-}4.980 {-}2.734 {-}0.7531   0.4566 {-}0.05693 0.28721      {-}0.6705  {-}5.314}
+\CommentTok{\#\textgreater{}       napon helyen tartottak idoközi önkormányzati választásokat     két}
+\CommentTok{\#\textgreater{} beta  2.991  3.103     3.675   3.675         3.675         3.675  1.1894}
+\CommentTok{\#\textgreater{} psi  {-}3.009 {-}2.630    {-}4.980  {-}4.980        {-}4.980        {-}4.980 {-}0.9439}
+\CommentTok{\#\textgreater{}      érdekelt recsken  ózdon október nyertünk örömmel közlöm  ország}
+\CommentTok{\#\textgreater{} beta    3.675   4.372  4.774   3.405    3.675   3.675  3.675  1.7470}
+\CommentTok{\#\textgreater{} psi    {-}4.980  {-}5.314 {-}5.545  {-}3.230   {-}4.980  {-}4.980 {-}4.980 {-}0.3643}
+\CommentTok{\#\textgreater{}      közvéleményével  amúgy     is tudnak mindkét jobbikos polgármester}
+\CommentTok{\#\textgreater{} beta           3.675  3.675 0.9128  1.433   3.675    3.675        3.675}
+\CommentTok{\#\textgreater{} psi           {-}4.980 {-}4.980 1.8345 {-}1.737  {-}4.980   {-}4.980       {-}4.980}
+\end{Highlighting}
+\end{Shaded}
+
+Amennyiben szeretnénk a szavak szintjén is megnézni a \(\beta\) (a
+szavakhoz társított súly, ami a relatív fontosságát mutatja) és \(\psi\)
+(a szó fix effekt, ami az eltérő szófrekvencia kezeléséért felelős)
+koefficiensekhez, akkor a \texttt{beszedek\_wf} objektumban tárolt
+értékeket egy data frame-be tudjuk bemásolni. A dokumentumok hosszára és
+a szófrekfenviát figyelembe véve, a negatív \(\beta\) értékű szavakat
+gyakrabban használják a negatív \(\theta\) koefficienssel rendelkező
+politikusok.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{szavak\_wf }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{word =}\NormalTok{ beszedek\_wf}\SpecialCharTok{$}\NormalTok{features,}
+  \AttributeTok{beta =}\NormalTok{ beszedek\_wf}\SpecialCharTok{$}\NormalTok{beta,}
+  \AttributeTok{psi =}\NormalTok{ beszedek\_wf}\SpecialCharTok{$}\NormalTok{psi}
+\NormalTok{)}
+
+\NormalTok{szavak\_wf }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(beta) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{(}\AttributeTok{n =} \DecValTok{15}\NormalTok{)}
+\CommentTok{\#\textgreater{}              word      beta       psi}
+\CommentTok{\#\textgreater{} 1        czeglédy {-}5.900663 {-}6.222629}
+\CommentTok{\#\textgreater{} 2           csaba {-}5.769959 {-}6.151399}
+\CommentTok{\#\textgreater{} 3           human {-}5.438681 {-}5.975155}
+\CommentTok{\#\textgreater{} 4        operator {-}5.438681 {-}5.975155}
+\CommentTok{\#\textgreater{} 5             zrt {-}5.216835 {-}5.860931}
+\CommentTok{\#\textgreater{} 6         fizette {-}4.927204 {-}5.717002}
+\CommentTok{\#\textgreater{} 7           gyanú {-}4.927204 {-}5.717002}
+\CommentTok{\#\textgreater{} 8     szocialista {-}4.927204 {-}5.717002}
+\CommentTok{\#\textgreater{} 9      elkövetett {-}4.509192 {-}5.521276}
+\CommentTok{\#\textgreater{} 10         tárgya {-}4.509192 {-}5.521276}
+\CommentTok{\#\textgreater{} 11     céghálózat {-}4.509192 {-}5.521276}
+\CommentTok{\#\textgreater{} 12         diákok {-}4.509192 {-}5.521276}
+\CommentTok{\#\textgreater{} 13         májusi {-}4.509192 {-}5.521276}
+\CommentTok{\#\textgreater{} 14        júniusi {-}4.509192 {-}5.521276}
+\CommentTok{\#\textgreater{} 15 büntetoeljárás {-}4.509192 {-}5.521276}
+\end{Highlighting}
+\end{Shaded}
+
+Ez a pozitív értékekre is igaz.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{szavak\_wf }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(beta)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{(}\AttributeTok{n =} \DecValTok{15}\NormalTok{)}
+\CommentTok{\#\textgreater{}            word     beta       psi}
+\CommentTok{\#\textgreater{} 1    nemzetközi 5.057078 {-}5.720709}
+\CommentTok{\#\textgreater{} 2       önöknek 4.977502 {-}4.778607}
+\CommentTok{\#\textgreater{} 3         ózdon 4.773523 {-}5.544626}
+\CommentTok{\#\textgreater{} 4   kétharmados 4.773523 {-}5.544626}
+\CommentTok{\#\textgreater{} 5        igenis 4.773523 {-}5.544626}
+\CommentTok{\#\textgreater{} 6    választási 4.773523 {-}5.544626}
+\CommentTok{\#\textgreater{} 7  geopolitikai 4.773523 {-}5.544626}
+\CommentTok{\#\textgreater{} 8   ártatlanság 4.773523 {-}5.544626}
+\CommentTok{\#\textgreater{} 9       vélelme 4.773523 {-}5.544626}
+\CommentTok{\#\textgreater{} 10      tegnapi 4.372320 {-}5.314088}
+\CommentTok{\#\textgreater{} 11      recsken 4.372320 {-}5.314088}
+\CommentTok{\#\textgreater{} 12       lássuk 4.372320 {-}5.314088}
+\CommentTok{\#\textgreater{} 13       tolünk 4.372320 {-}5.314088}
+\CommentTok{\#\textgreater{} 14     janiczak 4.372320 {-}5.314088}
+\CommentTok{\#\textgreater{} 15  szavazattal 4.372320 {-}5.314088}
+\end{Highlighting}
+\end{Shaded}
+
+Az eredményeinket mind a szavak és mind a dokumentumok szintjén tudjuk
+vizualizálni. Elsőként a klasszikus ``Eiffel-torony'' ábrát
+reprodukáljuk, ami a szavak gyakorisága és skálára gyakorolt
+befolyásának az illusztrálására szolgál. Ehhez a már elkészült
+\texttt{szavak\_wf} data framet és a \texttt{ggplot2} csomagot fogjuk
+használni. Mivel a korpuszunk nagyon kicsi ezért csak 2410 kifejezést
+fogunk ábrázolni. Ennek ellenére a lényeg kirajzolódik a lenti ábrán
+is.\footnote{A \texttt{quanteda.textplots} csomag több megoldást is
+  kínál az ábrák elkészítésére. Mivel ezek a megoldások kifejezetten a
+  quanteda elemzések ábrázolására készültek, ezért rövid egysoros
+  függvényekkel tudunk gyorsan ábrákat készíteni. A hátrányuk, hogy
+  kevésbé tudjuk ``személyre szabni'' az ábráinkat, mint a
+  \texttt{ggplot2} példák esetében. A \texttt{quanteda.textplots}
+  megoldásokat ezen a linken demonstrálják a csomag készítői:
+  \url{https://quanteda.io/articles/pkgdown/examples/plotting.html}}
+
+Kihasználhatjuk, hogy a \texttt{ggplot} ábra definiálása közben a
+felhasznált bemeneti data frame-t különböző szempontok alapján lehet
+szűrni. így ábrázolni tudjuk a gyakran használt ám semleges szavakat
+(magas \(\psi\), alacsony \(\beta\)), illetve a ritkább de meghatározóbb
+szavakat (magas \(\beta\), alacsony \(\psi\)).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(szavak\_wf, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ beta, }\AttributeTok{y =}\NormalTok{ psi)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{color =} \StringTok{"grey"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}
+    \AttributeTok{data =} \FunctionTok{filter}\NormalTok{(szavak\_wf, beta }\SpecialCharTok{\textgreater{}} \DecValTok{5} \SpecialCharTok{|}\NormalTok{ beta }\SpecialCharTok{\textless{}} \SpecialCharTok{{-}}\FloatTok{4.5} \SpecialCharTok{|}\NormalTok{ psi }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{),}
+    \FunctionTok{aes}\NormalTok{(beta, psi, }\AttributeTok{label =}\NormalTok{ word),}
+    \AttributeTok{alpha =} \FloatTok{0.7}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{x =} \FunctionTok{expression}\NormalTok{(beta),}
+    \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(psi)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-116-1} \end{center}
+
+A dokumentumok szintjén is érdemes megvizsgálni az eredményeket. Ehhez a
+dokumentum szintű paramétereket fogjuk egy data framebe gyűjteni: a
+\(\theta\) ideológiai pozíciót, illetve a beszélő nevét. A vizualizáció
+kedvéért a párttagságot is hozzáadjuk. A data frame összerakása után az
+alsó és felső határát is kiszámoljuk a konfidencia intervallumnak és azt
+is ábrázoljuk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{dokumentumok\_wf }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{speaker =}\NormalTok{ beszedek\_wf}\SpecialCharTok{$}\NormalTok{x}\SpecialCharTok{@}\NormalTok{docvars}\SpecialCharTok{$}\NormalTok{felszolalo,}
+  \AttributeTok{part =}\NormalTok{ beszedek\_wf}\SpecialCharTok{$}\NormalTok{x}\SpecialCharTok{@}\NormalTok{docvars}\SpecialCharTok{$}\NormalTok{part,}
+  \AttributeTok{theta =}\NormalTok{ beszedek\_wf}\SpecialCharTok{$}\NormalTok{theta,}
+  \AttributeTok{theta\_se =}\NormalTok{ beszedek\_wf}\SpecialCharTok{$}\NormalTok{se.theta}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{lower =}\NormalTok{ theta }\SpecialCharTok{{-}} \FloatTok{1.96} \SpecialCharTok{*}\NormalTok{ theta\_se,}
+    \AttributeTok{upper =}\NormalTok{ theta }\SpecialCharTok{+} \FloatTok{1.96} \SpecialCharTok{*}\NormalTok{ theta\_se}
+\NormalTok{  )}
+
+\FunctionTok{ggplot}\NormalTok{(dokumentumok\_wf, }\FunctionTok{aes}\NormalTok{(theta, }\FunctionTok{reorder}\NormalTok{(speaker, theta))) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbarh}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =}\NormalTok{ lower, }\AttributeTok{xmax =}\NormalTok{ upper), }\AttributeTok{height =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{y =} \ConstantTok{NULL}\NormalTok{,}
+    \AttributeTok{x =} \FunctionTok{expression}\NormalTok{(theta)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-117-1} \end{center}
+
+A párt metaadattal összehasonlíthatjuk az egy párthoz tartozó
+frakcióvezetők értékeit a \texttt{facet\_wrap()} használatával.
+Figzeljünk arra hogy az \texttt{y} tengelyen szabadon
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(dokumentumok\_wf, }\FunctionTok{aes}\NormalTok{(theta, }\FunctionTok{reorder}\NormalTok{(speaker, theta))) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbarh}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =}\NormalTok{ lower, }\AttributeTok{xmax =}\NormalTok{ upper), }\AttributeTok{height =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{y =} \ConstantTok{NULL}\NormalTok{,}
+    \AttributeTok{x =} \FunctionTok{expression}\NormalTok{(theta)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{part, }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{, }\AttributeTok{scales =} \StringTok{"free\_y"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-118-1} \end{center}
+
+\hypertarget{wordscores}{%
+\section{Wordscores}\label{wordscores}}
+
+A wordscores egy felügyelt gépi tanulásos skálázási algoritmus, ahol a a
+referencia dokumentumok szövege a tanító halmaz. A modell illesztést a
+wordfish-ez hasonlóan a \texttt{quanteda.textmodels} csomagban található
+\texttt{textmodel\_wordscores()} függvény végzi. A kiinduló dfm ugyanaz
+mint amit a fejezet elején elkészítettünk, a \texttt{beszedek\_dfm}.
+
+A referencia pontokat dokumentumváltozóként hozzáadjuk a dfm-hez a
+\texttt{refrencia\_pont} oszlopot, ami \texttt{NA} értéket kap
+alapértelmezetten. A kiválasztott referencia dokumentumoknál pedig
+egyenként hozzáadjuk az értékeket. Erre több megoldás is van, az
+egyszerűbb út, hogy az egyik és másik végletet a \texttt{-1;\ 1}
+intervallummal jelöljük. Ennek a lehetséges alternatívája, hogy egy
+külső, már validált forrást használunk. Pártok esetén ilyen lehet a
+Chapel Hill szakértői kérdőívének a pontszámai, a Manifesto projekt
+által kódolt jobb-bal (\emph{rile}) dimenzó. A lenti példánál mi
+maradunk az egyszerűbb bináris kódolásnál. A wordfish eredményt alapul
+véve a két referencia pont a Gulyás Gergely és Szél Bernadett beszédei
+lesznek.\footnote{Azért nem a Vona Gábor beszédét választottuk, mert az
+  gyaníthatóan egy kiugró érték ami nem reprezentálja a sokaságot
+  megfelően.} Ezek a 3. és 10. dokumentumok.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{docvars}\NormalTok{(beszedek\_dfm, }\StringTok{"referencia\_pont"}\NormalTok{) }\OtherTok{\textless{}{-}} \ConstantTok{NA}
+\FunctionTok{docvars}\NormalTok{(beszedek\_dfm, }\StringTok{"referencia\_pont"}\NormalTok{)[}\DecValTok{3}\NormalTok{] }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\DecValTok{1}
+\FunctionTok{docvars}\NormalTok{(beszedek\_dfm, }\StringTok{"referencia\_pont"}\NormalTok{)[}\DecValTok{10}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1}
+
+\FunctionTok{docvars}\NormalTok{(beszedek\_dfm)}
+\CommentTok{\#\textgreater{}                        id                  felszolalo   part referencia\_pont}
+\CommentTok{\#\textgreater{} 1  20142018\_024\_0002\_0002         Vona Gábor (Jobbik) Jobbik              NA}
+\CommentTok{\#\textgreater{} 2  20142018\_055\_0002\_0002   Dr. Schiffer András (LMP)    LMP              NA}
+\CommentTok{\#\textgreater{} 3  20142018\_064\_0002\_0002    Dr. Szél Bernadett (LMP)    LMP              {-}1}
+\CommentTok{\#\textgreater{} 4  20142018\_115\_0002\_0002        Tóbiás József (MSZP)   MSZP              NA}
+\CommentTok{\#\textgreater{} 5  20142018\_158\_0002\_0002      Schmuck Erzsébet (LMP)    LMP              NA}
+\CommentTok{\#\textgreater{} 6  20142018\_172\_0002\_0002    Dr. Tóth Bertalan (MSZP)   MSZP              NA}
+\CommentTok{\#\textgreater{} 7  20142018\_206\_0002\_0002       Volner János (Jobbik) Jobbik              NA}
+\CommentTok{\#\textgreater{} 8  20142018\_212\_0002\_0002         Kósa Lajos (Fidesz) Fidesz              NA}
+\CommentTok{\#\textgreater{} 9  20142018\_236\_0002\_0002        Harrach Péter (KDNP)   KDNP              NA}
+\CommentTok{\#\textgreater{} 10 20142018\_249\_0002\_0002 Dr. Gulyás Gergely (Fidesz) Fidesz               1}
+\end{Highlighting}
+\end{Shaded}
+
+A lenti wordscore model specifikáció követi a
+\protect\hyperlink{ref-laver2003extracting}{Laver, Benoit, and Garry}
+(\protect\hyperlink{ref-laver2003extracting}{2003}) - ben leírtakat.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beszedek\_ws }\OtherTok{\textless{}{-}} \FunctionTok{textmodel\_wordscores}\NormalTok{(}
+  \AttributeTok{x =}\NormalTok{ beszedek\_dfm,}
+  \AttributeTok{y =} \FunctionTok{docvars}\NormalTok{(beszedek\_dfm, }\StringTok{"referencia\_pont"}\NormalTok{),}
+  \AttributeTok{scale =} \StringTok{"linear"}\NormalTok{,}
+  \AttributeTok{smooth =} \DecValTok{0}
+\NormalTok{)}
+
+\FunctionTok{summary}\NormalTok{(beszedek\_ws, }\DecValTok{10}\NormalTok{)}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Call:}
+\CommentTok{\#\textgreater{} textmodel\_wordscores.dfm(x = beszedek\_dfm, y = docvars(beszedek\_dfm, }
+\CommentTok{\#\textgreater{}     "referencia\_pont"), scale = "linear", smooth = 0)}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Reference Document Statistics:}
+\CommentTok{\#\textgreater{}        score total min max   mean median}
+\CommentTok{\#\textgreater{} text1     NA   486   0  18 0.2017      0}
+\CommentTok{\#\textgreater{} text2     NA   395   0  12 0.1639      0}
+\CommentTok{\#\textgreater{} text3     {-}1   439   0  12 0.1822      0}
+\CommentTok{\#\textgreater{} text4     NA   330   0   7 0.1369      0}
+\CommentTok{\#\textgreater{} text5     NA   360   0   8 0.1494      0}
+\CommentTok{\#\textgreater{} text6     NA   328   0   5 0.1361      0}
+\CommentTok{\#\textgreater{} text7     NA   349   0   5 0.1448      0}
+\CommentTok{\#\textgreater{} text8     NA   387   0  10 0.1606      0}
+\CommentTok{\#\textgreater{} text9     NA   307   0  13 0.1274      0}
+\CommentTok{\#\textgreater{} text10     1   383   0   8 0.1589      0}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Wordscores:}
+\CommentTok{\#\textgreater{} (showing first 10 elements)}
+\CommentTok{\#\textgreater{}     tisztelt        elnök           úr országgyulés       ország           is }
+\CommentTok{\#\textgreater{}     {-}0.07547      0.39255      0.06813      0.06813     {-}1.00000     {-}0.19859 }
+\CommentTok{\#\textgreater{}          sot      nemhogy        tette       fidesz }
+\CommentTok{\#\textgreater{}     {-}1.00000     {-}1.00000     {-}1.00000      1.00000}
+\end{Highlighting}
+\end{Shaded}
+
+Az illesztett wordscores modellünkkel ezek után már meg tudjuk becsülni
+a korpuszban lévő többi dokumentum pozícióját. Ehhez az R beépített
+\texttt{predict()} megoldását használjuk. A kiegészítő opciókkal a
+konfidencia intervallum alsó és felső határát is meg tudjuk becsülni,
+ami jól jön hogyha szeretnénk ábrázolni az eredményt.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{beszedek\_ws\_pred }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(}
+\NormalTok{  beszedek\_ws,}
+  \AttributeTok{newdata =}\NormalTok{ beszedek\_dfm,}
+  \AttributeTok{interval =} \StringTok{"confidence"}
+\NormalTok{)}
+
+\NormalTok{beszedek\_ws\_pred }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(beszedek\_ws\_pred}\SpecialCharTok{$}\NormalTok{fit)}
+
+\NormalTok{beszedek\_ws\_pred}
+\CommentTok{\#\textgreater{}                 fit         lwr         upr}
+\CommentTok{\#\textgreater{} text1  {-}0.489860579 {-}0.62138707 {-}0.35833409}
+\CommentTok{\#\textgreater{} text2  {-}0.234609623 {-}0.39658117 {-}0.07263807}
+\CommentTok{\#\textgreater{} text3  {-}0.909048451 {-}0.93507086 {-}0.88302605}
+\CommentTok{\#\textgreater{} text4  {-}0.296528588 {-}0.47539855 {-}0.11765863}
+\CommentTok{\#\textgreater{} text5  {-}0.259074418 {-}0.44948427 {-}0.06866457}
+\CommentTok{\#\textgreater{} text6   0.006320468 {-}0.23056645  0.24320738}
+\CommentTok{\#\textgreater{} text7   0.165042014 {-}0.06144022  0.39152425}
+\CommentTok{\#\textgreater{} text8  {-}0.077739857 {-}0.27645536  0.12097565}
+\CommentTok{\#\textgreater{} text9  {-}0.123985348 {-}0.31176579  0.06379509}
+\CommentTok{\#\textgreater{} text10  0.909048451  0.87934394  0.93875296}
+\end{Highlighting}
+\end{Shaded}
+
+A kapott modellünket a wordfishez hasonlóan tudjuk ábrázolni, miután a
+\texttt{beszedek\_ws\_pred} objektumból egy data framet csinálunk és a
+\texttt{ggplot2}-vel elkészítjük a vizualizációt. A
+\texttt{dokumentumok\_ws} két részből áll össze. Először a wordscores
+modell objektumunkból a frakcióvezetők neveit és pártjaikat emeljük ki
+(kicsit körülményes a dolog mert egy komplexebb objektumban tárolja őket
+a \texttt{quanteda}, de az \texttt{str()} függvény tud segíteni ilyen
+esetekben). A dokumentumok becsült pontszámait pedig a
+\texttt{beszedek\_ws\_pred} objektumból készített data frame
+hozzácsatolásával tesszük meg. Ehhez a \texttt{dplyr} csomag
+\texttt{bind\_cols} függvényét használjuk. Fontos, hogy itt teljesen
+biztosnak kell lennünk abban, hogy a sorok a két data frame esetében
+ugyanarra a dokumentumra vonatkoznak.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dokumentumok\_ws }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{speaker =}\NormalTok{ beszedek\_ws}\SpecialCharTok{$}\NormalTok{x}\SpecialCharTok{@}\NormalTok{docvars}\SpecialCharTok{$}\NormalTok{felszolalo,}
+  \AttributeTok{part =}\NormalTok{ beszedek\_ws}\SpecialCharTok{$}\NormalTok{x}\SpecialCharTok{@}\NormalTok{docvars}\SpecialCharTok{$}\NormalTok{part}
+\NormalTok{)}
+
+\NormalTok{dokumentumok\_ws }\OtherTok{\textless{}{-}} \FunctionTok{bind\_cols}\NormalTok{(dokumentumok\_ws, beszedek\_ws\_pred)}
+
+\NormalTok{dokumentumok\_ws}
+\CommentTok{\#\textgreater{}                            speaker   part          fit         lwr         upr}
+\CommentTok{\#\textgreater{} text1          Vona Gábor (Jobbik) Jobbik {-}0.489860579 {-}0.62138707 {-}0.35833409}
+\CommentTok{\#\textgreater{} text2    Dr. Schiffer András (LMP)    LMP {-}0.234609623 {-}0.39658117 {-}0.07263807}
+\CommentTok{\#\textgreater{} text3     Dr. Szél Bernadett (LMP)    LMP {-}0.909048451 {-}0.93507086 {-}0.88302605}
+\CommentTok{\#\textgreater{} text4         Tóbiás József (MSZP)   MSZP {-}0.296528588 {-}0.47539855 {-}0.11765863}
+\CommentTok{\#\textgreater{} text5       Schmuck Erzsébet (LMP)    LMP {-}0.259074418 {-}0.44948427 {-}0.06866457}
+\CommentTok{\#\textgreater{} text6     Dr. Tóth Bertalan (MSZP)   MSZP  0.006320468 {-}0.23056645  0.24320738}
+\CommentTok{\#\textgreater{} text7        Volner János (Jobbik) Jobbik  0.165042014 {-}0.06144022  0.39152425}
+\CommentTok{\#\textgreater{} text8          Kósa Lajos (Fidesz) Fidesz {-}0.077739857 {-}0.27645536  0.12097565}
+\CommentTok{\#\textgreater{} text9         Harrach Péter (KDNP)   KDNP {-}0.123985348 {-}0.31176579  0.06379509}
+\CommentTok{\#\textgreater{} text10 Dr. Gulyás Gergely (Fidesz) Fidesz  0.909048451  0.87934394  0.93875296}
+\end{Highlighting}
+\end{Shaded}
+
+A lenti példánál a párton belüli bontást illusztráljuk, a
+\texttt{facet\_wrap()} segítségével.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{ggplot}\NormalTok{(dokumentumok\_ws, }\FunctionTok{aes}\NormalTok{(fit, }\FunctionTok{reorder}\NormalTok{(speaker, fit))) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_errorbarh}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =}\NormalTok{ lwr, }\AttributeTok{xmax =}\NormalTok{ upr), }\AttributeTok{height =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{y =} \ConstantTok{NULL}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Wordscore"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{part, }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{, }\AttributeTok{scales =} \StringTok{"free\_y"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-123-1} \end{center}
+
 \hypertarget{szuxf6veguxf6sszehasonluxedtuxe1s}{%
 \chapter{Szövegösszehasonlítás}\label{szuxf6veguxf6sszehasonluxedtuxe1s}}
 
@@ -3137,7 +3626,7 @@ Az RStudio kezdőfelülete négy panelből, eszközsorból és menüsorból áll
 
 }
 
-\caption{RStudio felhasználói felület}\label{fig:unnamed-chunk-109}
+\caption{RStudio felhasználói felület}\label{fig:unnamed-chunk-124}
 \end{figure}
 
 Az \textbf{\emph{(1) editor}} ablak szolgál a kód beírására, futtatására
@@ -3179,7 +3668,7 @@ exit''} értékre be kell állítani a \emph{„Never''} értéket.
 
 }
 
-\caption{RStudio projekt beállítások}\label{fig:unnamed-chunk-110}
+\caption{RStudio projekt beállítások}\label{fig:unnamed-chunk-125}
 \end{figure}
 
 A szükséges beállítások után a
@@ -3234,7 +3723,7 @@ munkakönyvtárnak állíthatjuk be az a mappát, amelyben épp benne vagyunk.
 
 }
 
-\caption{Working directory beállítások}\label{fig:unnamed-chunk-111}
+\caption{Working directory beállítások}\label{fig:unnamed-chunk-126}
 \end{figure}
 
 A munkafolyamat befejezésére a \texttt{q()} vagy \texttt{quit()}
@@ -3304,7 +3793,7 @@ a ()-be a telepíteni kívánt csomag nevét kell beírnunk (pl.:
 
 }
 
-\caption{Packages fül}\label{fig:unnamed-chunk-112}
+\caption{Packages fül}\label{fig:unnamed-chunk-127}
 \end{figure}
 
 \hypertarget{objektumok-tuxe1roluxe1sa-uxe9rtuxe9kaduxe1s}{%
@@ -3536,7 +4025,7 @@ készítünk.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-122-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-137-1} \end{center}
 
 Lehetőségünk van arra, hogy az alakzat színét megváltoztatássuk. A
 használható színek és színkódok megtalálhatóak a \texttt{ggplot2}
@@ -3552,7 +4041,7 @@ leírásában: \url{https://ggplot2-book.org/scale-colour.html}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-123-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-138-1} \end{center}
 
 Meghatározhatjuk külön-külön a histogram x és y tengelyén ábrázolni
 kívánt adatokat és választhatjuk azok pontszerű ábrázolását is.
@@ -3570,7 +4059,7 @@ kívánt adatokat és választhatjuk azok pontszerű ábrázolását is.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-124-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-139-1} \end{center}
 
 Ahogy az előzőekben, itt is megváltoztathatjuk az ábra színét.
 
@@ -3587,7 +4076,7 @@ Ahogy az előzőekben, itt is megváltoztathatjuk az ábra színét.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-125-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-140-1} \end{center}
 
 Az fenti script kibővítésével az egyes kontinensek adatait különböző
 színnel ábrázolhatjuk, az x és y tengelyt elnevezhetjük, a histogramnak
@@ -3615,7 +4104,7 @@ feltüntethetjük az alábbi módon:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-126-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-141-1} \end{center}
 
 Az ábrán található feliratok méretének, betűtípusának és betűszínének
 megválasztásra is lehetőségünk van.
@@ -3645,7 +4134,7 @@ megválasztásra is lehetőségünk van.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-127-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-142-1} \end{center}
 
 Készíthetünk oszlopdiagramot is, amit a \texttt{ggplot2} diamonds
 adatkészletén személtetünk
@@ -3657,7 +4146,7 @@ adatkészletén személtetünk
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-128-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-143-1} \end{center}
 
 Itt is lehetőségünk van arra, hogy a diagram színét megváltoztassuk.
 
@@ -3668,7 +4157,7 @@ Itt is lehetőségünk van arra, hogy a diagram színét megváltoztassuk.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-129-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-144-1} \end{center}
 
 De arra is lehetőségünk van, hogy az egyes oszlopok eltérő színűek
 legyenek.
@@ -3680,7 +4169,7 @@ legyenek.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-130-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-145-1} \end{center}
 
 Arra is van lehetőségünk, hogy egyszerre több változót is ábrázoljunk.
 
@@ -3691,7 +4180,7 @@ Arra is van lehetőségünk, hogy egyszerre több változót is ábrázoljunk.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-131-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-146-1} \end{center}
 
 Arra ggplot2 segítségével arra is lehetőségünk van, hogy csv-ből
 beolvasott adatainkat vizualizáljuk.
@@ -3738,6 +4227,15 @@ Arun, Rajkumar, Venkatasubramaniyan Suresh, CE Veni Madhavan, and MN
 Narasimha Murthy. 2010. {``On Finding the Natural Number of Topics with
 Latent Dirichlet Allocation: Some Observations.''} In, 391402.
 
+\leavevmode\hypertarget{ref-blei2003}{}%
+Blei, David M, Andrew Y Ng, and Michael I Jordan. 2003. {``Latent
+Dirichlet Allocation.''} \emph{Journal of Machine Learning Research} 3
+(Jan): 993--1022.
+
+\leavevmode\hypertarget{ref-burtejin2016}{}%
+Burtejin, Zorgit. 2016. {``Csoportosítás (Klaszterezés).''} In, edited
+by Miklós Sebők, 85--101. Budapest: L'Harmattan.
+
 \leavevmode\hypertarget{ref-cao2009density}{}%
 Cao, Juan, Tian Xia, Jintao Li, Yongdong Zhang, and Sheng Tang. 2009.
 {``A Density-Based Method for Adaptive LDA Model Selection.''}
@@ -3754,14 +4252,24 @@ Topics.''} \emph{Proceedings of the National Academy of Sciences} 101
 (Supplement 1): 5228--35. \url{https://doi.org/10.1073/pnas.0307752101}.
 
 \leavevmode\hypertarget{ref-grimmer2013text}{}%
-Grimmer, Justin, and Brandon M Stewart. 2013. {``Text as Data: The
+Grimmer, Justin, and Brandon M Stewart. 2013a. {``Text as Data: The
 Promise and Pitfalls of Automatic Content Analysis Methods for Political
 Texts.''} \emph{Political Analysis} 21 (3): 267297.
 
-\leavevmode\hypertarget{ref-jacobi2016}{}%
+\leavevmode\hypertarget{ref-grimmer2013texta}{}%
+---------. 2013b. {``Text as Data: The Promise and Pitfalls of Automatic
+Content Analysis Methods for Political Texts.''} \emph{Political
+Analysis} 21 (3): 267297.
+
+\leavevmode\hypertarget{ref-jacobi2016a}{}%
 Jacobi, Carina, Wouter Van Atteveldt, and Kasper Welbers. 2016.
 {``Quantitative Analysis of Large Amounts of Journalistic Texts Using
 Topic Modelling.''} \emph{Digital Journalism} 4 (1): 89--106.
+
+\leavevmode\hypertarget{ref-laver2003extracting}{}%
+Laver, Michael, Kenneth Benoit, and John Garry. 2003. {``Extracting
+Policy Positions from Political Texts Using Words as Data.''}
+\emph{American Political Science Review}, 311331.
 
 \leavevmode\hypertarget{ref-laver2000estimating}{}%
 Laver, Michael, and John Garry. 2000. {``Estimating Policy Positions
@@ -3811,6 +4319,16 @@ Spirling, Arthur, and Pedro L Rodriguez. n.d.a. {``Word Embeddings.''}
 \leavevmode\hypertarget{ref-spirlingworda}{}%
 ---------. n.d.b. {``Word Embeddings.''}
 \url{https://polmeth.mit.edu/sites/default/files/documents/Pedro_Rodriguez.pdf}.
+
+\leavevmode\hypertarget{ref-tan2011a}{}%
+Tan, Pang-Ning, Michael Steinbach, and Vipin Kumar. 2011.
+\emph{Bevezetés Az Adatbányászatba}. Panem Kft.
+
+\leavevmode\hypertarget{ref-tikk2007}{}%
+Tikk, Domonkos. 2007a. \emph{Szövegbányászat}. Budapest: Typotext.
+
+\leavevmode\hypertarget{ref-tikk2007a}{}%
+---------. 2007b. \emph{Szövegbányászat}. Budapest: Typotext.
 
 \leavevmode\hypertarget{ref-wickham2016r}{}%
 Wickham, Hadley, and Garrett Grolemund. 2016. \emph{R for Data Science:
