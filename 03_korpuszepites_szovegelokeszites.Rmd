@@ -7,18 +7,16 @@ A szövebányászati elemzések egyik első lépése az elemzés alapjául szolg
 A scrapelést végezhetjük R-ben az `rvest` csomomag segítségével. Fejezetünkben a scrapelésnek csupán néhány alaplépését mutatjuk meg, a folyamatról bővebb információ található például az alábbi
 oldalakon:<https://cran.r-project.org/web/packages/rvest/rvest.pdf>, <https://rvest.tidyverse.org/>.
 
-Telepítsük, majd olvassuk be az `rvest` csomagot.
-
-```{r eval=FALSE}
-
-install.packages("rvest")
-
-```
 
 ```{r}
 
 library(rvest)
 library(readr)
+library(dplyr)
+library(lubridate)
+library(stringr)
+library(quanteda)
+library(quanteda.textmodels)
 
 ```
 
@@ -67,29 +65,6 @@ Arra is van lehetőség, hogy az elemezni kívánt korpuszt papíron keletkezett
 
 Az elemzéshez vezető következő lépés a szövegelőkészítés, amit a szöveg tisztításával kell megkezdenünk. A szövegtisztításnél mindig járjunk el körültekintően és az egyes lépéseket a kutatási kérdésünknek megfelelően tervezzük meg, a folyamat során pedig időnként végezzünk ellenőrzést,
 ezzel elkerülhetjük a kutatásunkhoz szükséges információk elvesztését.
-
-A korpusz előkészítéséhez az `install.packages()` paranccsal telepítsük, majd a `library()` paranccsal olvassuk be az alábbi csomagokat.
-
-```{r eval=FALSE}
-
-install.packages("dplyr")
-install.packages("lubridate")
-install.packages("stringr")
-install.packages("quanteda")
-install.packages("quanteda.textmodels")
-
-```
-
-```{r}
-
-
-library(dplyr)
-library(lubridate)
-library(stringr)
-library(quanteda)
-library(quanteda.textmodels)
-
-```
 
 Miután az elemezni kívánt szövegeinket beszereztük, majd a "Szöveges dokumentumok importálása"[BE KELL MAJD ÍRNI A VÉLGLEGES FEJEZETSZÁMOT] című aljezetben leírtak szerint importáltuk, következhetnek az alapvető előfeldolgozási lépések, ezek közé tartozik például a scrapelés során a kopuszba került html címkék, számok és egyéb zajok (például a speciális karakterek, írásjelek) eltávolítása a korpuszból, valamint a kisbetűsítés, a tokenizálás, a szótövezés és a stopszavazás.
 

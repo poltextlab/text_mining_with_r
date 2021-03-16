@@ -6,8 +6,7 @@ source("_common.R")
 
 ```
 
-
-```{r include=FALSE}
+```{r echo=FALSE}
 poltext_szotar <- read_rds("data/poltext_dict.Rds")
 ```
 
@@ -34,7 +33,7 @@ Az elemzés sikere több faktortól is függ. Fontos hogy a korpuszban lévő do
 
 A szótár alapú elemzéshez a `quanteda` csomagot fogjuk használni, illetve a 3. fejezetben már megismert `readr`, `stringr`, `dplyr` tidyverse csomagokat.[^szentiment_elemzes-2]
 
-[^szentiment_elemzes-2]: A szentiment elemzéshez gyakran használt csomag még a tidytext. Az online is szabadon elérhető @silge2017text 2. fejezetében részletesen is bemutatják a szerzők a tidytext munkafolyamatot (<https://www.tidytextmining.com/sentiment.html>).
+[^szentiment_elemzes-2]: A szentiment elemzéshez gyakran használt csomag még a tidytext. Az online is szabadon elérhető @silge2017text 2. fejezetében részletesen is bemutatják a szerzők a tidytext munkafolyamatot (https://www.tidytextmining.com/sentiment.html).
 
 ```{r message=FALSE}
 library(readr)
@@ -42,15 +41,18 @@ library(stringr)
 library(dplyr)
 library(ggplot2)
 library(quanteda)
+library(quanteda.dictionaries)
 ```
 
 Mielőtt a két esettanulmányt bemutatnánk, vizsgáljuk meg hogy hogyan néz ki egy szentiment szótár az R-ben. A szótárt kézzel úgy tudjuk létrehozni, hogy egy listán belül létrehozzuk karaktervektorként a kategóriákat és a kulcsszavakat és ezt a listát a quanteda dictionary függvényével eltároljuk.
 
 ```{r}
-szentiment_szotar <- dictionary(list(
-  pozitiv = c("jó", "boldog", "öröm"),
-  negativ = c("rossz", "szomorú", "lehangoló")
-))
+szentiment_szotar <- dictionary(
+  list(
+    pozitiv = c("jó", "boldog", "öröm"),
+    negativ = c("rossz", "szomorú", "lehangoló")
+    )
+  )
 
 szentiment_szotar
 ```
@@ -126,7 +128,9 @@ A cikkek szentimentjét egy magyar szótárral fogjuk becsülni, amit a Társada
 
 [^szentiment_elemzes-3]: A szótár elérhető a könyv online verziójának a GitHub repozitorijából. (LINK)
 
-
+```{r eval=FALSE}
+poltext_szotar <- read_rds("data/poltext_dict.Rds")
+```
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 poltext_szotar
@@ -178,12 +182,10 @@ mn_df <- mn_df %>%
 A plot alapján egyértelmű trendet nem lehet megállapítani és még a 2006-os év végi turbulens belpolitikai események sem feltétlenül jelennek meg markánsan. Ennek az oka abban is kereshető, hogy egy napilap címlapját ritkán dominálja teljes egészében a belpolitika és így a negatív és pozitív szentimentek kioltják egymást. Természetesen messzemenő következtetéseket egy ábra alapján nem érdemes levonni, de az elemzésünk azt mutatha hogy a nyári hónapok alatt kevesebb volt az igazán negatív címlap, ellenben az év eleje és vége tartalmazta a minta alsó szélső értékeit.
 
 
-```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80), fig.cap="Magyar Nemzet címlap szentimentje"}
 ggplot(mn_df, aes(doc_date, net_daily)) +
   geom_line() +
   labs(
-    title = "Magyar Nemzet címlap szentimentje",
-    subtitle = "A szentiment érték a pozitív és negatív szentiment pontszámok különbsége a teljes mintára.",
     y = "Szentiment",
     x = NULL,
     caption = "Adatforrás: https://cap.tk.hu/"
@@ -198,8 +200,6 @@ ggplot(mn_df, aes(doc_date, net_daily)) +
 A második esettanulmányban a kotextuális szótár elemzést mutatjuk be egy angol nyelvű korpusz és specializált szótár segítségével. A korpusz az MNB kamatdöntéseit kísérő nemzetközi sajtóközleményei és a szótár pedig a @loughran2011 pénzügyi szentimentszótár.[^mnb-szentiment] A szótár a `quanteda.dictionaries` csomag részeként elérhető, illetve a tankönyv honlapján is megtalálható.
 
 ```{r echo=FALSE}
-library(quanteda.dictionaries)
-
 penzugy_szentiment <- quanteda.dictionaries::data_dictionary_LoughranMcDonald
 ```
 
@@ -263,14 +263,11 @@ mnb_szentiment <- tokens_lookup(mnb_token, dictionary = penzugy_szentiment) %>%
   dfm() %>%
   dfm_tfidf()
 
-
-
 docvars(mnb_corpus, "negative") <- as.numeric(mnb_szentiment[, "negative"])
 docvars(mnb_corpus, "positive") <- as.numeric(mnb_szentiment[, "positive"])
 docvars(mnb_corpus, "uncertainty") <- as.numeric(mnb_szentiment[, "uncertainty"])
 docvars(mnb_corpus, "constraining") <- as.numeric(mnb_szentiment[, "constraining"])
 docvars(mnb_corpus, "superfluous") <- as.numeric(mnb_szentiment[, "superfluous"])
-
 
 mnb_df <- convert(mnb_corpus, to = "data.frame")
 ```
@@ -292,11 +289,10 @@ Az átalakítás után már könnyedén tudjuk kategóriákra bontva megjelenít
 
 A szótár amit használtunk az alapvetően az Egyesült Államokban a tőzsdén kereskedett cégek publikus beszámolóiból készült így elképzelhető, hogy egyes jegybanki környezetben sokat használt kifejezés nincs benne. A validálása a kapott eredményeknek ezért is nagyon fontos, illetve érdemes azzal is tisztában lenni hogy a szótáras módszer nem tökéletes (ahogy az emberi vagy más gépi kódolás sem). 
 
-```{r}
+```{r fig.cap="Magyar Nemzeti Bank közleményeinek szentimentje"}
 ggplot(mnb_df, aes(date, sent_score)) +
   geom_line() +
   labs(
-    title = "Magyar Nemzeti Bank közleményeinek szentimentje",
     y = "Szentiment",
     x = NULL
   ) +

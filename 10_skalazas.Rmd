@@ -89,7 +89,7 @@ Az eredményeinket mind a szavak és mind a dokumentumok szintjén tudjuk vizual
 
 Kihasználhatjuk, hogy a `ggplot` ábra definiálása közben a felhasznált bemeneti data frame-t különböző szempontok alapján lehet szűrni. így ábrázolni tudjuk a gyakran használt ám semleges szavakat (magas $\psi$, alacsony $\beta$), illetve a ritkább de meghatározóbb szavakat (magas $\beta$, alacsony $\psi$).
 
-```{r}
+```{r fig.cap="A Wordfish 'Eiffel-torony'"}
 ggplot(szavak_wf, aes(x = beta, y = psi)) +
   geom_point(color = "grey") +
   geom_text(
@@ -118,6 +118,9 @@ dokumentumok_wf <- data.frame(
     upper = theta + 1.96 * theta_se
   )
 
+```
+
+```{r fig.cap="A Wordfish skála eredménye"}
 ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
   geom_point() +
   geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0) +
@@ -127,9 +130,10 @@ ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
   )
 ```
 
-A párt metaadattal összehasonlíthatjuk az egy párthoz tartozó frakcióvezetők értékeit a `facet_wrap()` használatával. Figzeljünk arra hogy az `y` tengelyen szabadon
 
-```{r}
+A párt metaadattal összehasonlíthatjuk az egy párthoz tartozó frakcióvezetők értékeit a `facet_wrap()` használatával. Figyeljünk arra hogy az `y` tengely skáláját szabadon hagyjuk a `scales` opcióval.
+
+```{r fig.cap="Párton belüli pozíciók"}
 ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
   geom_point() +
   geom_errorbarh(aes(xmin = lower, xmax = upper), height = 0) +
@@ -200,7 +204,7 @@ dokumentumok_ws
 
 A lenti példánál a párton belüli bontást illusztráljuk, a `facet_wrap()` segítségével.
 
-```{r}
+```{r fig.cap="Wordscore skálázás eredménye"}
 
 ggplot(dokumentumok_ws, aes(fit, reorder(speaker, fit))) +
   geom_point() +
