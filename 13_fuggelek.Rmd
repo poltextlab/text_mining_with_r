@@ -334,7 +334,7 @@ ggplot(plot_cap_1, aes(Year, fill = Subtopic)) +
   theme(plot.title = element_text(size = 12)) 
 ```
 
-A csv-ből belolvasott adatainból kördiagramot is készíthetünk
+A csv-ből belolvasott adatainkból kördiagramot is készíthetünk
 
 ```{r warning=FALSE, message=FALSE, eval=FALSE}
 pie <- read.csv("data/pie.csv", head = TRUE, sep = ";")

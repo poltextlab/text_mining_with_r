@@ -10,6 +10,9 @@ source("_common.R")
 
 ```{r}
 library(readr)
+library(dplyr)
+library(gapminder)
+library(stringr)
 ```
 
 
@@ -72,10 +75,6 @@ A fenti példa is jól mutatja, hogy a pipe a bal oldali elemet fogja a jobb old
 
 A data frame az egyik leghasznosabb és leggyakrabban használt adat tárolási mód az R-ben (a részletesebb leírás a [Függelékben](#data-frame) található) és ebben az alfejezetben azt mutatjuk be a `dplyr` és `gapminder` csomagok segíségével, hogy hogyan lehet hatékonyan dolgozni velük. A `dplyr` az egyik legnépszerűbb R csomag, a *tidyverse* része. A `gapminder` csomag pedig a példa adatbázisunkat tartalmazza, amiben a világ országainak különböző gazdasági és társadalmi mutatói vannak.
 
-```{r message=FALSE, warning=FALSE}
-library(dplyr)
-library(gapminder)
-```
 
 ### Megfigyelések szűrése: `filter()`
 
@@ -126,13 +125,10 @@ gapminder %>%
 
 ## Munka karakter vektorokkal[^adatkezeles-4]
 
-[^adatkezeles-4]: A könyv terjedelme miatt ezt a témát itt csak bemutatni tudjuk, de minden részletre kiterjedően nem tudunk elmélyülni benne. Kíváló online anyagok találhatóak az RStudio GitHub tárhelyén (<https://github.com/rstudio/cheatsheets/raw/master/strings.pdf>), illetve @wickham2016r 14. fejezetében.
+[^adatkezeles-4]: A könyv terjedelme miatt ezt a témát itt csak bemutatni tudjuk, de minden részletre kiterjedően nem tudunk elmélyülni benne. Kíváló online anyagok találhatóak az RStudio GitHub tárhelyén (https://github.com/rstudio/cheatsheets/raw/master/strings.pdf), illetve @wickham2016r 14. fejezetében.
 
 A szöveges adatokkal (karakter stringekkel) való munka elkerülhetetlen velejárója hogy a felesleges szövegelemeket, karaktereket el kell távolítanunk ahhoz hogy az elemzésünk hatásfoka javuljon (erről részletesebben a 3. fejezetben lesz szó). Erre a célra a `stringr` csomagot fogjuk használni, kombinálva a korábban bemutatott `mutate()`-el. A `stringr` függvények az `str_` előtaggal kezdődnek és eléggé beszédes nevekkel rendelkeznek. Egy gyakran előforduló probléma, hogy extra szóközök maradnak a szövegben, vagy bizonyos szavakról, karakterkombinációkról tudjuk hogy nem kellenek az elemzésünkhoz. Ebben az esetben egy vagy több *regular expression* (regex) használatával tudjuk pontosan kijelölni hogy a karakter sornak melyik részét akarjuk módosítani. A legegyszerűbb formája a regexeknek, hogyha pontosan tudjuk milyen szöveget akarunk megtalálni. A kísérletezésre az `str_view()`-t használjuk, ami megjeleníti hogy a megadott regex mintánk pontosan mit jelöl.
 
-```{r}
-library(stringr)
-```
 
 ```{r eval=FALSE}
 szoveg <- c("gitar", "ukulele", "nagybogo")

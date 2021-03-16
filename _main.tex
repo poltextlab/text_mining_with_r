@@ -125,7 +125,7 @@
 
 \title{Szövegbányászat és mesterséges intelligencia R-ben}
 \author{Sebők Miklós, Ring Orsolya}
-\date{2021-03-08 11:35:44}
+\date{2021-03-16 23:41:53}
 
 \begin{document}
 \frontmatter
@@ -203,6 +203,9 @@ exportálása}\label{adatok-importuxe1luxe1sa-uxe9s-exportuxe1luxe1sa}}
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(gapminder)}
+\FunctionTok{library}\NormalTok{(stringr)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -312,13 +315,11 @@ fordítani.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{reggeli}\NormalTok{(}\FunctionTok{oltozkodes}\NormalTok{(}\FunctionTok{felkeles}\NormalTok{(}\FunctionTok{ebredes}\NormalTok{(en, }\AttributeTok{idopont =} \StringTok{"8:00"}\NormalTok{), }\AttributeTok{oldal =} \StringTok{"jobb"}\NormalTok{), }\AttributeTok{nadrag =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{ing =} \ConstantTok{TRUE}\NormalTok{))}
+\FunctionTok{reggeli}\NormalTok{(}\FunctionTok{oltozkodes}\NormalTok{(}\FunctionTok{felkeles}\NormalTok{(}\FunctionTok{ebredes}\NormalTok{(en, }\AttributeTok{idopont =} \StringTok{"8:00"}\NormalTok{), }\AttributeTok{oldal =} \StringTok{"jobb"}\NormalTok{), }\AttributeTok{nadrag =} \ConstantTok{TRUE}\NormalTok{, }
+    \AttributeTok{ing =} \ConstantTok{TRUE}\NormalTok{))}
 
-\NormalTok{en }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ebredes}\NormalTok{(}\AttributeTok{idopont =} \StringTok{"8:00"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{felkeles}\NormalTok{(}\AttributeTok{oldal =} \StringTok{"jobb"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{oltozkodes}\NormalTok{(}\AttributeTok{nadrag =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{ing =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{reggeli}\NormalTok{()}
+\NormalTok{en }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{ebredes}\NormalTok{(}\AttributeTok{idopont =} \StringTok{"8:00"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{felkeles}\NormalTok{(}\AttributeTok{oldal =} \StringTok{"jobb"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{oltozkodes}\NormalTok{(}\AttributeTok{nadrag =} \ConstantTok{TRUE}\NormalTok{, }
+    \AttributeTok{ing =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{reggeli}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -342,13 +343,6 @@ csomagok segíségével, hogy hogyan lehet hatékonyan dolgozni velük. A
 része. A \texttt{gapminder} csomag pedig a példa adatbázisunkat
 tartalmazza, amiben a világ országainak különböző gazdasági és
 társadalmi mutatói vannak.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(dplyr)}
-\FunctionTok{library}\NormalTok{(gapminder)}
-\end{Highlighting}
-\end{Shaded}
 
 \hypertarget{megfigyeluxe9sek-szux171ruxe9se-filter}{%
 \subsection{\texorpdfstring{Megfigyelések szűrése:
@@ -521,12 +515,6 @@ jelöl.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(stringr)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{szoveg }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"gitar"}\NormalTok{, }\StringTok{"ukulele"}\NormalTok{, }\StringTok{"nagybogo"}\NormalTok{)}
 
 \FunctionTok{str\_view}\NormalTok{(szoveg, }\AttributeTok{pattern =} \StringTok{"ar"}\NormalTok{)}
@@ -614,20 +602,16 @@ folyamatról bővebb információ található például az alábbi
 oldalakon:\url{https://cran.r-project.org/web/packages/rvest/rvest.pdf},
 \url{https://rvest.tidyverse.org/}.
 
-Telepítsük, majd olvassuk be az \texttt{rvest} csomagot.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-
-\FunctionTok{install.packages}\NormalTok{(}\StringTok{"rvest"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{Shaded}
 \begin{Highlighting}[]
 
 \FunctionTok{library}\NormalTok{(rvest)}
 \FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\FunctionTok{library}\NormalTok{(quanteda)}
+\FunctionTok{library}\NormalTok{(quanteda.textmodels)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -666,9 +650,7 @@ információkat szeretnénk kigyűjteni, amelyek az
 \begin{Shaded}
 \begin{Highlighting}[]
 
-\NormalTok{title }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(}\StringTok{"https://poltextlab.tk.hu/hu"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{html\_nodes}\NormalTok{(}\StringTok{"title"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{html\_text}\NormalTok{()}
+\NormalTok{title }\OtherTok{\textless{}{-}} \FunctionTok{read\_html}\NormalTok{(}\StringTok{"https://poltextlab.tk.hu/hu"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{html\_nodes}\NormalTok{(}\StringTok{"title"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{html\_text}\NormalTok{()}
 
 
 \NormalTok{title}
@@ -720,33 +702,6 @@ tisztításával kell megkezdenünk. A szövegtisztításnél mindig járjunk el
 körültekintően és az egyes lépéseket a kutatási kérdésünknek megfelelően
 tervezzük meg, a folyamat során pedig időnként végezzünk ellenőrzést,
 ezzel elkerülhetjük a kutatásunkhoz szükséges információk elvesztését.
-
-A korpusz előkészítéséhez az \texttt{install.packages()} paranccsal
-telepítsük, majd a \texttt{library()} paranccsal olvassuk be az alábbi
-csomagokat.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-
-\FunctionTok{install.packages}\NormalTok{(}\StringTok{"dplyr"}\NormalTok{)}
-\FunctionTok{install.packages}\NormalTok{(}\StringTok{"lubridate"}\NormalTok{)}
-\FunctionTok{install.packages}\NormalTok{(}\StringTok{"stringr"}\NormalTok{)}
-\FunctionTok{install.packages}\NormalTok{(}\StringTok{"quanteda"}\NormalTok{)}
-\FunctionTok{install.packages}\NormalTok{(}\StringTok{"quanteda.textmodels"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-
-
-\FunctionTok{library}\NormalTok{(dplyr)}
-\FunctionTok{library}\NormalTok{(lubridate)}
-\FunctionTok{library}\NormalTok{(stringr)}
-\FunctionTok{library}\NormalTok{(quanteda)}
-\FunctionTok{library}\NormalTok{(quanteda.textmodels)}
-\end{Highlighting}
-\end{Shaded}
 
 Miután az elemezni kívánt szövegeinket beszereztük, majd a ``Szöveges
 dokumentumok importálása''{[}BE KELL MAJD ÍRNI A VÉLGLEGES
@@ -1144,11 +1099,901 @@ objektumot, majd a \texttt{textstat\_frequency} függvény segítségével,
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{leuxedruxf3-statisztika-szuxf3zsuxe1k-uxe9s-szuxf3eloszluxe1sok}{%
-\chapter{Leíró statisztika: szózsák és
-szóeloszlások}\label{leuxedruxf3-statisztika-szuxf3zsuxe1k-uxe9s-szuxf3eloszluxe1sok}}
+\hypertarget{informuxe1ciuxf3-visszakeresuxe9s-uxe9s-informuxe1ciuxf3kinyeruxe9s-szuxf6vegek-reprezentuxe1luxe1sa-a-vektortuxe9rben-leuxedruxf3-statisztika}{%
+\chapter{Információ-visszakeresés és információkinyerés, szövegek
+reprezentálása a vektortérben, leíró
+statisztika}\label{informuxe1ciuxf3-visszakeresuxe9s-uxe9s-informuxe1ciuxf3kinyeruxe9s-szuxf6vegek-reprezentuxe1luxe1sa-a-vektortuxe9rben-leuxedruxf3-statisztika}}
 
-negyedik fejezet
+A szövegbányászati feladatok két altípusa a keresés és a rendszerezés. A
+keresés során olyan szövegeket keresünk, amelyekben egy adott kifejezés
+előfordul, a rendszerezés során pedig a szövegeket hasonlítjuk össze
+egymással és egy előre megadott, vagy egy előzetesen nem ismert
+kategóriarendszer csoportjaihoz soroljuk őket. Az
+információ-visszakeresés (information retrieval), ami például a webes
+keresőprogramok egyik jellemző tevékenysége, során a cél, hogy a
+korpuszból visszakeressük a kereső információigénye szempontjából
+releváns információkat, mely keresés alapulhat metaadatokon vagy teljes
+szöveges indexelésen.
+(\protect\hyperlink{ref-tikk2007:63}{\textbf{tikk2007:63?}};
+\protect\hyperlink{ref-russel2005a:742}{\textbf{russel2005a:742?}}) Az
+információkinyerés (information extraction) esetén a cél, hogy a
+strukturálatlan szövegekből strukturált adatokat állítsunk elő. Azaz az
+információkinyerés során nem a felhasználó által keresett információt
+keressük meg és lokalizáljuk, hanem az adott kérdés szempontjából
+releváns információkat gyűjtjük ki a dokumentumokból. aAz
+információkinyerés alternatív megoldása segítségével már képesek
+lehetünk a kifejezések közötti kapcsolatok elemzésére, tendenciák és
+minták felismerésére és az információk összekapcsolás révén új
+információk létrehozására. Azaz a segítségével strukturálatlan
+szövegekből is előállíthatunk strukturált információkat
+(\protect\hyperlink{ref-kwartler2017}{\textbf{kwartler2017?}};
+\protect\hyperlink{ref-schuxfctze2008}{\textbf{schütze2008?}} ;
+\protect\hyperlink{ref-tikk2007a:63-81}{\textbf{tikk2007a:63-81?}})
+
+\hypertarget{a-szuxf6vegek-reprezentuxe1luxe1sa-a-vektortuxe9rben---szuxf3zsuxe1k-modell}{%
+\section{A szövegek reprezentálása a vektortérben - szózsák
+modell}\label{a-szuxf6vegek-reprezentuxe1luxe1sa-a-vektortuxe9rben---szuxf3zsuxe1k-modell}}
+
+A szövegbányászati vizsgálatok során folyó szövegek, azaz
+strukturálatlan vagy részben strukturált dokumentumok elemzésére kerül
+sor, melyekből a kutatási kérdéseink szempontjából releváns, látens
+összefüggéseket nyerünk ki, amelyek már strukturált szerkezetűek. A
+dokumentumok reprezentálásnak három legelterjedtebb módja a
+halmazelmélet alapú, az algebrai és a valószínűségi modell. A
+halmazelméleti modellek a dokumentumok hasonlóságát halmazelmélet, a
+valószínűségi modellek pedig feltételes valószínűségi becslés alapján
+határozzák meg. Az algebrai modellek a dokumentumokat vektorként vagy
+mátrixként ábrázolják és algebrai műveletek segítségével hasonlítják
+össze. A vektortérmodell sokdimenziós vektortérben ábrázolja a
+dokumentumokat, úgy hogy a dokumentumokat vektorokkal reprezentálja, a
+vektortér dimenziói pedig a dokumentumok összességében előforduló egyedi
+szavak. A modell alkalmazása során azok a dokumentumok hasonlítanak
+egymásra, amelyeknek a szókészlete átfedi egymást, és a hasonlóság
+mértéke az átfedéssel arányos. A vektortérmodellben a
+dokumentumgyűjteményt a szó-dokumentum mátrixszal (term-document matrix)
+reprezentáljuk, a mátrixban a sorok száma megegyezik az egyedi szavak
+számával, az oszlopokat pedig a dokumentumvektorok alkotják. Az egyedi
+szavak összességét szórátnak nevezzük. Mivel mátrixban az egyedi szavak
+száma általában igen nagy, ezért a mátrix hatékony kezeléséhez annak
+mérte különböző eljárásokkal csökkenthető. Fontos tudni, hogy a
+dokumentumok vektortér reprezentációjában a szavak szövegen belüli
+sorrendjére és pozíciójára vonatkozó információ nem található meg.
+(\protect\hyperlink{ref-russel2005b:742-744}{\textbf{russel2005b:742-744?}};
+\protect\hyperlink{ref-kwartler2017:20}{\textbf{kwartler2017:20?}};
+\protect\hyperlink{ref-welbers2017}{\textbf{welbers2017?}}) A
+vektortérmodellt szózsák (bag of words) modellnek is nevezzük, melynek
+segítségével a fent leírtak szerint az egyes szavak gyakoriságát
+vizsgálhatjuk meg egy adott korpuszon belül.
+
+A szó-dokumentum mátrix lehet egy egyszerű bináris mátrix, ami csak azt
+az információt tartalmazza, hogy egy adott szó előfordul-e egy adott
+dokumentumban. Míg az egyszerű bináris mátrixban ugyanakkora súlya van
+egy szónak ha egyszer és ha tízszer szerepel, készíthetünk olyan
+mátrixot is, ahol egy szónak annál nagyobb a súlya egy dokumentumban,
+minél többször fordul elő. Emellett a mártixot a dokumentumok hossza
+szerint is normálhatjuk. Az így súlyozott mátrixban nem azt vizsgáljuk,
+hogy egy szó hányszor egy dokumentumban, hanem ezt a számot viszonyítjuk
+az adott dokumentum szavainak a számához. A szógyakoriság (term
+frequency, TM) szerint súlyozott TD mátrixnál azt is figyelembe vesszük,
+hogy az adott szó hány dokumentumban szerepel. Minél több dokumentumban
+szerepel egy szó, annál kisebb a jelentősége. Ilyen szavak például a
+névelők, amelyek sok dokumentumban előfordulnak ugyan, de nem sok
+tartalmi jelentőséggel bírnak. Két szó közül általában az a fontosabb,
+amelyik koncentráltan, kevés dokumentumban, de azokon belül nagy
+gyakorisággal fordul elő. A dokumentum gyakorisági érték (document
+frequency, df) egy szó ritkaságát jellemzi egy korpuszon belül, azaz
+megadja, hogy mekkora megkülönböztető ereje van egy szónak a dokumentum
+tartalmára vonatkozóan. A súlyozási sémákban általában a dokumentum
+gyakorisági érték inverzével számolnak (inverse document frequency, idf)
+ez a leggyakrabban használt td-idf súlyozás (term frequency \& inverse
+document frequency. Az így súlyozott TD mátrix egy-egy cellájában
+található érték azt mutatja, hogy egy adott szónak mekkora a jelentősége
+egy adott dokumentumban. A tf -idf súlyozás értéke tehát magas azon
+szavak esetén, amelyek az adott dokumentumban gyakran fordulnak elő, míg
+a teljes korpuszban ritkán, alacsonyabb azon szavak esetén, amelyek az
+adott dokumentumban ritkábban, vagy a korpuszban gyakrabban fordulnak
+elő és kicsi azon szavaknál, amelyek a korpusz lényegében összes
+dokumentumában előfordulnak
+(\protect\hyperlink{ref-tikk2007:33-37}{\textbf{tikk2007:33-37?}};
+\protect\hyperlink{ref-grimmer2013}{\textbf{grimmer2013?}};
+\protect\hyperlink{ref-welbers2017}{\textbf{welbers2017?}})
+
+\hypertarget{leuxedruxf3-statisztika}{%
+\section{Leíró statisztika}\label{leuxedruxf3-statisztika}}
+
+Fejezetünkben nyolc véletlenszerűen kiválasztott magyar miniszterelnöki
+beszéd vizsgálatát végezzük el, amihez az alábbi csomagokat használjuk:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readtext)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(lubridate)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(quanteda)}
+\FunctionTok{library}\NormalTok{(GGally)}
+\FunctionTok{library}\NormalTok{(tidytext)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+Első lépésben a már ismertetett módon a \texttt{readtext\ ()}
+segítségével beolvassuk a beszédek txt formátumú változatát, utf-8
+karakterkódolással.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{texts }\OtherTok{\textless{}{-}} \FunctionTok{readtext}\NormalTok{(}\StringTok{"data/mineln/*.txt"}\NormalTok{, }\AttributeTok{encoding =} \StringTok{"UTF{-}8"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(texts)}
+\CommentTok{\#\textgreater{} readtext object consisting of 6 documents and 0 docvars.}
+\CommentTok{\#\textgreater{} \# Description: df[,2] [6 x 2]}
+\CommentTok{\#\textgreater{}   doc\_id                    text               }
+\CommentTok{\#\textgreater{} * \textless{}chr\textgreater{}                     \textless{}chr\textgreater{}              }
+\CommentTok{\#\textgreater{} 1 antall\_jozsef\_1990.txt    "\textbackslash{}"Elnök Úr! \textbackslash{}"..."}
+\CommentTok{\#\textgreater{} 2 bajnai\_gordon\_2009.txt    "\textbackslash{}"Tisztelt E\textbackslash{}"..."}
+\CommentTok{\#\textgreater{} 3 boross\_peter\_1993.txt     "\textbackslash{}"Elnök Úr! \textbackslash{}"..."}
+\CommentTok{\#\textgreater{} 4 gyurcsany\_ferenc\_2005.txt "\textbackslash{}"Mélyen tis\textbackslash{}"..."}
+\CommentTok{\#\textgreater{} 5 horn\_gyula\_1994.txt       "\textbackslash{}"Köszönöm, \textbackslash{}"..."}
+\CommentTok{\#\textgreater{} 6 medgyessy\_peter\_2002.txt  "\textbackslash{}"Mélyen tis\textbackslash{}"..."}
+\end{Highlighting}
+\end{Shaded}
+
+Ezt követően az ``Adarkezelés R-ben'' fejezetben ismertetett
+\texttt{mutate()} függvény használazával két csoportra osztjuk a
+beszédeket. Ehhez először a \texttt{string\_extract()}segítségével
+meghatározzuk, hogy a kettéosztáshoz hasznáni kívánt új változó a
+doc\_id legyen a \texttt{{[}\^{}\textbackslash{}\textbackslash{}.{]}*}
+regex segítségével leválasztva arról a \texttt{.txt} kiterjesztést, majd
+a \texttt{str\_sub()} függvénnyel megmondjuk, hogy a miniszterelnökök
+neve a \texttt{doc\_id} háturló számított hatodik karakteréig tart.
+Ezután kialakítjuk a két csoportot, azaz az \texttt{if\_else()}
+segítségével meghatározzuk, hogy ha ``antall\_jozsef,''
+``boross\_peter,'' ``orban\_viktor'' beszédeiről van szó azokat a jobb
+csoportba tegye, a maradékot pedig a bal csoportba.
+
+Ezt követően azt is meghatározzuk, hogy melyik beszédnek mi a dátuma.
+Ehhez szintén a \texttt{str\_sub()} függvényt használjuk, majd a
+lubridate segítségével alakítjuk ki a kívánt dátumformátumot\footnote{A
+  mintába nem került be Rogán Antal, akinek csak egy darab napirend
+  előtti felszólalása volt.}.
+
+Majd a \texttt{glimpse()} függvény segítsével megtekintjük, hogy milyen
+változtatásokat végeztünk az adattáblánkon. Láthatjuk, hogy míg korábban
+8 dokumentumunk és 2 változónk volt, az átalakítás eredményeként a 8
+dokumentum mellett már 5 változót találunk. Ezzel a lépéssel tehát
+kialakítottuk azokat a változókat, amelyekre az elemzés során szükségünk
+lesz.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{texts }\OtherTok{\textless{}{-}}\NormalTok{ texts }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{mutate}\NormalTok{(}\AttributeTok{doc\_id =} \FunctionTok{str\_extract}\NormalTok{(doc\_id, }\StringTok{"[\^{}}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{.]*"}\NormalTok{), }\AttributeTok{mineln =} \FunctionTok{str\_sub}\NormalTok{(doc\_id, }
+    \AttributeTok{end =} \SpecialCharTok{{-}}\DecValTok{6}\NormalTok{), }\AttributeTok{wing =} \FunctionTok{if\_else}\NormalTok{(mineln }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"antall\_jozsef"}\NormalTok{, }\StringTok{"boross\_peter"}\NormalTok{, }\StringTok{"orban\_viktor"}\NormalTok{), }
+    \StringTok{"jobb"}\NormalTok{, }\StringTok{"bal"}\NormalTok{))}
+
+\NormalTok{texts}\SpecialCharTok{$}\NormalTok{year }\OtherTok{\textless{}{-}} \FunctionTok{str\_sub}\NormalTok{(texts}\SpecialCharTok{$}\NormalTok{doc\_id, }\AttributeTok{start =} \SpecialCharTok{{-}}\DecValTok{2}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{str\_c}\NormalTok{(}\StringTok{"{-}01{-}01"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}\NormalTok{ lubridate}\SpecialCharTok{::}\FunctionTok{ymd}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{    lubridate}\SpecialCharTok{::}\FunctionTok{year}\NormalTok{()}
+
+\FunctionTok{glimpse}\NormalTok{(texts)}
+\CommentTok{\#\textgreater{} Rows: 8}
+\CommentTok{\#\textgreater{} Columns: 5}
+\CommentTok{\#\textgreater{} $ doc\_id \textless{}chr\textgreater{} "antall\_jozsef\_1990", "bajnai\_gordon\_2009", "boross\_peter\_19...}
+\CommentTok{\#\textgreater{} $ text   \textless{}chr\textgreater{} "Elnök Úr! Tisztelt Országgyulés! Hölgyeim és Uraim! Honfitá...}
+\CommentTok{\#\textgreater{} $ mineln \textless{}chr\textgreater{} "antall\_jozsef", "bajnai\_gordon", "boross\_peter", "gyurcsany...}
+\CommentTok{\#\textgreater{} $ wing   \textless{}chr\textgreater{} "jobb", "bal", "jobb", "bal", "bal", "bal", "jobb", "jobb"}
+\CommentTok{\#\textgreater{} $ year   \textless{}dbl\textgreater{} 1990, 2009, 1993, 2005, 1994, 2002, 1995, 2018}
+\end{Highlighting}
+\end{Shaded}
+
+Ezt követően a további lépések elvégzéséhez létrehozzuk a
+\texttt{quanteda} korpuszt, majd a \texttt{summary()} függvény
+segítségével megtekinthetjük a korpusz alaovető satisztikai jellemzőit,
+láthatjuk például, hogy az egyes dokumentumok hány tokenből vagy
+mondatból állnak.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{corpus\_mineln }\OtherTok{\textless{}{-}} \FunctionTok{corpus}\NormalTok{(texts)}
+
+\FunctionTok{summary}\NormalTok{(corpus\_mineln)}
+\CommentTok{\#\textgreater{} Corpus consisting of 8 documents, showing 8 documents:}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{}                   Text Types Tokens Sentences           mineln wing year}
+\CommentTok{\#\textgreater{}     antall\_jozsef\_1990  3745   9408       431    antall\_jozsef jobb 1990}
+\CommentTok{\#\textgreater{}     bajnai\_gordon\_2009  1391   3277       201    bajnai\_gordon  bal 2009}
+\CommentTok{\#\textgreater{}      boross\_peter\_1993  1552   3170       179     boross\_peter jobb 1993}
+\CommentTok{\#\textgreater{}  gyurcsany\_ferenc\_2005  2963  10267       454 gyurcsany\_ferenc  bal 2005}
+\CommentTok{\#\textgreater{}        horn\_gyula\_1994  1704   4372       226       horn\_gyula  bal 1994}
+\CommentTok{\#\textgreater{}   medgyessy\_peter\_2002  1021   2362        82  medgyessy\_peter  bal 2002}
+\CommentTok{\#\textgreater{}      orban\_viktor\_1995  1810   4287       212     orban\_viktor jobb 1995}
+\CommentTok{\#\textgreater{}      orban\_viktor\_2018   933   1976       126     orban\_viktor jobb 2018}
+\end{Highlighting}
+\end{Shaded}
+
+Mivel az elemzés során a korpuszon belül két csoportra osztva szeretnénk
+összehasonlításokat tenni, az alábbiakban két alkorpuszt alakítunk ki.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{mineln\_jobb }\OtherTok{\textless{}{-}} \FunctionTok{corpus\_subset}\NormalTok{(corpus\_mineln, mineln }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"antall\_jozsef"}\NormalTok{, }\StringTok{"boross\_peter"}\NormalTok{, }
+    \StringTok{"orban\_viktor"}\NormalTok{))}
+
+\NormalTok{mineln\_bal }\OtherTok{\textless{}{-}} \FunctionTok{corpus\_subset}\NormalTok{(corpus\_mineln, mineln }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"horn\_gyula"}\NormalTok{, }\StringTok{"gyurcsany\_ferenc"}\NormalTok{, }
+    \StringTok{"medgyessy\_peter"}\NormalTok{, }\StringTok{"bajnai\_gordon"}\NormalTok{))}
+
+\FunctionTok{summary}\NormalTok{(mineln\_jobb)}
+\CommentTok{\#\textgreater{} Corpus consisting of 4 documents, showing 4 documents:}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{}                Text Types Tokens Sentences        mineln wing year}
+\CommentTok{\#\textgreater{}  antall\_jozsef\_1990  3745   9408       431 antall\_jozsef jobb 1990}
+\CommentTok{\#\textgreater{}   boross\_peter\_1993  1552   3170       179  boross\_peter jobb 1993}
+\CommentTok{\#\textgreater{}   orban\_viktor\_1995  1810   4287       212  orban\_viktor jobb 1995}
+\CommentTok{\#\textgreater{}   orban\_viktor\_2018   933   1976       126  orban\_viktor jobb 2018}
+
+\FunctionTok{summary}\NormalTok{(mineln\_bal)}
+\CommentTok{\#\textgreater{} Corpus consisting of 4 documents, showing 4 documents:}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{}                   Text Types Tokens Sentences           mineln wing year}
+\CommentTok{\#\textgreater{}     bajnai\_gordon\_2009  1391   3277       201    bajnai\_gordon  bal 2009}
+\CommentTok{\#\textgreater{}  gyurcsany\_ferenc\_2005  2963  10267       454 gyurcsany\_ferenc  bal 2005}
+\CommentTok{\#\textgreater{}        horn\_gyula\_1994  1704   4372       226       horn\_gyula  bal 1994}
+\CommentTok{\#\textgreater{}   medgyessy\_peter\_2002  1021   2362        82  medgyessy\_peter  bal 2002}
+\end{Highlighting}
+\end{Shaded}
+
+A korábban létrehozott ``jobb'' és ``bal'' változó segítségével nem csak
+az egyes dokumentumokat, hanem a két csoportba sorolt beszédket is
+összehaonlíthatjuk egymással.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(corpus\_mineln) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(wing) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{mean\_wordcount =} \FunctionTok{mean}\NormalTok{(Tokens), }\AttributeTok{std\_dev =} \FunctionTok{sd}\NormalTok{(Tokens), }\AttributeTok{min\_wordc =} \FunctionTok{min}\NormalTok{(Tokens), }\AttributeTok{max\_wordc =} \FunctionTok{max}\NormalTok{(Tokens))}
+\CommentTok{\#\textgreater{} \# A tibble: 2 x 5}
+\CommentTok{\#\textgreater{}   wing  mean\_wordcount std\_dev min\_wordc max\_wordc}
+\CommentTok{\#\textgreater{}   \textless{}chr\textgreater{}          \textless{}dbl\textgreater{}   \textless{}dbl\textgreater{}     \textless{}int\textgreater{}     \textless{}int\textgreater{}}
+\CommentTok{\#\textgreater{} 1 bal            5070.   3561.      2362     10267}
+\CommentTok{\#\textgreater{} 2 jobb           4710.   3271.      1976      9408}
+\end{Highlighting}
+\end{Shaded}
+
+A \texttt{textstat\_collocations()} függvény segítségével együtt
+előforduló szókapcsolatokat kereshetünk. A függvény argumentumai közül a
+\texttt{size} a szókapcsolatok hossza, a \texttt{min\_count} pedig a
+minimális előfordulásuk száma. Miután a szókapcsolatokat megkeresük a
+korábban már megismert \texttt{head()} függvény segítségével
+megnézhetünk közülük tetszőleges számút\footnote{A
+  \texttt{quanteda.textplots} csomag több megoldást is kínál az ábrák
+  elkészítésére. Mivel ezek a megoldások kifejezetten a quanteda
+  elemzések ábrázolására készültek, ezért rövid egysoros függvényekkel
+  tudunk gyorsan ábrákat készíteni. A hátrányuk, hogy kevésbé tudjuk
+  ``személyre szabni'' az ábráinkat, mint a \texttt{ggplot2} példák
+  esetében. A \texttt{quanteda.textplots} megoldásokat ezen a linken
+  demonstrálják a csomag készítői:
+  \url{https://quanteda.io/articles/pkgdown/examples/plotting.html}}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{corpus\_mineln }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{textstat\_collocations}\NormalTok{(}
+    \AttributeTok{size =} \DecValTok{3}\NormalTok{,}
+    \AttributeTok{min\_count =} \DecValTok{6}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{)}
+\CommentTok{\#\textgreater{}             collocation count count\_nested length    lambda         z}
+\CommentTok{\#\textgreater{} 1           a kormány a    30            0      3 1.7266498 3.5500939}
+\CommentTok{\#\textgreater{} 2         az új kormány    13            0      3 4.7126130 2.9870558}
+\CommentTok{\#\textgreater{} 3         az a politika     6            0      3 3.9239765 2.4659912}
+\CommentTok{\#\textgreater{} 4          a kormány az     6            0      3 2.6826277 1.7954739}
+\CommentTok{\#\textgreater{} 5          a száz lépés     9            0      3 3.5817972 1.5956086}
+\CommentTok{\#\textgreater{} 6     a magyar gazdaság    14            0      3 2.5135668 1.5757358}
+\CommentTok{\#\textgreater{} 7          ez a program     9            0      3 1.9371894 1.2837433}
+\CommentTok{\#\textgreater{} 8  tisztelt hölgyeim és    31            0      3 2.2327116 0.9596371}
+\CommentTok{\#\textgreater{} 9             hogy ez a    10            0      3 0.4617372 0.9032165}
+\CommentTok{\#\textgreater{} 10        hogy a magyar    18            0      3 0.6903168 0.7832561}
+\end{Highlighting}
+\end{Shaded}
+
+A szókapcsolatok listázásánál is láthattuk, hogy a korpuszunk még minden
+szót tartalmaz, ezért találtunk például ``hogy ez a'' összetételt. A
+következőkben eltávolítjuk az ilyen funkció nélküli stopszavakat a
+korpuszból, amihez saját stopszólistát használunk. Először beolvassuk és
+egy \texttt{custom\_stopwords} nevű objektumban tároljuk a stopszavakat,
+majd a \texttt{tokens()} függvény segítségével tokenizáljuk a korpuszt
+és a \texttt{tokens\_select()} használatával eltávolítjuk a
+stopszavakat.
+
+Ha ezután újra megnézzük a kollokációkat, jól látható a stopszavak
+eltávolításának eredménye:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{custom\_stopwords }\OtherTok{\textless{}{-}} \FunctionTok{readLines}\NormalTok{(}\StringTok{"data/stopwords.txt"}\NormalTok{, }\AttributeTok{encoding =} \StringTok{"UTF{-}8"}\NormalTok{)}
+
+\NormalTok{corpus\_mineln }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_select}\NormalTok{(}\AttributeTok{pattern =}\NormalTok{ custom\_stopwords, }\AttributeTok{selection =} \StringTok{"remove"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{textstat\_collocations}\NormalTok{(}
+    \AttributeTok{size =} \DecValTok{3}\NormalTok{,}
+    \AttributeTok{min\_count =} \DecValTok{6}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{)}
+\CommentTok{\#\textgreater{}                   collocation count count\_nested length    lambda         z}
+\CommentTok{\#\textgreater{} 1          taps MSZP soraiból     7            0      3 {-}1.848559 {-}1.003837}
+\CommentTok{\#\textgreater{} 2     tisztelt hölgyeim uraim    31            0      3 {-}3.217896 {-}1.087495}
+\CommentTok{\#\textgreater{} 3 taps kormánypártok soraiban    13            0      3 {-}1.884367 {-}1.102199}
+\CommentTok{\#\textgreater{} 4 közbeszólás fidesz soraiból    12            0      3 {-}4.371498 {-}1.949939}
+\CommentTok{\#\textgreater{} 5          taps MSZP soraiban     9            0      3 {-}4.711439 {-}2.780059}
+\end{Highlighting}
+\end{Shaded}
+
+A korpuszon további elemzése előtt fontos, hogy ne csak a stopszavakat
+távolítsuk el, hanem az egyéb alapvető szövegtisztító lépéseket is
+elvégezzük. Azaz a \texttt{tokens\_select()} segítségével eltávolítsuk a
+számokat, a központozást, az elválasztó karaktereket, mint például a
+szóközöket, tabulátorokat, sortöréseket. Ezután a
+\texttt{tokens\_ngrams()} segítségével \texttt{ngarm}-okat hozunk létre
+a tokenekből, majd kialakítjuk a dokumentumk kifejezés mátrixot
+(\texttt{dfm}) és elvégezzük a \texttt{tf-idf} szerinti súlyozást. A
+\texttt{dfm\_tfidf()}függvény kiszámolja a dokumentum gyakoriság inzverz
+súlyozását. A függvény alapértelmezés szerint a normalizált kifejezések
+gyakoriságát használja a dokumentumon belüli relatív kifejezés
+gyakoriság helyett, ezt írjuk felül a \texttt{schem\_\_tf\ =\ "prop"}
+használatával. Végül a \texttt{textstat\_frequency()} segítségével
+gyakorisági statisztikát készíthetünk a korábban meghatározott
+(példánkban két és három tagú) \texttt{ngram}-okról.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{corpus\_mineln }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens}\NormalTok{(}
+    \AttributeTok{remove\_numbers =} \ConstantTok{TRUE}\NormalTok{, }
+    \AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{, }
+    \AttributeTok{remove\_separators =} \ConstantTok{TRUE}
+\NormalTok{    ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_select}\NormalTok{(}\AttributeTok{pattern =}\NormalTok{ custom\_stopwords, }\AttributeTok{selection =} \StringTok{"remove"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_ngrams}\NormalTok{(}\AttributeTok{n =} \DecValTok{2}\SpecialCharTok{:}\DecValTok{3}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{dfm}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{dfm\_tfidf}\NormalTok{(}\AttributeTok{scheme\_tf =} \StringTok{"prop"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{textstat\_frequency}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{, }\AttributeTok{force =} \ConstantTok{TRUE}\NormalTok{)}
+\CommentTok{\#\textgreater{}                        feature   frequency rank docfreq group}
+\CommentTok{\#\textgreater{} 1            tisztelt\_hölgyeim 0.002788904    1       4   all}
+\CommentTok{\#\textgreater{} 2      tisztelt\_hölgyeim\_uraim 0.002788904    1       4   all}
+\CommentTok{\#\textgreater{} 3            fordítsanak\_hátat 0.002439685    3       1   all}
+\CommentTok{\#\textgreater{} 4              fidesz\_soraiból 0.002151922    4       1   all}
+\CommentTok{\#\textgreater{} 5                    taps\_mszp 0.001757918    5       2   all}
+\CommentTok{\#\textgreater{} 6          magyarország\_európa 0.001457380    6       1   all}
+\CommentTok{\#\textgreater{} 7    tisztelt\_képviselotársaim 0.001439932    7       2   all}
+\CommentTok{\#\textgreater{} 8       kormánypártok\_soraiban 0.001430247    8       2   all}
+\CommentTok{\#\textgreater{} 9           taps\_kormánypártok 0.001293617    9       2   all}
+\CommentTok{\#\textgreater{} 10 taps\_kormánypártok\_soraiban 0.001293617    9       2   all}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{a-szuxf6vegek-lexikai-diverzituxe1sa}{%
+\section{A szövegek lexikai
+diverzitása}\label{a-szuxf6vegek-lexikai-diverzituxe1sa}}
+
+Az alábbiakban a korpuszunkat alkotó szövegek lexikai diverzitásat
+vizsgáljuk. Ehhez a \texttt{quanteda} csomag
+\texttt{textstat\_lexdiv()}függvényét használjuk. Mivel ez a függvény
+\texttt{dfm}-et elemez, először a \texttt{corpus\_mineln} nevű
+korpuszunkból létrehozzuk a \texttt{mineln\_dfm} nevű \texttt{dfm}-et,
+amelyen elvégezzük a korábban már megismert alapvető tisztító lépéseket.
+A \texttt{textstat\_lexdiv()} függvény eredménye szintén egy
+\texttt{dfm}, így azt \texttt{arrange()}parancs argumentumában a
+\texttt{desc} megadásával csökkenő sorba is rendezhetjük.
+A\texttt{textstat\_lexdiv()} különböző indexek segítségével számítja ki
+a szövegek lexikai különbözöségét, példánkban a \texttt{CTTR} indexet
+használjuk\footnote{Azért nem a Vona Gábor beszédét választottuk, mert
+  az gyaníthatóan egy kiugró érték ami nem reprezentálja a sokaságot
+  megfelően.}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mineln\_dfm }\OtherTok{\textless{}{-}}\NormalTok{ corpus\_mineln }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens}\NormalTok{(}\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_separators =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_hyphens =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{dfm}\NormalTok{(}\AttributeTok{remove =}\NormalTok{ custom\_stopwords)}
+
+\NormalTok{mineln\_dfm }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{textstat\_lexdiv}\NormalTok{(}\AttributeTok{measure =} \StringTok{"CTTR"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(CTTR))}
+\CommentTok{\#\textgreater{}                document     CTTR}
+\CommentTok{\#\textgreater{} 1    antall\_jozsef\_1990 32.99078}
+\CommentTok{\#\textgreater{} 2 gyurcsany\_ferenc\_2005 26.14422}
+\CommentTok{\#\textgreater{} 3     orban\_viktor\_1995 23.35548}
+\CommentTok{\#\textgreater{} 4       horn\_gyula\_1994 22.25547}
+\CommentTok{\#\textgreater{} 5     boross\_peter\_1993 21.98656}
+\CommentTok{\#\textgreater{} 6    bajnai\_gordon\_2009 19.93214}
+\CommentTok{\#\textgreater{} 7  medgyessy\_peter\_2002 16.81246}
+\CommentTok{\#\textgreater{} 8     orban\_viktor\_2018 16.24532}
+\end{Highlighting}
+\end{Shaded}
+
+A kiszámolt értéket hozzáadhatjuk a \texttt{dfm}-hez is.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfm\_lexdiv }\OtherTok{\textless{}{-}}\NormalTok{ mineln\_dfm}
+
+\NormalTok{cttr\_score }\OtherTok{\textless{}{-}} \FunctionTok{unlist}\NormalTok{(}\FunctionTok{textstat\_lexdiv}\NormalTok{(dfm\_lexdiv, }\AttributeTok{measure =} \StringTok{"CTTR"}\NormalTok{)[, }\DecValTok{2}\NormalTok{])}
+
+\FunctionTok{docvars}\NormalTok{(dfm\_lexdiv, }\StringTok{"cttr"}\NormalTok{) }\OtherTok{\textless{}{-}}\NormalTok{ cttr\_score}
+
+\FunctionTok{docvars}\NormalTok{(dfm\_lexdiv)}
+\CommentTok{\#\textgreater{}             mineln wing year     cttr}
+\CommentTok{\#\textgreater{} 1    antall\_jozsef jobb 1990 32.99078}
+\CommentTok{\#\textgreater{} 2    bajnai\_gordon  bal 2009 19.93214}
+\CommentTok{\#\textgreater{} 3     boross\_peter jobb 1993 21.98656}
+\CommentTok{\#\textgreater{} 4 gyurcsany\_ferenc  bal 2005 26.14422}
+\CommentTok{\#\textgreater{} 5       horn\_gyula  bal 1994 22.25547}
+\CommentTok{\#\textgreater{} 6  medgyessy\_peter  bal 2002 16.81246}
+\CommentTok{\#\textgreater{} 7     orban\_viktor jobb 1995 23.35548}
+\CommentTok{\#\textgreater{} 8     orban\_viktor jobb 2018 16.24532}
+\end{Highlighting}
+\end{Shaded}
+
+A fenti elemzést elvégezhetjük úgy is, hogy valamennyi indexálást egyben
+megkapjuk. Ehhez a \texttt{textstat\_lexdiv()} függvény argumentumába a
+\texttt{measure\ =\ "all"} kifejezést kell megadnunk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mineln\_dfm }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{textstat\_lexdiv}\NormalTok{(}\AttributeTok{measure =} \StringTok{"all"}\NormalTok{)}
+\CommentTok{\#\textgreater{}                document       TTR         C        R     CTTR        U}
+\CommentTok{\#\textgreater{} 1    antall\_jozsef\_1990 0.6465054 0.9490329 46.65601 32.99078 72.92298}
+\CommentTok{\#\textgreater{} 2    bajnai\_gordon\_2009 0.7283044 0.9566410 28.18830 19.93214 73.23764}
+\CommentTok{\#\textgreater{} 3     boross\_peter\_1993 0.7209677 0.9565427 31.09369 21.98656 75.23509}
+\CommentTok{\#\textgreater{} 4 gyurcsany\_ferenc\_2005 0.5563859 0.9301449 36.97351 26.14422 52.17985}
+\CommentTok{\#\textgreater{} 5       horn\_gyula\_1994 0.7142122 0.9555469 31.47399 22.25547 73.97126}
+\CommentTok{\#\textgreater{} 6  medgyessy\_peter\_2002 0.7110912 0.9514261 23.77641 16.81246 62.75886}
+\CommentTok{\#\textgreater{} 7     orban\_viktor\_1995 0.7224880 0.9574810 33.02964 23.35548 78.08616}
+\CommentTok{\#\textgreater{} 8     orban\_viktor\_2018 0.7529538 0.9584932 22.97435 16.24532 71.52920}
+\CommentTok{\#\textgreater{}           S        K        I            D         Vm      Maas      lgV0}
+\CommentTok{\#\textgreater{} 1 0.9601534 11.21473 419.0858 0.0009296389 0.02871363 0.1171029 11.191310}
+\CommentTok{\#\textgreater{} 2 0.9616371 16.40817 459.3906 0.0009739104 0.02691146 0.1168511 10.429595}
+\CommentTok{\#\textgreater{} 3 0.9624951 18.51659 355.0407 0.0013147316 0.03325578 0.1152895 10.725349}
+\CommentTok{\#\textgreater{} 4 0.9440104 11.86397 291.9314 0.0009601654 0.02791768 0.1384359  9.233313}
+\CommentTok{\#\textgreater{} 5 0.9618001 12.60022 571.6996 0.0007454724 0.02321726 0.1162702 10.656921}
+\CommentTok{\#\textgreater{} 6 0.9553276 26.48161 251.3022 0.0017552766 0.03728672 0.1262300  9.420533}
+\CommentTok{\#\textgreater{} 7 0.9637924 16.50145 400.1580 0.0011722374 0.03143078 0.1131652 11.019123}
+\CommentTok{\#\textgreater{} 8 0.9610435 26.17792 313.3935 0.0015453380 0.03451461 0.1182383  9.980932}
+\CommentTok{\#\textgreater{}      lgeV0}
+\CommentTok{\#\textgreater{} 1 25.76894}
+\CommentTok{\#\textgreater{} 2 24.01503}
+\CommentTok{\#\textgreater{} 3 24.69603}
+\CommentTok{\#\textgreater{} 4 21.26049}
+\CommentTok{\#\textgreater{} 5 24.53847}
+\CommentTok{\#\textgreater{} 6 21.69158}
+\CommentTok{\#\textgreater{} 7 25.37247}
+\CommentTok{\#\textgreater{} 8 22.98195}
+\end{Highlighting}
+\end{Shaded}
+
+Ha pedig arra vagyunk kíváncsiak, hogy a kapott értékek hogyan
+viszonyulanak egymáshoz, azt a \texttt{cor()} függvény segítésével
+számolhatjuk ki.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{div\_df }\OtherTok{\textless{}{-}}\NormalTok{ mineln\_dfm }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{textstat\_lexdiv}\NormalTok{(}\AttributeTok{measure =} \StringTok{"all"}\NormalTok{)}
+
+
+\FunctionTok{cor}\NormalTok{(div\_df[, }\DecValTok{2}\SpecialCharTok{:}\DecValTok{13}\NormalTok{])}
+\CommentTok{\#\textgreater{}             TTR          C           R        CTTR           U           S}
+\CommentTok{\#\textgreater{} TTR   1.0000000  0.9709934 {-}0.64927227 {-}0.64927227  0.75866675  0.85148414}
+\CommentTok{\#\textgreater{} C     0.9709934  1.0000000 {-}0.44988787 {-}0.44988787  0.88841537  0.95162677}
+\CommentTok{\#\textgreater{} R    {-}0.6492723 {-}0.4498879  1.00000000  1.00000000 {-}0.02424963 {-}0.16264543}
+\CommentTok{\#\textgreater{} CTTR {-}0.6492723 {-}0.4498879  1.00000000  1.00000000 {-}0.02424963 {-}0.16264543}
+\CommentTok{\#\textgreater{} U     0.7586668  0.8884154 {-}0.02424963 {-}0.02424963  1.00000000  0.98430655}
+\CommentTok{\#\textgreater{} S     0.8514841  0.9516268 {-}0.16264543 {-}0.16264543  0.98430655  1.00000000}
+\CommentTok{\#\textgreater{} K     0.5991452  0.4294223 {-}0.83367217 {-}0.83367217  0.01275208  0.16142157}
+\CommentTok{\#\textgreater{} I     0.2327750  0.3698611  0.26241321  0.26241321  0.58486310  0.52740696}
+\CommentTok{\#\textgreater{} D     0.4013304  0.2514823 {-}0.65214634 {-}0.65214634 {-}0.10697212  0.01957486}
+\CommentTok{\#\textgreater{} Vm    0.3075452  0.1968097 {-}0.47355632 {-}0.47355632 {-}0.07691131  0.01930842}
+\CommentTok{\#\textgreater{} Maas {-}0.7882881 {-}0.9112332  0.05759202  0.05759202 {-}0.99701921 {-}0.99354677}
+\CommentTok{\#\textgreater{} lgV0  0.3571139  0.5682834  0.45841359  0.45841359  0.87598404  0.79330142}
+\CommentTok{\#\textgreater{}                K          I           D          Vm        Maas       lgV0}
+\CommentTok{\#\textgreater{} TTR   0.59914525  0.2327750  0.40133039  0.30754517 {-}0.78828811  0.3571139}
+\CommentTok{\#\textgreater{} C     0.42942231  0.3698611  0.25148227  0.19680971 {-}0.91123321  0.5682834}
+\CommentTok{\#\textgreater{} R    {-}0.83367217  0.2624132 {-}0.65214634 {-}0.47355632  0.05759202  0.4584136}
+\CommentTok{\#\textgreater{} CTTR {-}0.83367217  0.2624132 {-}0.65214634 {-}0.47355632  0.05759202  0.4584136}
+\CommentTok{\#\textgreater{} U     0.01275208  0.5848631 {-}0.10697212 {-}0.07691131 {-}0.99701921  0.8759840}
+\CommentTok{\#\textgreater{} S     0.16142157  0.5274070  0.01957486  0.01930842 {-}0.99354677  0.7933014}
+\CommentTok{\#\textgreater{} K     1.00000000 {-}0.5873634  0.94208077  0.84481216 {-}0.06058855 {-}0.4082192}
+\CommentTok{\#\textgreater{} I    {-}0.58736335  1.0000000 {-}0.77504336 {-}0.82248673 {-}0.56958764  0.6634351}
+\CommentTok{\#\textgreater{} D     0.94208077 {-}0.7750434  1.00000000  0.96943443  0.06563582 {-}0.4269281}
+\CommentTok{\#\textgreater{} Vm    0.84481216 {-}0.8224867  0.96943443  1.00000000  0.04532617 {-}0.3156220}
+\CommentTok{\#\textgreater{} Maas {-}0.06058855 {-}0.5695876  0.06563582  0.04532617  1.00000000 {-}0.8557245}
+\CommentTok{\#\textgreater{} lgV0 {-}0.40821917  0.6634351 {-}0.42692805 {-}0.31562199 {-}0.85572445  1.0000000}
+\end{Highlighting}
+\end{Shaded}
+
+A kapott értékeket a \texttt{ggcorr()} függvény segítségével
+ábrázolhatjuk is. Ha a függvény argumentumában a \texttt{label\ =\ TRUE}
+szerepel, a kapott ábrán a kiszámított értékek is szerepelnek.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggcorr}\NormalTok{(div\_df[, }\DecValTok{2}\SpecialCharTok{:}\DecValTok{13}\NormalTok{], }\AttributeTok{label =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-47-1} \end{center}
+
+Ezt követően azt is megvizsgálhatjuk, hogy a korpusz szövei mennyire
+könnyen olvashatóak. Ehhez a \texttt{Flesch.Kincaid} pontszámot
+használjuk, ami a szavak és mondatok hossza alapján határozza meg a
+szöveg olvashatóságát. Ehhez \texttt{textstat\_readability()} függvényt
+használjuk, mely a korpuszunkat elemzi.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corpus\_mineln }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{textstat\_readability}\NormalTok{(}\AttributeTok{measure =} \StringTok{"Flesch.Kincaid"}\NormalTok{)}
+\CommentTok{\#\textgreater{}                document Flesch.Kincaid}
+\CommentTok{\#\textgreater{} 1    antall\_jozsef\_1990       16.48512}
+\CommentTok{\#\textgreater{} 2    bajnai\_gordon\_2009       10.92243}
+\CommentTok{\#\textgreater{} 3     boross\_peter\_1993       15.40159}
+\CommentTok{\#\textgreater{} 4 gyurcsany\_ferenc\_2005       13.55911}
+\CommentTok{\#\textgreater{} 5       horn\_gyula\_1994       13.77918}
+\CommentTok{\#\textgreater{} 6  medgyessy\_peter\_2002       15.81893}
+\CommentTok{\#\textgreater{} 7     orban\_viktor\_1995       13.04284}
+\CommentTok{\#\textgreater{} 8     orban\_viktor\_2018       11.39180}
+\end{Highlighting}
+\end{Shaded}
+
+Ezután a kiszámított értékkel kiegészítjük a korpuszt
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{docvars}\NormalTok{(corpus\_mineln, }\StringTok{"f\_k"}\NormalTok{) }\OtherTok{\textless{}{-}} \FunctionTok{textstat\_readability}\NormalTok{(corpus\_mineln, }\AttributeTok{measure =} \StringTok{"Flesch.Kincaid"}\NormalTok{)[, }
+    \DecValTok{2}\NormalTok{]}
+
+\FunctionTok{docvars}\NormalTok{(corpus\_mineln)}
+\CommentTok{\#\textgreater{}             mineln wing year      f\_k}
+\CommentTok{\#\textgreater{} 1    antall\_jozsef jobb 1990 16.48512}
+\CommentTok{\#\textgreater{} 2    bajnai\_gordon  bal 2009 10.92243}
+\CommentTok{\#\textgreater{} 3     boross\_peter jobb 1993 15.40159}
+\CommentTok{\#\textgreater{} 4 gyurcsany\_ferenc  bal 2005 13.55911}
+\CommentTok{\#\textgreater{} 5       horn\_gyula  bal 1994 13.77918}
+\CommentTok{\#\textgreater{} 6  medgyessy\_peter  bal 2002 15.81893}
+\CommentTok{\#\textgreater{} 7     orban\_viktor jobb 1995 13.04284}
+\CommentTok{\#\textgreater{} 8     orban\_viktor jobb 2018 11.39180}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{docvars}\NormalTok{(corpus\_mineln, }\StringTok{"f\_k"}\NormalTok{) }\OtherTok{\textless{}{-}} \FunctionTok{textstat\_readability}\NormalTok{(corpus\_mineln, }\AttributeTok{measure =} \StringTok{"Flesch.Kincaid"}\NormalTok{)[, }
+    \DecValTok{2}\NormalTok{]}
+
+\FunctionTok{docvars}\NormalTok{(corpus\_mineln)}
+\CommentTok{\#\textgreater{}             mineln wing year      f\_k}
+\CommentTok{\#\textgreater{} 1    antall\_jozsef jobb 1990 16.48512}
+\CommentTok{\#\textgreater{} 2    bajnai\_gordon  bal 2009 10.92243}
+\CommentTok{\#\textgreater{} 3     boross\_peter jobb 1993 15.40159}
+\CommentTok{\#\textgreater{} 4 gyurcsany\_ferenc  bal 2005 13.55911}
+\CommentTok{\#\textgreater{} 5       horn\_gyula  bal 1994 13.77918}
+\CommentTok{\#\textgreater{} 6  medgyessy\_peter  bal 2002 15.81893}
+\CommentTok{\#\textgreater{} 7     orban\_viktor jobb 1995 13.04284}
+\CommentTok{\#\textgreater{} 8     orban\_viktor jobb 2018 11.39180}
+\end{Highlighting}
+\end{Shaded}
+
+Majd a \texttt{ggplot2} segítségével vizualizálhatjuk az eredményt.
+Ehhez az olvashatósági pontszámmal kiegészített korpuszból data fram-et
+alakítunk ki, majd beállítjuk az ábrázolás paramétereit. Azaz, hogy a
+két tengelyen az év illetve az olvashatósági pontszám szerepeljen, a
+színezés különböztesse meg a jobb és a bal oldalt, az egyes
+dokumentumokat ponttal jelöljük, a jobb és bal oldali beszédeket
+vonallal kötjük össze, az ábrára fekete színnel felíratjuk a
+miniszterelnökök nevét, valamint, hogy az x tengely beosztása az egyes
+beszédek dátumához igazodjon. A \texttt{theme\_minimal()} függvénnyel
+pedig azt határozzuk meg, hogy mindez fehér hátteret kapjon.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{corpus\_df }\OtherTok{\textless{}{-}} \FunctionTok{docvars}\NormalTok{(corpus\_mineln)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(corpus\_df, }\FunctionTok{aes}\NormalTok{(year, f\_k, }\AttributeTok{color =}\NormalTok{ wing)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{linetype =}\NormalTok{ wing), }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{label =}\NormalTok{ mineln), }\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{nudge\_y =} \FloatTok{0.15}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =}\NormalTok{ corpus\_df}\SpecialCharTok{$}\NormalTok{year) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-52-1} 
+
+}
+
+\caption{Az olvashatósági index alakulása}\label{fig:unnamed-chunk-52}
+\end{figure}
+
+\hypertarget{uxf6sszehasonluxedtuxe1s4}{%
+\section[Összehasonlítás]{\texorpdfstring{Összehasonlítás\footnote{(\protect\hyperlink{ref-schuxfctze2008a:294-307}{\textbf{schütze2008a:294-307?}})}}{Összehasonlítás}}\label{uxf6sszehasonluxedtuxe1s4}}
+
+A fentiekben láthattuk az eltéréseket a jobb és bal oldali beszédeken
+belül, sőt ugyanahhoz a miniszterelnökhöz tartozó két beszéd között is.
+A következőkben \texttt{textstat\_dist()} és \texttt{textstat\_simil()}
+függvények segítségével megvizsgáljuk, valójában mennyire hasonlítanak
+vagy különböznek ezek a beszédek. Mindkét függvény bemenete
+\texttt{dmf}, melyből először egy súlyozott \texttt{dfm}-et készítünk,
+majd elvégezzük az összehasonlítást először a \texttt{jaccard}-féle
+hasonlóság alapján.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mineln\_dfm }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{dfm\_weight}\NormalTok{(}\StringTok{"prop"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{textstat\_simil}\NormalTok{(}\AttributeTok{margin =} \StringTok{"documents"}\NormalTok{, }\AttributeTok{method =} \StringTok{"jaccard"}\NormalTok{)}
+\CommentTok{\#\textgreater{} textstat\_simil object; method = "jaccard"}
+\CommentTok{\#\textgreater{}                       antall\_jozsef\_1990 bajnai\_gordon\_2009 boross\_peter\_1993}
+\CommentTok{\#\textgreater{} antall\_jozsef\_1990                1.0000             0.0559            0.1011}
+\CommentTok{\#\textgreater{} bajnai\_gordon\_2009                0.0559             1.0000            0.0564}
+\CommentTok{\#\textgreater{} boross\_peter\_1993                 0.1011             0.0564            1.0000}
+\CommentTok{\#\textgreater{} gyurcsany\_ferenc\_2005             0.0798             0.0850            0.0604}
+\CommentTok{\#\textgreater{} horn\_gyula\_1994                   0.0694             0.0592            0.0613}
+\CommentTok{\#\textgreater{} medgyessy\_peter\_2002              0.0404             0.0690            0.0473}
+\CommentTok{\#\textgreater{} orban\_viktor\_1995                 0.0778             0.0626            0.0631}
+\CommentTok{\#\textgreater{} orban\_viktor\_2018                 0.0362             0.0617            0.0401}
+\CommentTok{\#\textgreater{}                       gyurcsany\_ferenc\_2005 horn\_gyula\_1994}
+\CommentTok{\#\textgreater{} antall\_jozsef\_1990                   0.0798          0.0694}
+\CommentTok{\#\textgreater{} bajnai\_gordon\_2009                   0.0850          0.0592}
+\CommentTok{\#\textgreater{} boross\_peter\_1993                    0.0604          0.0613}
+\CommentTok{\#\textgreater{} gyurcsany\_ferenc\_2005                1.0000          0.0683}
+\CommentTok{\#\textgreater{} horn\_gyula\_1994                      0.0683          1.0000}
+\CommentTok{\#\textgreater{} medgyessy\_peter\_2002                 0.0684          0.0587}
+\CommentTok{\#\textgreater{} orban\_viktor\_1995                    0.0734          0.0621}
+\CommentTok{\#\textgreater{} orban\_viktor\_2018                    0.0503          0.0494}
+\CommentTok{\#\textgreater{}                       medgyessy\_peter\_2002 orban\_viktor\_1995 orban\_viktor\_2018}
+\CommentTok{\#\textgreater{} antall\_jozsef\_1990                  0.0404            0.0778            0.0362}
+\CommentTok{\#\textgreater{} bajnai\_gordon\_2009                  0.0690            0.0626            0.0617}
+\CommentTok{\#\textgreater{} boross\_peter\_1993                   0.0473            0.0631            0.0401}
+\CommentTok{\#\textgreater{} gyurcsany\_ferenc\_2005               0.0684            0.0734            0.0503}
+\CommentTok{\#\textgreater{} horn\_gyula\_1994                     0.0587            0.0621            0.0494}
+\CommentTok{\#\textgreater{} medgyessy\_peter\_2002                1.0000            0.0650            0.0504}
+\CommentTok{\#\textgreater{} orban\_viktor\_1995                   0.0650            1.0000            0.0583}
+\CommentTok{\#\textgreater{} orban\_viktor\_2018                   0.0504            0.0583            1.0000}
+\end{Highlighting}
+\end{Shaded}
+
+Majd a \texttt{textstat\_dist()} függvény segítségével kiszámoljuk a
+dokumentumok egymástól való különbözőségét.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mineln\_dfm }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{textstat\_dist}\NormalTok{(}\AttributeTok{margin =} \StringTok{"documents"}\NormalTok{, }\AttributeTok{method =} \StringTok{"euclidean"}\NormalTok{)}
+\CommentTok{\#\textgreater{} textstat\_dist object; method = "euclidean"}
+\CommentTok{\#\textgreater{}                       antall\_jozsef\_1990 bajnai\_gordon\_2009 boross\_peter\_1993}
+\CommentTok{\#\textgreater{} antall\_jozsef\_1990                     0              162.8             134.1}
+\CommentTok{\#\textgreater{} bajnai\_gordon\_2009                   163                  0              84.6}
+\CommentTok{\#\textgreater{} boross\_peter\_1993                    134               84.6                 0}
+\CommentTok{\#\textgreater{} gyurcsany\_ferenc\_2005                186              137.8             149.7}
+\CommentTok{\#\textgreater{} horn\_gyula\_1994                      164               80.1              88.0}
+\CommentTok{\#\textgreater{} medgyessy\_peter\_2002                 160               68.1              81.8}
+\CommentTok{\#\textgreater{} orban\_viktor\_1995                    139               84.7              79.7}
+\CommentTok{\#\textgreater{} orban\_viktor\_2018                    167               67.3              85.4}
+\CommentTok{\#\textgreater{}                       gyurcsany\_ferenc\_2005 horn\_gyula\_1994}
+\CommentTok{\#\textgreater{} antall\_jozsef\_1990                      186           163.6}
+\CommentTok{\#\textgreater{} bajnai\_gordon\_2009                      138            80.1}
+\CommentTok{\#\textgreater{} boross\_peter\_1993                       150            88.0}
+\CommentTok{\#\textgreater{} gyurcsany\_ferenc\_2005                     0           147.0}
+\CommentTok{\#\textgreater{} horn\_gyula\_1994                         147               0}
+\CommentTok{\#\textgreater{} medgyessy\_peter\_2002                    143            75.9}
+\CommentTok{\#\textgreater{} orban\_viktor\_1995                       147            89.6}
+\CommentTok{\#\textgreater{} orban\_viktor\_2018                       148            74.8}
+\CommentTok{\#\textgreater{}                       medgyessy\_peter\_2002 orban\_viktor\_1995 orban\_viktor\_2018}
+\CommentTok{\#\textgreater{} antall\_jozsef\_1990                   160.2             139.2             167.4}
+\CommentTok{\#\textgreater{} bajnai\_gordon\_2009                    68.1              84.7              67.3}
+\CommentTok{\#\textgreater{} boross\_peter\_1993                     81.8              79.7              85.4}
+\CommentTok{\#\textgreater{} gyurcsany\_ferenc\_2005                142.6             146.9             147.9}
+\CommentTok{\#\textgreater{} horn\_gyula\_1994                       75.9              89.6              74.8}
+\CommentTok{\#\textgreater{} medgyessy\_peter\_2002                     0              77.5              60.7}
+\CommentTok{\#\textgreater{} orban\_viktor\_1995                     77.5                 0              83.6}
+\CommentTok{\#\textgreater{} orban\_viktor\_2018                     60.7              83.6                 0}
+\end{Highlighting}
+\end{Shaded}
+
+Ezután vizualizálhatjuk is a dokumentumok egymástól való távolságát egy
+olyan dendogram segítségével, amely megmutatja nekünk a lehetséges
+dokumentumpárokat.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dist }\OtherTok{\textless{}{-}}\NormalTok{ mineln\_dfm }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{textstat\_dist}\NormalTok{(}\AttributeTok{margin =} \StringTok{"documents"}\NormalTok{, }\AttributeTok{method =} \StringTok{"euclidean"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{hclust}\NormalTok{(}\FunctionTok{as.dist}\NormalTok{(dist)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-56-1} 
+
+}
+
+\caption{A dokumentumok csoportosítása a távolságuk alapján}\label{fig:unnamed-chunk-56}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mineln\_dfm }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{textstat\_simil}\NormalTok{(}\AttributeTok{y =}\NormalTok{ mineln\_dfm[, }\FunctionTok{c}\NormalTok{(}\StringTok{"kormány"}\NormalTok{)], }\AttributeTok{margin =} \StringTok{"features"}\NormalTok{, }\AttributeTok{method =} \StringTok{"correlation"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{(}\AttributeTok{n =} \DecValTok{10}\NormalTok{)}
+\CommentTok{\#\textgreater{}                 kormány}
+\CommentTok{\#\textgreater{} elnök        {-}0.1185449}
+\CommentTok{\#\textgreater{} tisztelt     {-}0.5401371}
+\CommentTok{\#\textgreater{} országgyulés  0.8082763}
+\CommentTok{\#\textgreater{} hölgyeim     {-}0.3580776}
+\CommentTok{\#\textgreater{} uraim        {-}0.3580776}
+\CommentTok{\#\textgreater{} honfitársaim  0.8648335}
+\CommentTok{\#\textgreater{} ünnepi        0.8737759}
+\CommentTok{\#\textgreater{} pillanatban   0.8737759}
+\CommentTok{\#\textgreater{} állok         0.6864778}
+\CommentTok{\#\textgreater{} magyar        0.7530170}
+\end{Highlighting}
+\end{Shaded}
+
+Arra is van lehetőségünk, hogy a két alkorpuszt hasonlítsuk össze
+egymással. Ehhez a \texttt{textstat\_keyness()} függvényt haszáljuk,
+melynek a bemenete a \texttt{dfm}. A függvény argumentumában a
+\texttt{target\ =} után kell szerepletnük, hogy mely alkorpusz a
+viszonyítási alap. Az összehasonlítás eredményét a 'textplot\_keyness()`
+függvény segítségével ábrázolhatjuk, ami megjeleníti a két alkorpusz
+leggyakoribb kifejezéseit.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfm }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(}
+\NormalTok{  corpus\_mineln,}
+  \AttributeTok{groups =} \StringTok{"wing"}\NormalTok{, }
+  \AttributeTok{remove =}\NormalTok{ custom\_stopwords,}
+  \AttributeTok{remove\_punct =} \ConstantTok{TRUE}
+\NormalTok{)}
+
+\NormalTok{result\_keyness }\OtherTok{\textless{}{-}} \FunctionTok{textstat\_keyness}\NormalTok{(dfm, }\AttributeTok{target =} \StringTok{"jobb"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{textplot\_keyness}\NormalTok{(result\_keyness)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-59-1} 
+
+}
+
+\caption{A korpuszok legfontosabb kifejezései}\label{fig:unnamed-chunk-59}
+\end{figure}
+
+Ha az egyes miniszterelnökök beszédeinek leggyakoribb kifejezéseit
+szeretnénk összehasonlítani, azt a \texttt{textstat\_frequency()}
+függvény segítségével tehetjük meg, melynek bemnete a megtisztított és
+súlyozott \texttt{dfm}. Az összehasonlítás eredményét pedig a
+\texttt{ggplot2} segítségével ábrázolhatjuk is.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfm\_weight }\OtherTok{\textless{}{-}}\NormalTok{ corpus\_mineln }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{dfm}\NormalTok{(}\AttributeTok{remove =}\NormalTok{ custom\_stopwords, }\AttributeTok{tolower =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_punct =} \ConstantTok{TRUE}\NormalTok{, }
+    \AttributeTok{stem =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_symbols =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{remove\_numbers =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{dfm\_weight}\NormalTok{(}\AttributeTok{scheme =} \StringTok{"prop"}\NormalTok{)}
+
+\NormalTok{freq\_weight }\OtherTok{\textless{}{-}} \FunctionTok{textstat\_frequency}\NormalTok{(dfm\_weight, }\AttributeTok{n =} \DecValTok{15}\NormalTok{, }\AttributeTok{groups =} \StringTok{"mineln"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ freq\_weight, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{nrow}\NormalTok{(freq\_weight)}\SpecialCharTok{:}\DecValTok{1}\NormalTok{, }\AttributeTok{y =}\NormalTok{ frequency)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ group, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{nrow}\NormalTok{(freq\_weight)}\SpecialCharTok{:}\DecValTok{1}\NormalTok{,}
+    \AttributeTok{labels =}\NormalTok{ freq\_weight}\SpecialCharTok{$}\NormalTok{feature}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }
+    \AttributeTok{y =} \StringTok{"Relative frequency"}
+\NormalTok{    )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-61-1} 
+
+}
+
+\caption{Leggyakoribb kifejezések a miniszterelnöki beszédekben}\label{fig:unnamed-chunk-61}
+\end{figure}
+
+\hypertarget{kifejezuxe9sek-kontextusba-helyezuxe9se}{%
+\section{Kifejezések kontextusba
+helyezése}\label{kifejezuxe9sek-kontextusba-helyezuxe9se}}
+
+Arra is lehetőségünk van, hogy egyes kulcszavakat a korpuszon belül
+szövekörnyezetükben vizsgáljunk meg. Ehhez a \texttt{kwic()} függvényt
+használjuk, az argumentumok között a \texttt{pattern\ =} kifejezés után
+megadva azt a szót, amelyet vizsgálni szeretnénk, a `window =' után
+pedig megadhatjuk hogy az adott szó hány szavas környezetére vagyunk
+kíváncsiak.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{kwic}\NormalTok{(corpus\_mineln, }\AttributeTok{pattern =} \StringTok{"válság*"}\NormalTok{, }\AttributeTok{valuetype =} \StringTok{"glob"}\NormalTok{, }\AttributeTok{window =} \DecValTok{3}\NormalTok{, }\AttributeTok{case\_insensitive =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{(}\DecValTok{20}\NormalTok{)}
+\CommentTok{\#\textgreater{}                                                                                }
+\CommentTok{\#\textgreater{}  [antall\_jozsef\_1990, 1167]                     Átfogó és mély |    válságba   }
+\CommentTok{\#\textgreater{}  [antall\_jozsef\_1990, 1283]                  kell hárítanunk a |    válságot   }
+\CommentTok{\#\textgreater{}  [antall\_jozsef\_1990, 2772]              és a lakásgazdálkodás |    válságos   }
+\CommentTok{\#\textgreater{}  [antall\_jozsef\_1990, 5226]          gazdaság egészét juttatta |    válságba   }
+\CommentTok{\#\textgreater{}  [antall\_jozsef\_1990, 5286] gazdaság reménytelenül eladósodott |  válsággócai  }
+\CommentTok{\#\textgreater{}  [antall\_jozsef\_1990, 8527]               1991 végéig érvényes | válságkezelést}
+\CommentTok{\#\textgreater{}  [antall\_jozsef\_1990, 9111]                 teszik a jelenlegi | válsághelyzet }
+\CommentTok{\#\textgreater{}  [antall\_jozsef\_1990, 9240]            viszonylag jobb éveinek |   válságosra  }
+\CommentTok{\#\textgreater{}    [bajnai\_gordon\_2009, 80]                    hogy kezeljük a |    válságot   }
+\CommentTok{\#\textgreater{}   [bajnai\_gordon\_2009, 101]             a nemzetközi gazdasági |     válság    }
+\CommentTok{\#\textgreater{}   [bajnai\_gordon\_2009, 229]                             , de a |   válságnak   }
+\CommentTok{\#\textgreater{}   [bajnai\_gordon\_2009, 352]                 hogy átvészeljék a |    válságot   }
+\CommentTok{\#\textgreater{}   [bajnai\_gordon\_2009, 359]              mûködõképességüket. A |     válság    }
+\CommentTok{\#\textgreater{}   [bajnai\_gordon\_2009, 383]      beruházásoknak köszönhetõen a |     válság    }
+\CommentTok{\#\textgreater{}   [bajnai\_gordon\_2009, 537]                   hogy az azonnali |  válságkezelõ }
+\CommentTok{\#\textgreater{}   [bajnai\_gordon\_2009, 803]                     kell mennünk a | válságkezelés }
+\CommentTok{\#\textgreater{}   [bajnai\_gordon\_2009, 828]                        Ez egyben a | válságkezelés }
+\CommentTok{\#\textgreater{}   [bajnai\_gordon\_2009, 838]                           , amit a |     válság    }
+\CommentTok{\#\textgreater{}   [bajnai\_gordon\_2009, 970]                       ez az utolsó |  válságkezelõ }
+\CommentTok{\#\textgreater{}   [bajnai\_gordon\_2009, 979]                      ami a mostani |    válságot   }
+\CommentTok{\#\textgreater{}                                      }
+\CommentTok{\#\textgreater{}  | süllyedtünk a nyolcvanas          }
+\CommentTok{\#\textgreater{}  | , de csakis                       }
+\CommentTok{\#\textgreater{}  | helyzetbe került.                 }
+\CommentTok{\#\textgreater{}  | , és amellyel                     }
+\CommentTok{\#\textgreater{}  | ellen. A                          }
+\CommentTok{\#\textgreater{}  | . A kormánynak                    }
+\CommentTok{\#\textgreater{}  | felszámolását, a                  }
+\CommentTok{\#\textgreater{}  | fordulása nem a                   }
+\CommentTok{\#\textgreater{}  | , arra szerzõdtünk                }
+\CommentTok{\#\textgreater{}  | súlyosabb hatásaitól,             }
+\CommentTok{\#\textgreater{}  | még nincs vége                    }
+\CommentTok{\#\textgreater{}  | , és megõrizzék                   }
+\CommentTok{\#\textgreater{}  | kitörését követõen 111            }
+\CommentTok{\#\textgreater{}  | ellenére is növekedett            }
+\CommentTok{\#\textgreater{}  | lépéseken túl ez                  }
+\CommentTok{\#\textgreater{}  | útján, folytatnunk                }
+\CommentTok{\#\textgreater{}  | egyik legfontosabb állomása       }
+\CommentTok{\#\textgreater{}  | leküzdése érdekében eddig         }
+\CommentTok{\#\textgreater{}  | költségvetés Magyarország életében}
+\CommentTok{\#\textgreater{}  | illeti.(}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{a-szuxf6vegek-reprezentuxe1luxe1sa-a-vektortuxe9rben}{%
 \chapter{A szövegek reprezentálása a
@@ -1266,7 +2111,9 @@ illetve a 3. fejezetben már megismert \texttt{readr}, \texttt{stringr},
 \FunctionTok{library}\NormalTok{(readr)}
 \FunctionTok{library}\NormalTok{(stringr)}
 \FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
 \FunctionTok{library}\NormalTok{(quanteda)}
+\FunctionTok{library}\NormalTok{(quanteda.dictionaries)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1278,10 +2125,12 @@ függvényével eltároljuk.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{szentiment\_szotar }\OtherTok{\textless{}{-}} \FunctionTok{dictionary}\NormalTok{(}\FunctionTok{list}\NormalTok{(}
-  \AttributeTok{pozitiv =} \FunctionTok{c}\NormalTok{(}\StringTok{"jó"}\NormalTok{, }\StringTok{"boldog"}\NormalTok{, }\StringTok{"öröm"}\NormalTok{),}
-  \AttributeTok{negativ =} \FunctionTok{c}\NormalTok{(}\StringTok{"rossz"}\NormalTok{, }\StringTok{"szomorú"}\NormalTok{, }\StringTok{"lehangoló"}\NormalTok{)}
-\NormalTok{))}
+\NormalTok{szentiment\_szotar }\OtherTok{\textless{}{-}} \FunctionTok{dictionary}\NormalTok{(}
+  \FunctionTok{list}\NormalTok{(}
+    \AttributeTok{pozitiv =} \FunctionTok{c}\NormalTok{(}\StringTok{"jó"}\NormalTok{, }\StringTok{"boldog"}\NormalTok{, }\StringTok{"öröm"}\NormalTok{),}
+    \AttributeTok{negativ =} \FunctionTok{c}\NormalTok{(}\StringTok{"rossz"}\NormalTok{, }\StringTok{"szomorú"}\NormalTok{, }\StringTok{"lehangoló"}\NormalTok{)}
+\NormalTok{    )}
+\NormalTok{  )}
 
 \NormalTok{szentiment\_szotar}
 \CommentTok{\#\textgreater{} Dictionary object with 2 key entries.}
@@ -1450,6 +2299,12 @@ tokenizálás során), illetve nem szótövek (így szótöveznünk sem kell).
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\NormalTok{poltext\_szotar }\OtherTok{\textless{}{-}} \FunctionTok{read\_rds}\NormalTok{(}\StringTok{"data/poltext\_dict.Rds"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{poltext\_szotar}
 \CommentTok{\#\textgreater{} Dictionary object with 2 key entries.}
 \CommentTok{\#\textgreater{} {-} [positive]:}
@@ -1561,25 +2416,19 @@ alsó szélső értékeit.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{ggplot}\NormalTok{(mn\_df, }\FunctionTok{aes}\NormalTok{(doc\_date, net\_daily)) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \StringTok{"Szentiment"}\NormalTok{, }\AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }
+    \AttributeTok{caption =} \StringTok{"Adatforrás: https://cap.tk.hu/"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(mn\_df, }\FunctionTok{aes}\NormalTok{(doc\_date, net\_daily)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{title =} \StringTok{"Magyar Nemzet címlap szentimentje"}\NormalTok{,}
-    \AttributeTok{subtitle =} \StringTok{"A szentiment érték a pozitív és negatív szentiment pontszámok különbsége a teljes mintára."}\NormalTok{,}
-    \AttributeTok{y =} \StringTok{"Szentiment"}\NormalTok{,}
-    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{,}
-    \AttributeTok{caption =} \StringTok{"Adatforrás: https://cap.tk.hu/"}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
+\begin{figure}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-55-1} \end{center}
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-79-1} 
+
+}
+
+\caption{Magyar Nemzet címlap szentimentje}\label{fig:unnamed-chunk-79}
+\end{figure}
 
 \hypertarget{mnb-sajtuxf3kuxf6zlemuxe9nyek}{%
 \section{MNB sajtóközlemények}\label{mnb-sajtuxf3kuxf6zlemuxe9nyek}}
@@ -1713,14 +2562,11 @@ környezetben értelmezhető tartalma van.
   \FunctionTok{dfm}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{dfm\_tfidf}\NormalTok{()}
 
-
-
 \FunctionTok{docvars}\NormalTok{(mnb\_corpus, }\StringTok{"negative"}\NormalTok{) }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(mnb\_szentiment[, }\StringTok{"negative"}\NormalTok{])}
 \FunctionTok{docvars}\NormalTok{(mnb\_corpus, }\StringTok{"positive"}\NormalTok{) }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(mnb\_szentiment[, }\StringTok{"positive"}\NormalTok{])}
 \FunctionTok{docvars}\NormalTok{(mnb\_corpus, }\StringTok{"uncertainty"}\NormalTok{) }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(mnb\_szentiment[, }\StringTok{"uncertainty"}\NormalTok{])}
 \FunctionTok{docvars}\NormalTok{(mnb\_corpus, }\StringTok{"constraining"}\NormalTok{) }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(mnb\_szentiment[, }\StringTok{"constraining"}\NormalTok{])}
 \FunctionTok{docvars}\NormalTok{(mnb\_corpus, }\StringTok{"superfluous"}\NormalTok{) }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(mnb\_szentiment[, }\StringTok{"superfluous"}\NormalTok{])}
-
 
 \NormalTok{mnb\_df }\OtherTok{\textless{}{-}} \FunctionTok{convert}\NormalTok{(mnb\_corpus, }\AttributeTok{to =} \StringTok{"data.frame"}\NormalTok{)}
 \end{Highlighting}
@@ -1768,7 +2614,6 @@ validálása a kapott eredményeknek ezért is nagyon fontos, illetve
 \FunctionTok{ggplot}\NormalTok{(mnb\_df, }\FunctionTok{aes}\NormalTok{(date, sent\_score)) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{title =} \StringTok{"Magyar Nemzeti Bank közleményeinek szentimentje"}\NormalTok{,}
     \AttributeTok{y =} \StringTok{"Szentiment"}\NormalTok{,}
     \AttributeTok{x =} \ConstantTok{NULL}
 \NormalTok{  ) }\SpecialCharTok{+}
@@ -1776,7 +2621,14 @@ validálása a kapott eredményeknek ezért is nagyon fontos, illetve
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-63-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-87-1} 
+
+}
+
+\caption{Magyar Nemzeti Bank közleményeinek szentimentje}\label{fig:unnamed-chunk-87}
+\end{figure}
 
 \hypertarget{feluxfcgyelet-nuxe9lkuxfcli-tanuluxe1s-topik-modellezuxe9s-magyar-tuxf6rvuxe9nyszuxf6vegeken}{%
 \chapter{Felügyelet nélküli tanulás: Topik modellezés magyar
@@ -1888,15 +2740,18 @@ használjuk.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-
 \FunctionTok{library}\NormalTok{(readr)}
 \FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(purrr)}
 \FunctionTok{library}\NormalTok{(stringr)}
 \FunctionTok{library}\NormalTok{(readtext)}
 \FunctionTok{library}\NormalTok{(quanteda)}
+\FunctionTok{library}\NormalTok{(tidytext)}
 \FunctionTok{library}\NormalTok{(ggplot2)}
 \FunctionTok{library}\NormalTok{(topicmodels)}
 \FunctionTok{library}\NormalTok{(factoextra)}
+\FunctionTok{library}\NormalTok{(stm)}
+\FunctionTok{library}\NormalTok{(igraph)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1927,7 +2782,7 @@ függvénnyel megnézhetjük hogy egy-egy csoportba hány dokumentum került.
 \FunctionTok{table}\NormalTok{(beszedek\_klaszter}\SpecialCharTok{$}\NormalTok{cluster)}
 \CommentTok{\#\textgreater{} }
 \CommentTok{\#\textgreater{} 1 2 }
-\CommentTok{\#\textgreater{} 2 5}
+\CommentTok{\#\textgreater{} 5 2}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1947,7 +2802,7 @@ függvényében. A lenti ábra alapján az ideális klaszter szám 2.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-67-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-91-1} \end{center}
 
 Vizuálisan is megjeleníthetjük a kialakított csoportokat.
 
@@ -1957,7 +2812,7 @@ Vizuálisan is megjeleníthetjük a kialakított csoportokat.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-68-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-92-1} \end{center}
 
 \hypertarget{luxe1tens-dirichlet-allokuxe1ciuxf3-topik-modellekklasztering_topicmodellek-1}{%
 \section[Látens Dirichlet Allokáció topik
@@ -2061,7 +2916,6 @@ legegyszerűbb megoldás.
     \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"»"}\NormalTok{),}
     \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"§"}\NormalTok{),}
     \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"°"}\NormalTok{),}
-    \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"\textless{}U+25A1\textgreater{}"}\NormalTok{),}
     \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"\textless{}U+25A1\textgreater{}"}\NormalTok{),}
     \AttributeTok{text =} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"@"}\NormalTok{)}
 \NormalTok{  )}
@@ -2197,30 +3051,25 @@ csoportosított sorrendbe rendezésre a ggplot ábránál.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidytext)}
+
+
+\NormalTok{top\_tokens }\OtherTok{\textless{}{-}} \FunctionTok{textstat\_frequency}\NormalTok{(torvenyek\_dfm, }\AttributeTok{n =} \DecValTok{15}\NormalTok{, }\AttributeTok{groups =} \FunctionTok{docvars}\NormalTok{(torvenyek\_dfm, }
+    \AttributeTok{field =} \StringTok{"electoral\_cycle"}\NormalTok{))}
+
+\FunctionTok{ggplot}\NormalTok{(top\_tokens, }\FunctionTok{aes}\NormalTok{(}\FunctionTok{reorder\_within}\NormalTok{(feature, frequency, group), frequency)) }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{shape =}\NormalTok{ group), }
+    \AttributeTok{size =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{x =} \StringTok{"szófrekvencia"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{group, }
+    \AttributeTok{nrow =} \DecValTok{2}\NormalTok{, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ tidytext}\SpecialCharTok{::}\FunctionTok{scale\_x\_reordered}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{Shaded}
-\begin{Highlighting}[]
+\begin{figure}
 
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-103-1} 
 
-\NormalTok{top\_tokens }\OtherTok{\textless{}{-}} \FunctionTok{textstat\_frequency}\NormalTok{(torvenyek\_dfm, }\AttributeTok{n =} \DecValTok{15}\NormalTok{, }\AttributeTok{groups =} \FunctionTok{docvars}\NormalTok{(torvenyek\_dfm, }\AttributeTok{field =} \StringTok{"electoral\_cycle"}\NormalTok{))}
+}
 
-\FunctionTok{ggplot}\NormalTok{(top\_tokens, }\FunctionTok{aes}\NormalTok{(}\FunctionTok{reorder\_within}\NormalTok{(feature, frequency, group), frequency)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{shape =}\NormalTok{ group), }\AttributeTok{size =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{y =} \ConstantTok{NULL}\NormalTok{,}
-    \AttributeTok{x =} \StringTok{"szófrekvencia"}\NormalTok{,}
-    \AttributeTok{title =} \StringTok{"A 15 leggyakoribb token a korpuszban"}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{group, }\AttributeTok{nrow =} \DecValTok{2}\NormalTok{, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
-\NormalTok{  tidytext}\SpecialCharTok{::}\FunctionTok{scale\_x\_reordered}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-80-1} \end{center}
+\caption{A 15 leggyakoribb token a korpuszban}\label{fig:unnamed-chunk-103}
+\end{figure}
 
 A szövegtisztító lépéseket később újabbakkal is kiegészíthetjük, ha
 észrevesszük, hogy az elemzést zavaró tisztítási lépés maradt ki. Ilyen
@@ -2246,26 +3095,36 @@ Ezután újra ellenőrízzük az eredményt.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{torvenyek\_dfm\_final }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(torvenyek\_tokens\_final) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{dfm\_trim}\NormalTok{(}\AttributeTok{min\_termfreq =} \FloatTok{0.001}\NormalTok{, }\AttributeTok{termfreq\_type =} \StringTok{"prop"}\NormalTok{)}
+\NormalTok{torvenyek\_dfm\_final }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(torvenyek\_tokens\_final) }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{dfm\_trim}\NormalTok{(}\AttributeTok{min\_termfreq =} \FloatTok{0.001}\NormalTok{, }
+    \AttributeTok{termfreq\_type =} \StringTok{"prop"}\NormalTok{)}
 
-\NormalTok{top\_tokens\_final }\OtherTok{\textless{}{-}} \FunctionTok{textstat\_frequency}\NormalTok{(torvenyek\_dfm\_final, }\AttributeTok{n =} \DecValTok{15}\NormalTok{, }\AttributeTok{groups =} \FunctionTok{docvars}\NormalTok{(torvenyek\_dfm, }\AttributeTok{field =} \StringTok{"electoral\_cycle"}\NormalTok{))}
+\NormalTok{top\_tokens\_final }\OtherTok{\textless{}{-}} \FunctionTok{textstat\_frequency}\NormalTok{(torvenyek\_dfm\_final, }\AttributeTok{n =} \DecValTok{15}\NormalTok{, }\AttributeTok{groups =} \FunctionTok{docvars}\NormalTok{(torvenyek\_dfm, }
+    \AttributeTok{field =} \StringTok{"electoral\_cycle"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(top\_tokens\_final, }\FunctionTok{aes}\NormalTok{(}\FunctionTok{reorder\_within}\NormalTok{(feature, frequency, group), frequency)) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{shape =}\NormalTok{ group), }\AttributeTok{size =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
     \AttributeTok{y =} \ConstantTok{NULL}\NormalTok{,}
-    \AttributeTok{x =} \StringTok{"szófrekvencia"}\NormalTok{,}
-    \AttributeTok{title =} \StringTok{"A 15 leggyakoribb token a korpuszban"}\NormalTok{,}
-    \AttributeTok{subtitle =} \StringTok{"Eredmény a bovített stop szó listával"}
+    \AttributeTok{x =} \StringTok{"szófrekvencia"}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{group, }\AttributeTok{nrow =} \DecValTok{2}\NormalTok{, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
 \NormalTok{  tidytext}\SpecialCharTok{::}\FunctionTok{scale\_x\_reordered}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-82-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-106-1} 
+
+}
+
+\caption{A 15 leggyakoribb token a korpuszban, a bovített stop szó listával}\label{fig:unnamed-chunk-106}
+\end{figure}
 
 A szövegtisztító és korpusz előkészítő műveletek után következhet az LDA
 illesztése. Az alábbiakban az LDA illesztés két módszerét a
@@ -2317,49 +3176,53 @@ szóeloszlásokat hasonlítja össze a szavak tényleges eloszlásával a
 dokumentumokban. A függvény értéke nem önmagában értelmezendő, hanem két
 modell összehasonlításában, ahol a legalacsonyabb \emph{perplexity}
 (zavarodottság) értékkel rendelkező modellt tekintik a
-legjobbnak.{[}\^{}klaszeterzes-2{]} Az illusztráció kedvéért
-lefuttatunk5 LDA modellt az 1998-2002 kormánzyati ciklushoz tartozó
-dfm-en. Az iterációhoz a \texttt{purrr} csomag \texttt{map} függvényét
-használjuk (ez a \texttt{lapply} \emph{tidyverse} ekvivalense). Fontos
-emlékezni arra, hogy minél nagyobb a korpuszunk annál több számítási
-kapacitásra van szükség (és annál tovább tart a számítás).
+legjobbnak.{[}\^{}klaszeterzes-2{]} Az illusztráció kedvéért lefuttatunk
+4 LDA modellt az 1998-2002 kormánzyati ciklushoz tartozó dfm-en. Az
+iterációhoz a \texttt{purrr} csomag \texttt{map} függvényét használjuk
+(ez a \texttt{lapply} \emph{tidyverse} ekvivalense). Fontos emlékezni
+arra, hogy minél nagyobb a korpuszunk annál több számítási kapacitásra
+van szükség (és annál tovább tart a számítás).
 
 {[}\^{}klaszeterzes-2{]}
 \url{http://brooksandrew.github.io/simpleblog/articles/latent-dirichlet-allocation-under-the-hood/}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(purrr)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{k\_topics }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{25}\NormalTok{)}
+\NormalTok{k\_topics }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{15}\NormalTok{, }\DecValTok{20}\NormalTok{)}
 
 \NormalTok{lda\_98\_02 }\OtherTok{\textless{}{-}}\NormalTok{ k\_topics }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{map}\NormalTok{(LDA, }\AttributeTok{x =}\NormalTok{ dfm\_98\_02, }\AttributeTok{control =} \FunctionTok{list}\NormalTok{(}\AttributeTok{seed =} \DecValTok{1234}\NormalTok{))}
 
 
-\FunctionTok{tibble}\NormalTok{(}
+\NormalTok{perp\_df }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
   \AttributeTok{k =}\NormalTok{ k\_topics,}
   \AttributeTok{perplexity =} \FunctionTok{map\_dbl}\NormalTok{(lda\_98\_02, perplexity)}
-\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(k, perplexity)) }\SpecialCharTok{+}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \FunctionTok{ggplot}\NormalTok{(perp\_df, }\FunctionTok{aes}\NormalTok{(k, perplexity)) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{title =} \StringTok{"Mekkora k?"}\NormalTok{,}
-    \AttributeTok{subtitle =} \StringTok{"Perplexity változása a k függvényében"}\NormalTok{,}
     \AttributeTok{x =} \StringTok{"k"}\NormalTok{,}
     \AttributeTok{y =} \StringTok{"Perplexity"}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/purrr_lda-1} \end{center}
+\begin{figure}
 
-A perplexity pontszám alapján a 25 topikos modell szerepel a legjobban,
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-109-1} 
+
+}
+
+\caption{Perplexity változása a k függvényében}\label{fig:unnamed-chunk-109}
+\end{figure}
+
+A perplexity pontszám alapján a 20 topikos modell szerepel a legjobban,
 de fontos emlékezni arra hogy a megfelelő \emph{k} kiválasztása a kutató
 kvalitatív döntésén múlik. Ehhez természetesen kvantitatív szempontokat
 is figyelembe vehetünk, mint például a perplexity indikátor.\footnote{A
@@ -2391,12 +3254,6 @@ Ezt követően a modell által létrehozott topic-okat tidy formátumba
 tesszük és egyesítjük egy data frameben.\footnote{a tidy formátumról
   bővebben:
   \url{https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(tidytext)}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2436,7 +3293,6 @@ egyes topikok 10 legfontosabb kifejezését.
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{topic, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{title =} \StringTok{"1998{-}2002 ciklus topikok és kifejezések"}\NormalTok{,}
     \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{,}
     \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(beta)}
 \NormalTok{  ) }\SpecialCharTok{+}
@@ -2444,7 +3300,14 @@ egyes topikok 10 legfontosabb kifejezését.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-88-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-112-1} 
+
+}
+
+\caption{1998-2002 ciklus topikok és kifejezések (VEM mintavételezéssel)}\label{fig:unnamed-chunk-112}
+\end{figure}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2455,7 +3318,6 @@ egyes topikok 10 legfontosabb kifejezését.
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{topic, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{title =} \StringTok{"2002{-}2006 ciklus topikok és kifejezések"}\NormalTok{,}
     \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{,}
     \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(beta)}
 \NormalTok{  ) }\SpecialCharTok{+}
@@ -2463,7 +3325,14 @@ egyes topikok 10 legfontosabb kifejezését.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-89-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-113-1} 
+
+}
+
+\caption{2002-2006 ciklus topikok és kifejezések (VEM mintavételezéssel)}\label{fig:unnamed-chunk-113}
+\end{figure}
 
 \hypertarget{az-lda-gibbs-muxf3dszer-alkalmazuxe1sa-a-magyar-tuxf6rvuxe9nyek-korpuszuxe1n}{%
 \subsection{Az „LDA Gibbs" módszer alkalmazása a magyar törvények
@@ -2521,7 +3390,7 @@ Majd a \texttt{ggplot2} csomag segítségével ábrán is megjeleníthetjük.
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{topic, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{title =} \StringTok{"1998{-}2002 ciklus topikok és kifejezések"}\NormalTok{,}
+    \AttributeTok{title =}\NormalTok{ ,}
     \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{,}
     \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(beta)}
 \NormalTok{  ) }\SpecialCharTok{+}
@@ -2529,7 +3398,14 @@ Majd a \texttt{ggplot2} csomag segítségével ábrán is megjeleníthetjük.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-92-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-116-1} 
+
+}
+
+\caption{1998-2002 ciklus topikok és kifejezések (Gibbs mintavétellel)}\label{fig:unnamed-chunk-116}
+\end{figure}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2540,7 +3416,6 @@ Majd a \texttt{ggplot2} csomag segítségével ábrán is megjeleníthetjük.
   \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{topic, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
   \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{title =} \StringTok{"2002{-}2006 ciklus topikok és kifejezések"}\NormalTok{,}
     \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{,}
     \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(beta)}
 \NormalTok{  ) }\SpecialCharTok{+}
@@ -2548,7 +3423,14 @@ Majd a \texttt{ggplot2} csomag segítségével ábrán is megjeleníthetjük.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-93-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-117-1} 
+
+}
+
+\caption{2002-2006 ciklus topikok és kifejezések (Gibbs mintavétellel)}\label{fig:unnamed-chunk-117}
+\end{figure}
 
 \hypertarget{struktuxfaruxe1lis-topik-modellek}{%
 \section{Struktúrális topik
@@ -2575,12 +3457,6 @@ fogja becsülni.
 Az stm modelleket az R-ben az \texttt{stm} csomaggal tudjuk kivitelezni.
 A csomag fejlesztői között van a módszer kidolgozója is, ami nem ritka
 az R csomagok esetében.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(stm)}
-\end{Highlighting}
-\end{Shaded}
 
 A lenti lépésekben a csomag dokumentációjában szereplő ajánlásokat
 követjük, habár a könyv írásakor a \texttt{stm} már képes volt a
@@ -2658,7 +3534,8 @@ témákból épülnek fel.
 \NormalTok{out}\SpecialCharTok{$}\NormalTok{meta}\SpecialCharTok{$}\NormalTok{electoral\_cycle }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(out}\SpecialCharTok{$}\NormalTok{meta}\SpecialCharTok{$}\NormalTok{electoral\_cycle)}
 \NormalTok{out}\SpecialCharTok{$}\NormalTok{meta}\SpecialCharTok{$}\NormalTok{majortopic }\OtherTok{\textless{}{-}} \FunctionTok{as.factor}\NormalTok{(out}\SpecialCharTok{$}\NormalTok{meta}\SpecialCharTok{$}\NormalTok{majortopic)}
 
-\NormalTok{cov\_estimate }\OtherTok{\textless{}{-}} \FunctionTok{estimateEffect}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10} \SpecialCharTok{\textasciitilde{}}\NormalTok{ majortopic }\SpecialCharTok{+}\NormalTok{ electoral\_cycle, stm\_fit, }\AttributeTok{meta =}\NormalTok{ out}\SpecialCharTok{$}\NormalTok{meta, }\AttributeTok{uncertainty =} \StringTok{"Global"}\NormalTok{)}
+\NormalTok{cov\_estimate }\OtherTok{\textless{}{-}} \FunctionTok{estimateEffect}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10} \SpecialCharTok{\textasciitilde{}}\NormalTok{ majortopic }\SpecialCharTok{+}\NormalTok{ electoral\_cycle, stm\_fit, }\AttributeTok{meta =}\NormalTok{ out}\SpecialCharTok{$}\NormalTok{meta, }
+    \AttributeTok{uncertainty =} \StringTok{"Global"}\NormalTok{)}
 
 \FunctionTok{summary}\NormalTok{(cov\_estimate, }\AttributeTok{topics =} \DecValTok{1}\NormalTok{)}
 \CommentTok{\#\textgreater{} }
@@ -2708,9 +3585,12 @@ mutatjuk be.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-
 \NormalTok{tidy\_stm }\OtherTok{\textless{}{-}} \FunctionTok{tidy}\NormalTok{(stm\_fit)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{Shaded}
+\begin{Highlighting}[]
 \NormalTok{tidy\_stm }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{group\_by}\NormalTok{(topic) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{top\_n}\NormalTok{(}\DecValTok{5}\NormalTok{, beta) }\SpecialCharTok{\%\textgreater{}\%}
@@ -2726,19 +3606,25 @@ mutatjuk be.
   \FunctionTok{scale\_x\_reordered}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
     \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{,}
-    \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(beta),}
-    \AttributeTok{title =} \StringTok{"Topikonkénti legmagasabb valószínuségu szavak"}
+    \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(beta)}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-96-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-120-1} 
+
+}
+
+\caption{Topikonkénti legmagasabb valószínuségu szavak}\label{fig:unnamed-chunk-120}
+\end{figure}
 
 Egy-egy topichoz tartozó meghatározó szavak annak függvényében
 változhatnak hogy milyen algoritmust használunk. A
 \texttt{labelTopics()} a már becsült stm modellünket alapul véve kínál 4
 féle alternatív opciót. Az egyes algoritmusok részletes magyarázatáért
-érdemes elolvasni a csomag részletes leírását.\footnote{Az `stm`
+érdemes elolvasni a csomag részletes leírását.\footnote{Az \texttt{stm}
   csomaghoz tartozó leírás:
   \url{https://cran.r-project.org/web/packages/stm/vignettes/stmVignette.pdf}}
 
@@ -2759,33 +3645,45 @@ féle alternatív opciót. Az egyes algoritmusok részletes magyarázatáért
 \end{Shaded}
 
 A korpuszunkon belüli témák megoszlását a \texttt{plot.STM()}-el tudjuk
-ábrázolni. Jól látszik hogy a Topic 2-be tartozó szavak vannak jelen a
+ábrázolni. Jól látszik hogy a Topic 6-ba tartozó szavak vannak jelen a
 legnagyobb arányban a dokumentumaink között.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{plot.STM}\NormalTok{(stm\_fit, }\StringTok{"summary"}\NormalTok{)}
+\FunctionTok{plot.STM}\NormalTok{(stm\_fit, }\StringTok{"summary"}\NormalTok{, }\AttributeTok{main =} \StringTok{""}\NormalTok{, }\AttributeTok{labeltype =} \StringTok{"frex"}\NormalTok{, }\AttributeTok{xlab =} \StringTok{"Várható topic arányok"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-98-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-122-1} 
+
+}
+
+\caption{Leggyakoribb témák és kifejezések}\label{fig:unnamed-chunk-122}
+\end{figure}
 
 Végezetül, a témák közötti korrelációt a \texttt{topicCorr} függvénnyel
 becsülhetjük és az \texttt{igraph} csomagot betöltve a \texttt{plot()}
 paranccsal tudjuk vizualizálni. Az eredmény egy hálózat lesz amit
 gráfként ábrázolunk. Az élei a gráfoknak a témák közötti összefüggést
-jelölik.
+(korrelációt) jelölik.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-
-\FunctionTok{library}\NormalTok{(igraph)}
 
 \FunctionTok{plot}\NormalTok{(}\FunctionTok{topicCorr}\NormalTok{(stm\_fit))}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-99-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-123-1} 
+
+}
+
+\caption{Témák közötti korreláció hálózat}\label{fig:unnamed-chunk-123}
+\end{figure}
 
 \hypertarget{szuxf3beuxe1gyazuxe1sok}{%
 \chapter{Szóbeágyazások}\label{szuxf3beuxe1gyazuxe1sok}}
@@ -2958,7 +3856,8 @@ függvényében súlyozzuk a tokeneket.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{mn\_fcm }\OtherTok{\textless{}{-}} \FunctionTok{fcm}\NormalTok{(mn\_tokens, }\AttributeTok{context =} \StringTok{"window"}\NormalTok{, }\AttributeTok{count =} \StringTok{"weighted"}\NormalTok{, }\AttributeTok{weights =} \DecValTok{1} \SpecialCharTok{/}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{), }\AttributeTok{tri =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{mn\_fcm }\OtherTok{\textless{}{-}} \FunctionTok{fcm}\NormalTok{(mn\_tokens, }\AttributeTok{context =} \StringTok{"window"}\NormalTok{, }\AttributeTok{count =} \StringTok{"weighted"}\NormalTok{, }\AttributeTok{weights =} \DecValTok{1}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{), }
+    \AttributeTok{tri =} \ConstantTok{TRUE}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -2989,16 +3888,16 @@ milliós korpusz esetén több óra is lehet a tanítás.
 \NormalTok{glove }\OtherTok{\textless{}{-}}\NormalTok{ GlobalVectors}\SpecialCharTok{$}\FunctionTok{new}\NormalTok{(}\AttributeTok{rank =} \DecValTok{300}\NormalTok{, }\AttributeTok{x\_max =} \DecValTok{10}\NormalTok{, }\AttributeTok{learning\_rate =} \FloatTok{0.1}\NormalTok{)}
 
 \NormalTok{mn\_main }\OtherTok{\textless{}{-}}\NormalTok{ glove}\SpecialCharTok{$}\FunctionTok{fit\_transform}\NormalTok{(mn\_fcm, }\AttributeTok{n\_iter =} \DecValTok{10}\NormalTok{, }\AttributeTok{convergence\_tol =} \FloatTok{0.01}\NormalTok{)}
-\CommentTok{\#\textgreater{} INFO  [01:43:22.065] epoch 1, loss 0.2292 }
-\CommentTok{\#\textgreater{} INFO  [01:43:57.686] epoch 2, loss 0.0964 }
-\CommentTok{\#\textgreater{} INFO  [01:44:33.274] epoch 3, loss 0.0704 }
-\CommentTok{\#\textgreater{} INFO  [01:45:08.847] epoch 4, loss 0.0492 }
-\CommentTok{\#\textgreater{} INFO  [01:45:44.427] epoch 5, loss 0.0412 }
-\CommentTok{\#\textgreater{} INFO  [01:46:20.005] epoch 6, loss 0.0361 }
-\CommentTok{\#\textgreater{} INFO  [01:46:55.623] epoch 7, loss 0.0325 }
-\CommentTok{\#\textgreater{} INFO  [01:47:31.203] epoch 8, loss 0.0297 }
-\CommentTok{\#\textgreater{} INFO  [01:48:06.762] epoch 9, loss 0.0274 }
-\CommentTok{\#\textgreater{} INFO  [01:48:42.381] epoch 10, loss 0.0255}
+\CommentTok{\#\textgreater{} INFO  [23:53:28.253] epoch 1, loss 0.2292 }
+\CommentTok{\#\textgreater{} INFO  [23:54:07.218] epoch 2, loss 0.0964 }
+\CommentTok{\#\textgreater{} INFO  [23:54:46.312] epoch 3, loss 0.0704 }
+\CommentTok{\#\textgreater{} INFO  [23:55:26.291] epoch 4, loss 0.0492 }
+\CommentTok{\#\textgreater{} INFO  [23:56:05.292] epoch 5, loss 0.0412 }
+\CommentTok{\#\textgreater{} INFO  [23:56:44.243] epoch 6, loss 0.0361 }
+\CommentTok{\#\textgreater{} INFO  [23:57:23.192] epoch 7, loss 0.0325 }
+\CommentTok{\#\textgreater{} INFO  [23:58:01.978] epoch 8, loss 0.0297 }
+\CommentTok{\#\textgreater{} INFO  [23:58:40.766] epoch 9, loss 0.0274 }
+\CommentTok{\#\textgreater{} INFO  [23:59:19.837] epoch 10, loss 0.0255}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3028,7 +3927,7 @@ hogy a legközelebbi szavak a politikához kapcsolódnak.
 
 \FunctionTok{head}\NormalTok{(}\FunctionTok{sort}\NormalTok{(cos\_sim\_rom[, }\DecValTok{1}\NormalTok{], }\AttributeTok{decreasing =} \ConstantTok{TRUE}\NormalTok{), }\DecValTok{5}\NormalTok{)}
 \CommentTok{\#\textgreater{} polgármester        mszps  szocialista     fideszes       györgy }
-\CommentTok{\#\textgreater{}    1.0000000    0.5334754    0.4883677    0.4842430    0.4762200}
+\CommentTok{\#\textgreater{}    1.0000000    0.5334563    0.4882599    0.4842427    0.4763790}
 \end{Highlighting}
 \end{Shaded}
 
@@ -3057,13 +3956,13 @@ Példaként a ``barack'' nem gyümölcsöket fog adni, hanem az Egyesült
 \CommentTok{\#\textgreater{} \# A tibble: 10 x 2}
 \CommentTok{\#\textgreater{}    term          dist}
 \CommentTok{\#\textgreater{}    \textless{}chr\textgreater{}        \textless{}dbl\textgreater{}}
-\CommentTok{\#\textgreater{}  1 barack       1    }
+\CommentTok{\#\textgreater{}  1 barack       1.   }
 \CommentTok{\#\textgreater{}  2 obama        0.727}
 \CommentTok{\#\textgreater{}  3 elnök        0.431}
 \CommentTok{\#\textgreater{}  4 amerikai     0.375}
 \CommentTok{\#\textgreater{}  5 demokrata    0.303}
-\CommentTok{\#\textgreater{}  6 bush         0.274}
-\CommentTok{\#\textgreater{}  7 elnököt      0.267}
+\CommentTok{\#\textgreater{}  6 bush         0.275}
+\CommentTok{\#\textgreater{}  7 elnököt      0.268}
 \CommentTok{\#\textgreater{}  8 republikánus 0.267}
 \CommentTok{\#\textgreater{}  9 köztársasági 0.259}
 \CommentTok{\#\textgreater{} 10 egyesült     0.247}
@@ -3078,15 +3977,15 @@ Ugyanez működik magyar vezetőkkel is.
 \CommentTok{\#\textgreater{} \# A tibble: 10 x 2}
 \CommentTok{\#\textgreater{}    term            dist}
 \CommentTok{\#\textgreater{}    \textless{}chr\textgreater{}          \textless{}dbl\textgreater{}}
-\CommentTok{\#\textgreater{}  1 orbán          1.00 }
+\CommentTok{\#\textgreater{}  1 orbán          1    }
 \CommentTok{\#\textgreater{}  2 viktor         0.935}
 \CommentTok{\#\textgreater{}  3 miniszterelnök 0.734}
-\CommentTok{\#\textgreater{}  4 mondta         0.680}
+\CommentTok{\#\textgreater{}  4 mondta         0.679}
 \CommentTok{\#\textgreater{}  5 kormányfo      0.672}
 \CommentTok{\#\textgreater{}  6 hangsúlyozta   0.661}
 \CommentTok{\#\textgreater{}  7 fidesz         0.638}
 \CommentTok{\#\textgreater{}  8 fogalmazott    0.627}
-\CommentTok{\#\textgreater{}  9 jelentette     0.621}
+\CommentTok{\#\textgreater{}  9 jelentette     0.620}
 \CommentTok{\#\textgreater{} 10 beszélt        0.604}
 \end{Highlighting}
 \end{Shaded}
@@ -3094,6 +3993,37 @@ Ugyanez működik magyar vezetőkkel is.
 \hypertarget{szuxf6vegskuxe1luxe1zuxe1s-feluxfcgyelet-nuxe9lkuxfcli-uxe9s-feluxfcgyelt-megolduxe1sok}{%
 \chapter{Szövegskálázás: felügyelet nélküli és felügyelt
 megoldások}\label{szuxf6vegskuxe1luxe1zuxe1s-feluxfcgyelet-nuxe9lkuxfcli-uxe9s-feluxfcgyelt-megolduxe1sok}}
+
+A szövegskálázás célja a politikai szereplők elhelyezése az ideológiai
+térben. Ennek felügyelt tipusa a \texttt{wordscores}, amely a szótári
+módszerekhez hasonlóan a szereplőket szavaik alapján helyezi el a
+politikai térben, úgy hogy az ún.referencia dokumentumok szövegét
+használja tanító halmazként. A \texttt{wordscores} kiindulópontja, hogy
+pozíció pontszámokat kell rendelni referencia szövegekhez. A modell
+számításba veszi szövegek szavainak súlyozott gyakoriságát és a
+pozíciópontszám valamint a szógyakoriság alapján becsülni meg a
+korpuszban lévő többi dokumentum pozícióját.
+(\protect\hyperlink{ref-laver2003extracting}{Laver, Benoit, and Garry
+2003}). A felügyelet nélküli \texttt{wordfish} módszer a skálázás során
+nem a referencia dokumentumokra támaszkodik, hanem olyan kifejezéseket
+keres a szövegben, amelyek megkülönböztetik egymástól a politikai
+spektrum különböző pontjain elhelyezkedő beszélőket. Az IRT-n (item
+response theory) alapuló módszer azt feltételezi, hogy a politikusok egy
+kevés dimenziós politikai térben mozognak, amely tér leírható az
+\emph{i} politikus \(\theta\) \textsubscript{1} paraméterével. Egy
+politikus (vagy párt) ezen a téren elfoglalt helyzete pedig befolyásolja
+a szavak szövegekben történő használatát. A módszer erőssége, hogy kevés
+erőforrás-befektetéssel megbízható becsléseket ad, ha a szövegek valóban
+az ideológiák mentén különböznek, tehát ha a szereplők erősen ideológiai
+tartalamú diskurzust folytatnak. Alkalmazásakor azonban tudnunk kell,
+hogy a módszer nem képes kezelni, hogy a szövegek között nem csak
+ideológiai különbség lehet. Mivel a modell nem felügyelt, ezért nehéz
+garantálni, hogy valóban megbízhatóan azonosítja a szereplők
+elhelyezkedését a politikai térben, így az eredményeket mindenképpen
+körültekintően kell validálni.
+{[}(\protect\hyperlink{ref-slapin2008}{\textbf{slapin2008?}});
+(\protect\hyperlink{ref-hjorth2015}{\textbf{hjorth2015?}});
+(\protect\hyperlink{ref-grimmer2013text}{Grimmer and Stewart 2013a}){]}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3108,9 +4038,9 @@ megoldások}\label{szuxf6vegskuxe1luxe1zuxe1s-feluxfcgyelet-nuxe9lkuxfcli-uxe9s-
 
 A skálázási algoritmusokat egy kicsi korpuszon fogjuk bemutatni. A minta
 dokumentumok a 2014-2018 parlamenti ciklusban frakcióvezető politikusok
-egy-egy véletlenszerűen kiválasztott napirend előtti felszólalása.
-Összes a ciklusban 11 frakcióvezetője volt a két kormánypárti és öt
-ellenzéki frakciónak.\footnote{A mintába nem került be Rogán Antal,
+egy-egy véletlenszerűen kiválasztott napirend előtti felszólalásai.
+Ebben a ciklusban összesen 11 frakcióvezetője volt a két kormánypárti és
+öt ellenzéki frakciónak.\footnote{A mintába nem került be Rogán Antal,
   akinek csak egy darab napirend előtti felszólalása volt.} A
 dokumentumokon a rutin előkészítési lépéseket végezzük csak el
 (tördelések, számok, központozás kitörlése, kisbetűsítés). Természetesen
@@ -3342,7 +4272,14 @@ szavakat (magas \(\beta\), alacsony \(\psi\)).
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-116-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-140-1} 
+
+}
+
+\caption{A Wordfish 'Eiffel-torony'}\label{fig:unnamed-chunk-140}
+\end{figure}
 
 A dokumentumok szintjén is érdemes megvizsgálni az eredményeket. Ehhez a
 dokumentum szintű paramétereket fogjuk egy data framebe gyűjteni: a
@@ -3364,7 +4301,11 @@ is ábrázoljuk.
     \AttributeTok{lower =}\NormalTok{ theta }\SpecialCharTok{{-}} \FloatTok{1.96} \SpecialCharTok{*}\NormalTok{ theta\_se,}
     \AttributeTok{upper =}\NormalTok{ theta }\SpecialCharTok{+} \FloatTok{1.96} \SpecialCharTok{*}\NormalTok{ theta\_se}
 \NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{Shaded}
+\begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(dokumentumok\_wf, }\FunctionTok{aes}\NormalTok{(theta, }\FunctionTok{reorder}\NormalTok{(speaker, theta))) }\SpecialCharTok{+}
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{geom\_errorbarh}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{xmin =}\NormalTok{ lower, }\AttributeTok{xmax =}\NormalTok{ upper), }\AttributeTok{height =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{+}
@@ -3375,11 +4316,19 @@ is ábrázoljuk.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-117-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-142-1} 
+
+}
+
+\caption{A Wordfish skála eredménye}\label{fig:unnamed-chunk-142}
+\end{figure}
 
 A párt metaadattal összehasonlíthatjuk az egy párthoz tartozó
 frakcióvezetők értékeit a \texttt{facet\_wrap()} használatával.
-Figzeljünk arra hogy az \texttt{y} tengelyen szabadon
+Figyeljünk arra hogy az \texttt{y} tengely skáláját szabadon hagyjuk a
+\texttt{scales} opcióval.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3394,14 +4343,20 @@ Figzeljünk arra hogy az \texttt{y} tengelyen szabadon
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-118-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-143-1} 
+
+}
+
+\caption{Párton belüli pozíciók}\label{fig:unnamed-chunk-143}
+\end{figure}
 
 \hypertarget{wordscores}{%
 \section{Wordscores}\label{wordscores}}
 
-A wordscores egy felügyelt gépi tanulásos skálázási algoritmus, ahol a a
-referencia dokumentumok szövege a tanító halmaz. A modell illesztést a
-wordfish-ez hasonlóan a \texttt{quanteda.textmodels} csomagban található
+A modell illesztést a wordfish-ez hasonlóan a
+\texttt{quanteda.textmodels} csomagban található
 \texttt{textmodel\_wordscores()} függvény végzi. A kiinduló dfm ugyanaz
 mint amit a fejezet elején elkészítettünk, a \texttt{beszedek\_dfm}.
 
@@ -3569,12 +4524,562 @@ A lenti példánál a párton belüli bontást illusztráljuk, a
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-123-1} \end{center}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-148-1} 
+
+}
+
+\caption{Wordscore skálázás eredménye}\label{fig:unnamed-chunk-148}
+\end{figure}
 
 \hypertarget{szuxf6veguxf6sszehasonluxedtuxe1s}{%
 \chapter{Szövegösszehasonlítás}\label{szuxf6veguxf6sszehasonluxedtuxe1s}}
 
-tizedik fejezet
+\hypertarget{jaccard-hasonluxf3suxe1g-szuxe1muxedtuxe1s}{%
+\section{Jaccard hasonlóság
+számítás}\label{jaccard-hasonluxf3suxe1g-szuxe1muxedtuxe1s}}
+
+\hypertarget{adatbuxe1zis-elux151kuxe9szuxedtuxe9s}{%
+\subsection{Adatbázis
+előkészítés}\label{adatbuxe1zis-elux151kuxe9szuxedtuxe9s}}
+
+Az elemzés megkezdése előtt a már ismert módon betöltjük a szükséges
+csomagokat: \texttt{readr}, \texttt{stringr}, \texttt{dplyr},
+\texttt{quanteda}, \texttt{readtext}, \texttt{ggplot2}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\FunctionTok{library}\NormalTok{(readr)}
+\FunctionTok{library}\NormalTok{(stringr)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+\FunctionTok{library}\NormalTok{(quanteda)}
+\FunctionTok{library}\NormalTok{(readtext)}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+Ezt követően betöltjük azokat az adatbázisokat, amelyeken a
+szövegösszehasonlítást fogjuk végezni: az elfogadott törvények szövegét
+tartalmazó korpuszt, a törvényjavaslatok szövegét tartalmazó korpuszt,
+valamint az ezek összekapcsolását segítő adatbázist, melyben az
+összetartozó törvényjavaslatok és törvények azonosítóját (id-ját)
+tároltuk el.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{torvenyek }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/adopted\_law\_corpus2.csv"}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(torvenyek)}
+\FunctionTok{dim}\NormalTok{(torvenyek)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tv\_javaslatok }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/draft\_corpus2.csv"}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tv\_javaslatok)}
+\FunctionTok{dim}\NormalTok{(tv\_javaslatok)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{parok }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{\textquotesingle{}data/matching2.csv\textquotesingle{}}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(parok)}
+\FunctionTok{dim}\NormalTok{(parok)   }
+\end{Highlighting}
+\end{Shaded}
+
+Miután betöltöttük a három CSV-t a \texttt{colnames()} oszloppal
+megtekinthetjük, hogy milyen változók vannak az egyes oszlopokban.
+(Szövegkorpuszoknál érdemesebb az oszlopok neveit lekérni, semmint a
+\texttt{head()} függvénnyel megjeleníteni az első néhány sort, hiszen
+ekkora menyniségű szöveg kiírása meglehetősen lelassítja az RStudio-t.)
+Az oszlopnevekből láthatjuk, hogy a \texttt{tv\_id} és a
+\texttt{tvjav\_id} segítségével tudjuk majd párosítani az összetartozó
+törvényjavaslatok és törvények szövegeit. Ezen túl érdemes azt is
+észrevenni, hogy a sorok száma az egyes adatbázisokban nem egyezik,
+vagyis lesznek olyan törvények, amelyekhez nem fogunk tudni
+törvényjavaslatot rendelni, így az adattisztítás során a hiányzó értékek
+kezelésére is figyelmet kell majd fordítanunk.
+
+A következő lépés az adatbázisok összekapcsolása lesz, melyet a
+left\_join() függvénnyel teszünk meg, ahogy az a 9. fejezetben is
+bemutatásra került. Elsőként a törvényeket tartalmazó adatbázishoz
+kapcsoljuk hozzá a törvény -- törvényjavaslat párokat tartalmazó
+adatbázist a törvények azonosítója (\texttt{tv\_id}) alapján. A
+\texttt{colnames()} függvény használatával ellenőrizhetjük, hogy sikeres
+volt-e a művelet, és az új táblában szerepelnek-e a kívánt oszlopok.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tv\_joined\_draft\_id }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(torvenyek, parok, }\AttributeTok{by =} \StringTok{"tv\_id"}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tv\_joined\_draft\_id)}
+\FunctionTok{dim}\NormalTok{(tv\_joined\_draft\_id)}
+\end{Highlighting}
+\end{Shaded}
+
+Második lépésben a törvényjavaslatokat tartalmazó adatbázist rendeljük
+hozzá az előzőekben már összekapcsolt két adatbázishoz.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tv\_tvjav\_teljes }\OtherTok{\textless{}{-}} \FunctionTok{left\_join}\NormalTok{(tv\_joined\_draft\_id, tv\_javaslatok, }\AttributeTok{by =} \StringTok{"tvjav\_id"}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(tv\_tvjav\_teljes)}
+\FunctionTok{dim}\NormalTok{(tv\_tvjav\_teljes)}
+\end{Highlighting}
+\end{Shaded}
+
+Ha jól végeztük a dolgunkat az adatbázisok összekapcsolása során, az
+eljárás végére 6 oszlopunk és 3706 sorunk van, vagyis az újonnan
+létrehozott adatbázisba bekerült az összes változó (oszlop), amely az
+elemzés megkezdésekor rendelkezésre álló három adattáblában előfordult,
+a sorok száma pedig megegyezik a rendelkezésre álló legnagyobb adatbázis
+sorainak számával.
+
+Az korpuszaink egy adattáblában való kezelése azért hasznos, mert így
+nem kell párhuzamosan elvágezni az azonos műveleteket a két korpusz, a
+törvények és a törvényjavaslatok tisztításához, hanem párhuzamosan
+tudunk dolgozni a kettővel.
+
+Következő lépésben érdemes ellenőrizni a hiányzó adatokat, vagy is az
+\texttt{NA} értékeket. Minket elsősorban az érdekel, hogy melyek azok a
+törvények, amelyekhez nincs meg a törvényjavaslat. Ezt a
+\texttt{which(is.na())} függvénnyel tudjuk ellenőrizni. A függvény
+argumentuma ebben az esetben az adatbázis törvényjavaslatok szövegeit
+tartalmazó oszlopa lesz, vagyis
+\texttt{tv\_tvjav\_teljes\$tvjav\_szoveg}. A \texttt{which(is.na())}
+függvény értékének hosszának meghatározásával \texttt{length()}
+megkapjuk azt is, hogy hány hiányzó értékünk van.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{length}\NormalTok{(}\FunctionTok{which}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(tv\_tvjav\_teljes}\SpecialCharTok{$}\NormalTok{tvjav\_szoveg))) }
+\end{Highlighting}
+\end{Shaded}
+
+A 3706 sorból összesen 229 helyen hiányzik a törvényjavaslatok szövege.
+Ezeket nem fogjuk tudni hasznosítani az elemzésünk során, emiatt ezeket
+kiszelektáljuk az adatbázisból. Ezet tisztítást legegyszerűebben úgy
+tudjuk megtenni, hogy a nem NA értékű sorokra szűrűnk az adatbázisban. A
+szűrést a már ismert (??) szintax alapján szögletes zárójelben megadott
+oszlop és sor azonosítókkal fogjuk megtenni, a negációt pedig a
+felkiáltó jel fogja kifejezni: \texttt{!is.na()}). Az
+\texttt{!is.na(tv\_tvjav\_teljes\$tvjav\_szoveg)} tehát azt fogja
+kifejezni, hogy az adatbázis \texttt{tvjav\_szoveg} oszlopa alapján
+azokat az adatbázisokat vegyük ki, amelyeknek az értéke nem \texttt{NA},
+majd a létrehozott új adatbázist elmentjük egy (az előzővel azonos nevű)
+objektumba (így felül is írjuk azt), és az új tv\_tvjav\_teljes
+adatbázis már csak azokat a sorokat fogja tartalmazni, amelyekben a
+\texttt{tvjav\_id} értéke nem \texttt{NA}. A \texttt{dim()} függvény
+segítségével pedig megtekinthetjük az új adatbázisunk sorainak és
+oszlopainak számát: a megszűrt adatbázisban már csak 3477 megfigyelés
+van.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tv\_tvjav\_teljes}\OtherTok{\textless{}{-}}\NormalTok{  tv\_tvjav\_teljes[}\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(tv\_tvjav\_teljes}\SpecialCharTok{$}\NormalTok{tvjav\_szoveg),]}
+\FunctionTok{dim}\NormalTok{(tv\_tvjav\_teljes)}
+\end{Highlighting}
+\end{Shaded}
+
+Érdmes még azt is ellenőrizni, maradtak-e az adatbázisunk más
+oszlopaiban hiányzó értékek a törvényjavaslatok szövegeire való szűrés
+után.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{which}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(tv\_tvjav\_teljes)) }
+\end{Highlighting}
+\end{Shaded}
+
+Az ellenőrzés alapján láthatjuk, hogy nincs több hiányzó érték az
+adatbázisunkban, így elkezdhetjük a szövegek elemzéshez való
+előkészítését. Még mielőtt azonban ebbe belekezdünk érdemes kiválasztani
+egy kisebb részegységét az adatbázisnak, amelyen majd a dokumentum
+hasonlóság elemzést szeretnénk végezni, mivel a művelet meglehetősen
+számítás igényes, így érdemes már a szövegtisztítás lépéseit is csak
+arra a részegységre elvégezni, amelyre a későbbiek folyamán a hasonlóság
+elemzést is szeretnénk elvégezni, ezzel jelentősen felgyorsíthatjuk a
+szövegtisztítás lépéseit is. Az itt bemutatott elemzés során a
+2010-2014-es és 2014-2018-as kormányzati ciklus során elfogadott
+törvényekre szűkítjük a vizsgálat fókuszát.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tv\_tvjav\_10\_18 }\OtherTok{\textless{}{-}}\NormalTok{ tv\_tvjav\_teljes }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}
+\NormalTok{    korm\_ciklus }\SpecialCharTok{==} \StringTok{\textquotesingle{}2010{-}2014\textquotesingle{}} \SpecialCharTok{|}\NormalTok{ korm\_ciklus }\SpecialCharTok{==} \StringTok{\textquotesingle{}2014{-}2018\textquotesingle{}}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tv\_tvjav\_98\_14 }\OtherTok{\textless{}{-}}\NormalTok{ tv\_tvjav\_teljes }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{filter}\NormalTok{(}
+\NormalTok{    korm\_ciklus }\SpecialCharTok{==} \StringTok{\textquotesingle{}1998{-}2002\textquotesingle{}} \SpecialCharTok{|}\NormalTok{ korm\_ciklus }\SpecialCharTok{==} \StringTok{\textquotesingle{}2014{-}2018\textquotesingle{}}
+\NormalTok{  )}
+
+\FunctionTok{dim}\NormalTok{(tv\_tvjav\_98\_14)}
+\end{Highlighting}
+\end{Shaded}
+
+A létrehozott kisebb adatbázis ellenőrzésének céljából érdemes megnézni,
+melyik évek kerültek be az új táblázatba, és, hogy az egyes évekre
+vonatkozóan hány megfigyeléssel rendelkezünk. Ezt a pipe operátor és
+\texttt{count()} függvény alkalmazásával tudjuk megtenni.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dim}\NormalTok{(tv\_tvjav\_98\_14)}
+\NormalTok{tv\_tvjav\_98\_14 }\SpecialCharTok{\%\textgreater{}\%}\FunctionTok{count}\NormalTok{(év)}
+\end{Highlighting}
+\end{Shaded}
+
+Az összesítésből látható, hogy összesen 9 évre vannak megfigyeléseink,
+azonban a 2018-as évre mindössze 4, amit az eredményeink értékelésénél
+majd érdemes figyelembe venni.
+
+\hypertarget{szuxf6vegtisztuxedtuxe1s}{%
+\subsection{Szövegtisztítás}\label{szuxf6vegtisztuxedtuxe1s}}
+
+A szövegek tisztítást a 9. fejezetben már ismertetett lépésekhez nagyon
+hasonló módon fogjuk elvégezni. Mivel azonban itt két különböző
+korpusszal dolgozunk - két oszlopnyi szöveggel - egyszerűbb, ha a
+szövegtisztítás lépéseiből létrehozunk egy külön függvényt, amely
+magában foglalja a művelet egyes lépéseit, és lehetővé teszi, hogy ne
+kelljen minden szövegtisztítási lépést külön definiálni az egyes
+korpuszok esetén.
+
+A függvény neve jelen esetben \texttt{szovegtisztitas} lesz, és a már
+ismert lépéseket foglalja magában: kontrol karakterek (white spaces)
+szóközzé alakítása, központozás és számok eltávolítása. Kisbetűsítés,
+ismétlődő és a stringek előtt található szóközök eltávolítása. Továbbá a
+\texttt{str\_remove\_all()} függvénnyel eltávolítjuk azokat az
+írásjeleket, amelyek előfordulnak a szövegben, de számunkra nem
+hasznosak.
+
+{[}Érdemes itt bővebben értekezni a függvény szintaxisáról?{]}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+
+\NormalTok{szovegtisztitas }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(text) \{}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_replace}\NormalTok{(text, }\StringTok{"[:cntrl:]"}\NormalTok{, }\StringTok{\textquotesingle{} \textquotesingle{}}\NormalTok{)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:punct:]"}\NormalTok{)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"[:digit:]"}\NormalTok{)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_to\_lower}\NormalTok{(text)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_trim}\NormalTok{(text)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_squish}\NormalTok{(text)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"’"}\NormalTok{)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"…"}\NormalTok{)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"–"}\NormalTok{)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"“"}\NormalTok{)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"”"}\NormalTok{)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"„"}\NormalTok{)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"«"}\NormalTok{)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"»"}\NormalTok{)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"§"}\NormalTok{)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"°"}\NormalTok{)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"\textless{}U+25A1\textgreater{}"}\NormalTok{)}
+\NormalTok{  text }\OtherTok{=} \FunctionTok{str\_remove\_all}\NormalTok{(}\AttributeTok{string =}\NormalTok{ text, }\AttributeTok{pattern =} \StringTok{"@"}\NormalTok{)}
+  \FunctionTok{return}\NormalTok{(text)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Miután létrehoztuk a szövegtisztításra alkalmas függvényünket, azt az
+adatbázis két oszlopára fogjuk alkalmazni: a törvények szövegét és
+törvényjavaslatok szövegét tartalmazó oszlopra. A \texttt{lapply()}
+függvény segítségével fogjuk a függvényt a kiválasztott oszlopokra
+alkalmazni, így a \texttt{lapply()} függvényen belül megadjuk az
+adatbázist, és ennek vonatkozó részeire való hivatkozást
+\texttt{tv\_tvjav\_10\_18{[}\ ,c(\textquotesingle{}torveny\_szoveg\textquotesingle{},\textquotesingle{}tvjav\_szoveg\textquotesingle{}){]}},
+melyekre alkalmazni szeretnénk a függvényt. Az alkalmazni kívánt
+függvényt a \texttt{FUN} argumanetumaként adhatjuk meg - értelemszerűen,
+ez esetünkben az előzőekben létrehozott \texttt{szovegtisztitas}
+függvény lesz. Végezetül pedig a fügvényünk által megtisztított új
+oszlopokkal felülírjuk az előző adatbázisunk vonatkozó oszlopait, vagyis
+a \texttt{torveny\_szoveg} és a \texttt{tvjav\_szoveg} oszlopokat
+(\texttt{tv\_tvjav\_10\_18{[},\ c(\textquotesingle{}torveny\_szoveg\textquotesingle{},\textquotesingle{}tvjav\_szoveg\textquotesingle{}){]}\ \textless{}-}).\footnote{A
+  szemfülesebbek észrevehették, hogy a lapply() függvény még egy külön
+  unlist() függvénybe kerül bele. Ennek oka, hogy a lapply() függvény
+  értékeként visszadatt elemek mindegyike külön listába kerül, ezáltal
+  nem lesz hozzárendelhető a már létező adatbázisunkhoz, ezeket a
+  listákat tehát ``ki kell bontani'' ahhoz, hogy felül tudjuk írni a már
+  létező oszlopainkat a megtisztított oszlopok értékeivel.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tv\_tvjav\_10\_18[, }\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}torveny\_szoveg\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}tvjav\_szoveg\textquotesingle{}}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{unlist}\NormalTok{(}\FunctionTok{lapply}\NormalTok{(tv\_tvjav\_10\_18[ ,}\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}torveny\_szoveg\textquotesingle{}}\NormalTok{,}\StringTok{\textquotesingle{}tvjav\_szoveg\textquotesingle{}}\NormalTok{)], }\AttributeTok{FUN =}\NormalTok{ szovegtisztitas))}
+\end{Highlighting}
+\end{Shaded}
+
+A szövegtisztítás következő lépése a stop szavak meghatározása és
+kiszűrése a szövegből. Itt a 9. fejezetben meghatározott speciális jogi
+stopszavak listáját használjuk, valamint a \texttt{quanteda} csomagban
+elérhető magyar nyelvű stopszavakat.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{legal\_stopwords }\OtherTok{\textless{}{-}} \FunctionTok{readtext}\NormalTok{(}\StringTok{"data/legal\_stopwords3.csv"}\NormalTok{, }\AttributeTok{encoding =} \StringTok{\textquotesingle{}UTF8\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pull}\NormalTok{(text)}
+\end{Highlighting}
+\end{Shaded}
+
+A stopszavak beimportálását követően érdemes korpusszá alakítani a
+szövegeinket, és tokenizálni azokat. Ezt már külön-külön végezzük el a
+törvények és törvényjavaslatok szövegeire, azonos lépéseket alkalmazva.A
+létrehozott objektumokat itt is ellenőrizhetjük pl. a
+\texttt{summary(torvenyek\_coprus)} paranccsal, vagy a
+\texttt{torvenyek\_tokens{[}1:3{]}} paranccsal, mely az első 3
+dokumentum tokenjeit fogja megmutatni.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{torvenyek\_corpus }\OtherTok{\textless{}{-}} \FunctionTok{corpus}\NormalTok{(tv\_tvjav\_98\_14}\SpecialCharTok{$}\NormalTok{torveny\_szoveg)}
+\NormalTok{tv\_javaslatok\_corpus }\OtherTok{\textless{}{-}} \FunctionTok{corpus}\NormalTok{(tv\_tvjav\_98\_14}\SpecialCharTok{$}\NormalTok{tvjav\_szoveg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{torvenyek\_tokens }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(torvenyek\_corpus) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(}\FunctionTok{stopwords}\NormalTok{(}\StringTok{"hungarian"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(custom\_stopwords) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_wordstem}\NormalTok{(}\AttributeTok{language =} \StringTok{"hun"}\NormalTok{)}
+
+\NormalTok{tv\_javaslatok\_tokens }\OtherTok{\textless{}{-}} \FunctionTok{tokens}\NormalTok{(tv\_javaslatok\_corpus) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(}\FunctionTok{stopwords}\NormalTok{(}\StringTok{"hungarian"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_remove}\NormalTok{(custom\_stopwords) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tokens\_wordstem}\NormalTok{(}\AttributeTok{language =} \StringTok{"hun"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+A szövegek tokenizálásával és a stopszavak eltávolításával a
+szövegtisztítás végére értünk, így megkezdhetjük az elemzést.
+
+\hypertarget{jaccard-hasonluxf3suxe1g-szuxe1muxedtuxe1s-1}{%
+\subsection{Jaccard hasonlóság
+számítás}\label{jaccard-hasonluxf3suxe1g-szuxe1muxedtuxe1s-1}}
+
+A Jaccard hasonlóság kiszámításához a \texttt{quanteda}
+\texttt{textstat\_simil()} függvényét fogjuk alkalmazni. Hogy jobban
+megértsük a jaccard hasonlóság számításának mechanizmusát, először
+érdemes egy kisebb mintán szemléltetni. Ehhez létrehozunk két,
+darabonként 2-2 dokumentumból álló korpuszt.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{korpusz1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+  \AttributeTok{d1.1 =} \StringTok{"Bemutatásra kerül a Jaccard hasonlóság"}\NormalTok{,}
+  \AttributeTok{d1.2 =} \StringTok{"A jaccard hasonlóság egy dokumentum hasonlósági metrika"}
+\NormalTok{  )}
+
+
+\NormalTok{korpusz2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}
+  \AttributeTok{d2.1 =} \StringTok{"A jaccard és a koszinusz távolság mérés is hasonlósági metrika"}\NormalTok{,}
+  \AttributeTok{d2.2 =} \StringTok{"A jaccard hasonlóság bemutatásra kerül"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+Ezt követően mindkét korpuszt dokumentum kifejezés mátrixszá alakítjuk.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pelda\_dfm }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(}
+\NormalTok{  text,}
+  \AttributeTok{tolower =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{stem =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{remove =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"hungarian"}\NormalTok{))}
+
+\NormalTok{pelda2\_dfm }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(}
+\NormalTok{  text2,}
+  \AttributeTok{tolower =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{stem =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{remove =} \FunctionTok{stopwords}\NormalTok{(}\StringTok{"hungarian"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+A két dokumentum kifejezés mátrixon pedig elvégezhetjük a dokumentum
+hasonlóság vizsgálatot. (A jaccard hasonlóság metrika, illetve quanteda
+\texttt{textstat\_simil()} függvénye alkalmazható egy korpuszra is. Egy
+korpuszra végezve az elemzést a korpusz dokumentumai közötti
+hasonlóságot számítja ki az függvény, míg két korpuszra mindkét korpusz
+összes dokumentuma közötti hasonlóságot. Érdemes továbbá azt is
+megjegyezni, hogy a \texttt{textstat\_simil()} method argumentumaként
+megadható számos más hasonlósági metrika, pl. a koszinusz hasonlóság
+(\texttt{method\ =\ \textquotesingle{}cosine\textquotesingle{}}),
+melyekkel számos további érdekes számítás végezhető. Bővebben a
+\texttt{textstat\_simil()} függény használatáról:
+\url{https://quanteda.io/reference/textstat_simil.html}.)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jaccard\_pelda }\OtherTok{=} \FunctionTok{textstat\_simil}\NormalTok{(pelda\_dfm, pelda2\_dfm, }\AttributeTok{method =} \StringTok{"jaccard"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Láthatjuk, hogy a d1.1 azonosítóval szereplő dokumentum és a d2.2
+dokumentum jaccard hasonlósága 1, vagyis teljesen megegyeznek a metrika
+szerint. Ennek oka, hogy a két mondat csupán a kifejezések sorrendjében
+tér el, melyre a jaccard hasonlóság nem érzékeny. A leginkább különböző
+dokumentumok ebben a példában a d1.1 és a d2.1, melyek kifejezései
+ránézésre is jelentősen eltérnek.
+
+A jaccard hasonlóság számítás módjának megismerését követően pedig
+térjünk vissza a törvények és törvényjavaslatok szövegében rejlő
+hasolóság feltárására! Ahogy a fenti példában is, itt is először
+dokumentum kifejezés mátrixot kell létrehozni a korpuszainkból.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{torvenyek\_dfm }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(torvenyek\_tokens)}
+\NormalTok{tv\_javaslatok\_dfm }\OtherTok{\textless{}{-}} \FunctionTok{dfm}\NormalTok{(tv\_javaslatok\_tokens) }
+\end{Highlighting}
+\end{Shaded}
+
+Miután létrehoztuk a dokumentum kifejezés mátrixokat, érdemes a
+leggyakoribb tokeneket ellenőrizni a \texttt{textstat\_frequency()}
+függvénnyel, hogy biztosak lehssünk benne, hogy a megfelelő eredményt
+értük el a szövegtisztítás során. (Amennyiben nem vagyunk elégedettek,
+érdemes visszatérni a stopszavakhoz és újabb kifejezezéseket
+hozzárendelni a stopszó listához).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tv\_toptokens }\OtherTok{\textless{}{-}} \FunctionTok{textstat\_frequency}\NormalTok{(torvenyek\_dfm, }\AttributeTok{n =} \DecValTok{20}\NormalTok{)}
+\NormalTok{tv\_toptokens}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tvjav\_toptokens }\OtherTok{\textless{}{-}} \FunctionTok{textstat\_frequency}\NormalTok{(tv\_javaslatok\_dfm, }\AttributeTok{n =} \DecValTok{20}\NormalTok{)}
+\NormalTok{tvjav\_toptokens}
+\end{Highlighting}
+\end{Shaded}
+
+A dokumentum kifejezés mátrixok alapján az előző példához hasonlóan
+kiszámítjuk a jaccard hasonlóságot. Kifejezés mátrixok is jelentősen
+nagyobbak, mint az mintaként bemutatott mondatok esetén, valamint a
+dikumentumok száma is sokszora az előző példában bemutatottnak, a
+számítás el fog tartani egy darabig).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{start\_time }\OtherTok{\textless{}{-}} \FunctionTok{Sys.time}\NormalTok{()}
+
+\NormalTok{jaccard\_hasonlosag }\OtherTok{=} \FunctionTok{textstat\_simil}\NormalTok{(torvenyek\_dfm, tv\_javaslatok\_dfm, }\AttributeTok{method =} \StringTok{"jaccard"}\NormalTok{) }
+
+\NormalTok{end\_time }\OtherTok{\textless{}{-}} \FunctionTok{Sys.time}\NormalTok{()}
+\NormalTok{end\_time }\SpecialCharTok{{-}}\NormalTok{ start\_time}
+\end{Highlighting}
+\end{Shaded}
+
+Mivel az eredménymátrixunk meglehetősen terjedelmes, nem tudjuk az
+egészet egyben megtekinteni, de megtekinthetjük az első 5 dokumentum
+közötti hasonlóságot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jaccard\_hasonlosag[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{, }\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+A mátrix fődiagonáljában jelennek meg az összetartozó törvényekre és
+törvényszövegek vonatkozó értékek, minden más érték nem összetartozó
+törvény és törvényjavaslat szövegek hasonlóságára vonatkozik, vagyis a
+vizsgálatunk szempontjából irreleváns. Ahhoz, hogy kinyerjük a számunkra
+értékes adatokat, vagyis a mátrix diagonálját, szükséges egy kis
+adattranszformációt végeznünk, a \texttt{jaccard\_hasonlosag} változóban
+eltárolt adat ugyanis egy \texttt{S4} típusú objektum, melyből nem
+tudjuk egyszerűen kinyerni a diagonált. Az \texttt{array()} függvénnyel
+fogjuk mátrixszá alakítani a \texttt{jaccard\_hasonlosag} \texttt{x}
+névre hallgató attribútumát(?){[}ez angolul slot elvileg{]}, melyben
+maguk a hasonlósági értékek vannak eltárolva
+\texttt{jaccard\_hasonlosag@x}, a létrehozandó mátrix dimenzióit pedig
+egyszerűen a \texttt{jaccard\_hasonlosag} nevű objektum dimenzióiként
+adjuk meg \texttt{dim\ =c(dim(jaccard\_hasonlosag))}.
+
+Az így létrehozott mátrixnak már ki tudjuk nyerni a fődiagonálon
+elhelyezkedő értékeit a \texttt{diag()} függvénnyel. Ha jól dolgoztunk a
+létrehozott \texttt{jaccard\_paros\_hasonlosag} első öt eleme
+\texttt{jaccard\_paros\_hasonlosag{[}1:5{]}} megegyezik a fent
+megjelenített 5x5-ös mátrix fődiagonáljában elhelyezkedő értékekkel.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{jaccard\_hasonlosag\_matrix }\OtherTok{=} \FunctionTok{array}\NormalTok{(jaccard\_hasonlosag}\SpecialCharTok{@}\NormalTok{x, }\AttributeTok{dim =}\FunctionTok{c}\NormalTok{(}\FunctionTok{dim}\NormalTok{(jaccard\_hasonlosag)))}
+\NormalTok{jaccard\_paros\_hasonlosag }\OtherTok{=} \FunctionTok{diag}\NormalTok{(jaccard\_hasonlosag\_matrix)}
+\NormalTok{jaccard\_paros\_hasonlosag[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+Miután siekrült kinyerni az egyes törvny -- törvényjavaslat párokra
+vonatkozó jaccard értéket, érdemes a számításainakt hozzárendelni az
+eredeti adattáblánkhoz.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tv\_tvjav\_98\_14}\SpecialCharTok{$}\NormalTok{jaccard\_index }\OtherTok{\textless{}{-}}\NormalTok{ jaccard\_paros\_hasonlosag}
+\end{Highlighting}
+\end{Shaded}
+
+Érdemes megnézni a végeredményt, valamint a jaccard hasonlóság
+legmagasabb és legalacsonyabb értékeit. A \texttt{top\_n()} függvény
+használatával ki tudjuk a legmagasabb és legalacsonyabb értékeket
+válogatni. A \texttt{top\_n()} függvény első argumentuma a változó lesz,
+ami alapján a legalacsonyabb és legmagasabb értékeket keressük, a
+második argumentum pedig azt specifikálja, hogy a legmagasabb és
+legalacsonyabb értékek közül hányat szeretnénk látni. Az \texttt{n=5}
+értékkel a legmagasabb, az \texttt{n=-5} értékkel a legalacsonyabb 5
+jaccard indexszel rendelkező sort tudjuk kiszűrni. Emellett érdemes arra
+is odafigyelni, hogy a szövegeket tartalmazó oszlopainkat ne próbáljuk
+meg kiíratni, hiszen ez jelentősen lelassítja az RStudio működését és
+megnehezíti a kiírt eredmények áttekinthetőségét.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tv\_tvjav\_98\_14[, }\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}tv\_id\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}korm\_ciklus\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}tvjav\_id\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}jaccard\_index\textquotesingle{}}\NormalTok{)] }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{top\_n}\NormalTok{(jaccard\_index, }\AttributeTok{n=}\DecValTok{5}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tv\_tvjav\_98\_14[, }\FunctionTok{c}\NormalTok{(}\StringTok{\textquotesingle{}tv\_id\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}korm\_ciklus\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}tvjav\_id\textquotesingle{}}\NormalTok{, }\StringTok{\textquotesingle{}jaccard\_index\textquotesingle{}}\NormalTok{)] }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{top\_n}\NormalTok{(jaccard\_index, }\AttributeTok{n=}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+Láthatjuk, hogy az 5 öt leghasonlóbb törvény--törvényjavaslat pár esetén
+0.98 felett van a jaccard hasonlág értéke, míg a leginkább különböző
+5-nél 0.15 alatt.
+
+Láthatjuk, hogy a szövegek hasonlósága az egyes kormányzati ciklusok
+között meglehetősen keveset változott. {[}Ezt még kiegészíteni a
+végleges plotok alapján{]}.s
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ tv\_tvjav\_98\_14, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{((év), jaccard\_index, }\AttributeTok{color =}\NormalTok{ korm\_ciklus)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Év"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Jaccard hasonlóság"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{facet\_grid}\NormalTok{(. }\SpecialCharTok{\textasciitilde{}}\NormalTok{ korm\_ciklus, }\AttributeTok{scales =} \StringTok{\textquotesingle{}free\_x\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ tv\_tvjav\_98\_14, }\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\FunctionTok{factor}\NormalTok{(év), jaccard\_index, )) }\SpecialCharTok{+}
+  \FunctionTok{geom\_boxplot}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\StringTok{"Év"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Jaccard hasonlóság"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{termuxe9szetes-nyelv-feldolgozuxe1s-nlp}{%
 \chapter{Természetes-nyelv feldolgozás
@@ -3626,7 +5131,7 @@ Az RStudio kezdőfelülete négy panelből, eszközsorból és menüsorból áll
 
 }
 
-\caption{RStudio felhasználói felület}\label{fig:unnamed-chunk-124}
+\caption{RStudio felhasználói felület}\label{fig:unnamed-chunk-181}
 \end{figure}
 
 Az \textbf{\emph{(1) editor}} ablak szolgál a kód beírására, futtatására
@@ -3668,7 +5173,7 @@ exit''} értékre be kell állítani a \emph{„Never''} értéket.
 
 }
 
-\caption{RStudio projekt beállítások}\label{fig:unnamed-chunk-125}
+\caption{RStudio projekt beállítások}\label{fig:unnamed-chunk-182}
 \end{figure}
 
 A szükséges beállítások után a
@@ -3723,7 +5228,7 @@ munkakönyvtárnak állíthatjuk be az a mappát, amelyben épp benne vagyunk.
 
 }
 
-\caption{Working directory beállítások}\label{fig:unnamed-chunk-126}
+\caption{Working directory beállítások}\label{fig:unnamed-chunk-183}
 \end{figure}
 
 A munkafolyamat befejezésére a \texttt{q()} vagy \texttt{quit()}
@@ -3793,7 +5298,7 @@ a ()-be a telepíteni kívánt csomag nevét kell beírnunk (pl.:
 
 }
 
-\caption{Packages fül}\label{fig:unnamed-chunk-127}
+\caption{Packages fül}\label{fig:unnamed-chunk-184}
 \end{figure}
 
 \hypertarget{objektumok-tuxe1roluxe1sa-uxe9rtuxe9kaduxe1s}{%
@@ -3844,9 +5349,9 @@ szeparáljuk. A logikai vektor csak \texttt{TRUE}, illetve \texttt{FALSE}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{numerikus }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{numerikus }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{)}
 
-\NormalTok{karakter }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"kutya"}\NormalTok{, }\StringTok{"macska"}\NormalTok{, }\StringTok{"ló"}\NormalTok{)}
+\NormalTok{karakter }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"kutya"}\NormalTok{,}\StringTok{"macska"}\NormalTok{,}\StringTok{"ló"}\NormalTok{)}
 
 \NormalTok{logikai }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{TRUE}\NormalTok{, }\ConstantTok{FALSE}\NormalTok{)}
 \end{Highlighting}
@@ -3858,7 +5363,7 @@ első eleme a második vektor első eleméhez adódik.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{40}\NormalTok{)}
+\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{,}\DecValTok{20}\NormalTok{,}\DecValTok{30}\NormalTok{,}\DecValTok{40}\NormalTok{)}
 \CommentTok{\#\textgreater{} [1] 11 22 33 44}
 \end{Highlighting}
 \end{Shaded}
@@ -3874,10 +5379,10 @@ használni.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{karakter1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"kutya"}\NormalTok{, }\StringTok{"macska"}\NormalTok{, }\StringTok{"ló"}\NormalTok{)}
-\NormalTok{karakter2 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"nyúl"}\NormalTok{)}
+\NormalTok{karakter1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"kutya"}\NormalTok{,}\StringTok{"macska"}\NormalTok{,}\StringTok{"ló"}\NormalTok{)}
+\NormalTok{karakter2 }\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(}\StringTok{"nyúl"}\NormalTok{)}
 
-\NormalTok{karakter\_kombinalt }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(karakter1, karakter2)}
+\NormalTok{karakter\_kombinalt }\OtherTok{\textless{}{-}}\FunctionTok{c}\NormalTok{(karakter1, karakter2)}
 
 \NormalTok{karakter\_kombinalt}
 \CommentTok{\#\textgreater{} [1] "kutya"  "macska" "ló"     "nyúl"}
@@ -4018,14 +5523,14 @@ készítünk.
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{ggplot}\NormalTok{(}
-  \AttributeTok{data =}\NormalTok{ gapminder,}
+  \AttributeTok{data =}\NormalTok{ gapminder, }
   \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ gdpPercap)}
-\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_histogram}\NormalTok{()}
+\NormalTok{) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_histogram}\NormalTok{() }
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-137-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-194-1} \end{center}
 
 Lehetőségünk van arra, hogy az alakzat színét megváltoztatássuk. A
 használható színek és színkódok megtalálhatóak a \texttt{ggplot2}
@@ -4037,11 +5542,11 @@ leírásában: \url{https://ggplot2-book.org/scale-colour.html}
   \AttributeTok{data =}\NormalTok{ gapminder,}
   \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ gdpPercap)}
 \NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{fill =} \StringTok{"yellow"}\NormalTok{, }\AttributeTok{colour =} \StringTok{"green"}\NormalTok{)}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{fill =} \StringTok{"yellow"}\NormalTok{, }\AttributeTok{colour =} \StringTok{"green"}\NormalTok{) }
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-138-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-195-1} \end{center}
 
 Meghatározhatjuk külön-külön a histogram x és y tengelyén ábrázolni
 kívánt adatokat és választhatjuk azok pontszerű ábrázolását is.
@@ -4055,11 +5560,11 @@ kívánt adatokat és választhatjuk azok pontszerű ábrázolását is.
     \AttributeTok{y =}\NormalTok{ lifeExp}
 \NormalTok{  )}
 \NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{()}
+  \FunctionTok{geom\_point}\NormalTok{() }
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-139-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-196-1} \end{center}
 
 Ahogy az előzőekben, itt is megváltoztathatjuk az ábra színét.
 
@@ -4076,7 +5581,7 @@ Ahogy az előzőekben, itt is megváltoztathatjuk az ábra színét.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-140-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-197-1} \end{center}
 
 Az fenti script kibővítésével az egyes kontinensek adatait különböző
 színnel ábrázolhatjuk, az x és y tengelyt elnevezhetjük, a histogramnak
@@ -4092,10 +5597,10 @@ feltüntethetjük az alábbi módon:
     \AttributeTok{y =}\NormalTok{ lifeExp,}
     \AttributeTok{color =}\NormalTok{ continent}
 \NormalTok{  )}
-\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{) }\SpecialCharTok{+} 
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \StringTok{"GDP per capita (log $)"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"GDP per capita (log $)"}\NormalTok{, }
     \AttributeTok{y =} \StringTok{"Life expectancy"}\NormalTok{,}
     \AttributeTok{title =} \StringTok{"Connection between GDP and Life expectancy"}\NormalTok{,}
     \AttributeTok{subtitle =} \StringTok{"Points are country{-}years"}\NormalTok{,}
@@ -4104,7 +5609,7 @@ feltüntethetjük az alábbi módon:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-141-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-198-1} \end{center}
 
 Az ábrán található feliratok méretének, betűtípusának és betűszínének
 megválasztásra is lehetőségünk van.
@@ -4118,23 +5623,23 @@ megválasztásra is lehetőségünk van.
     \AttributeTok{y =}\NormalTok{ lifeExp,}
     \AttributeTok{color =}\NormalTok{ continent}
 \NormalTok{  )}
-\NormalTok{) }\SpecialCharTok{+}
+\NormalTok{) }\SpecialCharTok{+} 
   \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \StringTok{"GDP per capita (log $)"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"GDP per capita (log $)"}\NormalTok{, }
     \AttributeTok{y =} \StringTok{"Life expectancy"}\NormalTok{,}
     \AttributeTok{title =} \StringTok{"Connection between GDP and Life expectancy"}\NormalTok{,}
     \AttributeTok{subtitle =} \StringTok{"Points are country{-}years"}\NormalTok{,}
     \AttributeTok{caption =} \StringTok{"Source: Gapminder dataset"}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}
-    \AttributeTok{size =} \DecValTok{12}\NormalTok{,}
+    \AttributeTok{size =} \DecValTok{12}\NormalTok{, }
     \AttributeTok{colour =} \StringTok{"red"}
 \NormalTok{  ))}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-142-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-199-1} \end{center}
 
 Készíthetünk oszlopdiagramot is, amit a \texttt{ggplot2} diamonds
 adatkészletén személtetünk
@@ -4146,7 +5651,7 @@ adatkészletén személtetünk
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-143-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-200-1} \end{center}
 
 Itt is lehetőségünk van arra, hogy a diagram színét megváltoztassuk.
 
@@ -4157,7 +5662,7 @@ Itt is lehetőségünk van arra, hogy a diagram színét megváltoztassuk.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-144-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-201-1} \end{center}
 
 De arra is lehetőségünk van, hogy az egyes oszlopok eltérő színűek
 legyenek.
@@ -4169,7 +5674,7 @@ legyenek.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-145-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-202-1} \end{center}
 
 Arra is van lehetőségünk, hogy egyszerre több változót is ábrázoljunk.
 
@@ -4180,29 +5685,29 @@ Arra is van lehetőségünk, hogy egyszerre több változót is ábrázoljunk.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-146-1} \end{center}
+\begin{center}\includegraphics[width=0.9\linewidth]{_main_files/figure-latex/unnamed-chunk-203-1} \end{center}
 
 Arra ggplot2 segítségével arra is lehetőségünk van, hogy csv-ből
 beolvasott adatainkat vizualizáljuk.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{plot\_cap\_1 }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/plot\_cap\_1.csv"}\NormalTok{, }\AttributeTok{head =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{sep =} \StringTok{";"}\NormalTok{)}
-\FunctionTok{ggplot}\NormalTok{(plot\_cap\_1, }\FunctionTok{aes}\NormalTok{(Year, }\AttributeTok{fill =}\NormalTok{ Subtopic)) }\SpecialCharTok{+}
+\NormalTok{plot\_cap\_1 }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/plot\_cap\_1.csv"}\NormalTok{, }\AttributeTok{head =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{sep =} \StringTok{";"}\NormalTok{) }
+\FunctionTok{ggplot}\NormalTok{(plot\_cap\_1, }\FunctionTok{aes}\NormalTok{(Year, }\AttributeTok{fill =}\NormalTok{ Subtopic)) }\SpecialCharTok{+} 
   \FunctionTok{scale\_x\_discrete}\NormalTok{(}\AttributeTok{limits =} \FunctionTok{c}\NormalTok{(}\DecValTok{1957}\NormalTok{, }\DecValTok{1958}\NormalTok{, }\DecValTok{1959}\NormalTok{, }\DecValTok{1960}\NormalTok{, }\DecValTok{1961}\NormalTok{, }\DecValTok{1962}\NormalTok{, }\DecValTok{1963}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{position =} \StringTok{"dodge"}\NormalTok{) }\SpecialCharTok{+} 
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \ConstantTok{NULL}\NormalTok{,}
-    \AttributeTok{title =} \StringTok{"A Magyar Közlönyben kihirdetett agrárpolitikai jogszabályok"}\NormalTok{,}
+    \AttributeTok{x =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{y =} \ConstantTok{NULL}\NormalTok{, }
+    \AttributeTok{title =} \StringTok{"A Magyar Közlönyben kihirdetett agrárpolitikai jogszabályok"}\NormalTok{, }
     \AttributeTok{subtitle =} \StringTok{"N=445"}
-\NormalTok{  ) }\SpecialCharTok{+}
+\NormalTok{  ) }\SpecialCharTok{+} 
   \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+} \CommentTok{\# az ábra tipusa}
   \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{))}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{12}\NormalTok{)) }
 \end{Highlighting}
 \end{Shaded}
 
-A csv-ből belolvasott adatainból kördiagramot is készíthetünk
+A csv-ből belolvasott adatainkból kördiagramot is készíthetünk
 
 \begin{Shaded}
 \begin{Highlighting}[]
