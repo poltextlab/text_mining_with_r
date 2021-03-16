@@ -39,7 +39,7 @@ függvény segítségével megkapjuk azokat a szövegeket, amely az adott weblap
 
 Példánkban a <https://poltextlab.tk.hu/hu> weboldalról azokat az információkat szeretnénk kigyűjteni, amelyek az `<title>` címke alatt szerepenek:
 
-```{r}
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 
 title <- read_html("https://poltextlab.tk.hu/hu") %>%
   html_nodes("title") %>%
@@ -97,7 +97,7 @@ Miután az elemezni kívánt szövegeinket beszereztük, majd a "Szöveges dokum
 
 A `stringr` csomag segítségével először eltávolíthatjuk a felesleges `html` címkéket a kopruszból. Ehhez először létrehozzuk a `text1` nevű objektumot ami egy karaktervektoból áll.
 
-```{r}
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 
 text1 <- c("MTA TK", "<font size='6'> Political and Legal Text Mining and Artificial Intelligence Laboratory (poltextLAB)")
 
@@ -154,7 +154,7 @@ Az alábbi példában egyetlen szó különböző alakjainak szótári alakra ho
 Ehhez először a `text1` nevű objektumban tároljuk a lemmatizálni kívánt szöveget, majd tokenizáljuk és eltávolítjuk a központozást. Ezután definiáljuk azt a megfelelő szótövet és azt, hogy mely szavak alakjait szeretnénk erre a szótőre egységesíteni majd a `rep()` függvény segítségével elvégezzük a lemmatizálást, amely a korábban definiált szólakokat az általunk megadott szótári alakkal helyettesíti. Hosszabb szövegek lemmatizálásához előre létrehozott szótárakat használhatunk, ilyen például a Wordnet, ami magyar nyelven is elérhető: https://github.com/mmihaltz/huwn
 A magyar nyelvű szövegek lemmatizálását elvégezhetjük a szövegek R-be való beolvasása előtt is a `magyarlánc`nyelvi elemző segítségével, melyről a kötet függelékében, a Magyar nyelvű NLP és nyelvtechnológiai eszközök között szólunk részletesebben.
 
-```{r}
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 
 text1 <- "Példa az elokészítésre. Az elokészítést a szövetisztítással kell megkezdenünk. Az elokészített korpuszon elemzést végzünk"
 
@@ -174,7 +174,7 @@ toks1
 A fenti `text1` objektumban tárolt szöveg stemmelését az alábbiak szerint tudjuk elvégezni. Megvizsgálva az előkészítés különböző alakjainak lemmatizált és stemmelt változatát jól láthatjuk a két módszer közötti különbséget.
 
 
-```{r}
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 
 text1 <- "Példa az elokészítésre. Az elokészítést a szövetisztítással kell megkezdenünk. Az elokészített korpuszon elemzést végzünk"
 

@@ -56,7 +56,7 @@ Az úgynevezett *pipe* operátor alapjaiban határozta meg a modern R fejlődés
 
 [^adatkezeles-3]: Köszönjük Andrew Heissnek a kitűnő példát.
 
-```{r, eval=FALSE}
+```{r, eval=FALSE,  tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 reggeli(oltozkodes(felkeles(ebredes(en, idopont = "8:00"), oldal = "jobb"), nadrag = TRUE, ing = TRUE))
 
 en %>%
