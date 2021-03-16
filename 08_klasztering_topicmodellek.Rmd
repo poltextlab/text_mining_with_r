@@ -19,9 +19,11 @@ library(dplyr)
 library(stringr)
 library(readtext)
 library(quanteda)
+library(tidytext)
 library(ggplot2)
 library(topicmodels)
 library(factoextra)
+library(igraph)
 ```
 
 A beszédek szövege meglehetősen tiszta, ezért az egyszerűség kedvéért a most kihagyjuk a szövegtisztítás lépéseit. Az elemzés első lépéseként a `quanteda` csomaggal egy korpusz kreálunk, majd abból egy dokumentum-kifejezés mátrixot készítünk a `dfm()` függvénnyel.
@@ -169,11 +171,8 @@ torvenyek_dfm <- dfm(torvenyek_tokens) %>%
 
 A szövegtisztító lépesek eredményét úgy ellenőrizhetjük, hogy az 2. fejezetben bemutatottak szerint szógyakorisági listát készítünk a korpuszban maradt kifejezésekről. Itt kihasználhatjuk a korpuszunkban lévő meta adatokat és megnézhetjük ciklus szerinti bontásban a szófrekvencia ábrát. Az ábránál figyeljünk arra hogy a tidytext reorder_within fuggvenyet használjuk, ami egy nagyon hasznos megoldás a csoportosított sorrendbe rendezésre a ggplot ábránál.
 
-```{r}
-library(tidytext)
-```
 
-```{r}
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 
 
 top_tokens <- textstat_frequency(torvenyek_dfm, n = 15, groups = docvars(torvenyek_dfm, field = "electoral_cycle"))
@@ -202,7 +201,7 @@ torvenyek_tokens_final <- torvenyek_tokens %>%
 
 Ezután újra ellenőrízzük az eredményt.
 
-```{r}
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 torvenyek_dfm_final <- dfm(torvenyek_tokens_final) %>%
   dfm_trim(min_termfreq = 0.001, termfreq_type = "prop")
 
@@ -458,7 +457,7 @@ stm_fit <- stm(
 
 Amennyiben a kutatási kérdés megkívánja, akkor megvizsálhatjuk hogy a kategórikus változóinknak milyen hatása volt egyes topikok esetében. Ehhez az `estimateEffect()` függvénnyel lefuttatunk egy lineáris regressziót és a `summary()` használatával láthatjuk az egyes kovariánsok koefficienseit. Itt az első topikkal illusztráljuk az eredményt, ami azt mutatja hogy (a kategórikus változóink első kategoriájához mérten) statisztikailag szignifikáns mint a téma mind pedig a kormányzati ciklusok abban hogy egyes dokumentumok milyen témákból épülnek fel.
 
-```{r}
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 
 out$meta$electoral_cycle <- as.factor(out$meta$electoral_cycle)
 out$meta$majortopic <- as.factor(out$meta$majortopic)
@@ -499,7 +498,7 @@ Egy-egy topichoz tartozó meghatározó szavak annak függvényében változhatn
 
 [^klasztering_topicmodellek-5]: Az \`stm\` csomaghoz tartozó leírás: <https://cran.r-project.org/web/packages/stm/vignettes/stmVignette.pdf>
 
-```{r}
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 labelTopics(stm_fit, c(1:2))
 ```
 
@@ -512,8 +511,6 @@ plot.STM(stm_fit, "summary")
 Végezetül, a témák közötti korrelációt a `topicCorr` függvénnyel becsülhetjük és az `igraph` csomagot betöltve a `plot()` paranccsal tudjuk vizualizálni. Az eredmény egy hálózat lesz amit gráfként ábrázolunk. Az élei a gráfoknak a témák közötti összefüggést jelölik.
 
 ```{r}
-
-library(igraph)
 
 plot(topicCorr(stm_fit))
 

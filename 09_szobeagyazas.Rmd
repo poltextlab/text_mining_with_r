@@ -38,7 +38,7 @@ A lenti kód blokk azt mutatja be, hogy hogyan kell a betöltött korpuszt token
 ```{r}
 mn <- read_csv("data/mn_large.csv")
 
-mn_clean <- mn %>% 
+mn_clean <- mn %>%
   mutate(
     text = str_remove_all(string = text, pattern = "[:cntrl:]"),
     text = str_remove_all(string = text, pattern = "[:punct:]"),
@@ -46,7 +46,7 @@ mn_clean <- mn %>%
     text = str_to_lower(text),
     text = str_trim(text),
     text = str_squish(text)
-    )
+  )
 ```
 
 
@@ -55,21 +55,20 @@ Fontos különbség hogy az eddigi munkafolyamatokkal ellentétben a GloVe algor
 ```{r}
 mn_corpus <- corpus(mn_clean)
 
-mn_tokens <- tokens(mn_corpus) %>% 
+mn_tokens <- tokens(mn_corpus) %>%
   tokens_remove(stopwords(language = "hungarian"))
 
-features <- dfm(mn_tokens) %>% 
-  dfm_trim(min_termfreq = 5) %>% 
+features <- dfm(mn_tokens) %>%
+  dfm_trim(min_termfreq = 5) %>%
   featnames()
 
 mn_tokens <- tokens_select(mn_tokens, features, padding = TRUE)
-
 ```
 
 
 Az `fcm` megalkotása során a célkifejezéstől való távolság függvényében súlyozzuk a tokeneket.
 
-```{r}
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 mn_fcm <- fcm(mn_tokens, context = "window", count = "weighted", weights = 1 / (1:5), tri = TRUE)
 ```
 
@@ -80,9 +79,9 @@ Az egyszerűség és gyorsaság miatt a lenti kód 10 körös tanulást ad meg, 
 [^config]: A futtatásra használt PC nem különösebben erős: 4 magos Intel Core i5-4460 (3.2GHz) CPU és 16GB RAM 
 
 ```{r 09_glove_fit, cache=TRUE}
-glove <-  GlobalVectors$new(rank = 300, x_max = 10, learning_rate = 0.1)
+glove <- GlobalVectors$new(rank = 300, x_max = 10, learning_rate = 0.1)
 
-mn_main <-  glove$fit_transform(mn_fcm, n_iter = 10, convergence_tol = 0.01)
+mn_main <- glove$fit_transform(mn_fcm, n_iter = 10, convergence_tol = 0.01)
 ```
 
 A végleges szóvektorokat a becslés során elkészült két mátrix összegeként kapjuk.
@@ -99,7 +98,7 @@ Az egyes szavakhoz legközelebb álló szavakat a koszinusz hasonlóság alapjá
 ```{r}
 teszt <- mn_word_vectors["polgármester", , drop = F]
 
-cos_sim_rom <-  sim2(x = mn_word_vectors, y = teszt, method = "cosine", norm = "l2")
+cos_sim_rom <- sim2(x = mn_word_vectors, y = teszt, method = "cosine", norm = "l2")
 
 head(sort(cos_sim_rom[, 1], decreasing = TRUE), 5)
 ```
@@ -109,7 +108,7 @@ A lenti `show_vector()` függvényt definiálva a kapott eredmény egy data fram
 ```{r}
 show_vector <- function(vectors, pattern, n = 5) {
   term <- mn_word_vectors[pattern, , drop = F]
-  cos_sim <-  sim2(x = vectors, y = term, method = "cosine", norm = "l2")
+  cos_sim <- sim2(x = vectors, y = term, method = "cosine", norm = "l2")
   cos_sim_head <- head(sort(cos_sim[, 1], decreasing = TRUE), n)
   output <- enframe(cos_sim_head, name = "term", value = "dist")
   return(output)
@@ -129,4 +128,3 @@ Ugyanez működik magyar vezetőkkel is.
 ```{r}
 show_vector(mn_word_vectors, "orbán", 10)
 ```
-

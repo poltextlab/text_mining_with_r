@@ -7,7 +7,6 @@ knitr::opts_chunk$set(
   echo = TRUE,
   dpi = 300,
   cache.lazy = FALSE,
-  tidy = "styler",
   out.width = "90%",
   fig.align = "center"
 )

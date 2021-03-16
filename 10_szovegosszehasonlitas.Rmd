@@ -1,3 +1,310 @@
 # Szövegösszehasonlítás
 
-tizedik fejezet
+
+
+
+```{r include=FALSE}
+
+source("_common.R")
+
+```
+
+## Jaccard hasonlóság számítás 
+
+### Adatbázis előkészítés
+
+Az elemzés megkezdése előtt a már ismert módon betöltjük a szükséges csomagokat: `readr`, `stringr`, `dplyr`, `quanteda`, `readtext`, `ggplot2`. 
+
+```{r include = TRUE}
+
+library(readr)
+library(stringr)
+library(dplyr)
+library(quanteda)
+library(readtext)
+library(ggplot2)
+
+```
+
+Ezt követően betöltjük azokat az adatbázisokat, amelyeken a szövegösszehasonlítást fogjuk végezni: az elfogadott törvények szövegét tartalmazó korpuszt, a törvényjavaslatok szövegét tartalmazó korpuszt, valamint az ezek összekapcsolását segítő adatbázist, melyben az összetartozó törvényjavaslatok és törvények azonosítóját (id-ját) tároltuk el. 
+
+```{r include = TRUE}
+torvenyek <- read.csv("data/adopted_law_corpus2.csv")
+colnames(torvenyek)
+dim(torvenyek)
+```
+
+
+
+```{r include = TRUE}
+tv_javaslatok <- read.csv("data/draft_corpus2.csv")
+colnames(tv_javaslatok)
+dim(tv_javaslatok)
+```
+
+
+```{r include = TRUE}
+parok <- read.csv('data/matching2.csv')
+colnames(parok)
+dim(parok)   
+```
+Miután betöltöttük a három CSV-t a `colnames()` oszloppal megtekinthetjük, hogy milyen változók vannak az egyes oszlopokban. (Szövegkorpuszoknál érdemesebb az oszlopok neveit lekérni, semmint a `head()` függvénnyel megjeleníteni az első néhány sort, hiszen ekkora menyniségű szöveg kiírása meglehetősen lelassítja az RStudio-t.) Az oszlopnevekből láthatjuk, hogy  a `tv_id` és a `tvjav_id` segítségével tudjuk majd párosítani az összetartozó törvényjavaslatok és törvények szövegeit. Ezen túl érdemes azt is észrevenni, hogy a sorok száma az egyes adatbázisokban nem egyezik, vagyis lesznek olyan törvények, amelyekhez nem fogunk tudni törvényjavaslatot rendelni, így az adattisztítás során a hiányzó értékek kezelésére is figyelmet kell majd fordítanunk. 
+
+A következő lépés az adatbázisok összekapcsolása lesz, melyet a left_join() függvénnyel teszünk meg, ahogy az a 9. fejezetben is bemutatásra került. Elsőként a törvényeket tartalmazó adatbázishoz kapcsoljuk hozzá a törvény -- törvényjavaslat párokat tartalmazó adatbázist a törvények azonosítója (`tv_id`) alapján. A `colnames()` függvény használatával ellenőrizhetjük, hogy sikeres volt-e a művelet, és az új táblában szerepelnek-e a kívánt oszlopok. 
+
+```{r include = TRUE}
+tv_joined_draft_id <- left_join(torvenyek, parok, by = "tv_id")
+colnames(tv_joined_draft_id)
+dim(tv_joined_draft_id)
+```
+
+Második lépésben a törvényjavaslatokat tartalmazó adatbázist rendeljük hozzá az előzőekben már összekapcsolt két adatbázishoz. 
+
+```{r include = TRUE}
+tv_tvjav_teljes <- left_join(tv_joined_draft_id, tv_javaslatok, by = "tvjav_id")
+colnames(tv_tvjav_teljes)
+dim(tv_tvjav_teljes)
+```
+
+Ha jól végeztük a dolgunkat az adatbázisok összekapcsolása során, az eljárás végére 6 oszlopunk és 3706 sorunk van, vagyis az újonnan létrehozott adatbázisba bekerült az összes változó (oszlop), amely az elemzés megkezdésekor rendelkezésre álló három adattáblában előfordult, a sorok száma pedig megegyezik a rendelkezésre álló legnagyobb adatbázis sorainak számával. 
+
+Az korpuszaink egy adattáblában való kezelése azért hasznos, mert így nem kell párhuzamosan elvágezni az azonos műveleteket a két korpusz, a törvények és a törvényjavaslatok tisztításához, hanem párhuzamosan tudunk dolgozni a kettővel. 
+
+Következő lépésben érdemes ellenőrizni a hiányzó adatokat, vagy is az `NA` értékeket. Minket elsősorban az érdekel, hogy melyek azok a törvények, amelyekhez nincs meg a törvényjavaslat. Ezt a `which(is.na())` függvénnyel tudjuk ellenőrizni. A függvény argumentuma ebben az esetben az adatbázis törvényjavaslatok szövegeit tartalmazó oszlopa lesz, vagyis `tv_tvjav_teljes$tvjav_szoveg`. A `which(is.na())` függvény értékének hosszának meghatározásával `length()` megkapjuk azt is, hogy hány hiányzó értékünk van. 
+
+```{r include = TRUE}
+length(which(is.na(tv_tvjav_teljes$tvjav_szoveg))) 
+```
+
+A 3706 sorból összesen 229 helyen hiányzik a törvényjavaslatok szövege. Ezeket nem fogjuk tudni hasznosítani az elemzésünk során, emiatt ezeket kiszelektáljuk az adatbázisból. Ezet tisztítást legegyszerűebben úgy tudjuk megtenni, hogy a nem NA értékű sorokra szűrűnk az adatbázisban. A szűrést a már ismert (??) szintax alapján szögletes zárójelben megadott oszlop és sor azonosítókkal fogjuk megtenni, a negációt pedig a felkiáltó jel fogja kifejezni: `!is.na()`). Az `!is.na(tv_tvjav_teljes$tvjav_szoveg)` tehát azt fogja kifejezni, hogy az adatbázis `tvjav_szoveg` oszlopa alapján azokat az adatbázisokat vegyük ki, amelyeknek az értéke nem `NA`, majd a létrehozott új adatbázist elmentjük egy (az előzővel azonos nevű) objektumba (így felül is írjuk azt), és az új tv_tvjav_teljes adatbázis már csak azokat a sorokat fogja tartalmazni, amelyekben a `tvjav_id` értéke nem `NA`. A `dim()` függvény segítségével pedig megtekinthetjük az új adatbázisunk sorainak és oszlopainak számát: a megszűrt adatbázisban már csak 3477 megfigyelés van. 
+
+```{r include = TRUE}
+tv_tvjav_teljes<-  tv_tvjav_teljes[!is.na(tv_tvjav_teljes$tvjav_szoveg),]
+dim(tv_tvjav_teljes)
+```
+
+Érdmes még azt is ellenőrizni, maradtak-e az adatbázisunk más oszlopaiban hiányzó értékek a törvényjavaslatok szövegeire való szűrés után. 
+
+```{r include = TRUE}
+which(is.na(tv_tvjav_teljes)) 
+```
+
+Az ellenőrzés alapján láthatjuk, hogy nincs több hiányzó érték az adatbázisunkban, így elkezdhetjük a szövegek elemzéshez való előkészítését. Még mielőtt azonban ebbe belekezdünk érdemes kiválasztani egy kisebb részegységét az adatbázisnak, amelyen majd a dokumentum hasonlóság elemzést szeretnénk végezni, mivel a művelet meglehetősen számítás igényes, így érdemes már a szövegtisztítás lépéseit is csak arra a részegységre elvégezni, amelyre a későbbiek folyamán a hasonlóság elemzést is szeretnénk elvégezni, ezzel jelentősen felgyorsíthatjuk a szövegtisztítás lépéseit is. Az itt bemutatott elemzés során a 2010-2014-es és 2014-2018-as kormányzati ciklus során elfogadott törvényekre szűkítjük a vizsgálat fókuszát. 
+
+```{r include = TRUE}
+tv_tvjav_10_18 <- tv_tvjav_teljes %>% 
+  filter(
+    korm_ciklus == '2010-2014' | korm_ciklus == '2014-2018'
+  )
+```
+
+```{r include = TRUE}
+tv_tvjav_98_14 <- tv_tvjav_teljes %>% 
+  filter(
+    korm_ciklus == '1998-2002' | korm_ciklus == '2014-2018'
+  )
+
+dim(tv_tvjav_98_14)
+```
+
+
+A létrehozott kisebb adatbázis ellenőrzésének céljából érdemes megnézni, melyik évek kerültek be az új táblázatba, és, hogy az egyes évekre vonatkozóan hány megfigyeléssel rendelkezünk. Ezt a pipe operátor és `count()` függvény alkalmazásával tudjuk megtenni. 
+
+```{r}
+dim(tv_tvjav_98_14)
+tv_tvjav_98_14 %>%count(év)
+```
+Az összesítésből látható, hogy összesen 9 évre vannak megfigyeléseink, azonban a 2018-as évre mindössze 4, amit az eredményeink értékelésénél majd érdemes figyelembe venni. 
+
+### Szövegtisztítás
+
+A szövegek tisztítást a 9. fejezetben már ismertetett lépésekhez nagyon hasonló módon fogjuk elvégezni. Mivel azonban itt két különböző korpusszal dolgozunk - két oszlopnyi szöveggel - egyszerűbb, ha a szövegtisztítás lépéseiből létrehozunk egy külön függvényt, amely magában foglalja a művelet egyes lépéseit, és lehetővé teszi, hogy ne kelljen minden szövegtisztítási lépést külön definiálni az egyes korpuszok esetén. 
+
+A függvény neve jelen esetben `szovegtisztitas` lesz, és a már ismert lépéseket foglalja magában: kontrol karakterek (white spaces) szóközzé alakítása, központozás és számok eltávolítása. Kisbetűsítés, ismétlődő és a stringek előtt található szóközök eltávolítása. Továbbá a `str_remove_all()` függvénnyel eltávolítjuk azokat az írásjeleket, amelyek előfordulnak a szövegben, de számunkra nem hasznosak. 
+
+[Érdemes itt bővebben értekezni a függvény szintaxisáról?]
+
+```{r include = TRUE}
+
+szovegtisztitas <- function(text) {
+  text = str_replace(text, "[:cntrl:]", ' ')
+  text = str_remove_all(string = text, pattern = "[:punct:]")
+  text = str_remove_all(string = text, pattern = "[:digit:]")
+  text = str_to_lower(text)
+  text = str_trim(text)
+  text = str_squish(text)
+  text = str_remove_all(string = text, pattern = "’")
+  text = str_remove_all(string = text, pattern = "…")
+  text = str_remove_all(string = text, pattern = "–")
+  text = str_remove_all(string = text, pattern = "“")
+  text = str_remove_all(string = text, pattern = "”")
+  text = str_remove_all(string = text, pattern = "„")
+  text = str_remove_all(string = text, pattern = "«")
+  text = str_remove_all(string = text, pattern = "»")
+  text = str_remove_all(string = text, pattern = "§")
+  text = str_remove_all(string = text, pattern = "°")
+  text = str_remove_all(string = text, pattern = "<U+25A1>")
+  text = str_remove_all(string = text, pattern = "@")
+  return(text)
+}
+```
+
+
+Miután létrehoztuk a szövegtisztításra alkalmas függvényünket, azt az adatbázis két oszlopára fogjuk alkalmazni: a törvények szövegét és törvényjavaslatok szövegét tartalmazó oszlopra. A `lapply()` függvény segítségével fogjuk a függvényt a kiválasztott oszlopokra alkalmazni, így a `lapply()` függvényen belül megadjuk az adatbázist, és ennek vonatkozó részeire való hivatkozást `tv_tvjav_10_18[ ,c('torveny_szoveg','tvjav_szoveg')]`, melyekre alkalmazni szeretnénk a függvényt. Az alkalmazni kívánt függvényt a `FUN` argumanetumaként adhatjuk meg - értelemszerűen, ez esetünkben az előzőekben létrehozott `szovegtisztitas` függvény lesz. Végezetül pedig a fügvényünk által megtisztított új oszlopokkal felülírjuk az előző adatbázisunk vonatkozó oszlopait, vagyis a `torveny_szoveg` és a `tvjav_szoveg` oszlopokat (`tv_tvjav_10_18[, c('torveny_szoveg','tvjav_szoveg')] <-`). ^[A szemfülesebbek észrevehették, hogy a lapply() függvény még egy külön unlist() függvénybe kerül bele. Ennek oka, hogy a lapply() függvény értékeként visszadatt elemek mindegyike külön listába kerül, ezáltal nem lesz hozzárendelhető a már létező adatbázisunkhoz, ezeket a listákat tehát "ki kell bontani" ahhoz, hogy felül tudjuk írni a már létező oszlopainkat a megtisztított oszlopok értékeivel.]
+
+
+```{r include = TRUE}
+tv_tvjav_10_18[, c('torveny_szoveg','tvjav_szoveg')] <- unlist(lapply(tv_tvjav_10_18[ ,c('torveny_szoveg','tvjav_szoveg')], FUN = szovegtisztitas))
+```
+
+A szövegtisztítás következő lépése a stop szavak meghatározása és kiszűrése a szövegből. Itt a 9. fejezetben meghatározott speciális jogi stopszavak listáját használjuk, valamint a `quanteda` csomagban elérhető magyar nyelvű stopszavakat. 
+
+```{r include = TRUE}
+legal_stopwords <- readtext("data/legal_stopwords3.csv", encoding = 'UTF8') %>%
+  pull(text)
+
+```
+
+A stopszavak beimportálását követően érdemes korpusszá alakítani a szövegeinket, és tokenizálni azokat. Ezt már külön-külön végezzük el a törvények és törvényjavaslatok szövegeire, azonos lépéseket alkalmazva.A létrehozott objektumokat itt is ellenőrizhetjük pl. a `summary(torvenyek_coprus)` paranccsal, vagy a `torvenyek_tokens[1:3]` paranccsal, mely az első 3 dokumentum tokenjeit fogja megmutatni. 
+
+
+```{r include = TRUE}
+torvenyek_corpus <- corpus(tv_tvjav_98_14$torveny_szoveg)
+tv_javaslatok_corpus <- corpus(tv_tvjav_98_14$tvjav_szoveg)
+```
+
+```{r include = TRUE}
+torvenyek_tokens <- tokens(torvenyek_corpus) %>%
+  tokens_remove(stopwords("hungarian")) %>%
+  tokens_remove(custom_stopwords) %>%
+  tokens_wordstem(language = "hun")
+
+tv_javaslatok_tokens <- tokens(tv_javaslatok_corpus) %>%
+  tokens_remove(stopwords("hungarian")) %>%
+  tokens_remove(custom_stopwords) %>%
+  tokens_wordstem(language = "hun")
+```
+
+A szövegek tokenizálásával és a stopszavak eltávolításával a szövegtisztítás végére értünk, így megkezdhetjük az elemzést.
+
+### Jaccard hasonlóság számítás
+
+A Jaccard hasonlóság kiszámításához a `quanteda` `textstat_simil()` függvényét fogjuk alkalmazni. Hogy jobban megértsük a jaccard hasonlóság számításának mechanizmusát, először érdemes egy kisebb mintán szemléltetni. Ehhez létrehozunk két, darabonként 2-2 dokumentumból álló korpuszt. 
+
+```{r include = TRUE}
+korpusz1 <- c(
+  d1.1 = "Bemutatásra kerül a Jaccard hasonlóság",
+  d1.2 = "A jaccard hasonlóság egy dokumentum hasonlósági metrika")
+
+
+korpusz2 <- c(
+  d2.1 = "A jaccard és a koszinusz távolság mérés is hasonlósági metrika",
+  d2.2 = "A jaccard hasonlóság bemutatásra kerül")
+```
+
+Ezt követően mindkét korpuszt dokumentum kifejezés mátrixszá alakítjuk.  
+
+```{r include = TRUE}
+pelda_dfm <- dfm(
+  text,
+  tolower = TRUE, stem = TRUE,
+  remove = stopwords("hungarian"))
+
+pelda2_dfm <- dfm(
+  text2,
+  tolower = TRUE, stem = TRUE,
+  remove = stopwords("hungarian"))
+```
+
+A két dokumentum kifejezés mátrixon pedig elvégezhetjük a dokumentum hasonlóság vizsgálatot. (A jaccard hasonlóság metrika, illetve quanteda `textstat_simil()` függvénye alkalmazható egy korpuszra is. Egy korpuszra végezve az elemzést a korpusz dokumentumai közötti hasonlóságot számítja ki az függvény, míg két korpuszra mindkét korpusz összes dokumentuma közötti hasonlóságot. Érdemes továbbá azt is megjegyezni, hogy a `textstat_simil()` method argumentumaként megadható számos más hasonlósági metrika, pl. a koszinusz hasonlóság (`method = 'cosine'`), melyekkel számos további érdekes számítás végezhető. Bővebben a `textstat_simil()` függény használatáról: https://quanteda.io/reference/textstat_simil.html.) 
+
+```{r include = TRUE}
+jaccard_pelda = textstat_simil(pelda_dfm, pelda2_dfm, method = "jaccard")
+```
+
+Láthatjuk, hogy a d1.1 azonosítóval szereplő dokumentum és a d2.2 dokumentum jaccard hasonlósága 1, vagyis teljesen megegyeznek a metrika szerint. Ennek oka, hogy a két mondat csupán a kifejezések sorrendjében tér el, melyre a jaccard hasonlóság nem érzékeny. A leginkább különböző dokumentumok ebben a  példában a d1.1 és a d2.1, melyek kifejezései ránézésre is jelentősen eltérnek. 
+
+A jaccard hasonlóság számítás módjának megismerését követően pedig térjünk vissza a törvények és törvényjavaslatok szövegében rejlő hasolóság feltárására! Ahogy a fenti példában is, itt is először dokumentum kifejezés mátrixot kell létrehozni a korpuszainkból. 
+
+```{r include = TRUE}
+torvenyek_dfm <- dfm(torvenyek_tokens)
+tv_javaslatok_dfm <- dfm(tv_javaslatok_tokens) 
+```
+
+Miután létrehoztuk a dokumentum kifejezés mátrixokat, érdemes a leggyakoribb tokeneket ellenőrizni a `textstat_frequency()` függvénnyel, hogy biztosak lehssünk benne, hogy a megfelelő eredményt értük el a szövegtisztítás során. (Amennyiben nem vagyunk elégedettek, érdemes visszatérni a stopszavakhoz és újabb kifejezezéseket hozzárendelni a stopszó listához).
+
+```{r include = TRUE}
+tv_toptokens <- textstat_frequency(torvenyek_dfm, n = 20)
+tv_toptokens
+```
+
+```{r include = TRUE}
+tvjav_toptokens <- textstat_frequency(tv_javaslatok_dfm, n = 20)
+tvjav_toptokens
+```
+
+A dokumentum kifejezés mátrixok alapján az előző példához hasonlóan kiszámítjuk a jaccard hasonlóságot. Kifejezés mátrixok is jelentősen nagyobbak, mint az mintaként bemutatott mondatok esetén, valamint a dikumentumok száma is sokszora az előző példában bemutatottnak, a számítás el fog tartani egy darabig).
+
+```{r include = TRUE}
+start_time <- Sys.time()
+
+jaccard_hasonlosag = textstat_simil(torvenyek_dfm, tv_javaslatok_dfm, method = "jaccard") 
+
+end_time <- Sys.time()
+end_time - start_time
+```
+Mivel az eredménymátrixunk meglehetősen terjedelmes, nem tudjuk az egészet egyben megtekinteni, de megtekinthetjük az első 5 dokumentum közötti hasonlóságot. 
+
+```{r include = TRUE}
+jaccard_hasonlosag[1:5, 1:5]
+```
+
+A mátrix fődiagonáljában jelennek meg az összetartozó törvényekre és törvényszövegek vonatkozó értékek, minden más érték nem összetartozó törvény és törvényjavaslat szövegek hasonlóságára vonatkozik, vagyis a vizsgálatunk szempontjából irreleváns. Ahhoz, hogy kinyerjük a számunkra értékes adatokat, vagyis a mátrix diagonálját, szükséges egy kis adattranszformációt végeznünk, a `jaccard_hasonlosag` változóban eltárolt adat ugyanis egy `S4` típusú objektum, melyből nem tudjuk egyszerűen kinyerni a diagonált. Az `array()` függvénnyel fogjuk mátrixszá alakítani a `jaccard_hasonlosag` `x` névre hallgató attribútumát(?)[ez angolul slot elvileg], melyben maguk a hasonlósági értékek vannak eltárolva `jaccard_hasonlosag@x`, a létrehozandó mátrix dimenzióit pedig egyszerűen a `jaccard_hasonlosag` nevű objektum dimenzióiként adjuk meg `dim =c(dim(jaccard_hasonlosag))`. 
+
+Az így létrehozott mátrixnak már ki tudjuk nyerni a fődiagonálon elhelyezkedő értékeit a `diag()` függvénnyel. Ha jól dolgoztunk a létrehozott `jaccard_paros_hasonlosag` első öt eleme `jaccard_paros_hasonlosag[1:5]` megegyezik a fent megjelenített 5x5-ös mátrix fődiagonáljában elhelyezkedő értékekkel. 
+
+```{r include = TRUE}
+jaccard_hasonlosag_matrix = array(jaccard_hasonlosag@x, dim =c(dim(jaccard_hasonlosag)))
+jaccard_paros_hasonlosag = diag(jaccard_hasonlosag_matrix)
+jaccard_paros_hasonlosag[1:5]
+```
+
+Miután siekrült kinyerni az egyes törvny -- törvényjavaslat párokra vonatkozó jaccard értéket, érdemes a számításainakt hozzárendelni az eredeti adattáblánkhoz. 
+
+```{r include = TRUE}
+tv_tvjav_98_14$jaccard_index <- jaccard_paros_hasonlosag
+```
+
+Érdemes megnézni a végeredményt, valamint a jaccard hasonlóság legmagasabb és legalacsonyabb értékeit. A ` top_n()` függvény használatával ki tudjuk a legmagasabb és legalacsonyabb értékeket válogatni. A ` top_n()` függvény első argumentuma a változó lesz, ami alapján a legalacsonyabb és legmagasabb értékeket keressük, a második argumentum pedig azt specifikálja, hogy a legmagasabb és legalacsonyabb értékek közül hányat szeretnénk látni. Az `n=5` értékkel a legmagasabb, az `n=-5` értékkel a legalacsonyabb 5 jaccard indexszel rendelkező sort tudjuk kiszűrni. Emellett érdemes arra is odafigyelni, hogy a szövegeket tartalmazó oszlopainkat ne próbáljuk meg kiíratni, hiszen ez jelentősen lelassítja az RStudio működését és megnehezíti a kiírt eredmények áttekinthetőségét. 
+
+```{r include = TRUE}
+tv_tvjav_98_14[, c('tv_id', 'korm_ciklus', 'tvjav_id', 'jaccard_index')] %>% 
+  top_n(jaccard_index, n=5) 
+```
+
+
+```{r include = TRUE}
+tv_tvjav_98_14[, c('tv_id', 'korm_ciklus', 'tvjav_id', 'jaccard_index')] %>% 
+  top_n(jaccard_index, n=-5) 
+```
+Láthatjuk, hogy az 5 öt leghasonlóbb törvény--törvényjavaslat pár esetén 0.98 felett van a jaccard hasonlág értéke, míg a leginkább különböző 5-nél 0.15 alatt.
+
+Láthatjuk, hogy a szövegek hasonlósága az egyes kormányzati ciklusok között meglehetősen keveset változott. [Ezt még kiegészíteni a végleges plotok alapján].s
+
+
+```{r}
+ggplot(data = tv_tvjav_98_14, mapping = aes((év), jaccard_index, color = korm_ciklus)) +
+  geom_point() +
+  xlab("Év") +
+  ylab("Jaccard hasonlóság")+
+  facet_grid(. ~ korm_ciklus, scales = 'free_x')
+```
+
+
+
+```{r}
+ggplot(data = tv_tvjav_98_14, mapping = aes(factor(év), jaccard_index, )) +
+  geom_boxplot() +
+  xlab("Év") +
+  ylab("Jaccard hasonlóság")
+```

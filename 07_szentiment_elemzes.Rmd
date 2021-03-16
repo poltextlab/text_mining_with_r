@@ -40,6 +40,7 @@ A szótár alapú elemzéshez a `quanteda` csomagot fogjuk használni, illetve a
 library(readr)
 library(stringr)
 library(dplyr)
+library(ggplot2)
 library(quanteda)
 ```
 
@@ -80,7 +81,7 @@ A `read_csv()` segítségével beolvassuk a Magyar Nemzet adatbázis egy kisebb 
 
 Az első szöveget megnézve látjuk, hogy a standard előkészítési lépések mellett a sortörést (`\n`) is ki kell törölnünk.
 
-```{r}
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 mn_minta$text[1]
 ```
 
@@ -100,7 +101,7 @@ mn_tiszta <- mn_minta %>%
 
 A szöveg sokkal jobban néz ki, habár észrevehetjük hogy maradhattak benne problémás részek, főleg a sortörés miatt, ami sajnos hol egyes szavak közepén van (a jobbik eset), vagy pedig pont szóhatáron, ez esetben a két szó sajnos összevonódik. Az egyszerűség kedvéért feltételezzük hogy ez kellően ritkán fordul elő ahhoz hogy ne befolyásolja az elemzésünk eredményét.
 
-```{r}
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 mn_tiszta$text[1]
 ```
 
@@ -127,7 +128,7 @@ A cikkek szentimentjét egy magyar szótárral fogjuk becsülni, amit a Társada
 
 
 
-```{r}
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 poltext_szotar
 ```
 
@@ -176,11 +177,8 @@ mn_df <- mn_df %>%
 
 A plot alapján egyértelmű trendet nem lehet megállapítani és még a 2006-os év végi turbulens belpolitikai események sem feltétlenül jelennek meg markánsan. Ennek az oka abban is kereshető, hogy egy napilap címlapját ritkán dominálja teljes egészében a belpolitika és így a negatív és pozitív szentimentek kioltják egymást. Természetesen messzemenő következtetéseket egy ábra alapján nem érdemes levonni, de az elemzésünk azt mutatha hogy a nyári hónapok alatt kevesebb volt az igazán negatív címlap, ellenben az év eleje és vége tartalmazta a minta alsó szélső értékeit.
 
-```{r}
-library(ggplot2)
-```
 
-```{r}
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 ggplot(mn_df, aes(doc_date, net_daily)) +
   geom_line() +
   labs(
@@ -204,7 +202,9 @@ library(quanteda.dictionaries)
 
 penzugy_szentiment <- quanteda.dictionaries::data_dictionary_LoughranMcDonald
 ```
-```{r}
+
+
+```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 penzugy_szentiment
 ```
 A szentiment szótár `r length(penzugy_szentiment)` kategóriából áll. A legtöbb kulcsszó a negatív dimenzióhoz van (`r length(penzugy_szentiment[["NEGATIVE"]])`).
