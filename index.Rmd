@@ -27,6 +27,9 @@ output:
 # for akos only: 
 # source('latex_export.r')
 
+# for linebreaks in code and output
+ tidy = TRUE, tidy.opts=list(width.cutoff=80)
+
 # (3)
 # bookdown::clean_book(TRUE)
 
