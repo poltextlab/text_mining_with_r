@@ -6,10 +6,9 @@ site: bookdown::bookdown_site
 documentclass: book
 link-citations: true
 always_allow_html: true
-bibliography: references.bib
 output:
   bookdown::gitbook: default
-  latex_document: default
+bibliography: references.bib
 ---
 
 # Bevezetés
@@ -21,7 +20,7 @@ output:
 # run this chunk in the console to build the book and clean up junk
 
 # (1)
-# bookdown::render_book('index.Rmd', 'all')
+bookdown::render_book('index.Rmd', 'all')
 
 # (2)
 # for akos only: 
@@ -32,6 +31,11 @@ output:
 
 # (3)
 # bookdown::clean_book(TRUE)
+
+output:
+  bookdown::gitbook: default
+  latex_document: default
+  bookdown::word_document2: default
 
 ```
 
