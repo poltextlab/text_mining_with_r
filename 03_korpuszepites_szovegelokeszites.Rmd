@@ -5,7 +5,7 @@
 A szövebányászati elemzések egyik első lépése az elemzés alapjául szolgáló korpusz megépítése. A korpuszt alkotó szövegek beszerzésének egyik módja a webscarping, melynek során weboldalakról történik az információ kinyerése.
 
 A scrapelést végezhetjük R-ben az `rvest` csomomag segítségével. Fejezetünkben a scrapelésnek csupán néhány alaplépését mutatjuk meg, a folyamatról bővebb információ található például az alábbi
-oldalakon:<https://cran.r-project.org/web/packages/rvest/rvest.pdf>, <https://rvest.tidyverse.org/>.
+oldalakon: [https://cran.r-project.org/web/packages/rvest/rvest.pdf](https://cran.r-project.org/web/packages/rvest/rvest.pdf), [https://rvest.tidyverse.org](https://rvest.tidyverse.org).
 
 
 ```{r}
@@ -35,7 +35,7 @@ r
 Ezután a `html_nodes()` függvény argumentumaként meg kell adnunk azt a HTML címkét vagy CSS azonosítót, ami a legyűjteni kívánt elemeket azonosítja a weboldalon. Ezeket az azonosítókat az adott weboldal forráskódjának megtekintésével tudhatjuk meg, amire a különböző böngészők különböző lehetőségeket kínálnak. Majd a `html_text()`
 függvény segítségével megkapjuk azokat a szövegeket, amely az adott weblapon az adott azonosítóval rendelkeznek.
 
-Példánkban a <https://poltextlab.tk.hu/hu> weboldalról azokat az információkat szeretnénk kigyűjteni, amelyek az `<title>` címke alatt szerepenek:
+Példánkban a [https://poltextlab.tk.hu/hu](https://poltextlab.tk.hu/hu) weboldalról azokat az információkat szeretnénk kigyűjteni, amelyek az `<title>` címke alatt szerepenek:
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 
@@ -57,7 +57,7 @@ write_csv(title, "title.csv")
 
 A web scraping során az egyik nehézség, ha a weboldal letiltja az automatikus letöltést, ezt kivédhetjük például különböző böngészőbővítmények segítségével, illetve a fejléc (header) vagy a user agent megváltoztatásával, de segíthet véletlenszerű proxy vagy VPN szolgáltatás használata is, valamint ha az egyes kérések között időt hagynunk. A weboldalakon legtöbbször a legyűjtött szövegekhez tartozó
 különböző metaadatok is szerepelnek (például egy parlamenti beszéd dátuma, az azt elmondó képviselő neve), melyeket érdemes a scarpelés során szintén összegyűjteni. A scrapelés során fontos figyelnünk arra, hogy később jól használható formában mentsük el az adatokat, például `.csv`,`.json` vagy `.txt` kiterjesztésekkel. A karakterkódolási problémák elkerülése érdekében érdemes UTF-8 vagy UTF-16-os kódolást
-alkalmazni, mivel ezek tartalmazzák a magyar nyelv ékezetes karaktereit is. A karakterkódolással kapcsolatosan hasznos további információk találhatóak az alábbi oldalon: <http://www.cs.bme.hu/~egmont/utf8/>
+alkalmazni, mivel ezek tartalmazzák a magyar nyelv ékezetes karaktereit is. A karakterkódolással kapcsolatosan hasznos további információk találhatóak az alábbi oldalon: [http://www.cs.bme.hu/~egmont/utf8](http://www.cs.bme.hu/~egmont/utf8)
 
 Arra is van lehetőség, hogy az elemezni kívánt korpuszt papíron keletkezett, majd szkennelt és szükség szerint optikai karakterfelismerés (OCR, Optical Character Recognition) segítségével feldolgozott szövegekből építsük fel. Azonban mivel ezeket a feladatokat nem R-ben végezzük, ezekről itt nem szólunk bővebben. Az így beszerzett és `.txt`, vagy `.csv` fájlá alakított szövegekből való korpuszépítés a következő lépésekben megegyezik a weboldalakról gyűjtött szövegekével.
 
@@ -119,27 +119,26 @@ tokens_remove(toks, sw)
 
 #### Stemmelés vagy lemmatizálás
 
-Ezt követi a szótövezés lépése, melynek során az alkalmazott stemmelő algoritmus egyszerűen levágja a szavak összes toldalékát, a képzőket, jelzőket és ragokat. A stemmelés helyett alkalmazhatunk lemmatizálást, melynek során a szavakat a szótári alakjukra formáljuk. A stemming
-és lemmatizálás közötti különbség abban rejlik, hogy a szótövezés során csupán eltávolítjuk a szavak toldalékként azonosított végződéseit, hogy ugyanannak a szónak különböző megjelenési formáit közös törzsre redukáljuk, míg a lemmatizálás esetében rögtön az értelmes, szótári formát kapjuk vissza. A két módszer közötti választás a kutatási kérdés alapján meghozott kutatói döntésen alapul.[@grimmer2013a]
+Ezt követi a szótövezés lépése, melynek során az alkalmazott stemmelő algoritmus egyszerűen levágja a szavak összes toldalékát, a képzőket, jelzőket és ragokat. A stemmelés helyett alkalmazhatunk lemmatizálást, melynek során a szavakat a szótári alakjukra formáljuk. A stemming és lemmatizálás közötti különbség abban rejlik, hogy a szótövezés során csupán eltávolítjuk a szavak toldalékként azonosított végződéseit, hogy ugyanannak a szónak különböző megjelenési formáit közös törzsre redukáljuk, míg a lemmatizálás esetében rögtön az értelmes, szótári formát kapjuk vissza. A két módszer közötti választás a kutatási kérdés alapján meghozott kutatói döntésen alapul [@grimmer2013text].
 
 ##### Lemmatizálás
 
 Az alábbi példában egyetlen szó különböző alakjainak szótári alakra hozásával szemléltetjük a lemmatizáslás működését.
 
-Ehhez először a `text1` nevű objektumban tároljuk a lemmatizálni kívánt szöveget, majd tokenizáljuk és eltávolítjuk a központozást. Ezután definiáljuk azt a megfelelő szótövet és azt, hogy mely szavak alakjait szeretnénk erre a szótőre egységesíteni majd a `rep()` függvény segítségével elvégezzük a lemmatizálást, amely a korábban definiált szólakokat az általunk megadott szótári alakkal helyettesíti. Hosszabb szövegek lemmatizálásához előre létrehozott szótárakat használhatunk, ilyen például a Wordnet, ami magyar nyelven is elérhető: https://github.com/mmihaltz/huwn
+Ehhez először a `text1` nevű objektumban tároljuk a lemmatizálni kívánt szöveget, majd tokenizáljuk és eltávolítjuk a központozást. Ezután definiáljuk azt a megfelelő szótövet és azt, hogy mely szavak alakjait szeretnénk erre a szótőre egységesíteni majd a `rep()` függvény segítségével elvégezzük a lemmatizálást, amely a korábban definiált szólakokat az általunk megadott szótári alakkal helyettesíti. Hosszabb szövegek lemmatizálásához előre létrehozott szótárakat használhatunk, ilyen például a Wordnet, ami magyar nyelven is elérhető: [https://github.com/mmihaltz/huwn](https://github.com/mmihaltz/huwn)
 A magyar nyelvű szövegek lemmatizálását elvégezhetjük a szövegek R-be való beolvasása előtt is a `magyarlánc`nyelvi elemző segítségével, melyről a kötet függelékében, a Magyar nyelvű NLP és nyelvtechnológiai eszközök között szólunk részletesebben.
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 
-text1 <- "Példa az elokészítésre. Az elokészítést a szövetisztítással kell megkezdenünk. Az elokészített korpuszon elemzést végzünk"
+text1 <- "Példa az előkészítésre. Az előkészítést a szövetisztítással kell megkezdenünk. Az előkészített korpuszon elemzést végzünk"
 
 toks1 <- tokens(text1, remove_punct = TRUE)
 
-elokészítés <- c("elokészítésre", "elokészítést", "elokészített")
+elokeszites <- c("előkészítésre", "előkészítést", "előkészített")
 
-lemma <- rep("elokészítés", length(elokészítés))
+lemma <- rep("előkészítés", length(elokeszites))
 
-toks1 <- tokens_replace(toks1, elokészítés, lemma, valuetype = "fixed")
+toks1 <- tokens_replace(toks1, elokeszites, lemma, valuetype = "fixed")
 
 toks1
 ```
@@ -151,7 +150,7 @@ A fenti `text1` objektumban tárolt szöveg stemmelését az alábbiak szerint t
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 
-text1 <- "Példa az elokészítésre. Az elokészítést a szövetisztítással kell megkezdenünk. Az elokészített korpuszon elemzést végzünk"
+text1 <- "Példa az előkészítésre. Az előkészítést a szövetisztítással kell megkezdenünk. Az előkészített korpuszon elemzést végzünk"
 
 toks2 <- tokens(text1, remove_punct = TRUE)
 
@@ -172,7 +171,7 @@ Az alábbi példában három egy-egy mondatos dokumentumon szemléltetjük a fen
 ```{r}
 
 text <- c(
-  d1 = "Ez egy példa az elofeldolgozásra",
+  d1 = "Ez egy példa az előfeldolgozásra",
   d2 = "Egy másik lehetséges példa",
   d3 = "Ez pedig egy harmadik példa"
 )
@@ -208,11 +207,11 @@ dfm
 ### Súlyozás
 
 A dokumentum kifejezés mátrix lehet egy egyszerű bináris mátrix, ami csak azt az információt tartalmazza, hogy egy adott szó előfordul-e egy adott dokumentumban.  Míg az egyszerű bináris mátrixban ugyanakkora súlya van egy szónak ha egyszer és ha tízszer szerepel, készíthetünk olyan mátrixot is, ahol egy szónak annál nagyobb a súlya egy dokumentumban, minél többször fordul elő.
-A szógyakoriság (term frequency, TM) szerint súlyozott TD mátrixnál azt is figyelembe vesszük, hogy az adott szó hány dokumentumban szerepel. Minél több dokumentumban szerepel egy szó, annál kisebb a jelentősége. Ilyen szavak például a névelők, amelyek sok dokumentumban előfordulnak ugyan, de nem sok tartalmi jelentőséggel bírnak. Két szó közül általában az a fontosabb, amelyik koncentráltan, kevés dokumentumban, de azokon belül nagy gyakorisággal fordul elő. A dokumentum gyakorisági érték (document frequency, df) egy szó ritkaságát jellemzi egy korpuszon belül, azaz megadja, hogy mekkora megkülönböztető ereje van egy szónak a dokumentum tartalmára vonatkozóan. A súlyozási sémákban általában a dokumentum gyakorisági érték inverzével számolnak (inverse document frequency, idf) ez a leggyakrabban használt td-idf súlyozás (term frequency & inverse document frequency. Az így súlyozott TD mátrix egy-egy cellájában található érték azt mutatja, hogy egy adott szónak mekkora a jelentősége egy adott dokumentumban. A tf -idf súlyozás értéke tehát magas azon szavak esetén, amelyek az adott dokumentumban gyakran fordulnak elő, míg a teljes korpuszban ritkán, alacsonyabb azon szavak esetén, amelyek az adott dokumentumban ritkábban, vagy a korpuszban gyakrabban fordulnak elő és kicsi azon szavaknál, amelyek a korpusz lényegében összes dokumentumában előfordulnak [@Tikk2007:33-37] 
+A szógyakoriság (term frequency, TM) szerint súlyozott TD mátrixnál azt is figyelembe vesszük, hogy az adott szó hány dokumentumban szerepel. Minél több dokumentumban szerepel egy szó, annál kisebb a jelentősége. Ilyen szavak például a névelők, amelyek sok dokumentumban előfordulnak ugyan, de nem sok tartalmi jelentőséggel bírnak. Két szó közül általában az a fontosabb, amelyik koncentráltan, kevés dokumentumban, de azokon belül nagy gyakorisággal fordul elő. A dokumentum gyakorisági érték (document frequency, df) egy szó ritkaságát jellemzi egy korpuszon belül, azaz megadja, hogy mekkora megkülönböztető ereje van egy szónak a dokumentum tartalmára vonatkozóan. A súlyozási sémákban általában a dokumentum gyakorisági érték inverzével számolnak (inverse document frequency, idf) ez a leggyakrabban használt td-idf súlyozás (term frequency & inverse document frequency. Az így súlyozott TD mátrix egy-egy cellájában található érték azt mutatja, hogy egy adott szónak mekkora a jelentősége egy adott dokumentumban. A tf -idf súlyozás értéke tehát magas azon szavak esetén, amelyek az adott dokumentumban gyakran fordulnak elő, míg a teljes korpuszban ritkán, alacsonyabb azon szavak esetén, amelyek az adott dokumentumban ritkábban, vagy a korpuszban gyakrabban fordulnak elő és kicsi azon szavaknál, amelyek a korpusz lényegében összes dokumentumában előfordulnak [@tikkSzovegbanyaszat2007, 33-37 o.] 
 
 Az alábbiakban az 1999-es törvényszöveken szemlétetjük hogy egy 125 dokumentumból létrehozott mátrix segítségével milyen alapvető statisztikai műveleteket végezhetünk.[^workshopok]
 
-[^workshopok]: Az itt használt kódok az alábbiakon alapulnak: http://www.akosmate.com/QTA_SZISZ_2019/week03_descriptives_i/session3_r_script.html, https://rdrr.io/cran/quanteda/man/dfm_weight.html, https://rdrr.io/cran/quanteda/man/dfm_tfidf.html 
+[^workshopok]: Az itt használt kódok az alábbiakon alapulnak: [https://rdrr.io/cran/quanteda/man/dfm_weight.html](https://rdrr.io/cran/quanteda/man/dfm_weight.html), [https://rdrr.io/cran/quanteda/man/dfm_tfidf.html](https://rdrr.io/cran/quanteda/man/dfm_tfidf.html) 
 
 Ehhez először importáljuk a törvények egy `.csv` kiterjesztésű fájlból. A `read_csv()` használatának az az előnye, hogy alapbeállításként UTF-8 formátumban importálja be a szöveges oszlopokat.
 

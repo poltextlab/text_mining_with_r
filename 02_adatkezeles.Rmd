@@ -22,9 +22,7 @@ Az adatok importálására az R alapfüggvénye mellett több package is megold�
 df <- read_csv("data/adatfile.csv")
 ```
 
-Az R képes linkről letölteni fileokat, elég megadnunk egy működő elérési útvonalat.
-
-**placeholder link, cserelni majd mukodore**
+Az R képes linkről letölteni fileokat, elég megadnunk egy működő elérési útvonalat. 
 
 ```{r, eval=FALSE}
 df_online <- read.csv("https://www.qta.tk.mta.hu/adatok/adatfile.csv")
@@ -71,7 +69,7 @@ en %>%
 
 A fenti példa is jól mutatja, hogy a pipe a bal oldali elemet fogja a jobb oldali függvény első elemének berakni. A fejezet további részeiben még bőven fogunk gyakorlati példát találni a használatára. A fejezetben bemutatott példák az alkalmazásoknak csak egy relatíve szűk körét mutatják be, ezért érdemes átolvasni a csomagokhoz tartozó dokumentációt, illetve ha van, akkor a működést demonstráló bemutató oldalakat is.
 
-## Muveletek a date framekkel
+## Műveletek a date framekkel
 
 A data frame az egyik leghasznosabb és leggyakrabban használt adat tárolási mód az R-ben (a részletesebb leírás a [Függelékben](#data-frame) található) és ebben az alfejezetben azt mutatjuk be a `dplyr` és `gapminder` csomagok segíségével, hogy hogyan lehet hatékonyan dolgozni velük. A `dplyr` az egyik legnépszerűbb R csomag, a *tidyverse* része. A `gapminder` csomag pedig a példa adatbázisunkat tartalmazza, amiben a világ országainak különböző gazdasági és társadalmi mutatói vannak.
 

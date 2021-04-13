@@ -19,7 +19,7 @@ A kulcsszavakra építés miatt a módszer a kvalitatív és kvantitatív kutat�
 -   Széles körben alkalmazható, egyszerűen számolható. A politikatudományon és számítogépes nyelvtudományokon belül nagyon sok kész szótár elérhető, amik különböző módszerekkel készültek és különböző területet fednek le (pl.: populizmus, pártprogramok policy tartalma, érzelmek, gazdasági tartalom.)[^szentiment_elemzes-1]
 -   Relatíve könnyen adaptálható egyik nyelvi környezetből másikba.
 
-[^szentiment_elemzes-1]: A lehetséges, területspecifikus szótáralkotási módszerekről részletesebben ezekben a cikkekben lehet olvasni: @laver2000estimating; @young2012affective; @loughran2011; @máté2021
+[^szentiment_elemzes-1]: A lehetséges, területspecifikus szótáralkotási módszerekről részletesebben ezekben a cikkekben lehet olvasni: @laver2000estimating; @young2012affective; @loughranWhenLiabilityNot2011; @mateEffectCentralBank2021
 
 **A módszer lehetéges hátrányai:**
 
@@ -197,7 +197,7 @@ ggplot(mn_df, aes(doc_date, net_daily)) +
 
 ## MNB sajtóközlemények
 
-A második esettanulmányban a kotextuális szótár elemzést mutatjuk be egy angol nyelvű korpusz és specializált szótár segítségével. A korpusz az MNB kamatdöntéseit kísérő nemzetközi sajtóközleményei és a szótár pedig a @loughran2011 pénzügyi szentimentszótár.[^mnb-szentiment] A szótár a `quanteda.dictionaries` csomag részeként elérhető, illetve a tankönyv honlapján is megtalálható.
+A második esettanulmányban a kotextuális szótár elemzést mutatjuk be egy angol nyelvű korpusz és specializált szótár segítségével. A korpusz az MNB kamatdöntéseit kísérő nemzetközi sajtóközleményei és a szótár pedig a @loughranWhenLiabilityNot2011 pénzügyi szentimentszótár.[^mnb-szentiment] A szótár a `quanteda.dictionaries` csomag részeként elérhető, illetve a tankönyv honlapján is megtalálható.
 
 ```{r echo=FALSE}
 penzugy_szentiment <- quanteda.dictionaries::data_dictionary_LoughranMcDonald
@@ -220,7 +220,7 @@ A munkamenet hasonló a Magyar Nemzetes példához:
 6. dfm előállítás és szentiment számítás
 7. az eredmény vizualizálása, további felhasználása
 
-[^mnb-szentiment]: A témával részletesebben is foglalkoztunk a @máté2021 tanulmányban, ahol egy saját monetáris szentiment szótárt mutatunk be. Az implementáció és a hozzá tartozó R forráskód a nyilvános https://doi.org/10.6084/m9.figshare.13526156.v1 linken.
+[^mnb-szentiment]: A témával részletesebben is foglalkoztunk a @mateEffectCentralBank2021 tanulmányban, ahol egy saját monetáris szentiment szótárt mutatunk be. Az implementáció és a hozzá tartozó R forráskód a nyilvános https://doi.org/10.6084/m9.figshare.13526156.v1 linken.
 
 
 ```{r}

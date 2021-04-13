@@ -1,5 +1,11 @@
 # Szóbeágyazások
 
+```{r include=FALSE}
+
+source("_common.R")
+
+```
+
 Az eddigi fejezetekben elsősorban a szózsák (bag of words) alapú módszerek voltak előtérben. Ez a reprezentálása a szövegnek szigorúan véve nem felel meg a valóságnak a kotextuális tartalom elvesztése miatt, de ezt az esetek többségében figyelmen kívül hagyhatjuk. A szóbeágyazáson (word embedding) alapuló modellek viszont kimondottan a kotextuális információt ragadják meg. A szóbeágyazás a topikmodellekhez hasonlóan szintén a felügyelet nélküli tanulás módszerére épül, azonban itt a dokumentum domináns kifejezéseinek és témáinak feltárása helyett a szavak közötti szemantikai kapcsolat megértése a cél. Vagyis a modellnek képesnek kell lennie az egyes szavak esetén szinonimáik, és ellentétpárjaik megtalálására.
 
 A hagyományos topikmodellezés esetén a modell a szavak dokumentumokon belüli együttes megjelenési statisztikái alapján becsül dokumentum-topik, illetve topik-szó eloszlásokat, azzal a céllal, hogy koherens téma-csoportokat képezzen a modell, ezzel szemben a szóbeágyazás legújabb iskolája már neurális halókon alapul. A neurális háló a tanítási folyamata során az egyes szavak vektorreprezentációját állítja elő. A vektorok jellemzően 100-300 dimenzióból állnak, a távolságuk alapján pedig megállapítható, hogy az egyes kifejezések milyen szemantikai kapcsolatban állnak egymással.
@@ -12,7 +18,7 @@ A szóbeágyazásra társadalomtudományokban a két legnépszerűbb algoritmus 
 
 [^szobeagyazas-1]: Egy kíváló tanulmányban @spirlingword összehasonlítják a Word2Vec és GloVe módszereket, különbözö paraméterekkel, adatbázisokkal. Amennyiben valakit komolyabban érdekelnek a szóbeágyazás gyakorlati alkalmazásának a részletei annak mindenképp ajánljuk elolvasásra.
 
-A szóvektor modellek között érdemes megemlíteni a fastText-et is, mely 157 nyelvre kínál (köztük magyarra is) a szóbeágyazás módszeren alapuló, előre tanított szóvektorokat, melyet tovább lehet tanítani speciális szövegkorpuszokra, ezzel jelentősen lerövidítve a modell tanításához szükséges idő-, és kapacitásszükségletet @mikolov2018advances. Habár a GloVe és Word2Vec skip-gram módszerek hasonlóságát a szakirodalom adottnak veszi, a tényleges kép ennél árnyaltabb. A GloVe esetében a ritkán előforduló szavak kisebb súlyt kapnak a szóvektorok számításánal, míg a Word2Vec alulsúlyozz a nagy frekvenciájú szavakat. Ennek a következménye, hogy a Word2Vec esetében gyakori hogy a szemantikailag legközelebbi szó az egy elütés, nem pedig valid találat. Ennek ellenére a két módszer (amennyiben a Word2Vec algoritmusnál a kisfrekvenciájú tokeneket kiszűrjük) az emberi validálás során nagyon hasonló eredményeket hozott @spirlingworda.
+A szóvektor modellek között érdemes megemlíteni a fastText-et is, mely 157 nyelvre kínál (köztük magyarra is) a szóbeágyazás módszeren alapuló, előre tanított szóvektorokat, melyet tovább lehet tanítani speciális szövegkorpuszokra, ezzel jelentősen lerövidítve a modell tanításához szükséges idő-, és kapacitásszükségletet @mikolov2018advances. Habár a GloVe és Word2Vec skip-gram módszerek hasonlóságát a szakirodalom adottnak veszi, a tényleges kép ennél árnyaltabb. A GloVe esetében a ritkán előforduló szavak kisebb súlyt kapnak a szóvektorok számításánal, míg a Word2Vec alulsúlyozz a nagy frekvenciájú szavakat. Ennek a következménye, hogy a Word2Vec esetében gyakori hogy a szemantikailag legközelebbi szó az egy elütés, nem pedig valid találat. Ennek ellenére a két módszer (amennyiben a Word2Vec algoritmusnál a kisfrekvenciájú tokeneket kiszűrjük) az emberi validálás során nagyon hasonló eredményeket hozott [@spirlingword].
 
 A fejezetben a gyakorlati példa során a GloVe algoritmust használjuk majd, mivel véleményünk szerint az implementációt tartalmazó R csomagnak jobb a dokumentációja mint a többi alternatívának.
 
@@ -20,7 +26,7 @@ A fejezetben a gyakorlati példa során a GloVe algoritmust használjuk majd, mi
 
 Az elemzéshez a `text2vec` csomagot fogjuk használni, ami a GloVe implementációt tartalmazza. A lenti kód a csomag dokumentáción alapul és a Társadalomtudományi Kutatóközpont által a *Hungarian Comparative Agendas Project (CAP)* adatbázisában tárolt Magyar Nemzet korpuszt használja.[^cap-link]
 
-[^cap-link]: A Magyar CAP Projekt által kezelt adatbázisok itt megtalálhatóak: https://cap.tk.hu/adatbazisok
+[^cap-link]: A Magyar CAP Projekt által kezelt adatbázisok itt megtalálhatóak: [https://cap.tk.hu/adatbazisok](https://cap.tk.hu/adatbazisok)
 
 
 ```{r}
@@ -78,7 +84,7 @@ Az egyszerűség és gyorsaság miatt a lenti kód 10 körös tanulást ad meg, 
 
 [^config]: A futtatásra használt PC nem különösebben erős: 4 magos Intel Core i5-4460 (3.2GHz) CPU és 16GB RAM 
 
-```{r 09_glove_fit, cache=TRUE}
+```{r 09_glove_fit, eval=FALSE}
 glove <- GlobalVectors$new(rank = 300, x_max = 10, learning_rate = 0.1)
 
 mn_main <- glove$fit_transform(mn_fcm, n_iter = 10, convergence_tol = 0.01)
@@ -86,10 +92,16 @@ mn_main <- glove$fit_transform(mn_fcm, n_iter = 10, convergence_tol = 0.01)
 
 A végleges szóvektorokat a becslés során elkészült két mátrix összegeként kapjuk.
 
-```{r}
+```{r, eval=FALSE}
 mn_context <- glove$components
 
 mn_word_vectors <- mn_main + t(mn_context)
+```
+
+```{r}
+# saveRDS(mn_word_vectors, "data/temp/mn_word_vector.RDS")
+
+mn_word_vectors <- readRDS("data/temp/mn_word_vector.RDS")
 ```
 
 
