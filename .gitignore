@@ -30,3 +30,4 @@ latex_export.r
 tinkering.R
 data/mn_pretrained.rds
 data/temp/
+.vscode/

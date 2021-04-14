@@ -78,11 +78,11 @@ A topik-modellezés a dokumentumok téma-klasztereinek meghatározására szolg�
 knitr::include_graphics("figures/08-01_topik_modell.png")
 ```
 
-A következőkben a magyar törvények korpuszán szemléltetjük a topik modellezés módszerét, hogy a mesterséges intelligencia segítségével feltárjuk a korpuszon belüli rejtett összefüggéseket. A korábban leírtak szerint tehát nincsenek előre meghatározott kategóriáink, dokumentumainkat a klaszterezés segítségével szeretnénk csoportosítani. Egy-egy dokumentumban keveredhetnek a témák és az azokat reprezentáló szavak. Mivel ugyanaz a szó több topikhoz is kapcsolódhat, így az eljárás komplex elemzési lehetőséget nyújt, az egy szövegen belül témák és akár azok dokumentumon belüli súlyának azonosítására. Példánkban csak a korpusz egy részén szemléltetjük a topik modellezést, a teljes korpusz és annak elemzéséhez szükséges kód elérhető az alábbi github linken: [https://github.com/poltextlab](https://github.com/poltextlab)
+A következőkben a magyar törvények korpuszán szemléltetjük a topik modellezés módszerét, hogy a mesterséges intelligencia segítségével feltárjuk a korpuszon belüli rejtett összefüggéseket. A korábban leírtak szerint tehát nincsenek előre meghatározott kategóriáink, dokumentumainkat a klaszterezés segítségével szeretnénk csoportosítani. Egy-egy dokumentumban keveredhetnek a témák és az azokat reprezentáló szavak. Mivel ugyanaz a szó több topikhoz is kapcsolódhat, így az eljárás komplex elemzési lehetőséget nyújt, az egy szövegen belül témák és akár azok dokumentumon belüli súlyának azonosítására. Példánkban csak a korpusz egy részén szemléltetjük a topik modellezést, a teljes korpusz és annak elemzéséhez szükséges kód elérhető az alábbi GitHub linken: [https://github.com/poltextlab](https://github.com/poltextlab)
 
 Az alábbiakban 1998-2002 és a 2002-2006-os parlamenti ciklus 1032 törvényszövegének topik modellezését és a szükséges előkészítő, korpusztisztító lépéseket mutatjuk be. A fájlokat töltsük be az R által használt munkakönyvtárba.[^klasztering_topicmodellek-2]
 
-[^klasztering_topicmodellek-2]: A teljes törvényeket és a metadatokat tartalmazó adatbázisokat a [https://cap.tk.hu/](https://cap.tk.hu/) honlapról lehet letölteni.
+[^klasztering_topicmodellek-2]: A teljes törvényeket és a meta adatokat tartalmazó adatbázisokat a [https://cap.tk.hu/](https://cap.tk.hu/) honlapról lehet letölteni.
 
 Töltsük be az elemezni kívánt csv fájlt, megadva az elérési útvonalát.
 
@@ -116,7 +116,7 @@ torvenyek_tiszta <- torvenyek %>%
   )
 ```
 
-A dokumentum változókat egy külön fájlból adjuk hozzá, ami a törvények keletkezési évét tartalmazza, illetve hogy melyik kormányzati ciklusban születtek. Mindkét adatbázisban egy közös egyedi azonosító jelöli az egyes törvényeket, így ki tudjuk használni a `dplyr` `left_join()` függvényét, ami hatékonyan és gyorsan kapcsol össze adatbázisokat közös egyedi azonosító mentén. Jelen esetben ez az egyedi azonosító a `txt_filename` oszlopból fog elkészülni, amely a torvenyek neveit tartalmazza. Első lépésben betöltjük a meta adatokat tartalmazó .csv fájlt, majd a `.txt` rész előtti törvényneveket tartjuk csak meg a létrehozott `doc_id`- oszlopban. A `[^\\.]*` regular expression itt a string elejétől indulva kijelöl mindent az elso `.` karakterig. Az `str_extract()` pedig ezt a kijelölt string szakaszt (ami a törvények neve) menti át az új változónkba.
+A dokumentum változókat egy külön fájlból adjuk hozzá, ami a törvények keletkezési évét tartalmazza, illetve hogy melyik kormányzati ciklusban születtek. Mindkét adatbázisban egy közös egyedi azonosító jelöli az egyes törvényeket, így ki tudjuk használni a `dplyr` `left_join()` függvényét, ami hatékonyan és gyorsan kapcsol össze adatbázisokat közös egyedi azonosító mentén. Jelen esetben ez az egyedi azonosító a `txt_filename` oszlopból fog elkészülni, amely a törvények neveit tartalmazza. Első lépésben betöltjük a meta adatokat tartalmazó .csv fájlt, majd a `.txt` rész előtti törvényneveket tartjuk csak meg a létrehozott `doc_id`- oszlopban. A `[^\\.]*` regular expression itt a string elejétől indulva kijelöl mindent az elso `.` karakterig. Az `str_extract()` pedig ezt a kijelölt string szakaszt (ami a törvények neve) menti át az új változónkba.
 
 ```{r}
 torveny_meta <- read_csv("data/cap_law_meta.csv")
@@ -175,12 +175,10 @@ torvenyek_dfm <- dfm(torvenyek_tokens) %>%
   dfm_trim(min_termfreq = 0.001, termfreq_type = "prop")
 ```
 
-A szövegtisztító lépesek eredményét úgy ellenőrizhetjük, hogy az 2. fejezetben bemutatottak szerint szógyakorisági listát készítünk a korpuszban maradt kifejezésekről. Itt kihasználhatjuk a korpuszunkban lévő meta adatokat és megnézhetjük ciklus szerinti bontásban a szófrekvencia ábrát. Az ábránál figyeljünk arra hogy a tidytext reorder_within fuggvenyet használjuk, ami egy nagyon hasznos megoldás a csoportosított sorrendbe rendezésre a ggplot ábránál.
+A szövegtisztító lépesek eredményét úgy ellenőrizhetjük, hogy az 2. fejezetben bemutatottak szerint szógyakorisági listát készítünk a korpuszban maradt kifejezésekről. Itt kihasználhatjuk a korpuszunkban lévő meta adatokat és megnézhetjük ciklus szerinti bontásban a szófrekvencia ábrát. Az ábránál figyeljünk arra hogy a tidytext `reorder_within` függvényét használjuk, ami egy nagyon hasznos megoldás a csoportosított sorrendbe rendezésre a `ggplot2` ábránál.
 
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80), fig.cap="A 15 leggyakoribb token a korpuszban"}
-
-
 top_tokens <- textstat_frequency(torvenyek_dfm, n = 15, groups = docvars(torvenyek_dfm, field = "electoral_cycle"))
 
 ggplot(top_tokens, aes(reorder_within(feature, frequency, group), frequency)) +
@@ -204,15 +202,13 @@ torvenyek_tokens_final <- torvenyek_tokens %>%
   tokens_remove(custom_stopwords2)
 ```
 
-Ezután újra ellenőrízzük az eredményt.
+Ezután újra ellenőrizzük az eredményt.
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 torvenyek_dfm_final <- dfm(torvenyek_tokens_final) %>%
   dfm_trim(min_termfreq = 0.001, termfreq_type = "prop")
 
 top_tokens_final <- textstat_frequency(torvenyek_dfm_final, n = 15, groups = docvars(torvenyek_dfm, field = "electoral_cycle"))
-
-
 ```
 
 
@@ -230,7 +226,7 @@ ggplot(top_tokens_final, aes(reorder_within(feature, frequency, group), frequenc
 
 A szövegtisztító és korpusz előkészítő műveletek után következhet az LDA illesztése. Az alábbiakban az LDA illesztés két módszerét a `VEM`-et és a `Gibbs`-et mutatjuk be. A modell minkét módszer esetén ugyanaz, a különbség a következtetés módjában van. A `VEM` módszer variációs következtetés, míg a `Gibbs` mintavételen alapuló következtetés. [@bleiLatentDirichletAllocation2003;@griffithsFindingScientificTopics2004;@phanLearningClassifyShort2008]
 
-A két modell illesztése nagyon hasonló, meg kell adnunk, az elemezni kívánt `dfm` nevét, majd a *„k"* értékét, ami egyenlő az általunk létrehozni kívánt topikok számával, ezt követően meg kell jelölnünk, hogy a `VEM` vagy a `Gibbs` módszert alkalmazzuk. A `set.seed()` a funkció az R véletlen szám generátor magjának beállítására szolgál, ami ahhoz kell, hogy az eredmény, ábra, stb. pontosan reprodukálható legyen. A `set.seed()` bármilyen tetszőleges egész szám lehet. Kihasználhatjuk hogy minden dokumentumhoz tartozik egy kormányzati ciklus azonosító, mivel ésszerű lehet a feltételezés, hogy különböző parlamentek és kormányok más-más jogalkotási fokusszal rendelkeznek. A dokumentum változók alapján a `dfm_subset()`-el tudjuk feldarabolni a már elkészült és tisztított mátrixunkat.
+A két modell illesztése nagyon hasonló, meg kell adnunk, az elemezni kívánt `dfm` nevét, majd a *„k"* értékét, ami egyenlő az általunk létrehozni kívánt topikok számával, ezt követően meg kell jelölnünk, hogy a `VEM` vagy a `Gibbs` módszert alkalmazzuk. A `set.seed()` a funkció az R véletlen szám generátor magjának beállítására szolgál, ami ahhoz kell, hogy az eredmény, ábra, stb. pontosan reprodukálható legyen. A `set.seed()` bármilyen tetszőleges egész szám lehet. Kihasználhatjuk hogy minden dokumentumhoz tartozik egy kormányzati ciklus azonosító, mivel ésszerű lehet a feltételezés, hogy különböző parlamentek és kormányok más-más jogalkotási fókusszal rendelkeznek. A dokumentum változók alapján a `dfm_subset()`-el tudjuk feldarabolni a már elkészült és tisztított mátrixunkat.
 
 ```{r}
 dfm_98_02 <- dfm_subset(torvenyek_dfm_final, electoral_cycle == "1998-2002")
@@ -240,7 +236,7 @@ dfm_02_06 <- dfm_subset(torvenyek_dfm_final, electoral_cycle == "2002-2006")
 
 ### A „VEM" módszer alkalmazása a magyar törvények korpuszán
 
-Saját korpuszunkon először a `VEM` a módszert alkalmazzuk, ahol `k = 10` azaz a modell 10 témacsoportot alakít ki. Mint arról korábban már volt szó a `k` értékét szabadon változtathatjuk, aszerint hogy hány topik kialakítását szeretnénk. Bár a `k` értékének meghatározása kutatói döntésen alapul, és a modell futtatása során bevett gyakorlat a különböző *„k"* értékekkel való kísérletezés, miután elkészült az elemzés a `perplexity()` funkció segítségével -- ahol a *theta* az adott topikhoz való tartozás valószínűsége -- lehetőségünk van az elkészült modell kiértékelésére. A függvény a topikok által reprezentált elméleti szóeloszlásokat hasonlítja össze a szavak tényleges eloszlásával a dokumentumokban. A függvény értéke nem önmagában értelmezendő, hanem két modell összehasonlításában, ahol a legalacsonyabb *perplexity* (zavarodottság) értékkel rendelkező modellt tekintik a legjobbnak.[^klaszeterzes-2] Az illusztráció kedvéért lefuttatunk 4 LDA modellt az 1998-2002 kormánzyati ciklushoz tartozó dfm-en. Az iterációhoz a `purrr` csomag `map` függvényét használjuk (ez a `lapply` *tidyverse* ekvivalense). Fontos emlékezni arra, hogy minél nagyobb a korpuszunk annál több számítási kapacitásra van szükség (és annál tovább tart a számítás).
+Saját korpuszunkon először a `VEM` a módszert alkalmazzuk, ahol `k = 10` azaz a modell 10 témacsoportot alakít ki. Mint arról korábban már volt szó a `k` értékét szabadon változtathatjuk, aszerint hogy hány topik kialakítását szeretnénk. Bár a `k` értékének meghatározása kutatói döntésen alapul, és a modell futtatása során bevett gyakorlat a különböző *„k"* értékekkel való kísérletezés, miután elkészült az elemzés a `perplexity()` funkció segítségével -- ahol a *theta* az adott topikhoz való tartozás valószínűsége -- lehetőségünk van az elkészült modell kiértékelésére. A függvény a topikok által reprezentált elméleti szóeloszlásokat hasonlítja össze a szavak tényleges eloszlásával a dokumentumokban. A függvény értéke nem önmagában értelmezendő, hanem két modell összehasonlításában, ahol a legalacsonyabb *perplexity* (zavarodottság) értékkel rendelkező modellt tekintik a legjobbnak.[^klaszeterzes-2] Az illusztráció kedvéért lefuttatunk 4 LDA modellt az 1998-2002 kormányzati ciklushoz tartozó dfm-en. Az iterációhoz a `purrr` csomag `map` függvényét használjuk (ez a `lapply` *tidyverse* ekvivalense). Fontos emlékezni arra, hogy minél nagyobb a korpuszunk annál több számítási kapacitásra van szükség (és annál tovább tart a számítás).
 
 [^klaszeterzes-2]: [http://brooksandrew.github.io/simpleblog/articles/latent-dirichlet-allocation-under-the-hood/](http://brooksandrew.github.io/simpleblog/articles/latent-dirichlet-allocation-under-the-hood/)
 
@@ -273,7 +269,6 @@ lda_98_02 <- readRDS("data/temp/lda_perp_temp.RDS")
 # saveRDS(temp_tibble, "data/temp_df.RDS")
 
 perp_df <- readRDS("data/temp/temp_df.RDS")
-
 ```
 
 
@@ -292,7 +287,7 @@ A perplexity pontszám alapján a 20 topikos modell szerepel a legjobban, de fon
 
 [^klasztering_topicmodellek-3]: A `ldatuning` R csomagban további indikátor implementációja található, ami a perplexityhez hasonlóan minimalizásra alapoz [@arun2010finding;@cao2009density], illetve maximalizálásra [@deveaud2014accurate;@griffithsFindingScientificTopics2004]
 
-A reprodukálhatóság és futási sebesség érdekében a fejezet további részeiben a *k* paraméternek 10-es értéket adunk. Ezzel lefututtatunk egy-egy modellt a két ciklusra.
+A reprodukálhatóság és futási sebesség érdekében a fejezet további részeiben a *k* paraméternek 10-es értéket adunk. Ezzel lefuttatunk egy-egy modellt a két ciklusra.
 
 ```{r double_vem, eval=FALSE}
 vem_98_02 <- LDA(dfm_98_02, k = 10, method = "VEM", control = list(seed = 1234))
@@ -307,7 +302,6 @@ vem_02_06 <- LDA(dfm_02_06, k = 10, method = "VEM", control = list(seed = 1234))
 vem_98_02 <- readRDS("data/temp/vem_98.RDS")
 
 vem_02_06 <- readRDS("data/temp/vem_02.RDS")
-
 ```
 
 
@@ -329,7 +323,6 @@ lda_vem <- bind_rows(topics_98_02, topics_02_06)
 Majd listázzuk az egyes topikokhoz tartozó leggyakoribb kifejezéseket.
 
 ```{r}
-
 top_terms <- lda_vem %>%
   group_by(electoral_cycle, topic) %>%
   top_n(5, beta) %>%
@@ -373,11 +366,9 @@ top_terms %>%
 A következőkben ugyanazon a korpuszon az LDA Gibbs módszert alkalmazzuk. A szövegelőkészítő és tisztító lépések ennél a módszernél is ugyanazok mint a fentebb bemutatott "VEM" módszer esetében, így itt most csak a modell illesztését mutatjuk be.
 
 ```{r double_gibbs, eval=FALSE}
-
 gibbs_98_02 <- LDA(dfm_98_02, k = 10, method = "Gibbs", control = list(seed = 1234))
 
 gibbs_02_06 <- LDA(dfm_02_06, k = 10, method = "Gibbs", control = list(seed = 1234))
-
 ```
 
 ```{r echo=FALSE}
@@ -446,18 +437,17 @@ top_terms_gibbs %>%
 
 ## Struktúrális topik modellek
 
-A kvantitatív szövegelemzés elterjedésével együtt megjelentek a módszertani innovációk is és a probabilisztikus topic modellek esetében ez a politikatudomány területéről érkezett. @roberts2014structural egy kíváló cikkben mutatta be a struktúrális topic modelleket (structural topic models, stm) ahol a fő újítás az az hogy a dokumentumok metaadatai kovariánsként tudják befolyásolni hogy egy-egy kifejezés mekkora valószínűséggel lesz egy-egy téma része. A kovariánsok egyrészről megmagyarázhatják hogy egy-egy dokumentum mennyire függ össze egy-egy témával (*topical prevalence*), illetve hogy egy-egy szó mennyire függ össze egy-egy témán belül (t*opical content*).
+A kvantitatív szövegelemzés elterjedésével együtt megjelentek a módszertani innovációk is és a probabilisztikus topic modellek esetében ez a politikatudomány területéről érkezett. @roberts2014structural egy kiváló cikkben mutatta be a struktúrális topic modelleket (structural topic models, stm) ahol a fő újítás az az hogy a dokumentumok metaadatai kovariánsként tudják befolyásolni hogy egy-egy kifejezés mekkora valószínűséggel lesz egy-egy téma része. A kovariánsok egyrészről megmagyarázhatják hogy egy-egy dokumentum mennyire függ össze egy-egy témával (*topical prevalence*), illetve hogy egy-egy szó mennyire függ össze egy-egy témán belül (t*opical content*).
 
 Az stm modell becslése során mindkét típusú kovariánst használhatjuk, illetve hogyha nem adunk meg dokumentum meta adatot akkor az `stm` csomag `stm` függvénye a Korrelált Topic Modell-t fogja becsülni.
 
 Az stm modelleket az R-ben az `stm` csomaggal tudjuk kivitelezni. A csomag fejlesztői között van a módszer kidolgozója is, ami nem ritka az R csomagok esetében.
 
-A lenti lépésekben a csomag dokumentációjában szereplő ajánlásokat követjük, habár a könyv írásakor a `stm` már képes volt a `quanteda`-ban létrehozott dfm-ek kezelésére is. A kiinduló adatbázisunk a `törvény_final` amit a fejezet elején hoztunk létre a dokuemntumokból és a metaadatokból. A javasolt munkafolyamat a `textProcessor()`-használatával indul, ami szintén tartalmazza az alap szöveg előkészítési lépéseket. Az egyszerűség és futási sebesség érdekében itt most ezek többségétől eltekintünk, mivel a fejezet korábbi részeiben részletesen tárgyaltuk őket.
+A lenti lépésekben a csomag dokumentációjában szereplő ajánlásokat követjük, habár a könyv írásakor a `stm` már képes volt a `quanteda`-ban létrehozott dfm-ek kezelésére is. A kiinduló adatbázisunk a `törvény_final` amit a fejezet elején hoztunk létre a dokumentumokból és a metaadatokból. A javasolt munkafolyamat a `textProcessor()`-használatával indul, ami szintén tartalmazza az alap szöveg előkészítési lépéseket. Az egyszerűség és futási sebesség érdekében itt most ezek többségétől eltekintünk, mivel a fejezet korábbi részeiben részletesen tárgyaltuk őket.
 
 Az előkészítés utolsó szakaszában az `out` objektumban tároljuk el a dokumentumokat, egyedi szavakat, illetve a meta adatokat (kovariánsokat).
 
 ```{r stm_preprocess, eval=FALSE}
-
 data_stm <- torveny_final
 
 processed_stm <- textProcessor(
@@ -473,16 +463,13 @@ processed_stm <- textProcessor(
   verbose = FALSE
 )
 
-
 out <- prepDocuments(processed_stm$documents, processed_stm$vocab, processed_stm$meta)
 ```
 
 ```{r echo=FALSE}
-
 # saveRDS(out, "data/temp/stm_out.RDS")
 
 out <- readRDS("data/temp/stm_out.RDS")
-
 ```
 
 
@@ -502,28 +489,24 @@ stm_fit <- stm(
 ```
 
 ```{r echo=FALSE}
-
 # saveRDS(stm_fit, "data/temp/stm_fit.RDS")
 
 stm_fit <- readRDS("data/temp/stm_fit.RDS")
-
 ```
 
 
 Amennyiben a kutatási kérdés megkívánja, akkor megvizsálhatjuk hogy a kategórikus változóinknak milyen hatása volt egyes topikok esetében. Ehhez az `estimateEffect()` függvénnyel lefuttatunk egy lineáris regressziót és a `summary()` használatával láthatjuk az egyes kovariánsok koefficienseit. Itt az első topikkal illusztráljuk az eredményt, ami azt mutatja hogy (a kategórikus változóink első kategoriájához mérten) statisztikailag szignifikáns mint a téma mind pedig a kormányzati ciklusok abban hogy egyes dokumentumok milyen témákból épülnek fel.
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
-
 out$meta$electoral_cycle <- as.factor(out$meta$electoral_cycle)
 out$meta$majortopic <- as.factor(out$meta$majortopic)
 
 cov_estimate <- estimateEffect(1:10 ~ majortopic + electoral_cycle, stm_fit, meta = out$meta, uncertainty = "Global")
 
 summary(cov_estimate, topics = 1)
-
 ```
 
-Az LDA modelleknél már bemutatott munkafolyamat az stm modellünk esetében is alkalmazható, hogy vizuálisan is megjelenítsük az eredményeinket. A `tidy()` data frammé alakítja az stm objektumot, amit aztán a már ismerős `dplyr` csomagban lévő fügvényekkel tudunk átalakítani és végül vizualizálni a `ggplot2` csomaggal. A lenti ábrán az egyes témákhoz tartozó 5 legvalószűbb szót mutatjuk be.
+Az LDA modelleknél már bemutatott munkafolyamat az stm modellünk esetében is alkalmazható, hogy vizuálisan is megjelenítsük az eredményeinket. A `tidy()` data frammé alakítja az stm objektumot, amit aztán a már ismerős `dplyr` csomagban lévő függvényekkel tudunk átalakítani és végül vizualizálni a `ggplot2` csomaggal. A lenti ábrán az egyes témákhoz tartozó 5 legvalószínűbb szót mutatjuk be.
 
 ```{r}
 tidy_stm <- tidy(stm_fit)
@@ -567,7 +550,5 @@ plot.STM(stm_fit, "summary", main = "", labeltype = "frex", xlab = "Várható to
 Végezetül, a témák közötti korrelációt a `topicCorr` függvénnyel becsülhetjük és az `igraph` csomagot betöltve a `plot()` paranccsal tudjuk vizualizálni. Az eredmény egy hálózat lesz amit gráfként ábrázolunk. Az élei a gráfoknak a témák közötti összefüggést (korrelációt) jelölik.
 
 ```{r fig.cap="Témák közötti korreláció hálózat"}
-
 plot(topicCorr(stm_fit))
-
 ```
