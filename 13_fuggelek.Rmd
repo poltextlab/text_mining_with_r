@@ -8,9 +8,9 @@ source("_common.R")
 
 ## Az R és az RStudio használata
 
-Az R egy programozási nyelv, amely alkalmas statisztikai számítások elvégzésére és ezek eredményeinek grafikus megjelenítésére. Az R ingyenes, nyílt forráskódú szoftver, mely telepíthető mind Windows, mind Linux, mind MacOS operációs rendszerek alatt, az alábbi oldalról: <https://cran.r-project.org/> Az RStudio az R integrált fejlesztői környezete (*integrated development environment, IDE*), mely egy olyan felhasználóbarát felületet biztosít, ami egyszerűbb és átláthatóbb munkát tesz lehetővé. Az RStudio az alábbi oldalról tölthető le: <https://rstudio.com/products/rstudio/download/>
+Az R egy programozási nyelv, amely alkalmas statisztikai számítások elvégzésére és ezek eredményeinek grafikus megjelenítésére. Az R ingyenes, nyílt forráskódú szoftver, mely telepíthető mind Windows, mind Linux, mind MacOS operációs rendszerek alatt, az alábbi oldalról: [https://cran.r-project.org/](https://cran.r-project.org/) Az RStudio az R integrált fejlesztői környezete (*integrated development environment, IDE*), mely egy olyan felhasználóbarát felületet biztosít, ami egyszerűbb és átláthatóbb munkát tesz lehetővé. Az RStudio az alábbi oldalról tölthető le: [https://rstudio.com/products/rstudio/download/](https://rstudio.com/products/rstudio/download/)
 
-A „point and click" szoftverekkel szemben az R használata során kódot kell írni, ami bizonyos programozási jártasságot feltételez, de a későbbiekben lehetővé teszi azt adott kutatási kérdéshez maximálisan illeszkedő kódok összeállítását, melyek segítségével az elemzések mások számára is megbízhatóan reprodukálhatóak lesznek. Ugyancsak az R használata mellett szól, hogy komoly fejlesztői és felhasználói közösséggel rendelkezik, így a használat során felmerülő problémákra általában gyorsan megoldást találhatunk.
+A *„point and click"* szoftverekkel szemben az R használata során kódot kell írni, ami bizonyos programozási jártasságot feltételez, de a későbbiekben lehetővé teszi azt adott kutatási kérdéshez maximálisan illeszkedő kódok összeállítását, melyek segítségével az elemzések mások számára is megbízhatóan reprodukálhatók lesznek. Ugyancsak az R használata mellett szól, hogy komoly fejlesztői és felhasználói közösséggel rendelkezik, így a használat során felmerülő problémákra általában gyorsan megoldást találhatunk.
 
 ### Az RStudio kezdőfelülete
 
@@ -20,26 +20,18 @@ Az RStudio kezdőfelülete négy panelből, eszközsorból és menüsorból áll
 knitr::include_graphics('figures/13-01_layout.png')
 ```
 
-
 Az ***(1) editor*** ablak  szolgál a kód beírására, futtatására és mentésére. A ***(2) console*** ablakban jelenik meg a lefuttatott kód és az eredmények. A jobb felső ablak ***(3) environment*** fülén láthatóak a memóriában tárolt adatállományok, változók és felhasználói függvények. A ***history*** fül mutatja a korábban lefuttatott utasításokat. A jobb alsó ablak ***(4) files*** fülén az aktuális munkakönyvtárban levő mappákat és fájlok találjuk, míg a ***plot*** fülön az elemzéseink során elkészített ábrák jelennek meg. A ***packages*** fülön frissíthetjük a meglévő r csomagokat és telepíthetünk újakat. A ***help*** fülön a különböző függvények, parancsok leírását, és használatát találjuk meg. A `Tools -> Global Options` menüpont végezhetjük el az RStudio testreszabását. Így például beállíthatjuk az ablaktér elrendezését (*Pane layout*), vagy a színvilágot (*Appearance*), illetve azt hogy a kódok ne fussanak ki az ablakból (`Code -> Editing -> Soft wrap R source files`)
-
-
-
 
 
 ### Projekt alapú munka {#projektmunka}
 
-
 Bár nem kötelező, de javasolt, hogy az RStudio-ban projekt alapon dolgozzunk, mivel így az összes – az adott projekttel kapcsolatos fájlt – egy mappában tárolhatjuk. Új projekt beállítását a `File->New Project` menüben tehetjük meg, ahol a saját gépünk egy könyvtárát kell kiválasztani, ahová az R scripteket, az adat- és előzményfájlokat menti. Ezenkívül a `Tools->Global Options->General` menüpont alatt le kell tiltani a *„Restore most recently opened project at startup”* és a *„Restore .RData ino workspace at startup”* beállítást, valamint *„Save workspace to .RData on exit”* értékre be kell állítani a *„Never”*  értéket. 
-
-
 
 ```{r fig.align='center', fig.cap='RStudio projekt beállítások', echo=FALSE}
 knitr::include_graphics('figures/13-02_project_options.png')
 ```
 
 A szükséges beállítások után a `File -> New Project` menüben hozhatjuk létre a projektet. Itt arra is lehetőségünk van, hogy kiválasszuk, hogy a projektünket egy teljesen új könyvtárba, vagy egy meglévőbe kívánjuk menteni, esetleg egy meglévő projekt új verzióját szeretnénk létrehozni. Ha sikeresen létrehoztuk a projektet, az RStudio jobb felső sarkában látnunk kell annak nevét. 
-
 
 
 ### Scriptek szerkesztése, függvények használata
@@ -51,15 +43,11 @@ A munkafolyamat során létrehozott állományok (ábrák, fájlok) ebbe az ún.
 Az aktuális munkakönyvtárba beléphetünk a jobb alsó ablak file lapján a `„More -> Go To Working Directory”` segítségével. Ugyanitt a `„Set Working Directory”`-val munkakönyvtárnak állíthatjuk be az a mappát, amelyben épp benne vagyunk.
 
 
-
-
 ```{r fig.align='center', fig.cap='Working directory beállítások', echo=FALSE}
 knitr::include_graphics('figures/13-03_working_directory.png')
 ```
 
-
-
-A munkafolyamat befejezésére a `q()` vagy `quit()` függvényel van lehetőségünk. A munkafolyamat során különböző objektumokat hozunk létre, melyek az RStudio jobb felső ablakának environment fülén jelennek meg, a mentett objektumokat a fent látható seprű ikonra kattintva törölhetjük a memóriából. Az environment ablakra érdemes úgy gondolni hogy ott jelennek meg a memóriában tárolt értékek. Az R-ben objektumokkal dolgozunk, amik a teljesség igénye nélkül lehetnek egyszerű szám vektortok, vagy akár komplex listák, illetve függvények, ábrák. 
+A munkafolyamat befejezésére a `q()` vagy `quit()` függvénnyel van lehetőségünk. A munkafolyamat során különböző objektumokat hozunk létre, melyek az RStudio jobb felső ablakának environment fülén jelennek meg, a mentett objektumokat a fent látható seprű ikonra kattintva törölhetjük a memóriából. Az environment ablakra érdemes úgy gondolni hogy ott jelennek meg a memóriában tárolt értékek. Az R-ben objektumokkal dolgozunk, amik a teljesség igénye nélkül lehetnek egyszerű szám vektortok, vagy akár komplex listák, illetve függvények, ábrák. 
 
 Az RStudio jobb alsó ablakának plots fülén láthatjuk azon parancsok eredményét, melyek kimenete valamilyen ábra. A packages fülnél a már telepített és a letölthető kiegészítő csomagokat jeleníthetjük meg. A help fülön a korábban említettek szerint a súgó érhető el. Az RStudio-ban használható billentyűparancsok teljes listáját Alt+Shift+K billentyűkombinációval tekinthetjük meg. Néhány gyakrabban használt, hasznos billentyűparancs:
 
@@ -87,8 +75,6 @@ knitr::include_graphics('figures/13-04_packages.png')
 Az objektumok lehetnek például *vektorok*, *mátrixok* (matrix), *tömbök* (array), *adat táblák* (data frame). Értékadás nélkül az R csak megjeleníti a műveletek eredményét, de nem tárolja el azokat. Az eredmények eltárolásához azokat egy objektumba kell elmentenünk. Ehhez meg kell adnunk az objektum nevét majd az `<-` után adjuk meg annak értékét: `a <- 12 + 3`.Futtatás után az environments fülön megjelenik az a objektum, melynek értéke `15`. Az objektumok elnevezésénél figyelnünk kell arra, hogy az R különbséget tesz a kis és nagybetűk között, valamint, hogy az ugyanolyan nevű objektumokat kérdés nélkül felülírja és ezt a felülírást nem lehet visszavonni.
 
 
-
-
 ### Vektorok
 
 Az R-ben kétféle típusú vektort különböztetünk meg:
@@ -109,9 +95,7 @@ logikai <- c(TRUE, TRUE, FALSE)
 ```
 
 
-
 A létrehozott vektorokkal különböző műveleteket végezhetünk el, például összeadhatjuk numerikus vektorainkat. Ebben az esetben az első vektor első eleme a második vektor első eleméhez adódik.
-
 
 ```{r}
 c(1:4) + c(10,20,30,40)
@@ -147,11 +131,9 @@ A faktorok a kategórikus adatok tárolására szolgálnak. Faktor típusú vál
 ```{r}
 survey_response <- factor(c("igen", "semleges", "nem", "semleges", "nem", "nem", "igen"), ordered = TRUE)
 
-
 levels(survey_response)
 
 labels(survey_response)
-
 ```
 
 
@@ -198,12 +180,12 @@ A `ggplot2` használata során különböző témákat alkalmazhatunk, melyek r�
 
 Abban az esetben, ha nem választunk témát, a `ggplot2` a következő ábrán is látható alaptémát használja. Ha például a szürke helyett fehér hátteret szeretnénk, alkalmazhatjuk a `theme_minmal()`parancsot. Szintén gyakran alkalmazott ábra alap a `thema_bw()`, ami az előzőtől az ábra keretezésében különbözik. Ha fehér alapon, de a beosztások vonalait feketén szeretnénk megjeleníteni, alkalmazhatjuk a `theme_linedraw()` függvényt, a `theme_void()` segítségével pedig egy fehér alapon, beosztásoktól mentes alapot kapunk, a `theme_dark()` pedig sötét hátteret eredményez.  A `theme_classic()` segítségével az x és y tengelyt jeleníthetjük meg fehér alapon. 
 
-Egy ábra készítésének alapja mindig a használni kívánt adatkészlet beolvasása, illetve az ábrázolni kiíván változtót vagy változók megadása.
+Egy ábra készítésének alapja mindig a használni kívánt adatkészlet beolvasása, illetve az ábrázolni kívánt változót vagy változók megadása.
 
-Ezt követi a megfelelő alakzat kiválasztása, attól függően például, hogy eloszlást, változást, adatok közötti kapcsolatot, vagy elétéseket akarunk ábrázolni. A ` geom` az a geometriai objektum, a mit a diagram az adatok megjelenítésére használ. A`gglpot2` több mint 40 féle alakzat alkalmazására ad lehetőséget, ezek közül néhány gyakoribbat mutatunk be az alábbiakban. Az alakzatokról részletes leírása található például az alábbi linken:
+Ezt követi a megfelelő alakzat kiválasztása, attól függően például, hogy eloszlást, változást, adatok közötti kapcsolatot, vagy eltéréseket akarunk ábrázolni. A ` geom` az a geometriai objektum, a mit a diagram az adatok megjelenítésére használ. A`gglpot2` több mint 40 féle alakzat alkalmazására ad lehetőséget, ezek közül néhány gyakoribbat mutatunk be az alábbiakban. Az alakzatokról részletes leírása található például az alábbi linken:
 https://r4ds.had.co.nz/data-visualisation.html
 
-A következőkben a már korábban is használt `gapminder` adatok segítségével, személetetjük az adatok vizualizálásának alapjait. 
+A következőkben a már korábban is használt `gapminder` adatok segítségével, szemléltetjük az adatok vizualizálásának alapjait. 
 Először egyszerű alapbeállítások mellett egy histogram típusú vizualizációt készítünk.
 
 ```{r warning=FALSE, message=FALSE}
@@ -214,7 +196,7 @@ ggplot(
   geom_histogram() 
 ```
 
-Lehetőségünk van arra, hogy az alakzat színét megváltoztatássuk. A használható színek és színkódok megtalálhatóak a `ggplot2` leírásában: https://ggplot2-book.org/scale-colour.html
+Lehetőségünk van arra, hogy az alakzat színét megváltoztassuk. A használható színek és színkódok megtalálhatóak a `ggplot2` leírásában: [https://ggplot2-book.org/scale-colour.html](https://ggplot2-book.org/scale-colour.html)
 
 ```{r warning=FALSE, message=FALSE}
 ggplot(

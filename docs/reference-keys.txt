@@ -25,7 +25,7 @@ adatok-importálása-és-exportálása
 szöveges-dokumentumok-importálása
 adatok-exportálása
 a-pipe-operátor
-műveletek-a-date-framekkel
+műveletek-a-data-framekkel
 megfigyelések-szűrése-filter
 változók-kiválogatása-select
 új-változók-létrehozása-mutate

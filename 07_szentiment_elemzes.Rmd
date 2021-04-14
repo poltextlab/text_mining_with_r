@@ -10,30 +10,30 @@ source("_common.R")
 poltext_szotar <- read_rds("data/poltext_dict.Rds")
 ```
 
-A szótár alapú szentiment elemzés egy egyszerű ötleten alapul. Hogyha tudjuk hogy egyes szavak milyen érzelmeket, érzéseket, információt hordoznak, akkor minél gyakoribb egy-egy érzelem kategóriához tartozó szó, akkor a szentiment annél inkább jellemző lesz a dokumentumra amit vizsgálunk. Természetesen itt is jó pár dolognak kell teljesülnie ahhoz hogy az elemzésünk eredménye megbízható legyen. Mivel a szótár alapú elemzés az adott szentiment kategórián belüli kulcsszavak gyakoriságán alapul, ezért van aki nem tekinti statisztikai elemzésnek (lásd például @young2012affective). A tágabb kvantitatív szövegelemzési kontextusban az osztályozáson (classification) belül a felügyelt módszerekhez hasonlóan itt is ismert kategóriákkal dolgozunk (pl.: egy kulcsszó az "öröm" kategóriába tartozik), csak egyszerűbb módszertannal [@grimmer2013text].
+A szótár alapú szentiment elemzés egy egyszerű ötleten alapul. Hogyha tudjuk hogy egyes szavak milyen érzelmeket, érzéseket, információt hordoznak, akkor minél gyakoribb egy-egy érzelem kategóriához tartozó szó, akkor a szentiment annál inkább jellemző lesz a dokumentumra amit vizsgálunk. Természetesen itt is jó pár dolognak kell teljesülnie ahhoz hogy az elemzésünk eredménye megbízható legyen. Mivel a szótár alapú elemzés az adott szentiment kategórián belüli kulcsszavak gyakoriságán alapul, ezért van aki nem tekinti statisztikai elemzésnek (lásd például @young2012affective). A tágabb kvantitatív szövegelemzési kontextusban az osztályozáson (classification) belül a felügyelt módszerekhez hasonlóan itt is ismert kategóriákkal dolgozunk (pl.: egy kulcsszó az "öröm" kategóriába tartozik), csak egyszerűbb módszertannal [@grimmer2013text].
 
 A kulcsszavakra építés miatt a módszer a kvalitatív és kvantitatív kutatási vonalak találkozásának is tekinthető, hiszen egy-egy szónak az érzelmi töltete nem mindig ítélhető meg objektíven. Mint minden módszer esetében, amiről ebben a tankönyvben szó van, itt is kiemelten fontos hogy ellenőrízzük hogy a használt szótár kategóriák és kulcsszavak fedik-e a valóságot. Más szavakkal: *validate, validate, validate*. **A módszer előnyei:**
 
 -   Tökéletesen megbízható: nincsen probabilisztikus eleme a számításoknak, mint például a Support Vector alapú osztályozásnál, illetve az emberi szövegkódolásnál előforduló problémákat is elkerüljük így.
 -   Képesek vagyunk vele mérni a szöveg látens dimenzióit.
--   Széles körben alkalmazható, egyszerűen számolható. A politikatudományon és számítogépes nyelvtudományokon belül nagyon sok kész szótár elérhető, amik különböző módszerekkel készültek és különböző területet fednek le (pl.: populizmus, pártprogramok policy tartalma, érzelmek, gazdasági tartalom.)[^szentiment_elemzes-1]
+-   Széles körben alkalmazható, egyszerűen számolható. A politikatudományon és számítógépes nyelvtudományokon belül nagyon sok kész szótár elérhető, amik különböző módszerekkel készültek és különböző területet fednek le (pl.: populizmus, pártprogramok policy tartalma, érzelmek, gazdasági tartalom.)[^szentiment_elemzes-1]
 -   Relatíve könnyen adaptálható egyik nyelvi környezetből másikba.
 
 [^szentiment_elemzes-1]: A lehetséges, területspecifikus szótáralkotási módszerekről részletesebben ezekben a cikkekben lehet olvasni: @laver2000estimating; @young2012affective; @loughranWhenLiabilityNot2011; @mateEffectCentralBank2021
 
 **A módszer lehetéges hátrányai:**
 
--   A szótár hatékonysága és validitása azon múlik hogy mennyire egyezik a szótár és a viszgálni kívánt dokumentum területe. Például jellemző hiba, hogy gazdasági bizonytalanságot szeretnék tőzsdei jelentések alapján vizsgálni a kutatók egy általános szentimet szótár használatával.
--   A terület-specifikus szótár építése egy kvalitatív folyamat (lsd. a labjegyzetben), éppen ezért gyakran idő és emberi erőforrás igényes.
+-   A szótár hatékonysága és validitása azon múlik hogy mennyire egyezik a szótár és a vizsgálni kívánt dokumentum területe. Például jellemző hiba, hogy gazdasági bizonytalanságot szeretnék tőzsdei jelentések alapján vizsgálni a kutatók egy általános szentimet szótár használatával.
+-   A terület-specifikus szótár építése egy kvalitatív folyamat (lsd. a lábjegyzetben), éppen ezért gyakran idő és emberi erőforrás igényes.
 -   A szózsák alapú elemzéseknél a kontextus elvész (ez gyakran igaz a bigram és trigramok használatánál is) a kulcsszavak esetében. Erre egy triviális példa a tagadás a mondatban: *"nem vagyok boldog"* esetén egy általános szentiment szótár a tagadás miatt félreosztályozná a mondat érzelmi töltését.
 
-Az elemzés sikere több faktortól is függ. Fontos hogy a korpuszban lévő dokumentumokat körültekintően tisztítsuk meg az elemzés elején (lásd a 4. fejezetet a szövegelőkészítésről). A következő lépésben meg kell bizonyosodnunk arról, hogy a kiválasztott szentiment szótár alkalmazható a korpuszunkra. Amennyiben nem találunk alkalmas szótárat, akkor a saját szótár validálására kell figyelni. A negyedik fejezetben leírtak itt is érvényesek, érdemes a dokumentum-kifejezés mátrixot súlyozni valamilyen módon.
+Az elemzés sikere több faktortól is függ. Fontos hogy a korpuszban lévő dokumentumokat körültekintően tisztítsuk meg az elemzés elején (lásd a 4. fejezetet a szövegelőkészítésről). A következő lépésben meg kell bizonyosodnunk arról, hogy a kiválasztott szentiment szótár alkalmazható a korpuszunkra. Amennyiben nem találunk alkalmas szótárt, akkor a saját szótár validálására kell figyelni. A negyedik fejezetben leírtak itt is érvényesek, érdemes a dokumentum-kifejezés mátrixot súlyozni valamilyen módon.
 
 ## Szótárak az R-ben
 
 A szótár alapú elemzéshez a `quanteda` csomagot fogjuk használni, illetve a 3. fejezetben már megismert `readr`, `stringr`, `dplyr` tidyverse csomagokat.[^szentiment_elemzes-2]
 
-[^szentiment_elemzes-2]: A szentiment elemzéshez gyakran használt csomag még a tidytext. Az online is szabadon elérhető @silge2017text 2. fejezetében részletesen is bemutatják a szerzők a tidytext munkafolyamatot (https://www.tidytextmining.com/sentiment.html).
+[^szentiment_elemzes-2]: A szentiment elemzéshez gyakran használt csomag még a `tidytext`. Az online is szabadon elérhető @silge2017text 2. fejezetében részletesen is bemutatják a szerzők a `tidytext` munkafolyamatot (https://www.tidytextmining.com/sentiment.html).
 
 ```{r message=FALSE}
 library(readr)
@@ -44,7 +44,7 @@ library(quanteda)
 library(quanteda.dictionaries)
 ```
 
-Mielőtt a két esettanulmányt bemutatnánk, vizsgáljuk meg hogy hogyan néz ki egy szentiment szótár az R-ben. A szótárt kézzel úgy tudjuk létrehozni, hogy egy listán belül létrehozzuk karaktervektorként a kategóriákat és a kulcsszavakat és ezt a listát a quanteda dictionary függvényével eltároljuk.
+Mielőtt a két esettanulmányt bemutatnánk, vizsgáljuk meg hogy hogyan néz ki egy szentiment szótár az R-ben. A szótárt kézzel úgy tudjuk létrehozni, hogy egy listán belül létrehozzuk karaktervektorként a kategóriákat és a kulcsszavakat és ezt a listát a `quanteda` `dictionary` függvényével eltároljuk.
 
 ```{r}
 szentiment_szotar <- dictionary(
@@ -57,7 +57,7 @@ szentiment_szotar <- dictionary(
 szentiment_szotar
 ```
 
-A quanteda, quanteda.corpora és tidytext R csomagok több széles körben használt szentiment szótárat tartalmaznak, így nem kell kézzel replikálni minden egyes szótárat amit használni szeretnénk.
+A `quanteda`, `quanteda.corpora` és `tidytext` R csomagok több széles körben használt szentiment szótárat tartalmaznak, így nem kell kézzel replikálni minden egyes szótárat amit használni szeretnénk.
 
 A szentiment elemzési munkafolyamat amit a részfejezetben bemutatunk a következő lépésekből áll:
 
@@ -79,7 +79,7 @@ mn_minta <- read_csv("data/magyar_nemzet_small.csv")
 summary(mn_minta)
 ```
 
-A `read_csv()` segítségével beolvassuk a Magyar Nemzet adatbázis egy kisebb részét, ami az esetünkben a 2006-os cimlapokon szereplő hírek . A `summary()`, ahogy a neve is mutatja, egy gyors áttekinténtést nyújt a betöltött adatbázisról. Látjuk, hogy `r nrow(mn_minta)` sorbol (megfigyelés) és `r ncol(mn_minta)` oszlopból (változó) áll. Az első ránézésre látszik hogy a text változónk tartalmazza a szövegeket, és hogy tisztításra szorulnak.
+A `read_csv()` segítségével beolvassuk a Magyar Nemzet adatbázis egy kisebb részét, ami az esetünkben a 2006-os címlapokon szereplő hírek . A `summary()`, ahogy a neve is mutatja, egy gyors áttekintést nyújt a betöltött adatbázisról. Látjuk, hogy `r nrow(mn_minta)` sorból (megfigyelés) és `r ncol(mn_minta)` oszlopból (változó) áll. Az első ránézésre látszik hogy a text változónk tartalmazza a szövegeket, és hogy tisztításra szorulnak.
 
 Az első szöveget megnézve látjuk, hogy a standard előkészítési lépések mellett a sortörést (`\n`) is ki kell törölnünk.
 
@@ -87,7 +87,7 @@ Az első szöveget megnézve látjuk, hogy a standard előkészítési lépések
 mn_minta$text[1]
 ```
 
-Habár a `quanteda` is lehetőséget ad néhány elékészítő lépésre, érdemes ezt olyan céleszközzel tenni ami nagyobb rugalmasságot ad a kezünkbe. Mi erre a célra a `stringr` csomagot használjuk. Első lépésben kitöröljük a sortöréseket (`\n`), a központozást, számokat, kisbetűsítünk minden szót. Előfordulhat hogy (számunkra nehezen látható) extra szóközök maradnak a szövegben. Ezeket az `str_squish()`-el tüntetjük el. A szöveg eleji és végi extra szóközöket (ún. leading vagy trailing white space) az `str_trim()` vágja le.
+Habár a `quanteda` is lehetőséget ad néhány előkészítő lépésre, érdemes ezt olyan céleszközzel tenni ami nagyobb rugalmasságot ad a kezünkbe. Mi erre a célra a `stringr` csomagot használjuk. Első lépésben kitöröljük a sortöréseket (`\n`), a központozást, számokat, kisbetűsítünk minden szót. Előfordulhat hogy (számunkra nehezen látható) extra szóközök maradnak a szövegben. Ezeket az `str_squish()`-el tüntetjük el. A szöveg eleji és végi extra szóközöket (ún. leading vagy trailing white space) az `str_trim()` vágja le.
 
 ```{r}
 mn_tiszta <- mn_minta %>%
@@ -107,7 +107,7 @@ A szöveg sokkal jobban néz ki, habár észrevehetjük hogy maradhattak benne p
 mn_tiszta$text[1]
 ```
 
-Miután kész a tiszta(bb) szövegünk, kreálunk egy korpuszt a quanteda `corpus()` fuggvenyevel. A létrehozott corpus objektum a szöveg mellett egyéb dokumentum meta adatokat is tud tárolni (dátum, író, hely, stb.) Ezeket mi is hozzáadhatjuk (erre majd látunk példát nemsokára) illetve amikor létrehozzuk a korpuszt a data frame-ünkből, akkor autómatikusan meta adatokként tárolódnak az változóink. Jelen esetben az egyetlen dokument változónk az a dátum lesz a szöveg mellett. A korpusz dokumentum változóihoz a `docvars()` segíségével tudunk hozzáférni.
+Miután kész a tiszta(bb) szövegünk, kreálunk egy korpuszt a quanteda `corpus()` fuggvenyevel. A létrehozott corpus objektum a szöveg mellett egyéb dokumentum meta adatokat is tud tárolni (dátum, író, hely, stb.) Ezeket mi is hozzáadhatjuk (erre majd látunk példát nemsokára) illetve amikor létrehozzuk a korpuszt a data frame-ünkből, akkor automatikusan meta adatokként tárolódnak az változóink. Jelen esetben az egyetlen dokumentum változónk az a dátum lesz a szöveg mellett. A korpusz dokumentum változóihoz a `docvars()` segítségével tudunk hozzáférni.
 
 ```{r}
 mn_corpus <- corpus(mn_tiszta)
@@ -115,7 +115,7 @@ mn_corpus <- corpus(mn_tiszta)
 head(docvars(mn_corpus), 5)
 ```
 
-A következő lépés a dokument-kifejezés mátrix létrehozása a `dfm()` függvénnyel (ami a *document-feature matrix* rövidítése). Előszőr tokenekre bontjuk a szövegeket a `tokens()`-el, és aztán ezt a tokenizált szózsákot kapja meg a dfm inputnak. A sornak a végén a létrehozott mátrixunkat TF-IDF módszerrel súlyozzuk a `dfm_tfidf()` használatával.
+A következő lépés a dokumentum-kifejezés mátrix létrehozása a `dfm()` függvénnyel (ami a *document-feature matrix* rövidítése). Előszőr tokenekre bontjuk a szövegeket a `tokens()`-el, és aztán ezt a tokenizált szózsákot kapja meg a dfm inputnak. A sornak a végén a létrehozott mátrixunkat TF-IDF módszerrel súlyozzuk a `dfm_tfidf()` használatával.
 
 ```{r}
 mn_dfm <- mn_corpus %>%
@@ -124,9 +124,9 @@ mn_dfm <- mn_corpus %>%
   dfm_tfidf()
 ```
 
-A cikkek szentimentjét egy magyar szótárral fogjuk becsülni, amit a Társadalomtudmányi Kutatóközpont CSS-RECENS és a POLTEXTLab kutatói készítették.[^szentiment_elemzes-3] Két dimenziót tarlamaz (pozitív és negatív), `r length(poltext_szotar$positive)` pozitív és `r length(poltext_szotar$negative)` negatív kulcsszóval. Ez nem számít kirívóan nagynak a szótárak között, mivel az adott kategóriák minél teljesebb lefedése a cél. Azt is látjuk, hogy a kulcsszavak egyszavas tokenek (szóval nem érdemes bigramokat és trigramokat készítenünk a tokenizálás során), illetve nem szótövek (így szótöveznünk sem kell).
+A cikkek szentimentjét egy magyar szótárral fogjuk becsülni, amit a Társadalomtudományi Kutatóközpont CSS-RECENS és a POLTEXTLab kutatói készítették.[^szentiment_elemzes-3] Két dimenziót tarlamaz (pozitív és negatív), `r length(poltext_szotar$positive)` pozitív és `r length(poltext_szotar$negative)` negatív kulcsszóval. Ez nem számít kirívóan nagynak a szótárak között, mivel az adott kategóriák minél teljesebb lefedése a cél. Azt is látjuk, hogy a kulcsszavak egyszavas tokenek (szóval nem érdemes bigramokat és trigramokat készítenünk a tokenizálás során), illetve nem szótövek (így szótöveznünk sem kell).
 
-[^szentiment_elemzes-3]: A szótár elérhető a könyv online verziójának a GitHub repozitorijából. (LINK)
+[^szentiment_elemzes-3]: A szótár elérhető a online. **LINKET HOZZADNI**
 
 ```{r eval=FALSE}
 poltext_szotar <- read_rds("data/poltext_dict.Rds")
@@ -156,7 +156,7 @@ head(docvars(mn_corpus), 5)
 
 ```
 
-Végül a kapott korpuszt a kiszámolt szentiment értékekkel a `quanteda`-ban lévő `convert()` fügvénnyel data frame-é alakítjuk. A convert függvény dokumentációját érdemes elolvasni, mert ennek segítségével tudjuk a `quanteda`-ban elkeszült objektumainkat átalakítani úgy, hogy azt más csomagok is tudják használni.
+Végül a kapott korpuszt a kiszámolt szentiment értékekkel a `quanteda`-ban lévő `convert()` fügvénnyel data frame-é alakítjuk. A convert függvény dokumentációját érdemes elolvasni, mert ennek segítségével tudjuk a `quanteda`-ban elkészült objektumainkat átalakítani úgy, hogy azt más csomagok is tudják használni.
 
 ```{r}
 mn_df <- convert(mn_corpus, to = "data.frame")
@@ -179,7 +179,7 @@ mn_df <- mn_df %>%
   )
 ```
 
-A plot alapján egyértelmű trendet nem lehet megállapítani és még a 2006-os év végi turbulens belpolitikai események sem feltétlenül jelennek meg markánsan. Ennek az oka abban is kereshető, hogy egy napilap címlapját ritkán dominálja teljes egészében a belpolitika és így a negatív és pozitív szentimentek kioltják egymást. Természetesen messzemenő következtetéseket egy ábra alapján nem érdemes levonni, de az elemzésünk azt mutatha hogy a nyári hónapok alatt kevesebb volt az igazán negatív címlap, ellenben az év eleje és vége tartalmazta a minta alsó szélső értékeit.
+A plot alapján egyértelmű trendet nem lehet megállapítani és még a 2006-os év végi turbulens belpolitikai események sem feltétlenül jelennek meg markánsan. Ennek az oka abban is kereshető, hogy egy napilap címlapját ritkán dominálja teljes egészében a belpolitika és így a negatív és pozitív szentimentek kioltják egymást. Természetesen messzemenő következtetéseket egy ábra alapján nem érdemes levonni, de az elemzésünk azt mutatja hogy a nyári hónapok alatt kevesebb volt az igazán negatív címlap, ellenben az év eleje és vége tartalmazta a minta alsó szélső értékeit.
 
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80), fig.cap="Magyar Nemzet címlap szentimentje"}
@@ -197,7 +197,7 @@ ggplot(mn_df, aes(doc_date, net_daily)) +
 
 ## MNB sajtóközlemények
 
-A második esettanulmányban a kotextuális szótár elemzést mutatjuk be egy angol nyelvű korpusz és specializált szótár segítségével. A korpusz az MNB kamatdöntéseit kísérő nemzetközi sajtóközleményei és a szótár pedig a @loughranWhenLiabilityNot2011 pénzügyi szentimentszótár.[^mnb-szentiment] A szótár a `quanteda.dictionaries` csomag részeként elérhető, illetve a tankönyv honlapján is megtalálható.
+A második esettanulmányban a kontextuális szótár elemzést mutatjuk be egy angol nyelvű korpusz és specializált szótár segítségével. A korpusz az MNB kamatdöntéseit kísérő nemzetközi sajtóközleményei és a szótár pedig a @loughranWhenLiabilityNot2011 pénzügyi szentimentszótár.[^mnb-szentiment] A szótár a `quanteda.dictionaries` csomag részeként elérhető, illetve a tankönyv honlapján is megtalálható.
 
 ```{r echo=FALSE}
 penzugy_szentiment <- quanteda.dictionaries::data_dictionary_LoughranMcDonald
@@ -228,9 +228,9 @@ mnb_pr <- read_csv("data/mnb_pr_corpus.csv")
 
 summary(mnb_pr)
 ```
-Az adatbázisunk `r nrow(mnb_pr)` megfigyelésből és `r ncol(mnb_pr)` változóbol áll. Az egyetlen lényeges dokumentum meta adat itt is a szövegek megjelenési ideje. 
+Az adatbázisunk `r nrow(mnb_pr)` megfigyelésből és `r ncol(mnb_pr)` változóból áll. Az egyetlen lényeges dokumentum meta adat itt is a szövegek megjelenési ideje. 
 
-A szövegeket ugyanazokkal a standard eszközökkel kezeljük mint a Magyar Nemzet esetében. Érdemes minden esetben ellenőrízni, hogy az R kód amit használunk az tényleg azt csinálja-e mint amit szeretnénk hogy csináljon. Ez hatványozottan igaz abban az esetben, amikor szövegekkel és regular expressionökkel dolgozunk.
+A szövegeket ugyanazokkal a standard eszközökkel kezeljük mint a Magyar Nemzet esetében. Érdemes minden esetben ellenőrizni, hogy az R kód amit használunk az tényleg azt csinálja-e mint amit szeretnénk hogy csináljon. Ez hatványozottan igaz abban az esetben, amikor szövegekkel és regular expressionökkel dolgozunk.
 
 ```{r}
 mnb_tiszta <- mnb_pr %>%
@@ -244,7 +244,7 @@ mnb_tiszta <- mnb_pr %>%
   )
 ```
 
-Miután rendelkezésre állnak a tiszta dokumentumaink, egy karaktervektorba gyüjtjuk azokat a kulcsszavakat amelyek környékén szeretnénk megfigyelni a szentiment alakulását. A példa kedvéért mi az `unemp*`, `growth`, `gdp`, `inflation*` szótöveket és szavakat választottuk. A `tokens_keep()` megtartja a kulcsszavainkat és egy általunk megadott +/- n tokenes környezetüket (jelen esetben 10). A szentiment elemzést pedig már ezen a jóval kisebb mátrixon fogjuk lefuttatni. A `phrase()` segítségével több szóból álló kifejezéséket is vizsgálhatunk. Ilyen szókapcsolat például az *Európai Unió* is, ahol lényeges hogy egyben kezeljük a két szót.
+Miután rendelkezésre állnak a tiszta dokumentumaink, egy karaktervektorba gyűjtjük azokat a kulcsszavakat amelyek környékén szeretnénk megfigyelni a szentiment alakulását. A példa kedvéért mi az `unemp*`, `growth`, `gdp`, `inflation*` szótöveket és szavakat választottuk. A `tokens_keep()` megtartja a kulcsszavainkat és egy általunk megadott +/- n tokenes környezetüket (jelen esetben 10). A szentiment elemzést pedig már ezen a jóval kisebb mátrixon fogjuk lefuttatni. A `phrase()` segítségével több szóból álló kifejezéséket is vizsgálhatunk. Ilyen szókapcsolat például az *Európai Unió* is, ahol lényeges hogy egyben kezeljük a két szót.
 
 ```{r}
 mnb_corpus <- corpus(mnb_tiszta)
@@ -285,9 +285,9 @@ mnb_df <- mnb_df %>%
 ```
 
 
-Az átalakítás után már könnyedén tudjuk kategóriákra bontva megjeleníteni az MNB közlemények különböző látens dimenzióit. Fontos emlékezni arra, hogy ez az eredmény a kulcsszavaink +/- 10 tokenes környezetében lévő szavak szentimentjét mérik. Ami érdekes eredmény, hogy a felesleges "töltelék" szövegek (superflous kategória) szinte soha nem fordulnak elő a kulcsszavaink körül. A többi érték is nagyjából megfelel a várakozásainknak, habár a 2008-as gazdasági válság nem tűnik kiugró pontnak. Azonban a 2010 utáni európai válság már láthatóan megjelnik az idősorainkban.
+Az átalakítás után már könnyedén tudjuk kategóriákra bontva megjeleníteni az MNB közlemények különböző látens dimenzióit. Fontos emlékezni arra, hogy ez az eredmény a kulcsszavaink +/- 10 tokenes környezetében lévő szavak szentimentjét mérik. Ami érdekes eredmény, hogy a felesleges "töltelék" szövegek (superflous kategória) szinte soha nem fordulnak elő a kulcsszavaink körül. A többi érték is nagyjából megfelel a várakozásainknak, habár a 2008-as gazdasági válság nem tűnik kiugró pontnak. Azonban a 2010 utáni európai válság már láthatóan megjelenik az idősorainkban.
 
-A szótár amit használtunk az alapvetően az Egyesült Államokban a tőzsdén kereskedett cégek publikus beszámolóiból készült így elképzelhető, hogy egyes jegybanki környezetben sokat használt kifejezés nincs benne. A validálása a kapott eredményeknek ezért is nagyon fontos, illetve érdemes azzal is tisztában lenni hogy a szótáras módszer nem tökéletes (ahogy az emberi vagy más gépi kódolás sem). 
+A szótár amit használtunk az alapvetően az Egyesült Államokban a tőzsdén kereskedett cégek publikus beszámolóiból készült így elképzelhető, hogy egyes jegybanki környezetben sokat használt kifejezés nincs benne. A validálásra a kapott eredményeknek ezért is nagyon fontos, illetve érdemes azzal is tisztában lenni hogy a szótáras módszer nem tökéletes (ahogy az emberi vagy más gépi kódolás sem). 
 
 ```{r fig.cap="Magyar Nemzeti Bank közleményeinek szentimentje"}
 ggplot(mnb_df, aes(date, sent_score)) +
