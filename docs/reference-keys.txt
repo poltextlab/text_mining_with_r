@@ -14,10 +14,10 @@ fig:unnamed-chunk-121
 fig:unnamed-chunk-126
 fig:unnamed-chunk-128
 fig:unnamed-chunk-129
-fig:unnamed-chunk-158
-fig:unnamed-chunk-159
-fig:unnamed-chunk-160
-fig:unnamed-chunk-161
+fig:unnamed-chunk-175
+fig:unnamed-chunk-176
+fig:unnamed-chunk-177
+fig:unnamed-chunk-178
 bevezetés
 a-kvantitatív-szövegelemzés-és-szövegbányászat-alapfogalmai
 az-adatkezelés-r-ben
@@ -64,7 +64,10 @@ szövegskálázás-felügyelet-nélküli-és-felügyelt-megoldások
 wordfish
 wordscores
 szövegösszehasonlítás
-természetes-nyelv-feldolgozás-nlp
+természetes-nyelv-feldolgozás-nlp-és-névelemfelismerés
+a-magyarlanc-nyelvi-elemző-használata
+a-szeged-ner-elemző-használata
+angol-nyelvű-szövegek-névelemfelismerése
 osztályozás-és-felügyelt-tanulás
 függelék
 az-r-és-az-rstudio-használata
