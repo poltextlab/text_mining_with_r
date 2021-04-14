@@ -41,7 +41,6 @@ library(stringr)
 library(dplyr)
 library(ggplot2)
 library(quanteda)
-library(quanteda.dictionaries)
 ```
 
 Mielőtt a két esettanulmányt bemutatnánk, vizsgáljuk meg hogy hogyan néz ki egy szentiment szótár az R-ben. A szótárt kézzel úgy tudjuk létrehozni, hogy egy listán belül létrehozzuk karaktervektorként a kategóriákat és a kulcsszavakat és ezt a listát a `quanteda` `dictionary` függvényével eltároljuk.
@@ -199,14 +198,15 @@ ggplot(mn_df, aes(doc_date, net_daily)) +
 
 A második esettanulmányban a kontextuális szótár elemzést mutatjuk be egy angol nyelvű korpusz és specializált szótár segítségével. A korpusz az MNB kamatdöntéseit kísérő nemzetközi sajtóközleményei és a szótár pedig a @loughranWhenLiabilityNot2011 pénzügyi szentimentszótár.[^mnb-szentiment] A szótár a `quanteda.dictionaries` csomag részeként elérhető, illetve a tankönyv honlapján is megtalálható.
 
-```{r echo=FALSE}
-penzugy_szentiment <- quanteda.dictionaries::data_dictionary_LoughranMcDonald
+```{r}
+penzugy_szentiment <- readRDS("data/dictionary_LoughranMcDonald.Rds")
 ```
 
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 penzugy_szentiment
 ```
+
 A szentiment szótár `r length(penzugy_szentiment)` kategóriából áll. A legtöbb kulcsszó a negatív dimenzióhoz van (`r length(penzugy_szentiment[["NEGATIVE"]])`).
 
 
