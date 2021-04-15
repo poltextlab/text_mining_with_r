@@ -15,14 +15,13 @@ library(gapminder)
 library(stringr)
 ```
 
-
-Az adatok importálására az R alapfüggvénye mellett több package is megoldást kínál. Ezek közül a könyv írásakor a legnépszerűbbek a `readr` és a `rio` csomagok. A karakter kódolással a legjobban a tapasztalataink szerint a `readr` csomag `read_csv()` megoldása birkózik meg, ezért ezt fogjuk használni a `.csv` állományok beolvasására. Amennyiben kihasználjuk az RStudio projekt opcióját (lásd a [Függelékben](#projektmunka)) akkor elegendő csak az elérni kívánt adatok relativ elérési útját megadni (relative path). Ideális esetben az adataink egy csv fájlban vannak (comma separated values), ahol az egyes értékeket vesszők (vagy egyéb speciális karakter) választják el. Ez esetben a `read_delim()` függvényt használjuk. A beolvasásnál egyből el is tároljuk az adatokat egy objektumban. A `sep =` opcióval tudjuk a szeparátor karaktert beállítani, mert előfordulhat hogy vessző helyett pontosvessző tagolja az adatainkat.
+Az adatok importálására az R alapfüggvénye mellett több csomag is megoldást kínál. Ezek közül a könyv írásakor a legnépszerűbbek a `readr` és a `rio` csomagok. A szövegek különböző karakterkódolásának problémáját tapasztalataink szerint a legjobban a `readr` csomag `read_csv()` függvénye kezeli, ezért legtöbbször ezt fogjuk használni a `.csv` állományok beolvasására. Amennyiben kihasználjuk az RStudio projekt opcióját (lásd a [Függelékben](#projektmunka)) akkor elegendő csak az elérni kívánt adatok relativ elérési útját megadni (*relative path*). Ideális esetben az adataink egy csv fájlban vannak (*comma separated values*), ahol az egyes értékeket vesszők (vagy egyéb speciális karakterek) választják el. Ez esetben a `read_delim()` függvényt használjuk. A beolvasásnál egyből el is tároljuk az adatokat egy objektumban. A `sep =` opcióval tudjuk a szeparátor karaktert beállítani, mert előfordulhat hogy vessző helyett pontosvessző tagolja az adatainkat.
 
 ```{r, eval=FALSE}
 df <- read_csv("data/adatfile.csv")
 ```
 
-Az R képes linkről letölteni fájlokat, elég megadnunk egy működő elérési útvonalat. 
+Az R képes linkről letölteni fájlokat, elég megadnunk egy működő elérési útvonalat.
 
 ```{r, eval=FALSE}
 df_online <- read.csv("https://www.qta.tk.mta.hu/adatok/adatfile.csv")
@@ -32,7 +31,7 @@ Az R package ökoszisztémája kellően változatos ahhoz, hogy gyakorlatilag b�
 
 ### Szöveges dokumentumok importálása
 
-A nagy mennyiségű szöveges dokumentum (a legyakrabban előforduló kiterjesztések: `.txt`, `.doc`, `.pdf`, `.json`, `.csv`, `.xml`, `.rtf`, `.odt`) betöltésére a legalkalmasabb a `readtext` package. Az alábbi példa azt mutatja be, hogy hogyan tudunk beolvasni egy adott mappából az összes .txt kiterjesztésű file-t, anélkül hogy bármilyen loop-ot kellene írnunk, vagy egyenként megadni a file-ok neveit. A `*` karakter az azt jelenti ebben a környezetben, hogy bármilyen fájl, ami .txt-re végződik. Amennyiben a fájlok nevei tartalmaznak valamilyen meta adatot tartalmaznak, akkor ezt be tudjuk állítani a betöltés során. Ilyen meta adat lehet például egy parlamenti felszólalásnál a felszólaló neve és a beszéd ideje és párttagsága (például: `kovacsjanos_1994_fkgp.txt`).
+A nagy mennyiségű szöveges dokumentum (a legyakrabban előforduló kiterjesztések: `.txt`, `.doc`, `.pdf`, `.json`, `.csv`, `.xml`, `.rtf`, `.odt`) betöltésére a legalkalmasabb a `readtext` package. Az alábbi példa azt mutatja be, hogy hogyan tudjuk beolvasni egy adott mappából az összes .txt kiterjesztésű fájlt, anélkül hogy egyenként kellene megadnunk a fájlok neveit. A kódsorban szereplő `*` karakter azt ebben a környezetben jelenti, hogy bármilyen fájl, ami .txt-re végződik. Amennyiben a fájlok nevei tartalmaznak valamilyen metaadatot, akkor ezt is be tudjuk olvasni a betöltés során. Ilyen meta adat lehet például egy parlamenti felszólalásnál a felszólaló neve és a beszéd ideje és párttagsága (például: `kovacsjanos_1994_fkgp.txt`).
 
 ```{r, eval=FALSE}
 df_text <- readtext(
@@ -45,17 +44,19 @@ df_text <- readtext(
 
 ## Adatok exportálása
 
-Az adatainkat R-ből a `write.csv()`-vel exportálhatjuk a kívánt helyre, `.csv` formátumban. Az R rendelkezik saját, .Rds és .Rda kiterjesztésű, tömörített fájlformátummal. Mivel ezeket csak az R-ben nyithatjuk meg, érdemes a köztes, hosszadalmas számítást igénylő lépések elmentésére használni, a `saveRDS()` és a `save()` parancsokkal. Az `openxlsx` csomaggal `.xls` és `.xlsx` Excel formátumokba is tudunk exportálni, hogyha szükséges.
+Az adatainkat R-ből a `write.csv()`-vel exportálhatjuk a kívánt helyre, `.csv` formátumban. Az `openxlsx` csomaggal `.xls` és `.xlsx` Excel formátumokba is tudunk exportálni. Az R rendelkezik saját, `.Rds` és `.Rda` kiterjesztésű, tömörített fájlformátummal.[^adatkezeles-1] Mivel ezeket csak az R-ben nyithatjuk meg, érdemes a köztes, hosszadalmas számítást igénylő lépések elmentésére használni, a `saveRDS()` és a `save()` parancsokkal.
+
+[^adatkezeles-1]: Az `.rda` több objektum egyetlen fájlba történő mentésére alkalmas, mentése a `save()`, betöltése a `load()` paranccsal lehetséges. Az `.rds` egyetlen objekumot ment el a `saveRDS()` paranccsal, beolvasni pedig `readRDS()` paranccsal lehet.
 
 ## A pipe operátor
 
-Az úgynevezett *pipe* operátor alapjaiban határozta meg a modern R fejlődését és a népszerű package ökoszisztéma, a *tidyverse*, egyik alapköve. Úgy gondoljuk, hogy a *tidyverse* és a *pipe* egyszerűbbé teszi elsajátítani az R használatát, ezért mi is erre helyezzük a hangsúlyt.[^adatkezeles-1] Vizuálisan a pipe operátor így néz ki: `%>%` és arra szolgál hogy a kódban több egymáshoz kapcsolódó műveletet egybefűzzünk.[^adatkezeles-2] Technikailag a pipe a bal oldali elemet adja meg a jobb oldali függvény első argumentumának. A lenti példa ugyanazt a folyamatot írja le, az alap R (*base R*) illetve a pipe használatával.[^adatkezeles-3] Miközben a kódot olvassuk érdemes a pipe-ot "*és aztán*"-nak fordítani.
+Az úgynevezett **pipe** operátor alapjaiban határozta meg a modern R fejlődését és a népszerű package ökoszisztéma, a **tidyverse**, egyik alapköve. Úgy gondoljuk, hogy a **tidyverse** és a **pipe** egyszerűbbé teszi elsajátítani az R használatát, ezért mi is erre helyezzük a hangsúlyt.[^adatkezeles-2] Vizuálisan a pipe operátor így néz ki: `%>%` és arra szolgál hogy a kódban több egymáshoz kapcsolódó műveletet egybefűzzünk.[^adatkezeles-3] Technikailag a pipe a bal oldali elemet adja meg a jobb oldali függvény első argumentumának. A lenti példa ugyanazt a folyamatot írja le az alap R (*base R*), illetve a pipe használatával.[^adatkezeles-4] Miközben a kódot olvassuk érdemes a pipe-ot "*és aztán*"-nak fordítani.
 
-[^adatkezeles-1]: A *tidyverse* megközelítés miatt a kötetben szereplő R kód követi a "The tidyverse style guide" dokumentációt (<https://style.tidyverse.org/>)
+[^adatkezeles-2]: A *tidyverse* megközelítés miatt a kötetben szereplő R kód követi a "The tidyverse style guide" dokumentációt (<https://style.tidyverse.org/>)
 
-[^adatkezeles-2]: Az RStudio-ban a pipe operátor billentyű kombinációja a `Ctrl + Shift + M`
+[^adatkezeles-3]: Az RStudio-ban a pipe operátor billentyű kombinációja a `Ctrl + Shift + M`
 
-[^adatkezeles-3]: Köszönjük Andrew Heissnek a kitűnő példát.
+[^adatkezeles-4]: Köszönjük Andrew Heissnek a kitűnő példát.
 
 ```{r, eval=FALSE,  tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 reggeli(oltozkodes(felkeles(ebredes(en, idopont = "8:00"), oldal = "jobb"), nadrag = TRUE, ing = TRUE))
@@ -67,12 +68,11 @@ en %>%
   reggeli()
 ```
 
-A fenti példa is jól mutatja, hogy a pipe a bal oldali elemet fogja a jobb oldali függvény első elemének berakni. A fejezet további részeiben még bőven fogunk gyakorlati példát találni a használatára. A fejezetben bemutatott példák az alkalmazásoknak csak egy relatíve szűk körét mutatják be, ezért érdemes átolvasni a csomagokhoz tartozó dokumentációt, illetve ha van, akkor a működést demonstráló bemutató oldalakat is.
+A fenti példa is jól mutatja, hogy a pipe a bal oldali elemet fogja a jobb oldali függvény első elemének berakni. A fejezet további részeiben még bőven fogunk gyakorlati példát találni a **pipe** használatára. Mivel az itt bemutatott példák az alkalmazásoknak csak egy relatíve szűk körét mutatják be, érdemes átolvasni a csomagokhoz tartozó dokumentációt, illetve ha van, akkor tanulmányozni a működést demonstráló bemutató oldalakat is.
 
 ## Műveletek a data framekkel
 
-A data frame az egyik leghasznosabb és leggyakrabban használt adat tárolási mód az R-ben (a részletesebb leírás a [Függelékben](#data-frame) található) és ebben az alfejezetben azt mutatjuk be a `dplyr` és `gapminder` csomagok segítségével, hogy hogyan lehet hatékonyan dolgozni velük. A `dplyr` az egyik legnépszerűbb R csomag, a *tidyverse* része. A `gapminder` csomag pedig a példa adatbázisunkat tartalmazza, amiben a világ országainak különböző gazdasági és társadalmi mutatói vannak.
-
+A **data frame** az egyik leghasznosabb és leggyakrabban használt adat tárolási mód az R-ben (a részletesebb leírás a [Függelékben](#data-frame) található). Ebben az alfejezetben azt mutatjuk be a `dplyr` és `gapminder` csomagok segítségével, hogy hogyan lehet hatékonyan dolgozni vele. A `dplyr` az egyik legnépszerűbb R csomag, a **tidyverse** része. A `gapminder` csomag pedig a példa adatbázisunkat tartalmazza, amiben a világ országainak különböző gazdasági és társadalmi mutatói vannak.
 
 ### Megfigyelések szűrése: `filter()`
 
@@ -101,6 +101,27 @@ gapminder %>%
   select(contains("ea"), starts_with("co"), pop)
 ```
 
+Az így kiválogatott változókból létrehozhatunk és objektumként eltárolhatunk egy új **data framet**, amivek azután tovább dolgozhatunk, vagy kiírathatjuk például `.csv` fájlba, vagy elmenthetjük a `saveRDS` segítségével.
+
+```{r warning=FALSE, message=FALSE}
+gapminder_select <- gapminder %>%
+  select(contains("ea"), starts_with("co"), pop)
+```
+
+```{r warning=FALSE, message=FALSE, eval=FALSE}
+write.csv(gapminder_select, "gapminder_select.csv") 
+```
+
+```{r warning=FALSE, message=FALSE, eval=FALSE}
+saveRDS(gapminder_select, "gapminder_select.Rds") 
+```
+
+A `saveRDS` segítségével elmentett fájlt később a `readRDS()` függvénnyel olvashatjuk be, majd onnan folytassuk a munkát, ahol korábban abbahagytuk.
+
+```{r warning=FALSE, message=FALSE, eval=FALSE}
+readRDS("gapminder_select.Rds") 
+```
+
 ### Új változók létrehozása: `mutate()`
 
 Az elemzési munkafolyamat elkerülhetetlen része hogy új változókat hozzunk létre, vagy a meglévőket módosítsuk. Ezt a `mutate()`-el tehetjük meg, ahol a szintaxis a következő: `mutate(data frame, uj valtozo = ertekek)`. Példaként kiszámoljuk a Svéd GDP-t (milliárd dollárban) 1992-től kezdve. A `mutate()` alkalmazásával részletesebben is foglalkozunk a szövegek előkészítésével foglalkozó fejezetben.
@@ -121,22 +142,21 @@ gapminder %>%
   summarise(megfigyelesek = n(), atlag_gdp = mean(gdpPercap))
 ```
 
-## Munka karakter vektorokkal[^adatkezeles-4]
+## Munka karakter vektorokkal[^adatkezeles-5]
 
-[^adatkezeles-4]: A könyv terjedelme miatt ezt a témát itt csak bemutatni tudjuk, de minden részletre kiterjedően nem tudunk elmélyülni benne. Kiváló online anyagok találhatóak az RStudio GitHub tárhelyén (https://github.com/rstudio/cheatsheets/raw/master/strings.pdf), illetve @wickham2016r 14. fejezetében.
+[^adatkezeles-5]: A könyv terjedelme miatt ezt a témát itt csak bemutatni tudjuk, de minden részletre kiterjedően nem tudunk elmélyülni benne. A témában nagyon jól használható online anyagok találhatóak az RStudio GitHub tárhelyén (<https://github.com/rstudio/cheatsheets/raw/master/strings.pdf>), illetve @wickham2016r 14. fejezetében.
 
-A szöveges adatokkal (karakter stringekkel) való munka elkerülhetetlen velejárója hogy a felesleges szövegelemeket, karaktereket el kell távolítanunk ahhoz hogy az elemzésünk hatásfoka javuljon (erről részletesebben a 3. fejezetben lesz szó). Erre a célra a `stringr` csomagot fogjuk használni, kombinálva a korábban bemutatott `mutate()`-el. A `stringr` függvények az `str_` előtaggal kezdődnek és eléggé beszédes nevekkel rendelkeznek. Egy gyakran előforduló probléma, hogy extra szóközök maradnak a szövegben, vagy bizonyos szavakról, karakterkombinációkról tudjuk hogy nem kellenek az elemzésünkhöz. Ebben az esetben egy vagy több *regular expression* (regex) használatával tudjuk pontosan kijelölni hogy a karakter sornak melyik részét akarjuk módosítani. A legegyszerűbb formája a regexeknek, hogyha pontosan tudjuk milyen szöveget akarunk megtalálni. A kísérletezésre az `str_view()`-t használjuk, ami megjeleníti hogy a megadott regex mintánk pontosan mit jelöl.
+A szöveges adatokkal (karakter stringekkel) való munka elkerülhetetlen velejárója hogy a felesleges szövegelemeket, karaktereket el kell távolítanunk ahhoz hogy az elemzésünk hatásfoka javuljon (erről részletesebben a 3. fejezetben lesz szó). Erre a célra a `stringr` csomagot fogjuk használni, kombinálva a korábban bemutatott `mutate()`-el. A `stringr` függvények az `str_` előtaggal kezdődnek és eléggé beszédes nevekkel rendelkeznek. Egy gyakran előforduló probléma, hogy extra szóközök maradnak a szövegben, vagy bizonyos szavakról, karakterkombinációkról tudjuk hogy nem kellenek az elemzésünkhöz. Ebben az esetben egy vagy több *regular expression* (**regex**) használatával tudjuk pontosan kijelölni hogy a karakter sornak melyik részét akarjuk módosítani. A legegyszerűbb formája a regexeknek, hogyha pontosan tudjuk milyen szöveget akarunk megtalálni. A kísérletezésre az `str_view()`-t használjuk, ami megjeleníti hogy a megadott regex mintánk pontosan mit jelöl.
 
-
-```{r eval=FALSE}
+```{r}
 szoveg <- c("gitar", "ukulele", "nagybogo")
 
 str_view(szoveg, pattern = "ar")
 ```
 
-Az *anchor*-okkal azt lehet megadni, hogy a karakter string elején vagy végén szeretnénk egyezést találni. A string eleji anchor a `^`, a string végi pedig a `$`.
+Az **anchor**-okkal azt lehet megadni, hogy a karakter string elején vagy végén szeretnénk egyezést találni. A string eleji anchor a `^`, a string végi pedig a `$`.
 
-```{r eval=FALSE}
+```{r}
 str_view("Dr. Doktor Dr.", pattern = "^Dr.")
 
 str_view("Dr. Doktor Dr.", pattern = "Dr.$")
@@ -144,13 +164,13 @@ str_view("Dr. Doktor Dr.", pattern = "Dr.$")
 
 Egy másik jellemző probléma, hogy olyan speciális karaktert akarunk leírni a regex kifejezésünkkel, ami amúgy a regex szintaxisban használt. Ilyen eset például a `.`, ami mint írásjel sokszor csak zaj, ám a regex kontextusban a "bármilyen karakter" megfelelője.
 
-```{r eval=FALSE}
+```{r}
 str_view("Dr. Doktor Dr.", pattern = ".k.")
 ```
 
 Ahhoz hogy magát az írásjelet jelöljük, a `\\` -t kell elé rakni.
 
-```{r eval=FALSE}
+```{r}
 str_view("Dr. Doktor Dr.", pattern = "\\.")
 ```
 

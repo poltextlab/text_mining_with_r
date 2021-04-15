@@ -18,7 +18,7 @@ library(quanteda)
 library(quanteda.textmodels)
 ```
 
-Majd a `read_html()` függvény segítségével az adott weboldal adatait kérjük le a szerverről. A `read_html()` függvény argumentuma az adott weblap URL-je.
+A szükséges csomagok beolvasása után a `read_html()` függvény segítségével az adott weboldal adatait kérjük le a szerverről. A `read_html()` függvény argumentuma az adott weblap URL-je.
 
 Ha például a `poltextLAB` projekt honlapjáról szeretnénk adatokat gyűjteni, azt az alábbi módon tehetjük meg:
 
@@ -51,14 +51,14 @@ A web scraping során az egyik nehézség, ha a weboldal letiltja az automatikus
 különböző metaadatok is szerepelnek (például egy parlamenti beszéd dátuma, az azt elmondó képviselő neve), melyeket érdemes a scarpelés során szintén összegyűjteni. A scrapelés során fontos figyelnünk arra, hogy később jól használható formában mentsük el az adatokat, például `.csv`,`.json` vagy `.txt` kiterjesztésekkel. A karakterkódolási problémák elkerülése érdekében érdemes UTF-8 vagy UTF-16-os kódolást
 alkalmazni, mivel ezek tartalmazzák a magyar nyelv ékezetes karaktereit is. A karakterkódolással kapcsolatosan hasznos további információk találhatóak az alábbi oldalon: [http://www.cs.bme.hu/~egmont/utf8](http://www.cs.bme.hu/~egmont/utf8)
 
-Arra is van lehetőség, hogy az elemezni kívánt korpuszt papíron keletkezett, majd szkennelt és szükség szerint optikai karakterfelismerés (OCR, Optical Character Recognition) segítségével feldolgozott szövegekből építsük fel. Azonban mivel ezeket a feladatokat nem R-ben végezzük, ezekről itt nem szólunk bővebben. Az így beszerzett és `.txt`, vagy `.csv` fájllá alakított szövegekből való korpuszépítés a következő lépésekben megegyezik a weboldalakról gyűjtött szövegekével.
+Arra is van lehetőség, hogy az elemezni kívánt korpuszt papíron keletkezett, majd szkennelt és szükség szerint optikai karakterfelismerés (OCR, *Optical Character Recognition*) segítségével feldolgozott szövegekből építsük fel. Azonban mivel ezeket a feladatokat nem R-ben végezzük, ezekről itt nem szólunk bővebben. Az így beszerzett és `.txt`, vagy `.csv` fájllá alakított szövegekből való korpuszépítés a következő lépésekben megegyezik a weboldalakról gyűjtött szövegekével.
 
 ## Szövegelőkészítés
 
 Az elemzéshez vezető következő lépés a szövegelőkészítés, amit a szöveg tisztításával kell kezdenünk. A szövegtisztításnál mindig járjunk el körültekintően és az egyes lépéseket a kutatási kérdésünknek megfelelően tervezzük meg, a folyamat során pedig időnként végezzünk ellenőrzést,
 ezzel elkerülhetjük a kutatásunkhoz szükséges információk elvesztését.
 
-Miután az elemezni kívánt szövegeinket beszereztük, majd a "Szöveges dokumentumok importálása"[BE KELL MAJD ÍRNI A VÉLGLEGES FEJEZETSZÁMOT] című alfejezetben leírtak szerint importáltuk, következhetnek az alapvető előfeldolgozási lépések, ezek közé tartozik például a scrapelés során a kopuszba került html címkék, számok és egyéb zajok (például a speciális karakterek, írásjelek) eltávolítása a korpuszból, valamint a kisbetűsítés, a tokenizálás, a szótövezés és a stopszavazás.
+Miután az elemezni kívánt szövegeinket beszereztük, majd a "Az adatok importálása és exportálása" alfejezetben leírtak szerint importáltuk, következhetnek az alapvető előfeldolgozási lépések, ezek közé tartozik például a scrapelés során a kopuszba került html címkék, számok és egyéb zajok (például a speciális karakterek, írásjelek) eltávolítása a korpuszból, valamint a kisbetűsítés, a tokenizálás, a szótövezés és a stopszavazás.
 
 ### String műveletek
 
@@ -114,8 +114,8 @@ Ezt követi a szótövezés lépése, melynek során az alkalmazott stemmelő al
 
 Az alábbi példában egyetlen szó különböző alakjainak szótári alakra hozásával szemléltetjük a lemmatizáslás működését.
 
-Ehhez először a `text1` nevű objektumban tároljuk a lemmatizálni kívánt szöveget, majd tokenizáljuk és eltávolítjuk a központozást. Ezután definiáljuk azt a megfelelő szótövet és azt, hogy mely szavak alakjait szeretnénk erre a szótőre egységesíteni majd a `rep()` függvény segítségével elvégezzük a lemmatizálást, amely a korábban definiált szólakokat az általunk megadott szótári alakkal helyettesíti. Hosszabb szövegek lemmatizálásához előre létrehozott szótárakat használhatunk, ilyen például a Wordnet, ami magyar nyelven is elérhető: [https://github.com/mmihaltz/huwn](https://github.com/mmihaltz/huwn)
-A magyar nyelvű szövegek lemmatizálását elvégezhetjük a szövegek R-be való beolvasása előtt is a `magyarlánc`nyelvi elemző segítségével, melyről a kötet függelékében, a Magyar nyelvű NLP és nyelvtechnológiai eszközök között szólunk részletesebben.
+Ehhez először a `text1` nevű objektumban tároljuk a lemmatizálni kívánt szöveget, majd tokenizáljuk és eltávolítjuk a központozást. Ezután definiáljuk azt a megfelelő szótövet és azt, hogy mely szavak alakjait szeretnénk erre a szótőre egységesíteni majd a `rep()` függvény segítségével elvégezzük a lemmatizálást, amely a korábban definiált szólakokat az általunk megadott szótári alakkal helyettesíti. Hosszabb szövegek lemmatizálásához előre létrehozott szótárakat használhatunk, ilyen például a WordNet, ami magyar nyelven is elérhető: [https://github.com/mmihaltz/huwn](https://github.com/mmihaltz/huwn)
+A magyar nyelvű szövegek lemmatizálását elvégezhetjük a szövegek R-be való beolvasása előtt is a `magyarlanc`nyelvi elemző segítségével, melyről a "Természetes-nyelv feldolgozás (NLP) és névelemfelismerés" című fejezetben szólunk részletesebben.
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 text1 <- "Példa az előkészítésre. Az előkészítést a szövetisztítással kell megkezdenünk. Az előkészített korpuszon elemzést végzünk"
