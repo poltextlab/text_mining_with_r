@@ -1,3 +1,79 @@
-# A kvantitatív szövegelemzés és szövegbányászat alapfogalmai
+# Alapfogalmak
 
-elso fejezet
+
+```{r include = FALSE}
+library(knitr)
+library(readxl)
+library(dplyr)
+library(kableExtra)
+```
+
+
+## Elméleti alapok 
+
+A szövegek géppel való feldolgozásának és elemzésének módszertanát számos különböző megnevezéssel leírhatjuk. A szövegelemzés, kvantitatív szövegelemzés, szövegbányászat, természetes nyelvfeldolgozás (Natural Language Processing - NLP), automatizált szövegelemzés, automatizált tartalomelemzés, és hasonló fogalmak nem válnak el egymástól jelentős tartalmi különbségek által. Ezek a kifejezések jellemzően ugyanarra az általánosabb kutatási irányra reflektálnak, csupán hangsúlybeli eltolódások vannak köztük, így gyakran szinonimaként is használják őket. A szövegek gépi feldolgozásával foglalkozó tudományág a Big Data forradalom részeként kezdett kialakulni, melyet az adatok egyre nagyobb és diverzebb tömegének elérhető és összegyűjthető jellege hívott életre. Ennek megfelelően az adattudomány számos különböző adatforrás – így képek, videók, hanganyagok, internetes keresési adatok, telefonok lokációs adatai és megannyi különböző információ feldolgozásával foglalkozik. A szöveg is egy az adatbányászat érdeklődési körébe eső számos adattípus közül, melynek elemzésére egy külön kutatási irány alakult ki. 
+
+Mivel napjainkban minden másodpercben óriási mennyiségű szöveg keletkezik és válik hozzáférhetővé az interneten, egyre nagyobb az igény az ilyen jellegű források, és az emberi nyelv automatizált feldolgozására. Ebből adódóan az elemzési eszköztár is egyre szélesebb körű és szofisztikáltabb, így a tartalomelemzési és szövegbányászati ismeretekkel bíró elemzők számára rengeteg értékes információ kinyerhető. Ezt gyakran hasznosítják üzleti célokra, de a társadalomtudósok számára is rengeteg izgalmas kutatási irányt kínál a szövegbányászat eszköztára. Gondoljunk például az online sajtótermékekre, az ezekhez kapcsolódó kommentekre, vagy a politikusok beszédéire. Ezek mind-mind hatalmas mennyiségben rendelkezésre álló szövegek, hasznosításukhoz azonban képesnek kell lenni ezeket a szövegeket összegyűjteni, a megfelelő módon feldolgozni és kiértékelni. A könyv további fejezetei ebben nyújtanak segítséget az olvasónak. Mielőtt azonban az adatkezelés és az elemzés részleteire rátérnénk, érdemes végig venni néhány elvi megfontolást, mely segítheti a leendő elemzőt az etikus, érvényes, és eredményes szövegbányászati kutatások kivitelezésében.
+
+
+A nagy mennyiségben rendelkezésre álló szöveges források remek kutatási terepet kínálnak a társadalomtudósok számára megannyi vizsgálati kérdéshez, azonban fontos tisztában lenni vele, hogy a mindenki által elérhető adatokat is meglehetősen körültekintően, etikai szempontok figyelembevételével kell használni (az etikus adatbeszerzésről és adatkezelésről a 4. fejezetben írunk részletesebben(**KERESZTHIVATKOZAS_IDE**)). Egy másik szempont, amelyet érdemes szem előtt tartani mielőtt az ember fejest ugrana az adatok végtelenjébe a 3V elve: volume, velocity, variety vagyis az adatok mérete, a keletkezésük sebessége és azok változatossága (Bradly, 2018). Ezek mind olyan tulajdonságok, amelyek jelentősen más (és sok esetben több vagy nagyobb) kihívásokok elé állítják az adatelemzőt munkája folyamán, mint egy hagyományos statisztikai elemzés esetén. 
+A szövegbányászati módszerek abban is eltérnek a hagyományos társadalomtudományi elemzésektől, hogy – az adattudományokba visszanyúló gyökerei okán – jelentős teret nyit az induktív (empiricista) kutatások számára a deduktív szemlélettel szemben. A deduktív kutatásmódszertani megközelítés esetén a kutató előre meghatározza az alkalmazandó fogalomrendszert, és azokat az elvárásokat, amelyek teljesülése esetén sikeresnek tekinti az elemzést. Az adattudományban az ilyen megközelítés a felügyelt tanulási feladatokat jellemzi, vagyis azokat a feladatokat, ahol ismert az elvárt eredmény. Például egy osztályozási feladat esetén, amikor újságcikkeket szeretnénk különböző témakörökbe besorolni. Ilyen esetben az adatok egy részét általában kézzel kategorizáljuk, és a gépi eljárás sikerességet ehhez viszonyítjuk. Mivel az ideális eredmény (osztálycímke) ismert, a gépi teljesítmény könnyen mérhető (jellemzően a pontosságot szoktuk ilyenkor mérni a gép által sikeresen kategorizált cikkek százalékában kifejezve).
+
+
+Az induktív megoldás esetén kevésbé egyértelmű a gépi eljárás teljesítményének mérése, hiszen ebben az esteben a rejtett mintázatok feltárást várjuk az algoritmustól, emiatt nincsenek előre meghatározott eredmények sem, amelyekhez viszonyíthatjuk a teljesítményt. Az adattudományban az ilyen feladatokat hívják felügyelet nélküli tanulásnak. Ide tartozik a klaszterelemzés, vagy a topic modellezés, melynek esetén a kutató csak azt határozza meg, hány klasztert, hány témát szeretne kinyerni, a gép pedig létrehozza az egymáshoz leghasonlóbb csoportokat. Értelemszerűen itt a kutatói validálás jóval nagyobb hangsúlyt kap, mint a deduktív megközelítés esetén. 
+
+Egy harmadik, középutas megoldás a megalapozott elmélet megközelítése, mely ötvözi az induktív és deduktív módszer előnyeit. Ennek során a kutató kidolgoz egy laza elméleti keretet, melynek alapján elvégzi az elemzést, majd az eredményeket figyelembe véve finomít a fogalmi keretén, és újabb elemzést futtat, ezt az iterációt addig folytatva, amíg a kutatás eredményeit kielégítőnek nem találja.
+
+A szövegbányászati elemzéseket kategorizálhatjuk továbbá a gépi hozzájárulás mértéke szerint. Ennek megfelelően megkülönböztethetünk kézi, géppel támogatott és gépi eljárásokat. Mindhárom megközelítésnek megvan a maga előnye, a kézi megoldások esetén valószínűbb, hogy azt mérjük a szövegünkben amit mérni szeretnénk (például bizonyos szakpolitikai tartalmat), ugyanakkor idő és költségigényes. A gépi eljárások ezzel szemben költséghatékonyak és gyorsak, de fennáll a veszélye, hogy nem azt mérjük, amit eredetileg mérni szerettünk volna (ennek megállapításában ismét a validálás kap kulcsszerepet). Továbbá lehetséges kézzel támogatott gépi megoldások alkalmazása, ahol a humán és a gépi elemzés ideális arányának megtalálása jelenti a fő kihívást. 
+
+## Fogalmi alapok 
+
+Miután áttekintettük a szövegbányászatban használatos elméleti megközelítéseket, érdemes tisztázni a fogalmi alapokat is. A szövegbányászat szempontjából a szöveg is egy adat, az elemzéshez használatos strukturált adathalmazt pedig korpusznak nevezzük. A korpusz az összes szövegünket jelöli, ennek részegységei a dokumentumok. Ha például a Magyar Nemzet cikkeit kívánjuk elemezni, a kiválasztott időszak összes cikke lesz a teljes korpuszunk, az egyes cikkek pedig a dokumentumaink. Az elemzés mindig egy meghatározott (téma-)területre („domain”-re) koncentrál. E (téma-)terület (domain) utalhat a nyelvre, amelyen a szövegek íródtak, vagy a specifikus tartalomra, amelyet vizsgálunk, de mindenképpen meghatározza a szöveg szókészletével kapcsolatos várakozásainkat. Más lesz tehát a szóhasználat egy bulvárlap cikkeiben mint egy tudományos szaklap cikkeiben, melynek elsősorban akkor van jelentősége, ha szótár alapú elemzéseket készítünk. A szótár alapú elemzések során olyan szószedetket hozunk létre, amelyek segíthetnek a kutatásunk szempontjából érdekes témák vagy tartalmak azonosításában. Így például létrehozhatunk pozitív és negatív szótárakat, vagy a gazdasági és külpolitikai témákhoz kapcsolódó szótárakat, melyek segíthetnek azonosítani, hogy adott dokumentum inkább gazdasági vagy inkább külpolitikai témákat tárgyal. Léteznek előre elkészített szótárak (angol nyelven például a Bing Liu által fejlesztett szótár egy jól ismert és széles körben alkalmazható példa), azonban fontos fejben tartani, hogy a vizsgált téma specifikus nyelvezete jellemzően meghatározza azt, hogy egy-egy szótárba milyen kifejezéseknek kellene kerülniük. 
+
+Már említésre került, hogy egy szövegbányászati elemzés során a szöveg is adatként kezelendő. Tehát hasonló módon gondolhatunk az elemzendő szövegeinkre, mint egy statisztikai elemzésre szánt adatbázisra, annak csupán, reprezentációja tér el az utóbbitól. Tehát míg egy statisztikai elemzésre szánt táblázatban elsősorban számokat és adott esetben kategorikus változókat reprezentáló karakterláncokat (sztringeket) pl. „férfi”/”nő”, „falu”/”város”, találunk, addig a szöveges adatokban első ránézésére nem tűnik ki gépileg értelmezhető struktúra. Ahhoz, hogy a szövegeink a gépi elemzés számára feldolgozhatóvá váljanak, annak reprezentációját kell megváltoztatni, vagyis strukturálatlan adathalmazból strukturált adathalmazt kell létrehozni, melyet jellemzően a szövegek mátrixszá alakításával tesszünk meg. A mátrixszá alakítás első hallásra bonyolult eljárás benyomását keltheti, azonban a gyakorlatban egy meglehetősen egyszerű transzformációról van szó, melynek eredményeként a szavakat számokkal reprezentáljuk. A könnyebb megértés érdekében vegyük az alábbi példát: tekintsük a három példamondatot a három elemzendő dokumentumnak, ezek összességét pedig a korpuszunknak. 
+
+
+_1.	Az Európai Unió 27 tagországának egyike Magyarország._
+
+_2.	Magyarország 2004-ben csatlakozott az Európai Unóhoz._
+
+_3.	Szlovákia, akárcsak Magyarország, 2004-ben lett ez Európai Unió tagja._
+
+
+A példamondatok dokumentum-kifejezés mátrixsza az alábbi táblázat szerint fog kinézni.[^1]  
+
+
+```{r include = FALSE}
+vektorisation <- read_excel("data/vektorizacio.xlsx")
+```
+
+```{r echo = FALSE, results = 'ashis'}
+kable(vektorisation, align=rep('c', 5), caption = "Dokumentum-kifejezés mátrix három példamondattal") %>%
+kable_styling("striped", full_width = F,  bootstrap_options = c("striped", "hover", "condensed"), font_size = 10) %>%
+    column_spec(column = 1:15, monospace = T, width = '4cm') %>%
+    column_spec(column = 1:1, background = 'lightgrey') %>%
+  row_spec(0, angle = 0)
+```
+A dokumentum-kifejezés mátrixban minden dokumentumot egy vektor (értsd: egy sor) reprezentál, az eltérő kifejezések pedig külön oszlopokat kapnak. Tehát a fenti példában minden dokumentumunk egy 14 elemű vektorként jelenik meg, melynek elemei azt jelölik, hogy milyen gyakran szerepel az adott kifejezés a dokumentumban. A dokumentum-kifejezés mátrixok egy jellemző tulajdonsága, hogy igen nagy dimenziókkal rendelkezhetnek (értsd: sok sorral és sok oszloppal), hiszen minden kifejezést külön oszlopként reprezentálnak. Egy sok dokumentumból álló vagy egy témák tekintetében változatos korpusz esetén a kifejezés mátrix elemeinek jelentős része 0 lesz, hiszen számos olyan kifejezés lesz az egyes dokumentumokban, amely más dokumentumban nem szerepel. A sok nullát tartalmazó mátrixot hívjuk ritka mátrixnak. Az adatok jobb kezelhetőségének érdekben a ritka mátrixot valamilyen dimenzióredukciós eljárással sűrű mátrixszá lehet alakítani (például a nagyon ritka kifejezések eltávolításával, vagy valamilyen súlyozáson alapuló eljárással). 
+
+## A szövegbányászat alapelvei 
+
+Végezetül pedig a módszertani fogalmak tisztázást követően néhány elméleti megfontolást osztanánk meg a Grimmer és Steward (2013) által megfogalmazott alapelvek nyomán, melyek hasznos útravalóul szolgálhatnak a szövegbányászattal ismerkedő kutatók számára.  
+
+_1.	A szövegbányászat rossz, de hasznos_
+
+Az emberi nyelv egy meglehetősen bonyolult rendszer, így egy szöveg jelentésének, érzelmi telítettségének értelmezése meglehetősen eltérő lehet különböző olvasók által, így nem meglepő, hogy egy gép sok esetben csak korlátozott eredményeket képes felmutatni ezen feladatok teljesítésében. Ettől függetlenül nem elvitatható a szövegbnyászati modellek hasznossága, hiszen olyan mennyiségű szöveg válik feldolgozhatóvá, amely gépi támogatás nélkül elképzelhetetlen volna, mindemellett azonban fejben kell tartani a módszertan korlátait is.   
+
+_1.	A kvantitatív modellek kiegészítik az embert, nem helyettesítik azt_
+
+A kvantitatív eszközökkel történő elemzés nem szünteti meg a szövegek elolvasásának szükségességét, hiszen egészen más információk kinyerését teszi lehetővé egy kvantitatív megközelítéssel szemben. Emiatt a kvantitatív szövegelemzés talán legfontosabb kihívása, hogy a kutató megtalálja a gépi és a humán erőforrások együttes hasznosításának legjobb módját.
+
+_2.	Nincs legjobb modell_
+
+Minden kutatáshoz meg kell találni a leginkább alkalmas modellt a kutatási kérdés, a rendelkezésre álló adatok, és a kutatói szándék alapján. Gyakran különböző eljárások kombinálása vezethet egy specifikus probléma legjobb megoldására. Azonban minden esetben az eredmények értékelésére kell támaszkodni, hogy megállapíthassuk egy modell teljesítményét adott problémára és szövegkorpuszra nézve. 
+
+_3.	Validálás, validálás, validálás! [érvényesítés?]_
+
+Mivel az automatizált szövegelemzés számos esetben jelentősen lecsökkenti az elemzéshez szükséges időt és energiát, csábító lehet a gondolat, hogy ezekhez a módszerekhez forduljon a kutató, ugyanakkor nem szabad elfelejteni, hogy az elemzés csupán a kezdeti lépés, hiszen a kutatónak érvényesítenie (validálnia) kell az eredményeket ahhoz, hogy valóban megbízható következtetésekere jussunk. Az érvényesítés lényege egy felügyelet nélküli modell esetén (ahol az elvárt eredmények nem ismertek, így a teljesítmény nem tesztelhető), hogy meggyőződjünk arról, hogy egy felügyelt modellel (olyan modellel, ahol az elvárt eredmény ismert, így ellenőrizhető) egyenértékű eredményeket hozzon. Ezen elvárás teljesítése gyakran nem egyszerű, azonban az eljárások alapos kiértékelést (validálást) nélkülöző alkalmazása meglehetősen kétesélyes eredményekhez vezethet, emiatt érdemes megfelelő alapossággal eljárni az érvényesítés során.
+
+[^1]:   Vegyük észre azt is, hogy több olyan kifejezés van, melyek csak ragozásukban térnek el: Unió, Unióhoz, tagja, tagjának. Ezeket a kifejezéseket a kutatói szándék¬ függvényében azonos alakúra hozhatjuk, hogy egy egységként jelenjenek meg. – Az elemzések többségében a szövegelőkészítés egyik kiinduló lépése a szótövesítés vagy  a lemmatizálás, előbbi a szavak toldalékainak levágását jelöli, utóbbi a szavak szótári alakra való visszaalakítását. A ragozás eltávolítását illetően elöljáróban annyit érdemes megjegyezni, hogy az agglutináló, vagyis ragasztó nyelvek esetén, mint amilyen a magyar is, a toldalékok eltávolítása gyakran igen komoly kihívást jelent¬.  Nem csak a toldalékok formája lehet igen sokféle, de az is előfordulhat, hogy a tőszó nem egyezik meg a toldalék levágásával keletkező szótővel. ilyen például a vödröt kifejezés, melynek szótöve a „vödr”, de a nyelvtanilag helyes tőszó a vödör, hasonlóan a majmok kifejezés esetén a szótő a „majm” lesz, míg a nyelvtanilag helyes tőszó a majom. Emiatt a toldalékok levágását a magyar nyelvű szövegek esetén megfelelő körültekintéssel kell végezni. 

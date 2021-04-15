@@ -34,7 +34,7 @@ library(tidytext)
 library(tidyverse)
 ```
 
-Első lépésben a már ismertetett módon a `readtext ()` segítségével beolvassuk a beszédek txt formátumú változatát, utf-8 karakterkódolással.
+Első lépésben a már ismertetett módon a `readtext ()` segítségével beolvassuk a beszédek `.txt` formátumú változatát, `utf-8` karakterkódolással.
 
 ```{r}
 texts <- readtext("data/mineln/*.txt", encoding = "UTF-8")
@@ -44,7 +44,7 @@ head(texts)
 
 Ezt követően az "Adatkezelés R-ben" fejezetben ismertetett `mutate()` függvény használatával két csoportra osztjuk a beszédeket. Ehhez először a `string_extract()`segítségével meghatározzuk, hogy a kettéosztáshoz használni kívánt új változó a doc_id legyen a `[^\\.]*` regex segítségével leválasztva arról a `.txt` kiterjesztést, majd a `str_sub()` függvénnyel megmondjuk, hogy a miniszterelnökök neve a `doc_id` hátulról számított hatodik karakteréig tart. Ezután kialakítjuk a két csoportot, azaz az `if_else()` segítségével meghatározzuk, hogy ha "antall_jozsef", "boross_peter", "orban_viktor" beszédeiről van szó azokat a jobb csoportba tegye, a maradékot pedig a bal csoportba.
 
-Ezt követően azt is meghatározzuk, hogy melyik beszédnek mi a dátuma. Ehhez szintén a `str_sub()` függvényt használjuk, majd a `lubridate` segítségével alakítjuk ki a kívánt dátumformátumot[^leiro_stat-1].
+Majd azt is meghatározzuk, hogy melyik beszédnek mi a dátuma. Ehhez szintén a `str_sub()` függvényt használjuk, majd a `lubridate` segítségével alakítjuk ki a kívánt dátumformátumot[^leiro_stat-1].
 
 [^leiro_stat-1]: A `lubridate` használatának részletes leírása megtalálható az alábbi linken: <https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf>
 
@@ -112,7 +112,7 @@ A szókapcsolatok listázásánál is láthattuk, hogy a korpuszunk még minden 
 Ha ezután újra megnézzük a kollokációkat, jól látható a stopszavak eltávolításának eredménye:
 
 ```{r}
-custom_stopwords <- readLines("data/stopwords.txt", encoding = "UTF-8")
+custom_stopwords <- readLines("data/stopwords_hun.txt", encoding = "UTF-8")
 
 corpus_mineln %>%
   tokens() %>%
@@ -124,7 +124,7 @@ corpus_mineln %>%
   head(n = 10)
 ```
 
-A korpuszon további elemzése előtt fontos, hogy ne csak a stopszavakat távolítsuk el, hanem az egyéb alapvető szövegtisztító lépéseket is elvégezzük. Azaz a `tokens_select()` segítségével eltávolítsuk a számokat, a központozást, az elválasztó karaktereket, mint például a szóközöket, tabulátorokat, sortöréseket. Ezután a `tokens_ngrams()` segítségével ngramokat hozunk létre a tokenekből, majd kialakítjuk a dokumentum kifejezés mátrixot (`dfm`) és elvégezzük a `tf-idf` szerinti súlyozást. A `dfm_tfidf()`függvény kiszámolja a dokumentum gyakoriság inverz súlyozását. A függvény alapértelmezés szerint a normalizált kifejezések gyakoriságát használja a dokumentumon belüli relatív kifejezés gyakoriság helyett, ezt írjuk felül a `schem__tf = "prop"` használatával. Végül a `textstat_frequency()` segítségével gyakorisági statisztikát készíthetünk a korábban meghatározott (példánkban két és három tagú) ngramokról.
+A korpuszon további elemzése előtt fontos, hogy ne csak a stopszavakat távolítsuk el, hanem az egyéb alapvető szövegtisztító lépéseket is elvégezzük. Azaz a `tokens_select()` segítségével eltávolítsuk a számokat, a központozást, az elválasztó karaktereket, mint például a szóközöket, tabulátorokat, sortöréseket. Ezután a `tokens_ngrams()` segítségével ngramokat hozunk létre a tokenekből, majd kialakítjuk a dokumentum kifejezés mátrixot (`dfm`) és elvégezzük a `tf-idf` szerinti súlyozást. A `dfm_tfidf()`függvény kiszámolja a dokumentum gyakoriság inverz súlyozását. A függvény alapértelmezés szerint a normalizált kifejezések gyakoriságát használja a dokumentumon belüli relatív kifejezés gyakoriság helyett, ezt írjuk felül a `schem_tf = "prop"` használatával. Végül a `textstat_frequency()` segítségével gyakorisági statisztikát készíthetünk a korábban meghatározott (példánkban két és három tagú) ngramokról.
 
 ```{r}
 corpus_mineln %>%
