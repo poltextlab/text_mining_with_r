@@ -17,9 +17,8 @@ library(quanteda)
 library(quanteda.textmodels)
 ```
 
-A skálázási algoritmusokat egy kicsi korpuszon fogjuk bemutatni. A minta dokumentumok a 2014-2018 parlamenti ciklusban frakcióvezető politikusok egy-egy véletlenszerűen kiválasztott napirend előtti felszólalásai. Ebben a ciklusban összesen 11 frakcióvezetője volt a két kormánypárti és öt ellenzéki frakciónak.[^1] A dokumentumokon a rutin előkészítési lépéseket végezzük csak el (tördelések, számok, központozás kitörlése, kisbetűsítés). Természetesen minél alaposabbak vagyunk a szövegek tisztításával, annál pontosabb végeredményt fogunk kapni.
-
-[^1]: A mintába nem került be Rogán Antal, akinek csak egy darab napirend előtti felszólalása volt.
+A skálázási algoritmusokat egy kis korpuszon mutatjuk be. A minta dokumentumok a 2014-2018 parlamenti ciklusban a Magyar Országgyűlésben frakcióvezető politikusok egy-egy véletlenszerűen kiválasztott napirend előtti felszólalásai. Ebben a ciklusban összesen 11 frakcióvezetője volt a két kormánypárti és öt ellenzéki frakciónak.[^skala-1] A dokumentumokon először elvégeztük a szokásos előkészítési lépéseket. 
+[^skala-1]: A mintába nem került be Rogán Antal, akinek csak egy darab napirend előtti felszólalása volt.
 
 ```{r}
 parl_beszedek <- read_csv("data/ps_sample.csv")
@@ -35,7 +34,7 @@ beszedek_tiszta <- parl_beszedek %>%
   )
 ```
 
-A *Wordfish* és *Wordscores* algoritmus is ugyanazt a kiinduló corpus és dfm objektumot fogja használni, amit a szokásos módon a `quanteda` csomag `corpus()` függvényével hozunk létre. A leíró statisztikai táblázatban látszik, hogy a beszédek hosszúsága nem egységes, a leghosszabb `r max(summary(beszedek_corpus)$Tokens)` szavas, a legrövidebb pedig `r min(summary(beszedek_corpus)$Tokens)`. Az átlagos dokumentum hossz az `r round(mean(summary(beszedek_corpus)$Tokens))`. A korpusz szemléltető célú, az eddig megszokott módon minél több/hosszabb dokumentummal dolgozunk, annál könnyebb dolga van az algoritmusoknak.
+A *Wordfish* és *Wordscores* algoritmus is ugyanazt a kiinduló corpus és dfm objektumot használja, amit a szokásos módon a `quanteda` csomag `corpus()` függvényével hozunk létre. A leíró statisztikai táblázatban látszik, hogy a beszédek hosszúsága nem egységes, a leghosszabb `r max(summary(beszedek_corpus)$Tokens)` szavas, a legrövidebb pedig `r min(summary(beszedek_corpus)$Tokens)`. Az átlagos dokumentum hossz az `r round(mean(summary(beszedek_corpus)$Tokens))`. A korpusz szemléltető célú, alaposabb elemzéshez hosszabb és/vagy több dokumentummal érdemes dolgoznunk. 
 
 ```{r}
 beszedek_corpus <- corpus(beszedek_tiszta)
@@ -43,7 +42,7 @@ beszedek_corpus <- corpus(beszedek_tiszta)
 summary(beszedek_corpus)
 ```
 
-Végezetül elkészítjük a dfm mátrixot és a magyar stopszavakat kitöröljük.
+A koprusz létrehozása után elkészítjük a dfm mátrixot, amelyből eltávolítjuk a magyar stopszvakat a `quanteda`beépített szótárának segítségével.
 
 ```{r}
 beszedek_dfm <- beszedek_corpus %>% 
