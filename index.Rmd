@@ -1,6 +1,6 @@
 ---
 title: "Szövegbányászat és mesterséges intelligencia R-ben"
-author: "Sebők Miklós, Ring Orsolya"
+author: "Sebők Miklós, Ring Orsolya, Máté Ákos"
 date: "`r Sys.time()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -11,10 +11,11 @@ description: >
   Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L'Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést.
 output:
   bookdown::gitbook: default
+  bookdown::word_document2: default
 bibliography: references.bib
 ---
 
-# Szövegbányászat és mesterséges intelligencia R-ben {-}
+# Üdvözöljük! {-}
 
 ```{r echo=FALSE, eval=FALSE}
 
@@ -36,7 +37,7 @@ bookdown::render_book('index.Rmd', 'all')
 # bookdown::clean_book(TRUE)
 
 output:
-  bookdown::gitbook: default
+  bookdown::gitbook: default 
   latex_document: default
   bookdown::word_document2: default
 

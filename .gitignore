@@ -32,3 +32,5 @@ data/mn_pretrained.rds
 data/temp/
 data/data_ner/
 .vscode/
+*.docx
+*.doc

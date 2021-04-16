@@ -48,9 +48,9 @@ install.packages("devtools")
 devtools::install_github("poltextlab/HunMineR")
 ```
 
-Ezt követően a `data` függvénnyel tudjuk megnézni hogy pontosan milyen adatbazisok szerepelnek a csomagban, illetve az egyes adatbázisok részletes leírását is meg tudjuk nézni. Hogyha egy adatbázisról szeretnénk többet megtudni, akkor a kiegészítő információkat `?adatbazis_neve` megoldással tudjuk megnézni.[^intro-1]
+Ezt követően a `data` függvénnyel tudjuk megnézni hogy pontosan milyen adatbazisok szerepelnek a csomagban, illetve az egyes adatbázisok részletes leírását is meg tudjuk nézni. Hogyha egy adatbázisról szeretnénk többet megtudni, akkor a kiegészítő információkat `?adatbazis_neve` megoldással tudjuk megnézni.[^df-1]
 
-[^intro-1]: Többek között az adat forrása, a változók részletes leírása, illetve az adatbázis mérete is megtalálható így.
+[^df-1]: Többek között az adat forrása, a változók részletes leírása, illetve az adatbázis mérete is megtalálható így.
 
 ```{r eval=FALSE}
 # A HunMineR csomag betöltése
