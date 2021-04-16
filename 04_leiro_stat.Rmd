@@ -1,8 +1,4 @@
----
-bibliography: references.bib
----
-
-# Információ-visszakeresés és információkinyerés, szövegek reprezentálása a vektortérben, leíró statisztika
+# Információ-visszakeresés és információkinyerés, szövegek reprezentálása a vektortérben, leíró statisztika {#leiro_stat}
 
 ```{r include=FALSE}
 

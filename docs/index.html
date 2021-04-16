@@ -5,21 +5,21 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Szövegbányászat és mesterséges intelligencia R-ben</title>
-  <meta name="description" content="Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Szövegbányászat és mesterséges intelligencia R-ben" />
   <meta property="og:type" content="book" />
   
-  
-  
+  <meta property="og:image" content="index_logo.jpg" />
+  <meta property="og:description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Szövegbányászat és mesterséges intelligencia R-ben" />
   
-  
-  
+  <meta name="twitter:description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
+  <meta name="twitter:image" content="index_logo.jpg" />
 
 <meta name="author" content="Sebők Miklós, Ring Orsolya" />
 
@@ -31,7 +31,7 @@
   
   
 
-<link rel="next" href="alapfogalmak.html"/>
+<link rel="next" href="bevezetés.html"/>
 <script src="libs/header-attrs-2.7.10/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -133,7 +133,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Bevezetés</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Szövegbányászat és mesterséges intelligencia R-ben</a></li>
+<li class="chapter" data-level="1" data-path="bevezetés.html"><a href="bevezetés.html"><i class="fa fa-check"></i><b>1</b> Bevezetés</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="bevezetés.html"><a href="bevezetés.html#használati-utasítás"><i class="fa fa-check"></i><b>1.1</b> Használati utasítás</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="bevezetés.html"><a href="bevezetés.html#hunminer-telepítése-és-használata"><i class="fa fa-check"></i><b>1.1.1</b> HunMineR telepítése és használata</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="alapfogalmak.html"><a href="alapfogalmak.html"><i class="fa fa-check"></i><b>2</b> Alapfogalmak</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="alapfogalmak.html"><a href="alapfogalmak.html#elméleti-alapok"><i class="fa fa-check"></i><b>2.1</b> Elméleti alapok</a></li>
@@ -168,13 +175,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.4" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#súlyozás"><i class="fa fa-check"></i><b>4.2.4</b> Súlyozás</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="információ-visszakeresés-és-információkinyerés-szövegek-reprezentálása-a-vektortérben-leíró-statisztika.html"><a href="információ-visszakeresés-és-információkinyerés-szövegek-reprezentálása-a-vektortérben-leíró-statisztika.html"><i class="fa fa-check"></i><b>5</b> Információ-visszakeresés és információkinyerés, szövegek reprezentálása a vektortérben, leíró statisztika</a>
+<li class="chapter" data-level="5" data-path="leiro-stat.html"><a href="leiro-stat.html"><i class="fa fa-check"></i><b>5</b> Információ-visszakeresés és információkinyerés, szövegek reprezentálása a vektortérben, leíró statisztika</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="információ-visszakeresés-és-információkinyerés-szövegek-reprezentálása-a-vektortérben-leíró-statisztika.html"><a href="információ-visszakeresés-és-információkinyerés-szövegek-reprezentálása-a-vektortérben-leíró-statisztika.html#a-szövegek-reprezentálása-a-vektortérben---szózsák-modell"><i class="fa fa-check"></i><b>5.1</b> A szövegek reprezentálása a vektortérben - szózsák modell</a></li>
-<li class="chapter" data-level="5.2" data-path="információ-visszakeresés-és-információkinyerés-szövegek-reprezentálása-a-vektortérben-leíró-statisztika.html"><a href="információ-visszakeresés-és-információkinyerés-szövegek-reprezentálása-a-vektortérben-leíró-statisztika.html#leíró-statisztika"><i class="fa fa-check"></i><b>5.2</b> Leíró statisztika</a></li>
-<li class="chapter" data-level="5.3" data-path="információ-visszakeresés-és-információkinyerés-szövegek-reprezentálása-a-vektortérben-leíró-statisztika.html"><a href="információ-visszakeresés-és-információkinyerés-szövegek-reprezentálása-a-vektortérben-leíró-statisztika.html#a-szövegek-lexikai-diverzitása"><i class="fa fa-check"></i><b>5.3</b> A szövegek lexikai diverzitása</a></li>
-<li class="chapter" data-level="5.4" data-path="információ-visszakeresés-és-információkinyerés-szövegek-reprezentálása-a-vektortérben-leíró-statisztika.html"><a href="információ-visszakeresés-és-információkinyerés-szövegek-reprezentálása-a-vektortérben-leíró-statisztika.html#összehasonlításleiro_stat-4"><i class="fa fa-check"></i><b>5.4</b> Összehasonlítás</a></li>
-<li class="chapter" data-level="5.5" data-path="információ-visszakeresés-és-információkinyerés-szövegek-reprezentálása-a-vektortérben-leíró-statisztika.html"><a href="információ-visszakeresés-és-információkinyerés-szövegek-reprezentálása-a-vektortérben-leíró-statisztika.html#kifejezések-kontextusba-helyezése"><i class="fa fa-check"></i><b>5.5</b> Kifejezések kontextusba helyezése</a></li>
+<li class="chapter" data-level="5.1" data-path="leiro-stat.html"><a href="leiro-stat.html#a-szövegek-reprezentálása-a-vektortérben---szózsák-modell"><i class="fa fa-check"></i><b>5.1</b> A szövegek reprezentálása a vektortérben - szózsák modell</a></li>
+<li class="chapter" data-level="5.2" data-path="leiro-stat.html"><a href="leiro-stat.html#leíró-statisztika"><i class="fa fa-check"></i><b>5.2</b> Leíró statisztika</a></li>
+<li class="chapter" data-level="5.3" data-path="leiro-stat.html"><a href="leiro-stat.html#a-szövegek-lexikai-diverzitása"><i class="fa fa-check"></i><b>5.3</b> A szövegek lexikai diverzitása</a></li>
+<li class="chapter" data-level="5.4" data-path="leiro-stat.html"><a href="leiro-stat.html#összehasonlításleiro_stat-4"><i class="fa fa-check"></i><b>5.4</b> Összehasonlítás</a></li>
+<li class="chapter" data-level="5.5" data-path="leiro-stat.html"><a href="leiro-stat.html#kifejezések-kontextusba-helyezése"><i class="fa fa-check"></i><b>5.5</b> Kifejezések kontextusba helyezése</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="szótáralapú-elemzések-érzelem-elemzés.html"><a href="szótáralapú-elemzések-érzelem-elemzés.html"><i class="fa fa-check"></i><b>6</b> Szótáralapú elemzések, érzelem-elemzés</a>
 <ul>
@@ -212,20 +219,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.3" data-path="természetes-nyelv-feldolgozás-nlp-és-névelemfelismerés-ner.html"><a href="természetes-nyelv-feldolgozás-nlp-és-névelemfelismerés-ner.html#angol-nyelvű-szövegek-névelemfelismerése"><i class="fa fa-check"></i><b>11.3</b> Angol nyelvű szövegek névelemfelismerése</a></li>
 </ul></li>
 <li class="chapter" data-level="12" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html"><i class="fa fa-check"></i><b>12</b> Osztályozás és felügyelt tanulás</a></li>
-<li class="chapter" data-level="13" data-path="függelék.html"><a href="függelék.html"><i class="fa fa-check"></i><b>13</b> Függelék</a>
+<li class="chapter" data-level="13" data-path="fuggelek.html"><a href="fuggelek.html"><i class="fa fa-check"></i><b>13</b> Függelék</a>
 <ul>
-<li class="chapter" data-level="13.1" data-path="függelék.html"><a href="függelék.html#az-r-és-az-rstudio-használata"><i class="fa fa-check"></i><b>13.1</b> Az R és az RStudio használata</a>
+<li class="chapter" data-level="13.1" data-path="fuggelek.html"><a href="fuggelek.html#az-r-és-az-rstudio-használata"><i class="fa fa-check"></i><b>13.1</b> Az R és az RStudio használata</a>
 <ul>
-<li class="chapter" data-level="13.1.1" data-path="függelék.html"><a href="függelék.html#az-rstudio-kezdőfelülete"><i class="fa fa-check"></i><b>13.1.1</b> Az RStudio kezdőfelülete</a></li>
-<li class="chapter" data-level="13.1.2" data-path="függelék.html"><a href="függelék.html#projektmunka"><i class="fa fa-check"></i><b>13.1.2</b> Projekt alapú munka</a></li>
-<li class="chapter" data-level="13.1.3" data-path="függelék.html"><a href="függelék.html#scriptek-szerkesztése-függvények-használata"><i class="fa fa-check"></i><b>13.1.3</b> Scriptek szerkesztése, függvények használata</a></li>
-<li class="chapter" data-level="13.1.4" data-path="függelék.html"><a href="függelék.html#packages"><i class="fa fa-check"></i><b>13.1.4</b> R csomagok</a></li>
-<li class="chapter" data-level="13.1.5" data-path="függelék.html"><a href="függelék.html#objektumok-tárolása-értékadás"><i class="fa fa-check"></i><b>13.1.5</b> Objektumok tárolása, értékadás</a></li>
-<li class="chapter" data-level="13.1.6" data-path="függelék.html"><a href="függelék.html#vektorok"><i class="fa fa-check"></i><b>13.1.6</b> Vektorok</a></li>
-<li class="chapter" data-level="13.1.7" data-path="függelék.html"><a href="függelék.html#faktorok"><i class="fa fa-check"></i><b>13.1.7</b> Faktorok</a></li>
-<li class="chapter" data-level="13.1.8" data-path="függelék.html"><a href="függelék.html#data-frame"><i class="fa fa-check"></i><b>13.1.8</b> Data frame</a></li>
+<li class="chapter" data-level="13.1.1" data-path="fuggelek.html"><a href="fuggelek.html#az-rstudio-kezdőfelülete"><i class="fa fa-check"></i><b>13.1.1</b> Az RStudio kezdőfelülete</a></li>
+<li class="chapter" data-level="13.1.2" data-path="fuggelek.html"><a href="fuggelek.html#projektmunka"><i class="fa fa-check"></i><b>13.1.2</b> Projekt alapú munka</a></li>
+<li class="chapter" data-level="13.1.3" data-path="fuggelek.html"><a href="fuggelek.html#scriptek-szerkesztése-függvények-használata"><i class="fa fa-check"></i><b>13.1.3</b> Scriptek szerkesztése, függvények használata</a></li>
+<li class="chapter" data-level="13.1.4" data-path="fuggelek.html"><a href="fuggelek.html#packages"><i class="fa fa-check"></i><b>13.1.4</b> R csomagok</a></li>
+<li class="chapter" data-level="13.1.5" data-path="fuggelek.html"><a href="fuggelek.html#objektumok-tárolása-értékadás"><i class="fa fa-check"></i><b>13.1.5</b> Objektumok tárolása, értékadás</a></li>
+<li class="chapter" data-level="13.1.6" data-path="fuggelek.html"><a href="fuggelek.html#vektorok"><i class="fa fa-check"></i><b>13.1.6</b> Vektorok</a></li>
+<li class="chapter" data-level="13.1.7" data-path="fuggelek.html"><a href="fuggelek.html#faktorok"><i class="fa fa-check"></i><b>13.1.7</b> Faktorok</a></li>
+<li class="chapter" data-level="13.1.8" data-path="fuggelek.html"><a href="fuggelek.html#data-frame"><i class="fa fa-check"></i><b>13.1.8</b> Data frame</a></li>
 </ul></li>
-<li class="chapter" data-level="13.2" data-path="függelék.html"><a href="függelék.html#vizualizáció"><i class="fa fa-check"></i><b>13.2</b> Vizualizáció</a></li>
+<li class="chapter" data-level="13.2" data-path="fuggelek.html"><a href="fuggelek.html#vizualizáció"><i class="fa fa-check"></i><b>13.2</b> Vizualizáció</a></li>
 </ul></li>
 </ul>
 
@@ -247,14 +254,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Szövegbányászat és mesterséges intelligencia R-ben</h1>
 <p class="author"><em>Sebők Miklós, Ring Orsolya</em></p>
-<p class="date"><em>2021-04-16 09:51:48</em></p>
+<p class="date"><em>2021-04-16 11:33:23</em></p>
 </div>
-<div id="bevezetés" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Bevezetés</h1>
-<p>Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést. A szövegek kvantitatív elemzése (quantitative text analysis – QTA) a nemzetközi társadalomtudomány egyik leggyorsabban fejlődő irányzata. A szövegek és más minőségi adatok (filmek, képek) elemzése annyiban különbözik a mennyiségi (kvantitatív) adatokétól, hogy nyers formájukban még nem alkalmasak arra, hogy statisztikai, illetve ökonometriai elemzés alá vessük őket, s így további módszertani problémákat vetnek fel, melyek speciális tárgyalása szükséges. A tervezett kötetben bemutatott példák többsége a politikatudományhoz kapcsolódik, de más alkalmazási területekre is kitér.</p>
-<p>Míg az előző kötet az egyes kódolási eljárásokat, illetve ezek kutatás-módszertani előnyeit és hátrányait ismertette, itt a társadalomtudományi elemzésének során használható kvantitatív szövegelemzés legfontosabb gyakorlati feladatait vesszük sorra. A kézirat a magyar tankönyvpiacon az elsőnek számít a tekintetben, hogy a társadalomtudományban használatos kvantitatív szövegelemzési eljárásokat részletesen, lépésről-lépésre ismerteti, kezdve a megfelelő korpusz kialakításához szükséges ismeretektől, a különböző szövegbányászati módszerek (szózsák, dokumentum-kifejezés mátrix, a névelem-felismerés, az osztályozás, illetve a csoportosítás feladataira), illetve az egyszerűbb szövegösszehasonlítási-feladatok áttekintésén át, egészen a felügyelt és felügyelet nélküli gépi tanulásig, a politikatudományi vizsgálatok során leggyakrabban használatos R programnyelven készült programok segítségével.</p>
-<p>Az olvasó a két kötet együttes használatával olyan ismeretek birtokába kerül, melyek révén képes lesz alkalmazni a kvantitatív szövegelemzés és szövegbányászat legalapvetőbb eljárásait saját kutatására. Deduktív vagy induktív felfedező logikája fényében dönthet az adatelemzés módjáról, és a felkínált menüből kiválaszthatja a kutatási tervéhez legjobban illeszkedő megoldásokat. A kötetet végigkísérő konkrét példák segítségével pedig akár reprodukálhatja is ezen eljárásokat saját kutatásában. Mindezt a kötet függelékében helyet kapó R-scriptek részletes leírása is segíti majd. A kötet két fő célcsoportjaként így a társadalomtudományi kutatói és felsőoktatási közösséget határozzuk meg, valamint rögzítjük, hogy a kvantitatív szövegelemzés területén belül elsődlegesen a dokumentum- és tartalomelemzési módszertanhoz kapcsolódunk.</p>
-<p>A könyvben ugyancsak helyet kap a fontosabb fogalmak magyar és angol nyelvű szószedete, valamint a további olvasásra ajánlott szakirodalom szerepeltetése. Az oktatásban való közvetlen alkalmazást segíthetik továbbá a fejezetek végén megadott vizsgakérdések, illetve a kötet honlapján (qta.tk.mta.hu) szereplő további információk: gyakorlófeladatok (megoldásokkal), az egyes feladatokra alkalmazható scriptek és kereskedelmi programok bemutatása, a témával kapcsolatos prezentációk és további ajánlott irodalmak.</p>
+<div id="szövegbányászat-és-mesterséges-intelligencia-r-ben" class="section level1 unnumbered">
+<h1>Szövegbányászat és mesterséges intelligencia R-ben</h1>
+<p><img src="figures/index_logo.png" width="250" height="328" align="right" alt="Cover image" /></p>
+<p>A szövegek kvantitatív elemzése (quantitative text analysis – QTA) a nemzetközi társadalomtudomány egyik leggyorsabban fejlődő irányzata. A szövegek és más minőségi adatok (filmek, képek) elemzése annyiban különbözik a mennyiségi (kvantitatív) adatokétól, hogy nyers formájukban még nem alkalmasak arra, hogy statisztikai, illetve ökonometriai elemzés alá vessük őket, s így további módszertani problémákat vetnek fel, melyek speciális tárgyalása szükséges. A tervezett kötetben bemutatott példák többsége a politikatudományhoz kapcsolódik, de más alkalmazási területekre is kitér.</p>
 
 </div>
             </section>
@@ -263,7 +268,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 
-<a href="alapfogalmak.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="bevezetés.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
