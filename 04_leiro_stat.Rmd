@@ -1,9 +1,7 @@
 # Információ-visszakeresés és információkinyerés, szövegek reprezentálása a vektortérben, leíró statisztika {#leiro_stat}
 
 ```{r include=FALSE}
-
 source("_common.R")
-
 ```
 
 A szövegbányászati feladatok két altípusa a keresés és a rendszerezés. A keresés során olyan szövegeket keresünk, amelyekben egy adott kifejezés előfordul, a rendszerezés során pedig a szövegeket hasonlítjuk össze egymással és egy előre megadott, vagy egy előzetesen nem ismert kategóriarendszer csoportjaihoz soroljuk őket. Az információ-visszakeresés (information retrieval), ami például a webes keresőprogramok egyik jellemző tevékenysége, során a cél, hogy a korpuszból visszakeressük a kereső információigénye szempontjából releváns információkat, mely keresés alapulhat metaadatokon vagy teljes szöveges indexelésen [@tikkSzovegbanyaszat2007; @russelMestersegesIntelligencia2005, 742.o]. Az információkinyerés (information extraction) esetén a cél, hogy a strukturálatlan szövegekből strukturált adatokat állítsunk elő. Azaz az információkinyerés során nem a felhasználó által keresett információt keressük meg és lokalizáljuk, hanem az adott kérdés szempontjából releváns információkat gyűjtjük ki a dokumentumokból. aAz információkinyerés alternatív megoldása segítségével már képesek lehetünk a kifejezések közötti kapcsolatok elemzésére, tendenciák és minták felismerésére és az információk összekapcsolás révén új információk létrehozására. Azaz a segítségével strukturálatlan szövegekből is előállíthatunk strukturált információkat [@kwartlerTextMiningPractice2017; @schutzeIntroductionInformationRetrieval2008; @tikkSzovegbanyaszat2007, 63-81.o].
