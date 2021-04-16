@@ -1,5 +1,4 @@
-# Függelék
-
+# Függelék {#fuggelek}
 ```{r include=FALSE}
 
 source("_common.R")
