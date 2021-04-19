@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8 Szóbeágyazások | Szövegbányászat és mesterséges intelligencia R-ben</title>
+  <meta name="description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8 Szóbeágyazások | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8 Szóbeágyazások | Szövegbányászat és mesterséges intelligencia R-ben" />
+  
+  <meta name="twitter:description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
+  
+
+<meta name="author" content="Sebők Miklós, Ring Orsolya, Máté Ákos" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"/>
+<link rel="next" href="scaling.html"/>
+<script src="libs/header-attrs-2.7.10/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Üdvözöljük!</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Bevezetés</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#a-kötet-céljai-és-főbb-témái"><i class="fa fa-check"></i><b>1.1</b> A kötet céljai és főbb témái</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#a-kötet-témái-és-alkalmazási-lehetőségei"><i class="fa fa-check"></i><b>1.2</b> A kötet témái és alkalmazási lehetőségei</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#használati-utasítás"><i class="fa fa-check"></i><b>1.3</b> Használati utasítás</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="intro.html"><a href="intro.html#hunminer-telepítése-és-használata"><i class="fa fa-check"></i><b>1.3.1</b> HunMineR telepítése és használata</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#köszönetnyilvánítás"><i class="fa fa-check"></i><b>1.4</b> Köszönetnyilvánítás</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="alapfogalmak.html"><a href="alapfogalmak.html"><i class="fa fa-check"></i><b>2</b> Alapfogalmak</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="alapfogalmak.html"><a href="alapfogalmak.html#elméleti-alapok"><i class="fa fa-check"></i><b>2.1</b> Elméleti alapok</a></li>
+<li class="chapter" data-level="2.2" data-path="alapfogalmak.html"><a href="alapfogalmak.html#fogalmi-alapok"><i class="fa fa-check"></i><b>2.2</b> Fogalmi alapok</a></li>
+<li class="chapter" data-level="2.3" data-path="alapfogalmak.html"><a href="alapfogalmak.html#a-szövegbányászat-alapelvei"><i class="fa fa-check"></i><b>2.3</b> A szövegbányászat alapelvei</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="adatkezeles.html"><a href="adatkezeles.html"><i class="fa fa-check"></i><b>3</b> Az adatkezelés R-ben</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="adatkezeles.html"><a href="adatkezeles.html#adatok-importálása-és-exportálása"><i class="fa fa-check"></i><b>3.1</b> Adatok importálása és exportálása</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="adatkezeles.html"><a href="adatkezeles.html#szöveges-dokumentumok-importálása"><i class="fa fa-check"></i><b>3.1.1</b> Szöveges dokumentumok importálása</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="adatkezeles.html"><a href="adatkezeles.html#adatok-exportálása"><i class="fa fa-check"></i><b>3.2</b> Adatok exportálása</a></li>
+<li class="chapter" data-level="3.3" data-path="adatkezeles.html"><a href="adatkezeles.html#a-pipe-operátor"><i class="fa fa-check"></i><b>3.3</b> A pipe operátor</a></li>
+<li class="chapter" data-level="3.4" data-path="adatkezeles.html"><a href="adatkezeles.html#műveletek-adattáblákkal-data-frame-ekkel"><i class="fa fa-check"></i><b>3.4</b> Műveletek adattáblákkal (<em>data frame-ekkel</em>)</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="adatkezeles.html"><a href="adatkezeles.html#megfigyelések-szűrése-filter"><i class="fa fa-check"></i><b>3.4.1</b> Megfigyelések szűrése: <code>filter()</code></a></li>
+<li class="chapter" data-level="3.4.2" data-path="adatkezeles.html"><a href="adatkezeles.html#változók-kiválogatása-select"><i class="fa fa-check"></i><b>3.4.2</b> Változók kiválogatása: <code>select()</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="adatkezeles.html"><a href="adatkezeles.html#új-változók-létrehozása-mutate"><i class="fa fa-check"></i><b>3.4.3</b> Új változók létrehozása: <code>mutate()</code></a></li>
+<li class="chapter" data-level="3.4.4" data-path="adatkezeles.html"><a href="adatkezeles.html#csoportonkénti-statisztikák-group_by-és-summarize"><i class="fa fa-check"></i><b>3.4.4</b> Csoportonkénti statisztikák: <code>group_by()</code> és <code>summarize()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="adatkezeles.html"><a href="adatkezeles.html#munka-karakter-vektorokkal4"><i class="fa fa-check"></i><b>3.5</b> Munka karakter vektorokkal</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html"><i class="fa fa-check"></i><b>4</b> Korpuszépítés és szövegelőkészítés</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#szövegbeszerzés"><i class="fa fa-check"></i><b>4.1</b> Szövegbeszerzés</a></li>
+<li class="chapter" data-level="4.2" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#szövegelőkészítés"><i class="fa fa-check"></i><b>4.2</b> Szövegelőkészítés</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#műveletek-karakterláncokkal-stringekkel"><i class="fa fa-check"></i><b>4.2.1</b> Műveletek karakterláncokkal (<em>stringekkel</em>)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#tokenizálás-szótövezés-kisbetűsítés-és-a-tiltólistás-szavak-eltávolítása"><i class="fa fa-check"></i><b>4.2.2</b> Tokenizálás, szótövezés, kisbetűsítés és a tiltólistás szavak eltávolítása</a></li>
+<li class="chapter" data-level="4.2.3" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#dokumentum-kifejezés-mátrix-dtm"><i class="fa fa-check"></i><b>4.2.3</b> Dokumentum kifejezés mátrix (DTM)</a></li>
+<li class="chapter" data-level="4.2.4" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#súlyozás"><i class="fa fa-check"></i><b>4.2.4</b> Súlyozás</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="leiro-stat.html"><a href="leiro-stat.html"><i class="fa fa-check"></i><b>5</b> Információ-visszakeresés és információkinyerés, leíró statisztika</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="leiro-stat.html"><a href="leiro-stat.html#a-szövegek-reprezentálása-a-vektortérben-szózsák-modell"><i class="fa fa-check"></i><b>5.1</b> A szövegek reprezentálása a vektortérben – szózsák modell</a></li>
+<li class="chapter" data-level="5.2" data-path="leiro-stat.html"><a href="leiro-stat.html#leíró-statisztika"><i class="fa fa-check"></i><b>5.2</b> Leíró statisztika</a></li>
+<li class="chapter" data-level="5.3" data-path="leiro-stat.html"><a href="leiro-stat.html#a-szövegek-lexikai-diverzitása"><i class="fa fa-check"></i><b>5.3</b> A szövegek lexikai diverzitása</a></li>
+<li class="chapter" data-level="5.4" data-path="leiro-stat.html"><a href="leiro-stat.html#összehasonlítás5"><i class="fa fa-check"></i><b>5.4</b> Összehasonlítás</a></li>
+<li class="chapter" data-level="5.5" data-path="leiro-stat.html"><a href="leiro-stat.html#kifejezések-kontextusba-helyezése"><i class="fa fa-check"></i><b>5.5</b> Kifejezések kontextusba helyezése</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="sentiment.html"><a href="sentiment.html"><i class="fa fa-check"></i><b>6</b> Szótáralapú elemzések, érzelem-elemzés</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sentiment.html"><a href="sentiment.html#szótárak-az-r-ben"><i class="fa fa-check"></i><b>6.1</b> Szótárak az R-ben</a></li>
+<li class="chapter" data-level="6.2" data-path="sentiment.html"><a href="sentiment.html#magyar-nemzet-cikkek-elemzése"><i class="fa fa-check"></i><b>6.2</b> <em>Magyar Nemzet</em> cikkek elemzése</a></li>
+<li class="chapter" data-level="6.3" data-path="sentiment.html"><a href="sentiment.html#mnb-sajtóközlemények"><i class="fa fa-check"></i><b>6.3</b> MNB sajtóközlemények</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><i class="fa fa-check"></i><b>7</b> Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken {lda_ch}</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#k-közép-klaszterezés-kvalitatív-adatokkal"><i class="fa fa-check"></i><b>7.1</b> K közép klaszterezés kvalitatív adatokkal</a></li>
+<li class="chapter" data-level="7.2" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#látens-dirichlet-allokáció-topik-modelleklda-1"><i class="fa fa-check"></i><b>7.2</b> Látens Dirichlet Allokáció topik modellek</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#a-vem-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>7.2.1</b> A „VEM" módszer alkalmazása a magyar törvények korpuszán</a></li>
+<li class="chapter" data-level="7.2.2" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#az-lda-gibbs-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>7.2.2</b> Az „LDA Gibbs" módszer alkalmazása a magyar törvények korpuszán</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#strukturális-topik-modellek"><i class="fa fa-check"></i><b>7.3</b> Strukturális topik modellek</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="embedding.html"><a href="embedding.html"><i class="fa fa-check"></i><b>8</b> Szóbeágyazások</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="embedding.html"><a href="embedding.html#word2vec-glove-és-fasttext"><i class="fa fa-check"></i><b>8.1</b> Word2Vec, GloVe és fastText</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="embedding.html"><a href="embedding.html#glove-használata-magyar-média-korpuszon"><i class="fa fa-check"></i><b>8.1.1</b> GloVe használata magyar média korpuszon</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="scaling.html"><a href="scaling.html"><i class="fa fa-check"></i><b>9</b> Szövegskálázás: felügyelet nélküli és felügyelt megoldások</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="scaling.html"><a href="scaling.html#wordfish"><i class="fa fa-check"></i><b>9.1</b> Wordfish</a></li>
+<li class="chapter" data-level="9.2" data-path="scaling.html"><a href="scaling.html#wordscores"><i class="fa fa-check"></i><b>9.2</b> Wordscores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html"><i class="fa fa-check"></i><b>10</b> Szövegösszehasonlítás</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#lexikális-hasonlóság"><i class="fa fa-check"></i><b>10.1</b> Lexikális hasonlóság</a></li>
+<li class="chapter" data-level="10.2" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#szemantikai-hasonlóság"><i class="fa fa-check"></i><b>10.2</b> Szemantikai hasonlóság</a></li>
+<li class="chapter" data-level="10.3" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#hasonlóság-számítás-a-gyakorlatban"><i class="fa fa-check"></i><b>10.3</b> Hasonlóság számítás a gyakorlatban</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#adatbázis-importálás-és-előkészítés"><i class="fa fa-check"></i><b>10.3.1</b> Adatbázis importálás és előkészítés</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#szövegtisztítás"><i class="fa fa-check"></i><b>10.4</b> Szövegtisztítás</a></li>
+<li class="chapter" data-level="10.5" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#jaccard-hasonlóság-számítás"><i class="fa fa-check"></i><b>10.5</b> Jaccard hasonlóság számítás</a></li>
+<li class="chapter" data-level="10.6" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#koszinusz-hasonlóság-számítás"><i class="fa fa-check"></i><b>10.6</b> Koszinusz hasonlóság számítás</a></li>
+<li class="chapter" data-level="10.7" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#az-eredmények-vizualizációja"><i class="fa fa-check"></i><b>10.7</b> Az eredmények vizualizációja</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="nlp-ch.html"><a href="nlp-ch.html"><i class="fa fa-check"></i><b>11</b> Természetes-nyelv feldolgozás (NLP) és névelemfelismerés (NER)</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="nlp-ch.html"><a href="nlp-ch.html#a-magyarlanc-nyelvi-elemző-használata"><i class="fa fa-check"></i><b>11.1</b> A <code>magyarlanc</code> nyelvi elemző használata</a></li>
+<li class="chapter" data-level="11.2" data-path="nlp-ch.html"><a href="nlp-ch.html#a-szeged-ner-elemző-használata"><i class="fa fa-check"></i><b>11.2</b> A <code>szeged ner</code> elemző használata</a></li>
+<li class="chapter" data-level="11.3" data-path="nlp-ch.html"><a href="nlp-ch.html#angol-nyelvű-szövegek-névelemfelismerése"><i class="fa fa-check"></i><b>11.3</b> Angol nyelvű szövegek névelemfelismerése</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html"><i class="fa fa-check"></i><b>12</b> Osztályozás és felügyelt tanulás</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html#fogalmi-alapok-1"><i class="fa fa-check"></i><b>12.1</b> 12.1. Fogalmi alapok</a></li>
+<li class="chapter" data-level="12.2" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html#osztályozás-felügyelt-tanulással"><i class="fa fa-check"></i><b>12.2</b> 12.2. Osztályozás felügyelt tanulással</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="fuggelek.html"><a href="fuggelek.html"><i class="fa fa-check"></i><b>13</b> Függelék</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="fuggelek.html"><a href="fuggelek.html#az-r-és-az-rstudio-használata"><i class="fa fa-check"></i><b>13.1</b> Az R és az RStudio használata</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="fuggelek.html"><a href="fuggelek.html#az-rstudio-kezdőfelülete"><i class="fa fa-check"></i><b>13.1.1</b> Az RStudio kezdőfelülete</a></li>
+<li class="chapter" data-level="13.1.2" data-path="fuggelek.html"><a href="fuggelek.html#projektmunka"><i class="fa fa-check"></i><b>13.1.2</b> Projekt alapú munka</a></li>
+<li class="chapter" data-level="13.1.3" data-path="fuggelek.html"><a href="fuggelek.html#scriptek-szerkesztése-függvények-használata"><i class="fa fa-check"></i><b>13.1.3</b> Scriptek szerkesztése, függvények használata</a></li>
+<li class="chapter" data-level="13.1.4" data-path="fuggelek.html"><a href="fuggelek.html#packages"><i class="fa fa-check"></i><b>13.1.4</b> R csomagok</a></li>
+<li class="chapter" data-level="13.1.5" data-path="fuggelek.html"><a href="fuggelek.html#objektumok-tárolása-értékadás"><i class="fa fa-check"></i><b>13.1.5</b> Objektumok tárolása, értékadás</a></li>
+<li class="chapter" data-level="13.1.6" data-path="fuggelek.html"><a href="fuggelek.html#vektorok"><i class="fa fa-check"></i><b>13.1.6</b> Vektorok</a></li>
+<li class="chapter" data-level="13.1.7" data-path="fuggelek.html"><a href="fuggelek.html#faktorok"><i class="fa fa-check"></i><b>13.1.7</b> Faktorok</a></li>
+<li class="chapter" data-level="13.1.8" data-path="fuggelek.html"><a href="fuggelek.html#data-frame"><i class="fa fa-check"></i><b>13.1.8</b> Az adattáblák</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="fuggelek.html"><a href="fuggelek.html#vizualizáció"><i class="fa fa-check"></i><b>13.2</b> Vizualizáció</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Szövegbányászat és mesterséges intelligencia R-ben</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="embedding" class="section level1" number="8">
+<h1><span class="header-section-number">8</span> Szóbeágyazások</h1>
+<p>Az eddigi fejezetekben elsősorban a szózsák (<em>bag of words</em>) alapú módszerek voltak előtérben. A szózsák alapú módszerekkel szemben, amelyek alkalmazása során elveszik a kontextuális tartalom, a szóbeágyazáson (<em>word embedding</em>) alapuló modellek kimondottan a kontextuális információt ragadják meg. A szóbeágyazás a topikmodellekhez hasonlóan a felügyelet nélküli tanulás módszerére épül, azonban itt a dokumentum domináns kifejezéseinek és témáinak feltárása helyett a szavak közötti szemantikai kapcsolat megértése a cél. Vagyis a modellnek képesnek kell lennie az egyes szavak esetén szinonimáik és ellentétpárjaik megtalálására.</p>
+<p>A hagyományos topikmodellezés esetén a modell a szavak dokumentumokon belüli együttes megjelenési statisztikái alapján becsül dokumentum-topik, illetve topik-szó eloszlásokat, azzal a céllal, hogy koherens téma-csoportokat képezzen. Ezzel szemben a szóbeágyazás legújabb iskolája már neurális halókon alapul. A neurális háló a tanítási folyamata során az egyes szavak vektorreprezentációját állítja elő. A vektorok jellemzően 100–300 dimenzióból állnak, a távolságuk alapján pedig megállapítható, hogy az egyes kifejezések milyen szemantikai kapcsolatban állnak egymással.</p>
+<p>A szóbeágyazás célja tehát a szemantikai relációk feltárása. A szavak vektorizálásának köszönhetően bármely (a korpuszunkban szereplő) tetszőleges számú szóról eldönthetjük, hogy azok milyen szemantikai kapcsolatban állnak egymással, azaz szinonimaként vagy ellentétes fogalompárként szerepelnek. A szóvektorokon dimenziócsökkentő eljárást alkalmazva, s a multidimenzionális (100–300 dimenziós) teret 2 dimenziósra szűkítve könnyen vizualizálhatjuk is a korpuszunk kifejezései között fennálló szemantikai távolságot, és ahogy a lenti ábrákon láthatjuk, azt, hogy az egyes kifejezések milyen relációban állnak egymással – a szemantikailag hasanló tartalmú kifejezések egymáshoz közel, míg a távolabbi jelentéstartalmú kifejezések egymástól távolabb foglalnak helyet. A klasszikus példa, amivel jól lehet szemléltetni a szóvektorok közötti összefüggést: <code>king - man + woman = queen</code></p>
+<div id="word2vec-glove-és-fasttext" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Word2Vec, GloVe és fastText</h2>
+<p>A szóbeágyazásra társadalomtudományokban a két legnépszerűbb algoritmus – a Word2Vec és a GloVe – a kontextuális szövegeloszláson (<em>distributional similarity based representations</em>) alapul, vagyis abból a feltevésből indul ki, hogy a hasonló kifejezések hasonló kontextusban fordulnak elő, emellett mindkettő sekély neurális hálón (2 rejtett réteg) alapuló modell.<a href="#fn36" class="footnote-ref" id="fnref36"><sup>36</sup></a> A Word2Vec-nek két verziója van: <em>Continuous Bag-of-words</em> (CBOW) és <em>SkipGram</em> (SG). Előbbi a kontextuális szavakból jelzi előre (<em>predicting</em>) a kontextushoz legszorosabban kapcsolódó kifejezést, míg utóbbi adott kifejezésből jelzi előre a kontextust <span class="citation"><a href="fuggelek.html#ref-mikolov2013efficient" role="doc-biblioref">Mikolov et al.</a> (<a href="fuggelek.html#ref-mikolov2013efficient" role="doc-biblioref">2013</a>)</span>. A GloVe (<em>Global Vectors for Word Representation</em>) a Word2Vec-hez hasonlóan neurális hálón alapuló, szóvektorok előállítását célzó modell, a Word2Vec-kel szemben azonban nem a meghatározott kontextus-ablakban (<em>context window</em>) megjelenő kifejezések közti kapcsolatokat tárja fel, hanem a szöveg globális jellemzőit igyekszik megragadni az egész szöveget jellemző együttes előfordulási gyakoriságok (<em>co-occurrance</em>) meghatározásával <span class="citation"><a href="fuggelek.html#ref-pennington2014glove" role="doc-biblioref">Pennington, Socher, and Manning</a> (<a href="fuggelek.html#ref-pennington2014glove" role="doc-biblioref">2014</a>)</span>. Míg a Word2Vec modell prediktív jellegű, addig a GloVe egy statisztikai alapú (<em>count-based</em>) modell, melyek gyakorlati hasznosításukat tekintve nagyon hasonlóak.</p>
+<p>A szóvektor modellek között érdemes megemlíteni a fastText-et is, mely 157 nyelvre kínál (köztük a magyarra is) kínál a szóbeágyazás módszeren alapuló, előre tanított szóvektorokat, melyet tovább lehet tanítani speciális szövegkorpuszokra, ezzel jelentősen lerövidítve a modell tanításához szükséges idő- és kapacitásszükségletet (<span class="citation"><a href="fuggelek.html#ref-mikolov2018advances" role="doc-biblioref">Mikolov et al.</a> (<a href="fuggelek.html#ref-mikolov2018advances" role="doc-biblioref">2018</a>)</span>). Habár a GloVe és Word2Vec skip-gram módszerek hasonlóságát a szakirodalom adottnak veszi, a tényleges kép ennél árnyaltabb. A GloVe esetében a ritkán előforduló szavak kisebb súlyt kapnak a szóvektorok számításánál, míg a Word2Vec alulsúlyozza a nagy frekvenciájú szavakat. Ennek a következménye, hogy a Word2Vec esetében gyakori, hogy a szemantikailag legközelebbi szó az egy elütés, nem pedig valid találat. Ennek ellenére a két módszer (amennyiben a Word2Vec algoritmusnál a kisfrekvenciájú tokeneket kiszűrjük) az emberi validálás során nagyon hasonló eredményeket hozott <span class="citation">(<a href="fuggelek.html#ref-spirlingword" role="doc-biblioref">Spirling and Rodriguez, n.d.</a>)</span>.</p>
+<p>A fejezetben a gyakorlati példa során a GloVe algoritmust használjuk majd, mivel véleményünk szerint jobb és könnyebben követhető a dokumentációja az implementációt tartalmazó R csomagnak, mint a többi alternatívának.</p>
+<div id="glove-használata-magyar-média-korpuszon" class="section level3" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> GloVe használata magyar média korpuszon</h3>
+<p>Az elemzéshez a <code>text2vec</code> csomagot használjuk, ami a GloVe implementációt tartalmazza. A lenti kód a csomag dokumentáción alapul és a Társadalomtudományi Kutatóközpont által a <em>Hungarian Comparative Agendas Project (CAP)</em> adatbázisában tárolt <em>Magyar Nemzet</em> korpuszt használja.<a href="#fn37" class="footnote-ref" id="fnref37"><sup>37</sup></a></p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="embedding.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(text2vec)</span>
+<span id="cb132-2"><a href="embedding.html#cb132-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb132-3"><a href="embedding.html#cb132-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readtext)</span>
+<span id="cb132-4"><a href="embedding.html#cb132-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb132-5"><a href="embedding.html#cb132-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb132-6"><a href="embedding.html#cb132-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb132-7"><a href="embedding.html#cb132-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb132-8"><a href="embedding.html#cb132-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb132-9"><a href="embedding.html#cb132-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span></code></pre></div>
+<p>A lenti kód blokk azt mutatja be, hogyan kell a betöltött korpuszt tokenizálni és mátrix formátumba alakítani. A korpusz a <em>Magyar Nemzet</em> 2004 és 2014 közötti címlapos cikkeit tartalmazza. Az eddigi előkészítő lépéseket most is megtesszük: kitöröljük a központozást, a számokat, a magyar töltelékszavakat, illetve kisbetűsítünk és eltávolítjuk a felesleges szóközöket és töréseket.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="embedding.html#cb133-1" aria-hidden="true" tabindex="-1"></a>mn <span class="ot">&lt;-</span> data_magyar_nemzet_large</span>
+<span id="cb133-2"><a href="embedding.html#cb133-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-3"><a href="embedding.html#cb133-3" aria-hidden="true" tabindex="-1"></a>mn_clean <span class="ot">&lt;-</span> mn <span class="sc">%&gt;%</span></span>
+<span id="cb133-4"><a href="embedding.html#cb133-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb133-5"><a href="embedding.html#cb133-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:cntrl:]&quot;</span>),</span>
+<span id="cb133-6"><a href="embedding.html#cb133-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:punct:]&quot;</span>),</span>
+<span id="cb133-7"><a href="embedding.html#cb133-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:digit:]&quot;</span>),</span>
+<span id="cb133-8"><a href="embedding.html#cb133-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_to_lower</span>(text),</span>
+<span id="cb133-9"><a href="embedding.html#cb133-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_trim</span>(text),</span>
+<span id="cb133-10"><a href="embedding.html#cb133-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_squish</span>(text)</span>
+<span id="cb133-11"><a href="embedding.html#cb133-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>Fontos különbség hogy az eddigi munkafolyamatokkal ellentétben a GloVe algoritmus nem egy dokumentum-kifejezés mátrixon dolgozik, hanem egy kifejezések együttes előfordulását tartalmazó mátrixot (<em>feature co-occurence matrix</em>) kell készíteni inputként. Ezt a <code>quanteda</code> <code>fcm()</code> függvényével tudjuk előállítani, ami a tokenekből készíti el a mátrixot. A tokenek sorrendiségét úgy tudjuk megőrizni, hogy egy <code>dfm</code> objektumból csak a kifejezéseket tartjuk meg a <code>featnames()</code> függvény segítségével, majd a teljes token halmazból a <code>tokens_select()</code> függvénnyel kiválasztjuk őket.</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="embedding.html#cb134-1" aria-hidden="true" tabindex="-1"></a>mn_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(mn_clean)</span>
+<span id="cb134-2"><a href="embedding.html#cb134-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-3"><a href="embedding.html#cb134-3" aria-hidden="true" tabindex="-1"></a>mn_tokens <span class="ot">&lt;-</span> <span class="fu">tokens</span>(mn_corpus) <span class="sc">%&gt;%</span></span>
+<span id="cb134-4"><a href="embedding.html#cb134-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(<span class="fu">stopwords</span>(<span class="at">language =</span> <span class="st">&quot;hungarian&quot;</span>))</span>
+<span id="cb134-5"><a href="embedding.html#cb134-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-6"><a href="embedding.html#cb134-6" aria-hidden="true" tabindex="-1"></a>features <span class="ot">&lt;-</span> <span class="fu">dfm</span>(mn_tokens) <span class="sc">%&gt;%</span></span>
+<span id="cb134-7"><a href="embedding.html#cb134-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm_trim</span>(<span class="at">min_termfreq =</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb134-8"><a href="embedding.html#cb134-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">featnames</span>()</span>
+<span id="cb134-9"><a href="embedding.html#cb134-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb134-10"><a href="embedding.html#cb134-10" aria-hidden="true" tabindex="-1"></a>mn_tokens <span class="ot">&lt;-</span> <span class="fu">tokens_select</span>(mn_tokens, features, <span class="at">padding =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Az <code>fcm</code> megalkotása során a célkifejezéstől való távolság függvényében súlyozzuk a tokeneket.</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="embedding.html#cb135-1" aria-hidden="true" tabindex="-1"></a>mn_fcm <span class="ot">&lt;-</span> <span class="fu">fcm</span>(mn_tokens, <span class="at">context =</span> <span class="st">&quot;window&quot;</span>, <span class="at">count =</span> <span class="st">&quot;weighted&quot;</span>, <span class="at">weights =</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), </span>
+<span id="cb135-2"><a href="embedding.html#cb135-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">tri =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>A tényleges szóbeágyazás a <code>text2vec</code> csomaggal történik. A <code>GlobalVector</code> egy új „környezetet" (<em>environment</em>) hoz létre. Itt adhatjuk meg az alapvető paramétereket. A <code>rank</code> a vektor dimenziót adja meg (a szakirodalomban a 300–500 dimenzió a megszokott). A többi paraméterrel is lehet kísérletezni, hogy mennyire változtatja meg a kapott szóbeágyazásokat. A <code>fit_transform</code> pedig a tényleges becslést végzi. Itt az iterációk számát (a gépi tanulásos irodalomban <em>epoch</em>-nak is hívják a tanulási köröket) és a korai leállás (<em>early stopping</em>) kritériumát a <code>convergence_tol</code> megadásával állíthatjuk be. Minél több dimenziót szeretnénk és minél több iterációt, annál tovább fog tartani a szóbeágyazás futtatása.</p>
+<p>Az egyszerűség és a gyorsaság miatt a lenti kód 10 körös tanulást ad meg, ami a relatíve kicsi <em>Magyar Nemzet</em> korpuszon ~3 perc alatt fut le.<a href="#fn38" class="footnote-ref" id="fnref38"><sup>38</sup></a> Természetesen minél nagyobb korpuszon, minél több iterációt futtatunk, annál pontosabb eredményt fogunk kapni. A <code>text2vec</code> csomag képes a számítások párhuzamosítására, így alapbeállításként a rendelkezésre álló összes CPU magot teljesen kihasználja a számításhoz. Ennek ellenére egy százezres, milliós korpusz esetén több óra is lehet a tanítás.</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="embedding.html#cb136-1" aria-hidden="true" tabindex="-1"></a>glove <span class="ot">&lt;-</span> GlobalVectors<span class="sc">$</span><span class="fu">new</span>(<span class="at">rank =</span> <span class="dv">300</span>, <span class="at">x_max =</span> <span class="dv">10</span>, <span class="at">learning_rate =</span> <span class="fl">0.1</span>)</span>
+<span id="cb136-2"><a href="embedding.html#cb136-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-3"><a href="embedding.html#cb136-3" aria-hidden="true" tabindex="-1"></a>mn_main <span class="ot">&lt;-</span> glove<span class="sc">$</span><span class="fu">fit_transform</span>(mn_fcm, <span class="at">n_iter =</span> <span class="dv">10</span>, <span class="at">convergence_tol =</span> <span class="fl">0.01</span>)</span></code></pre></div>
+<p>A végleges szóvektorokat a becslés során elkészült két mátrix összegeként kapjuk.</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="embedding.html#cb137-1" aria-hidden="true" tabindex="-1"></a>mn_context <span class="ot">&lt;-</span> glove<span class="sc">$</span>components</span>
+<span id="cb137-2"><a href="embedding.html#cb137-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-3"><a href="embedding.html#cb137-3" aria-hidden="true" tabindex="-1"></a>mn_word_vectors <span class="ot">&lt;-</span> mn_main <span class="sc">+</span> <span class="fu">t</span>(mn_context)</span></code></pre></div>
+<p>Az egyes szavakhoz legközelebb álló szavakat a koszinusz hasonlóság alapján kapjuk, a <code>sim2()</code> függvénnyel. A lenti példában „l2” normalizálást alkalmazunk, majd a kapott hasonlósági vektort csökkenő sorrendbe rendezzük. Példaként a „polgármester” szónak a környezetét nézzük meg. Mivel a korpuszunk egy politikai napilap, ezért nem meglepő, hogy a legközelebbi szavak a politikához kapcsolódnak.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="embedding.html#cb138-1" aria-hidden="true" tabindex="-1"></a>teszt <span class="ot">&lt;-</span> mn_word_vectors[<span class="st">&quot;polgármester&quot;</span>, , drop <span class="ot">=</span> F]</span>
+<span id="cb138-2"><a href="embedding.html#cb138-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-3"><a href="embedding.html#cb138-3" aria-hidden="true" tabindex="-1"></a>cos_sim_rom <span class="ot">&lt;-</span> <span class="fu">sim2</span>(<span class="at">x =</span> mn_word_vectors, <span class="at">y =</span> teszt, <span class="at">method =</span> <span class="st">&quot;cosine&quot;</span>, <span class="at">norm =</span> <span class="st">&quot;l2&quot;</span>)</span>
+<span id="cb138-4"><a href="embedding.html#cb138-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb138-5"><a href="embedding.html#cb138-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">sort</span>(cos_sim_rom[, <span class="dv">1</span>], <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">5</span>)</span>
+<span id="cb138-6"><a href="embedding.html#cb138-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; polgármester        mszps  szocialista     fideszes     elmondta </span></span>
+<span id="cb138-7"><a href="embedding.html#cb138-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    1.0000000    0.5059529    0.4339177    0.4204766    0.4024232</span></span></code></pre></div>
+<p>A lenti <code>show_vector()</code> függvényt definiálva a kapott eredmény egy data frame lesz, és az <code>n</code> változtatásával a kapcsolódó szavak számát is könnyen változtathatjuk.</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="embedding.html#cb139-1" aria-hidden="true" tabindex="-1"></a>show_vector <span class="ot">&lt;-</span> <span class="cf">function</span>(vectors, pattern, <span class="at">n =</span> <span class="dv">5</span>) {</span>
+<span id="cb139-2"><a href="embedding.html#cb139-2" aria-hidden="true" tabindex="-1"></a>  term <span class="ot">&lt;-</span> mn_word_vectors[pattern, , drop <span class="ot">=</span> F]</span>
+<span id="cb139-3"><a href="embedding.html#cb139-3" aria-hidden="true" tabindex="-1"></a>  cos_sim <span class="ot">&lt;-</span> <span class="fu">sim2</span>(<span class="at">x =</span> vectors, <span class="at">y =</span> term, <span class="at">method =</span> <span class="st">&quot;cosine&quot;</span>, <span class="at">norm =</span> <span class="st">&quot;l2&quot;</span>)</span>
+<span id="cb139-4"><a href="embedding.html#cb139-4" aria-hidden="true" tabindex="-1"></a>  cos_sim_head <span class="ot">&lt;-</span> <span class="fu">head</span>(<span class="fu">sort</span>(cos_sim[, <span class="dv">1</span>], <span class="at">decreasing =</span> <span class="cn">TRUE</span>), n)</span>
+<span id="cb139-5"><a href="embedding.html#cb139-5" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span> <span class="fu">enframe</span>(cos_sim_head, <span class="at">name =</span> <span class="st">&quot;term&quot;</span>, <span class="at">value =</span> <span class="st">&quot;dist&quot;</span>)</span>
+<span id="cb139-6"><a href="embedding.html#cb139-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb139-7"><a href="embedding.html#cb139-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Példaként a „barack” nem gyümölcsöt fog adni, hanem az Egyesült Államok elnökét és a hozzá kapcsolódó szavakat.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="embedding.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_vector</span>(mn_word_vectors, <span class="st">&quot;barack&quot;</span>, <span class="dv">10</span>)</span>
+<span id="cb140-2"><a href="embedding.html#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 2</span></span>
+<span id="cb140-3"><a href="embedding.html#cb140-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    term              dist</span></span>
+<span id="cb140-4"><a href="embedding.html#cb140-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;            &lt;dbl&gt;</span></span>
+<span id="cb140-5"><a href="embedding.html#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 barack           1.00 </span></span>
+<span id="cb140-6"><a href="embedding.html#cb140-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 obama            0.691</span></span>
+<span id="cb140-7"><a href="embedding.html#cb140-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 elnök            0.372</span></span>
+<span id="cb140-8"><a href="embedding.html#cb140-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 amerikai         0.349</span></span>
+<span id="cb140-9"><a href="embedding.html#cb140-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 demokrata        0.339</span></span>
+<span id="cb140-10"><a href="embedding.html#cb140-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 republikánus     0.294</span></span>
+<span id="cb140-11"><a href="embedding.html#cb140-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 részesülhessenek 0.256</span></span>
+<span id="cb140-12"><a href="embedding.html#cb140-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 egyesült         0.253</span></span>
+<span id="cb140-13"><a href="embedding.html#cb140-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 elnököt          0.251</span></span>
+<span id="cb140-14"><a href="embedding.html#cb140-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 bush             0.239</span></span></code></pre></div>
+<p>Ugyanez működik magyar vezetőkkel is.</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="embedding.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_vector</span>(mn_word_vectors, <span class="st">&quot;orbán&quot;</span>, <span class="dv">10</span>)</span>
+<span id="cb141-2"><a href="embedding.html#cb141-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 2</span></span>
+<span id="cb141-3"><a href="embedding.html#cb141-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    term            dist</span></span>
+<span id="cb141-4"><a href="embedding.html#cb141-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb141-5"><a href="embedding.html#cb141-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 orbán          1.00 </span></span>
+<span id="cb141-6"><a href="embedding.html#cb141-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 viktor         0.937</span></span>
+<span id="cb141-7"><a href="embedding.html#cb141-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 miniszterelnök 0.743</span></span>
+<span id="cb141-8"><a href="embedding.html#cb141-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 mondta         0.701</span></span>
+<span id="cb141-9"><a href="embedding.html#cb141-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 jelentette     0.673</span></span>
+<span id="cb141-10"><a href="embedding.html#cb141-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 kormányfo      0.667</span></span>
+<span id="cb141-11"><a href="embedding.html#cb141-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 fogalmazott    0.661</span></span>
+<span id="cb141-12"><a href="embedding.html#cb141-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 fidesz         0.656</span></span>
+<span id="cb141-13"><a href="embedding.html#cb141-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 hangsúlyozta   0.655</span></span>
+<span id="cb141-14"><a href="embedding.html#cb141-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 beszélt        0.624</span></span></code></pre></div>
+<p>A szakirodalomban klasszikus vektorműveletes példákat is reprokuálni tudjuk a Magyar Nemzet korpuszon készített szóbeágyazásainkkal. A <code>budapest - magyarország + német + németország</code> eredményét úgy kapjuk meg, hogy az egyes szavakhoz tartozó vektorokat kivonjuk egymásból, illetve hozzáadjuk őket, ezután pedig a kapott mátrixon a <code>quanteda</code> csomag <code>textstat_simil</code> függvényével kiszámítjuk hogy az új hasonlósági értékeket.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="embedding.html#cb142-1" aria-hidden="true" tabindex="-1"></a>budapest <span class="ot">&lt;-</span> mn_word_vectors[<span class="st">&quot;budapest&quot;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>] <span class="sc">-</span> mn_word_vectors[<span class="st">&quot;magyarország&quot;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>] <span class="sc">+</span> mn_word_vectors[<span class="st">&quot;német&quot;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>] <span class="sc">+</span></span>
+<span id="cb142-2"><a href="embedding.html#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">+</span> mn_word_vectors[<span class="st">&quot;németország&quot;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb142-3"><a href="embedding.html#cb142-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-4"><a href="embedding.html#cb142-4" aria-hidden="true" tabindex="-1"></a>cos_sim <span class="ot">&lt;-</span> <span class="fu">textstat_simil</span>(<span class="at">x =</span> <span class="fu">as.dfm</span>(mn_word_vectors), <span class="at">y =</span> <span class="fu">as.dfm</span>(budapest), <span class="at">method =</span> <span class="st">&quot;cosine&quot;</span>)</span>
+<span id="cb142-5"><a href="embedding.html#cb142-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-6"><a href="embedding.html#cb142-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">sort</span>(cos_sim[, <span class="dv">1</span>], <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">5</span>)</span>
+<span id="cb142-7"><a href="embedding.html#cb142-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    budapest       német németország   kancellár      angéla </span></span>
+<span id="cb142-8"><a href="embedding.html#cb142-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   0.6393528   0.6014288   0.5315928   0.4602480   0.4222456</span></span></code></pre></div>
+<p>A szavak egymastól való távolságát vizuálisan is tudjuk ábrázolni. Az egyik ezzel kapcsolatban felmerülő probléma, hogy egy 2 dimenziós ábrán akarunk egy 3–500 dimenziós mátrixot ábrázolni. Több lehetséges megoldás is van, mi ezek közül a lehető legegyszerűbbet mutatjuk be.<a href="#fn39" class="footnote-ref" id="fnref39"><sup>39</sup></a> Első lépésben egy data frame-et készítünk a szóbeágyazás eredményeként kapott mátrixból, megtartva a szavakat az első oszlopban a <code>tibble</code> csomag <code>rownames_to_column</code> függvényével. Mivel csak 2 dimenziót tudunk ábrázolni egy tradíciónális statikus ábrán, ezért a <code>V1</code> és <code>V2</code> oszlopokat tartjuk csak meg, amik az első és második dimenziót reprezentálják.</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="embedding.html#cb143-1" aria-hidden="true" tabindex="-1"></a>mn_embedding_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mn_word_vectors[, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)]) <span class="sc">%&gt;%</span> </span>
+<span id="cb143-2"><a href="embedding.html#cb143-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;words&quot;</span>)</span></code></pre></div>
+<p>Ezután pedig a <code>ggplot</code> függvényt felhasználva definiálunk egy új, <code>embedding_plot</code> nevű, függvényt, ami az elkészült data frame alapján bármilyen kulcsszó kombinációt képes ábrázolni.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="embedding.html#cb144-1" aria-hidden="true" tabindex="-1"></a>embedding_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(data, keywords) {</span>
+<span id="cb144-2"><a href="embedding.html#cb144-2" aria-hidden="true" tabindex="-1"></a>  data <span class="sc">%&gt;%</span> </span>
+<span id="cb144-3"><a href="embedding.html#cb144-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(words <span class="sc">%in%</span> keywords) <span class="sc">%&gt;%</span> </span>
+<span id="cb144-4"><a href="embedding.html#cb144-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ggplot</span>(<span class="fu">aes</span>(V1, V2, <span class="at">label =</span> words)) <span class="sc">+</span></span>
+<span id="cb144-5"><a href="embedding.html#cb144-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb144-6"><a href="embedding.html#cb144-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">&quot;Első dimenzió&quot;</span>,</span>
+<span id="cb144-7"><a href="embedding.html#cb144-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">&quot;Második dimenzió&quot;</span></span>
+<span id="cb144-8"><a href="embedding.html#cb144-8" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb144-9"><a href="embedding.html#cb144-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>() <span class="sc">+</span></span>
+<span id="cb144-10"><a href="embedding.html#cb144-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb144-11"><a href="embedding.html#cb144-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb144-12"><a href="embedding.html#cb144-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Példaként néhány településnevet megvizsgálva, azt látjuk, hogy a külföldi fővárosok közel helyezkednek el egymástól, míg a magyar települések kissé távolabb. Ennek az lehet az oka, hogy a külföldi fővárosok inkább a külpolitikai cikkekben szerepelnek, míg a magyarok sokkal több kontextusban előkerülhetnek.</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="embedding.html#cb145-1" aria-hidden="true" tabindex="-1"></a>words_selected <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;moszkva&quot;</span>, <span class="st">&quot;debrecen&quot;</span>, <span class="st">&quot;budapest&quot;</span>, <span class="st">&quot;washington&quot;</span>)</span>
+<span id="cb145-2"><a href="embedding.html#cb145-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb145-3"><a href="embedding.html#cb145-3" aria-hidden="true" tabindex="-1"></a><span class="fu">embedding_plot</span>(<span class="at">data =</span> mn_embedding_df, <span class="at">keywords =</span> words_selected)</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-157-1.png" width="90%" style="display: block; margin: auto;" /></p>
+
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="36">
+<li id="fn36"><p>Egy kiváló tanulmányban <span class="citation"><a href="fuggelek.html#ref-spirlingword" role="doc-biblioref">Spirling and Rodriguez</a> (<a href="fuggelek.html#ref-spirlingword" role="doc-biblioref">n.d.</a>)</span> (könyvünk írásakor még nem jelent meg) összehasonlítják a Word2Vec és GloVe módszereket, különböző paraméterekkel, adatbázisokkal. Azoknak, akiket komolyabban érdekelnek a szóbeágyazás gyakorlati alkalmazásának a részletei, mindenképp ajánljuk elolvasásra.<a href="embedding.html#fnref36" class="footnote-back">↩︎</a></p></li>
+<li id="fn37"><p>A Magyar CAP Project által kezelt adatbázisok itt megtalálhatóak: <a href="https://cap.tk.hu/adatbazisok">https://cap.tk.hu/adatbazisok</a>.<a href="embedding.html#fnref37" class="footnote-back">↩︎</a></p></li>
+<li id="fn38"><p>A futtatásra használt PC konfiguráció: CPU: Intel Core i5-4460 (3.2GHz); RAM: 16GB<a href="embedding.html#fnref38" class="footnote-back">↩︎</a></p></li>
+<li id="fn39"><p>Az egyik legelterjedtebb dimenzionalitás csökkentő eljárás a főkomponens-analízis (<em>principal component analysis</em>), illetve szintén gyakran használt az irodalomban az úgynevezett t-SNE (<em>t-distributed stochastic neighbor embedding</em>).<a href="embedding.html#fnref39" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="scaling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
