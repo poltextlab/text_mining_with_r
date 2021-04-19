@@ -1,4 +1,4 @@
-# Alapfogalmak
+# Alapfogalmak {#alapfogalmak}
 ```{r include = FALSE}
 library(knitr)
 library(readxl)
