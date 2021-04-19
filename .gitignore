@@ -34,3 +34,4 @@ data/data_ner/
 .vscode/
 *.docx
 *.doc
+data/

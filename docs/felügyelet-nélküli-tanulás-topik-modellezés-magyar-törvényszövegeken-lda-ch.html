@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7 Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken {lda_ch} | Szövegbányászat és mesterséges intelligencia R-ben</title>
+  <meta name="description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7 Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken {lda_ch} | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken {lda_ch} | Szövegbányászat és mesterséges intelligencia R-ben" />
+  
+  <meta name="twitter:description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
+  
+
+<meta name="author" content="Sebők Miklós, Ring Orsolya, Máté Ákos" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="sentiment.html"/>
+<link rel="next" href="embedding.html"/>
+<script src="libs/header-attrs-2.7.10/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Üdvözöljük!</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Bevezetés</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#a-kötet-céljai-és-főbb-témái"><i class="fa fa-check"></i><b>1.1</b> A kötet céljai és főbb témái</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#a-kötet-témái-és-alkalmazási-lehetőségei"><i class="fa fa-check"></i><b>1.2</b> A kötet témái és alkalmazási lehetőségei</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#használati-utasítás"><i class="fa fa-check"></i><b>1.3</b> Használati utasítás</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="intro.html"><a href="intro.html#hunminer-telepítése-és-használata"><i class="fa fa-check"></i><b>1.3.1</b> HunMineR telepítése és használata</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#köszönetnyilvánítás"><i class="fa fa-check"></i><b>1.4</b> Köszönetnyilvánítás</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="alapfogalmak.html"><a href="alapfogalmak.html"><i class="fa fa-check"></i><b>2</b> Alapfogalmak</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="alapfogalmak.html"><a href="alapfogalmak.html#elméleti-alapok"><i class="fa fa-check"></i><b>2.1</b> Elméleti alapok</a></li>
+<li class="chapter" data-level="2.2" data-path="alapfogalmak.html"><a href="alapfogalmak.html#fogalmi-alapok"><i class="fa fa-check"></i><b>2.2</b> Fogalmi alapok</a></li>
+<li class="chapter" data-level="2.3" data-path="alapfogalmak.html"><a href="alapfogalmak.html#a-szövegbányászat-alapelvei"><i class="fa fa-check"></i><b>2.3</b> A szövegbányászat alapelvei</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="adatkezeles.html"><a href="adatkezeles.html"><i class="fa fa-check"></i><b>3</b> Az adatkezelés R-ben</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="adatkezeles.html"><a href="adatkezeles.html#adatok-importálása-és-exportálása"><i class="fa fa-check"></i><b>3.1</b> Adatok importálása és exportálása</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="adatkezeles.html"><a href="adatkezeles.html#szöveges-dokumentumok-importálása"><i class="fa fa-check"></i><b>3.1.1</b> Szöveges dokumentumok importálása</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="adatkezeles.html"><a href="adatkezeles.html#adatok-exportálása"><i class="fa fa-check"></i><b>3.2</b> Adatok exportálása</a></li>
+<li class="chapter" data-level="3.3" data-path="adatkezeles.html"><a href="adatkezeles.html#a-pipe-operátor"><i class="fa fa-check"></i><b>3.3</b> A pipe operátor</a></li>
+<li class="chapter" data-level="3.4" data-path="adatkezeles.html"><a href="adatkezeles.html#műveletek-adattáblákkal-data-frame-ekkel"><i class="fa fa-check"></i><b>3.4</b> Műveletek adattáblákkal (<em>data frame-ekkel</em>)</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="adatkezeles.html"><a href="adatkezeles.html#megfigyelések-szűrése-filter"><i class="fa fa-check"></i><b>3.4.1</b> Megfigyelések szűrése: <code>filter()</code></a></li>
+<li class="chapter" data-level="3.4.2" data-path="adatkezeles.html"><a href="adatkezeles.html#változók-kiválogatása-select"><i class="fa fa-check"></i><b>3.4.2</b> Változók kiválogatása: <code>select()</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="adatkezeles.html"><a href="adatkezeles.html#új-változók-létrehozása-mutate"><i class="fa fa-check"></i><b>3.4.3</b> Új változók létrehozása: <code>mutate()</code></a></li>
+<li class="chapter" data-level="3.4.4" data-path="adatkezeles.html"><a href="adatkezeles.html#csoportonkénti-statisztikák-group_by-és-summarize"><i class="fa fa-check"></i><b>3.4.4</b> Csoportonkénti statisztikák: <code>group_by()</code> és <code>summarize()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="adatkezeles.html"><a href="adatkezeles.html#munka-karakter-vektorokkal4"><i class="fa fa-check"></i><b>3.5</b> Munka karakter vektorokkal</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html"><i class="fa fa-check"></i><b>4</b> Korpuszépítés és szövegelőkészítés</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#szövegbeszerzés"><i class="fa fa-check"></i><b>4.1</b> Szövegbeszerzés</a></li>
+<li class="chapter" data-level="4.2" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#szövegelőkészítés"><i class="fa fa-check"></i><b>4.2</b> Szövegelőkészítés</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#műveletek-karakterláncokkal-stringekkel"><i class="fa fa-check"></i><b>4.2.1</b> Műveletek karakterláncokkal (<em>stringekkel</em>)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#tokenizálás-szótövezés-kisbetűsítés-és-a-tiltólistás-szavak-eltávolítása"><i class="fa fa-check"></i><b>4.2.2</b> Tokenizálás, szótövezés, kisbetűsítés és a tiltólistás szavak eltávolítása</a></li>
+<li class="chapter" data-level="4.2.3" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#dokumentum-kifejezés-mátrix-dtm"><i class="fa fa-check"></i><b>4.2.3</b> Dokumentum kifejezés mátrix (DTM)</a></li>
+<li class="chapter" data-level="4.2.4" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#súlyozás"><i class="fa fa-check"></i><b>4.2.4</b> Súlyozás</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="leiro-stat.html"><a href="leiro-stat.html"><i class="fa fa-check"></i><b>5</b> Információ-visszakeresés és információkinyerés, leíró statisztika</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="leiro-stat.html"><a href="leiro-stat.html#a-szövegek-reprezentálása-a-vektortérben-szózsák-modell"><i class="fa fa-check"></i><b>5.1</b> A szövegek reprezentálása a vektortérben – szózsák modell</a></li>
+<li class="chapter" data-level="5.2" data-path="leiro-stat.html"><a href="leiro-stat.html#leíró-statisztika"><i class="fa fa-check"></i><b>5.2</b> Leíró statisztika</a></li>
+<li class="chapter" data-level="5.3" data-path="leiro-stat.html"><a href="leiro-stat.html#a-szövegek-lexikai-diverzitása"><i class="fa fa-check"></i><b>5.3</b> A szövegek lexikai diverzitása</a></li>
+<li class="chapter" data-level="5.4" data-path="leiro-stat.html"><a href="leiro-stat.html#összehasonlítás5"><i class="fa fa-check"></i><b>5.4</b> Összehasonlítás</a></li>
+<li class="chapter" data-level="5.5" data-path="leiro-stat.html"><a href="leiro-stat.html#kifejezések-kontextusba-helyezése"><i class="fa fa-check"></i><b>5.5</b> Kifejezések kontextusba helyezése</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="sentiment.html"><a href="sentiment.html"><i class="fa fa-check"></i><b>6</b> Szótáralapú elemzések, érzelem-elemzés</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sentiment.html"><a href="sentiment.html#szótárak-az-r-ben"><i class="fa fa-check"></i><b>6.1</b> Szótárak az R-ben</a></li>
+<li class="chapter" data-level="6.2" data-path="sentiment.html"><a href="sentiment.html#magyar-nemzet-cikkek-elemzése"><i class="fa fa-check"></i><b>6.2</b> <em>Magyar Nemzet</em> cikkek elemzése</a></li>
+<li class="chapter" data-level="6.3" data-path="sentiment.html"><a href="sentiment.html#mnb-sajtóközlemények"><i class="fa fa-check"></i><b>6.3</b> MNB sajtóközlemények</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><i class="fa fa-check"></i><b>7</b> Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken {lda_ch}</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#k-közép-klaszterezés-kvalitatív-adatokkal"><i class="fa fa-check"></i><b>7.1</b> K közép klaszterezés kvalitatív adatokkal</a></li>
+<li class="chapter" data-level="7.2" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#látens-dirichlet-allokáció-topik-modelleklda-1"><i class="fa fa-check"></i><b>7.2</b> Látens Dirichlet Allokáció topik modellek</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#a-vem-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>7.2.1</b> A „VEM" módszer alkalmazása a magyar törvények korpuszán</a></li>
+<li class="chapter" data-level="7.2.2" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#az-lda-gibbs-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>7.2.2</b> Az „LDA Gibbs" módszer alkalmazása a magyar törvények korpuszán</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#strukturális-topik-modellek"><i class="fa fa-check"></i><b>7.3</b> Strukturális topik modellek</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="embedding.html"><a href="embedding.html"><i class="fa fa-check"></i><b>8</b> Szóbeágyazások</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="embedding.html"><a href="embedding.html#word2vec-glove-és-fasttext"><i class="fa fa-check"></i><b>8.1</b> Word2Vec, GloVe és fastText</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="embedding.html"><a href="embedding.html#glove-használata-magyar-média-korpuszon"><i class="fa fa-check"></i><b>8.1.1</b> GloVe használata magyar média korpuszon</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="scaling.html"><a href="scaling.html"><i class="fa fa-check"></i><b>9</b> Szövegskálázás: felügyelet nélküli és felügyelt megoldások</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="scaling.html"><a href="scaling.html#wordfish"><i class="fa fa-check"></i><b>9.1</b> Wordfish</a></li>
+<li class="chapter" data-level="9.2" data-path="scaling.html"><a href="scaling.html#wordscores"><i class="fa fa-check"></i><b>9.2</b> Wordscores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html"><i class="fa fa-check"></i><b>10</b> Szövegösszehasonlítás</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#lexikális-hasonlóság"><i class="fa fa-check"></i><b>10.1</b> Lexikális hasonlóság</a></li>
+<li class="chapter" data-level="10.2" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#szemantikai-hasonlóság"><i class="fa fa-check"></i><b>10.2</b> Szemantikai hasonlóság</a></li>
+<li class="chapter" data-level="10.3" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#hasonlóság-számítás-a-gyakorlatban"><i class="fa fa-check"></i><b>10.3</b> Hasonlóság számítás a gyakorlatban</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#adatbázis-importálás-és-előkészítés"><i class="fa fa-check"></i><b>10.3.1</b> Adatbázis importálás és előkészítés</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#szövegtisztítás"><i class="fa fa-check"></i><b>10.4</b> Szövegtisztítás</a></li>
+<li class="chapter" data-level="10.5" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#jaccard-hasonlóság-számítás"><i class="fa fa-check"></i><b>10.5</b> Jaccard hasonlóság számítás</a></li>
+<li class="chapter" data-level="10.6" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#koszinusz-hasonlóság-számítás"><i class="fa fa-check"></i><b>10.6</b> Koszinusz hasonlóság számítás</a></li>
+<li class="chapter" data-level="10.7" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#az-eredmények-vizualizációja"><i class="fa fa-check"></i><b>10.7</b> Az eredmények vizualizációja</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="nlp-ch.html"><a href="nlp-ch.html"><i class="fa fa-check"></i><b>11</b> Természetes-nyelv feldolgozás (NLP) és névelemfelismerés (NER)</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="nlp-ch.html"><a href="nlp-ch.html#a-magyarlanc-nyelvi-elemző-használata"><i class="fa fa-check"></i><b>11.1</b> A <code>magyarlanc</code> nyelvi elemző használata</a></li>
+<li class="chapter" data-level="11.2" data-path="nlp-ch.html"><a href="nlp-ch.html#a-szeged-ner-elemző-használata"><i class="fa fa-check"></i><b>11.2</b> A <code>szeged ner</code> elemző használata</a></li>
+<li class="chapter" data-level="11.3" data-path="nlp-ch.html"><a href="nlp-ch.html#angol-nyelvű-szövegek-névelemfelismerése"><i class="fa fa-check"></i><b>11.3</b> Angol nyelvű szövegek névelemfelismerése</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html"><i class="fa fa-check"></i><b>12</b> Osztályozás és felügyelt tanulás</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html#fogalmi-alapok-1"><i class="fa fa-check"></i><b>12.1</b> 12.1. Fogalmi alapok</a></li>
+<li class="chapter" data-level="12.2" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html#osztályozás-felügyelt-tanulással"><i class="fa fa-check"></i><b>12.2</b> 12.2. Osztályozás felügyelt tanulással</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="fuggelek.html"><a href="fuggelek.html"><i class="fa fa-check"></i><b>13</b> Függelék</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="fuggelek.html"><a href="fuggelek.html#az-r-és-az-rstudio-használata"><i class="fa fa-check"></i><b>13.1</b> Az R és az RStudio használata</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="fuggelek.html"><a href="fuggelek.html#az-rstudio-kezdőfelülete"><i class="fa fa-check"></i><b>13.1.1</b> Az RStudio kezdőfelülete</a></li>
+<li class="chapter" data-level="13.1.2" data-path="fuggelek.html"><a href="fuggelek.html#projektmunka"><i class="fa fa-check"></i><b>13.1.2</b> Projekt alapú munka</a></li>
+<li class="chapter" data-level="13.1.3" data-path="fuggelek.html"><a href="fuggelek.html#scriptek-szerkesztése-függvények-használata"><i class="fa fa-check"></i><b>13.1.3</b> Scriptek szerkesztése, függvények használata</a></li>
+<li class="chapter" data-level="13.1.4" data-path="fuggelek.html"><a href="fuggelek.html#packages"><i class="fa fa-check"></i><b>13.1.4</b> R csomagok</a></li>
+<li class="chapter" data-level="13.1.5" data-path="fuggelek.html"><a href="fuggelek.html#objektumok-tárolása-értékadás"><i class="fa fa-check"></i><b>13.1.5</b> Objektumok tárolása, értékadás</a></li>
+<li class="chapter" data-level="13.1.6" data-path="fuggelek.html"><a href="fuggelek.html#vektorok"><i class="fa fa-check"></i><b>13.1.6</b> Vektorok</a></li>
+<li class="chapter" data-level="13.1.7" data-path="fuggelek.html"><a href="fuggelek.html#faktorok"><i class="fa fa-check"></i><b>13.1.7</b> Faktorok</a></li>
+<li class="chapter" data-level="13.1.8" data-path="fuggelek.html"><a href="fuggelek.html#data-frame"><i class="fa fa-check"></i><b>13.1.8</b> Az adattáblák</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="fuggelek.html"><a href="fuggelek.html#vizualizáció"><i class="fa fa-check"></i><b>13.2</b> Vizualizáció</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Szövegbányászat és mesterséges intelligencia R-ben</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda_ch" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken {lda_ch}</h1>
+<p>A klaszterezés egy adathalmaz pontjainak, rekordjainak hasonlóság alapján való csoportosítása, ami szinte minden nagyméretű adathalmaz leíró modellezésére alkalmas. A klaszterezés során az adatpontokat diszjunkt halmazokba, azaz klaszterekbe soroljuk, hogy az elemeknek egy olyan partíciója jöjjön létre, amelyben a közös csoportokba kerülő elempárok lényegesen jobban hasonlítanak egymáshoz, mint azok a pontpárok, melyek két különböző csoportba sorolódtak. Klaszterezés során a megfelelő csoportok kialakítása nem egyértelmű feladat, mivel a különböző adatok eltérő jelentése és felhasználása miatt adathalmazonként más szempontokat kell figyelembe vennünk. Egy klaszterezési feladat megoldásához ismernünk kell a különböző algoritmusok alapvető tulajdonságait és mindig szükség van az eredményként kapott klaszterezés kiértékelésére. Mivel egy klaszterezés az adatpontok hasonlóságából indul ki, ezért az eljárás során az első fontos lépés az adatpontok páronkénti hasonlóságát a lehető legjobban megragadó hasonlósági függvény kiválasztása <span class="citation">(<a href="fuggelek.html#ref-tanBevezetesAzAdatbanyaszatba2011" role="doc-biblioref">Tan, Steinbach, and Kumar 2011</a>)</span>. Számos klaszterezési eljárás létezik, melyek között az egyik leggyakoribb különbségtétel, hogy a klaszterek egymásba ágyazottak vagy sem. Ez alapján beszélhetünk hierarchikus és felosztó klaszterezésről.</p>
+<p>A hierarchikus klaszterezés egymásba ágyazott klaszterek egy fába rendezett halmaza, azaz ahol a klaszterek alklaszterekkel rendelkeznek. A fa minden csúcsa (klasztere), a levélcsúcsokat kivéve, a gyermekei (alklaszterei) uniója, és a fa gyökere az összes objektumot tartalmazó klaszter. Felosztó (<em>partitional</em>) klaszterezés esetén az adathalmazt olyan, nem átfedő alcsoportokra bontjuk, ahol minden adatobjektum pontosan egy részhalmazba kerül <span class="citation">(<a href="fuggelek.html#ref-tanBevezetesAzAdatbanyaszatba2011" role="doc-biblioref">Tan, Steinbach, and Kumar 2011</a>; <a href="fuggelek.html#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007</a>)</span>. A klaszterezési eljárások között aszerint is különbséget tehetünk, hogy azok egy objektumot csak egy vagy több klaszterbe is beilleszthetnek. Ez alapján beszélhetünk kizáró (<em>exclusive</em>), illetve nem-kizáró (<em>non exclusive</em>), vagy átfedő (<em>overlapping</em>) klaszterezésről. Az előbbi minden objektumot csak egyetlen klaszterhez rendel hozzá, az utóbbi esetén egy pont több klaszterbe is beleillik. Fuzzy klaszterezés esetén minden objektum minden klaszterbe beletartozik egy tagsági súly erejéig, melynek értéke 0 (egyáltalán nem tartozik bele) és 1 (teljesen beletartozik) közé esik. A klasztereknek is különböző típusai vannak, így beszélhetünk prototípus-alapú, gráf-alapú vagy sűrűség-alapú klaszterekről.</p>
+<p>A prototípus-alapú klaszter olyan objektumokat tartalmazó halmaz, amelynek mindegyik objektuma jobban hasonlít a klasztert definiáló objektumhoz, mint bármelyik másik klasztert definiáló objektumhoz. A prototípus-alapú klaszterek közül a K-közép klaszter az egyik leggyakrabban alkalmazott. A K-közép klaszterezési módszer első lépése K darab kezdő középpontot kijelölése, ahol K a klaszterek kívánt számával egyenlő. Ezután minden adatpontot a hozzá legközelebb eső középponthoz rendelünk. Az így képzett csoportok lesznek a kiinduló klaszterek. Ezután újra meghatározzuk mindegyik klaszter középpontját a klaszterhez rendelt pontok alapján. A hozzárendelési és frissítési lépéseket felváltva folytatjuk addig, amíg egyetlen pont sem vált klasztert, vagy ameddig a középpontok ugyanazok nem maradnak <span class="citation">(<a href="fuggelek.html#ref-tanBevezetesAzAdatbanyaszatba2011" role="doc-biblioref">Tan, Steinbach, and Kumar 2011</a>)</span>.</p>
+<div id="k-közép-klaszterezés-kvalitatív-adatokkal" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> K közép klaszterezés kvalitatív adatokkal</h2>
+<p>AA K közép klaszterezés tehát a dokumentumokat alkotó szavak alapján keresi meg a felhasználó által megadott számú (K) klasztert, amelyeket a középpontjaik képviselnek, és így rendezi a dokumentumokat csoportokba. A klaszterezés vagy csoportosítás egy induktív kategorizálás, ami akkor hasznos, amikor nem állnak a kutató rendelkezésére előzetesen ismert csoportok, amelyek szerint a vizsgált dokumentumokat rendezni tudná. Hiszen ebben az esetben a korpusz elemeinek rendezéséhez nem határozunk meg előzetesen csoportokat, hanem az eljárás során olyan különálló csoportokat hozunk létre a dokumentumokból, amelynek tagjai valamilyen szempontból hasonlítanak egymásra. A csoportosítás legfőbb célja az, hogy az egy csoportba kerülő szövegek minél inkább hasonlítsanak egymásra, miközben a különböző csoportba kerülők minél inkább eltérjenek egymástól. Azaz klaszterezésnél nem egy-egy szöveg jellemzőire vagyunk kíváncsiak, hanem arra, hogy a szövegek egy-egy csoportja milyen hasonlóságokkal bír <span class="citation">(<a href="fuggelek.html#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007</a>; <a href="fuggelek.html#ref-burtejinCsoportositasKlaszterezes2016" role="doc-biblioref">Burtejin 2016</a>)</span>. A gépi kódolással végzett klaszterezés egy felügyelet nélküli tanulás, mely a szöveg tulajdonságaiból tanul, anélkül, hogy előre meghatározott csoportokat ismerne. Alkalmazása során a dokumentum tulajdonságait és a modell becsléseit felhasználva jönnek létre a különböző kategóriák, melyekhez később hozzárendeli a szöveget <span class="citation">(<a href="fuggelek.html#ref-grimmer2013text" role="doc-biblioref">Grimmer and Stewart 2013</a>)</span>. Az osztályozással ellentétben a csoportosítás esetén tehát nincs ismert „címkékkel” ellátott kategóriarendszer vagy olyan minta, mint az osztályozás esetében a tanítókörnyezet, amiből tanulva a modellt fel lehet építeni <span class="citation">(<a href="fuggelek.html#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007</a>)</span>. A gépi kódolással végzett csoportosítás (klaszterezés) esetén a kutató feladata a megfelelő csoportosító mechanizmus kiválasztása, mely alapján egy program végzi el a szövegek különböző kategóriákba sorolását. Ezt követi a hasonló szövegeket tömörítő csoportok elnevezésének lépése. A több dokumentumból álló korpuszok esetében a gépi klaszterelemzés különösen eredményes és költséghatékony lehet, mivel egy nagy korpusz vizsgálata sok erőforrást igényel <strong><span class="citation">(<a href="fuggelek.html#ref-grimmer2013text" role="doc-biblioref">Grimmer and Stewart 2013, 1</a>.)</span></strong></p>
+<p>A klaszterezés bemutatásához a rendszerváltás utáni magyar miniszterelnökök egy-egy véletlenszerűen kiválasztott beszédét használjuk.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb93-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb93-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(purrr)</span>
+<span id="cb93-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb93-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb93-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb93-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readtext)</span>
+<span id="cb93-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb93-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb93-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb93-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb93-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb93-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb93-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb93-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(topicmodels)</span>
+<span id="cb93-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb93-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb93-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb93-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stm)</span>
+<span id="cb93-12"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb93-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb93-13"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb93-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span></code></pre></div>
+<p>A beszédek szövege meglehetősen tiszta, ezért az egyszerűség kedvéért most kihagyjuk a szövegtisztítás lépéseit. Az elemzés első lépéseként a <code>.csv</code> fájlból beolvasott szövegeinkből a <code>quanteda</code> csomaggal korpuszt hozunk létre, majd abból egy dokumentum-kifejezés mátrixot készítünk a <code>dfm()</code> függvénnyel. Láthatjuk, hogy márixunk 7 megfigyelést és 4 változót tartalmaz.</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb94-1" aria-hidden="true" tabindex="-1"></a>beszedek <span class="ot">&lt;-</span> data_miniszterelnokok</span>
+<span id="cb94-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb94-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb94-3" aria-hidden="true" tabindex="-1"></a>beszedek_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(beszedek)</span>
+<span id="cb94-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb94-5" aria-hidden="true" tabindex="-1"></a>beszedek_dfm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(beszedek_corpus)</span></code></pre></div>
+<p>A beszédek klaszterekbe rendezését az R egyik alapfüggvénye, a kmeans végzi. Első lépésben 3 klasztert készítünk. A <code>table()</code> függvénnyel megnézhetjük, hogy egy-egy csoportba hány dokumentum került.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb95-1" aria-hidden="true" tabindex="-1"></a>beszedek_klaszter <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(beszedek_dfm, <span class="at">centers =</span> <span class="dv">2</span>)</span>
+<span id="cb95-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb95-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(beszedek_klaszter<span class="sc">$</span>cluster)</span>
+<span id="cb95-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb95-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 2 </span></span>
+<span id="cb95-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb95-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 2</span></span></code></pre></div>
+<p>A felügyelet nélküli klasszifikáció nagy kérdése, hány klasztert alakítsunk ki, hogy megközelítsük a valóságot, és ne csak mesterségesen kreáljunk csoportokat. Ez ugyanis azzal a kockázattal jár, hogy ténylegesen nem létező csoportok is létrejönnek. A klaszterek optimális számának meghatározására kvalitatív és kvantitatív lehetőségeink is vannak. A következőkben az utóbbira mutatunk példát, amihez a <code>factoextra</code> csomagot használjuk A lenti ábra azt mutatja hogy a klasztereken belüli négyzetösszegek hogyan változnak a <strong>k</strong> paraméter változásának függvényében. Minél kisebb a klasztereken belüli négyzetösszegek értéke, annál közelebbi pontok tartoznak össze, így a kisebb értékekkel definiált klasztereket kapunk. Az ábra alapján tehát az ideális <strong>k</strong> 4 vagy 2, attól fuggően, hogy milyen feltevésekkel élünk a kutatásunk során. A 2-es érték azért lehet jó, mert a <span class="math inline">\(k &gt; 2\)</span> értékek esetén a négyzetösszegek értéke nem csökken drasztikusan és a korpuszunk alapján a két („jobb-bal”) klaszter kvalitativ alapon is jól definiálható. A <span class="math inline">\(k = 4\)</span> pedig azért lehet jó, mert utánna gyakorlatilag nem változik a kapott négyzetösszeg, ami azt jelzi, hogy a további klaszterek hozzáadásával nem lesz pontosabb a csoportosítás.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(<span class="fu">as.matrix</span>(beszedek_dfm), kmeans, <span class="at">method =</span> <span class="st">&quot;wss&quot;</span>, <span class="at">k.max =</span> <span class="dv">5</span>, <span class="at">linecolor =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb96-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(</span>
+<span id="cb96-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">&quot;Klaszterek száma&quot;</span>,</span>
+<span id="cb96-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb96-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">&quot;Klasztereken belüli négyzetösszeg&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-106"></span>
+<img src="_main_files/figure-html/unnamed-chunk-106-1.png" alt="Optimális klaszterek száma" width="90%" />
+<p class="caption">
+Figure 7.1: Optimális klaszterek száma
+</p>
+</div>
+<p>A kialakított csoportokat vizuálisan is megjeleníthetjük.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
+<span id="cb97-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb97-2" aria-hidden="true" tabindex="-1"></a>  beszedek_klaszter, </span>
+<span id="cb97-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> beszedek_dfm, </span>
+<span id="cb97-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pointsize =</span> <span class="dv">2</span>,</span>
+<span id="cb97-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">repel =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb97-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb97-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ggtheme =</span> <span class="fu">theme_minimal</span>()</span>
+<span id="cb97-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb97-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb97-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb97-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb97-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb97-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb97-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb97-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Első dimenzió&quot;</span>,</span>
+<span id="cb97-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb97-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Második dimenzió&quot;</span></span>
+<span id="cb97-12"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb97-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb97-13"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb97-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-107"></span>
+<img src="_main_files/figure-html/unnamed-chunk-107-1.png" alt="A miniszterelnöki beszédek klaszterei" width="90%" />
+<p class="caption">
+Figure 7.2: A miniszterelnöki beszédek klaszterei
+</p>
+</div>
+</div>
+<div id="látens-dirichlet-allokáció-topik-modelleklda-1" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Látens Dirichlet Allokáció topik modellek<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a></h2>
+<p>A topik-modellezés a dokumentumok téma-klasztereinek meghatározására szolgáló valószínűség-alapú eljárás, amely szó-gyakoriságot állapít meg minden témához, és minden dokumentumhoz hozzárendeli az adott témák valószínűségét. A topik modellezés egy felügyelet nélküli tanulási módszer, amely során az alkalmazott algoritmus a dokumentum tulajdonságait és a modell becsléseit felhasználva hoz létre különböző kategóriákat, melyekhez később hozzárendeli a szöveget <span class="citation">(<a href="fuggelek.html#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007</a>; <a href="fuggelek.html#ref-grimmer2013text" role="doc-biblioref">Grimmer and Stewart 2013</a>; <a href="fuggelek.html#ref-burtejinCsoportositasKlaszterezes2016" role="doc-biblioref">Burtejin 2016</a>)</span>. Az egyik leggyakrabban alkalmazott topik modellezési eljárás, a Látens Dirichlet Allokáció (LDA) alapja az a feltételezés, hogy minden korpusz topikok/témák keverékéből áll, ezen témák pedig statisztikailag a korpusz szókészlete valószínűségi függvényeinek (eloszlásának) tekinthetőek <span class="citation">(<a href="fuggelek.html#ref-bleiLatentDirichletAllocation2003" role="doc-biblioref">Blei, Ng, and Jordan 2003</a>)</span>. Az LDA a korpusz dokumentumainak csoportosítása során az egyes dokumentumokhoz topik szavakat rendel, a topikok megbecsléséhez pedig a szavak együttes megjelenését vizsgálja a dokumentum egészében. Az LDA algoritmusnak előzetesen meg kell adni a keresett klaszterek (azaz a keresett topikok) számát, ezt követően a dokumentumhalmazban szereplő szavak eloszlása alapján az algoritmus azonosítja a kulcsszavakat, amelyek eloszlása kirajzolja a topikokat <span class="citation">(<a href="fuggelek.html#ref-bleiLatentDirichletAllocation2003" role="doc-biblioref">Blei, Ng, and Jordan 2003</a>; <a href="fuggelek.html#ref-burtejinCsoportositasKlaszterezes2016" role="doc-biblioref">Burtejin 2016</a>; <a href="fuggelek.html#ref-jacobiQuantitativeAnalysisLarge2016" role="doc-biblioref">Jacobi, Van Atteveldt, and Welbers 2016</a>)</span>.</p>
+<p><img src="figures/08-01_topik_modell.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>A következőkben a magyar törvények korpuszán szemléltetjük a topik modellezés módszerét, hogy a mesterséges intelligencia segítségével feltárjuk a korpuszon belüli rejtett összefüggéseket. A korábban leírtak szerint tehát nincsenek előre meghatározott kategóriáink, dokumentumainkat a klaszterezés segítségével szeretnénk csoportosítani. Egy-egy dokumentumban keveredhetnek a témák és az azokat reprezentáló szavak. Mivel ugyanaz a szó több topikhoz is kapcsolódhat, így az eljárás komplex elemzési lehetőséget nyújt, az egy szövegen belüli témák és akár azok dokumentumon belüli súlyának azonosítására. Példánkban csak a korpusz egy részén szemléltetjük a topik modellezést, a teljes korpusz és az annak elemzéséhez szükséges kód elérhető az alábbi GitHub linken: <a href="https://github.com/poltextlab" class="uri">https://github.com/poltextlab</a>.</p>
+<p>Az alábbiakban a 1998–2002-es és a 2002–2006-os parlamenti ciklus 1032 törvényszövegének topik modellezését és a szükséges előkészítő, korpusztisztító lépéseket mutatjuk be. A fájlokat töltsük be az R által használt munkakönyvtárba.<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a></p>
+<p>Töltsük be az elemezni kívánt csv fájlt, megadva az elérési útvonalát.</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb98-1" aria-hidden="true" tabindex="-1"></a>torvenyek <span class="ot">&lt;-</span> data_lawtext_1998_2006</span></code></pre></div>
+<p>Az előző fejezetekben láthattuk, hogyan lehet használni a stringr csomagot a szövegtisztításra. A lépések a már megismert sztenderd folyamatot követik: számok, központozás, sortörések, extra szóközök eltávolítása, illetve a szöveg kisbetűsítése. Az eddigieket további szövegtisztító lépésekkel is kiegészíthetjük. Olyan elemek esetében, amelyek nem feltétlenül különálló szavak és el akarjuk távolítani őket a korpuszból, szintén a <code>str_remove_all()</code> a legegyszerűbb megoldás.</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-1" aria-hidden="true" tabindex="-1"></a>torvenyek_tiszta <span class="ot">&lt;-</span> torvenyek <span class="sc">%&gt;%</span></span>
+<span id="cb99-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb99-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:cntrl:]&quot;</span>),</span>
+<span id="cb99-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:punct:]&quot;</span>),</span>
+<span id="cb99-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:digit:]&quot;</span>),</span>
+<span id="cb99-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_to_lower</span>(text),</span>
+<span id="cb99-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_trim</span>(text),</span>
+<span id="cb99-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_squish</span>(text),</span>
+<span id="cb99-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;’&quot;</span>),</span>
+<span id="cb99-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;…&quot;</span>),</span>
+<span id="cb99-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;–&quot;</span>),</span>
+<span id="cb99-12"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;“&quot;</span>),</span>
+<span id="cb99-13"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;”&quot;</span>),</span>
+<span id="cb99-14"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;„&quot;</span>),</span>
+<span id="cb99-15"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;«&quot;</span>),</span>
+<span id="cb99-16"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;»&quot;</span>),</span>
+<span id="cb99-17"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;§&quot;</span>),</span>
+<span id="cb99-18"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;°&quot;</span>),</span>
+<span id="cb99-19"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;&lt;U+25A1&gt;&quot;</span>),</span>
+<span id="cb99-20"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;@&quot;</span>)</span>
+<span id="cb99-21"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb99-21" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>A dokumentum változókat egy külön fájlból adjuk hozzá, ami a törvények keletkezési évét tartalmazza, illetve azt, hogy melyik kormányzati ciklusban születtek. Mindkét adatbázisban egy közös egyedi azonosító jelöli az egyes törvényeket, így ki tudjuk használni a <code>dplyr</code> <code>left_join()</code> függvényét, ami hatékonyan és gyorsan kapcsol össze adatbázisokat közös egyedi azonosító mentén. Jelen esetben ez az egyedi azonosító a <code>txt_filename</code> oszlopból fog elkészülni, amely a törvények neveit tartalmazza. Első lépésben betöltjük a metaadatokat tartalmazó data frame-t, majd a <code>.txt</code> rész előtti törvényneveket tartjuk csak meg a létrehozott <code>doc_id</code>- oszlopban. A <code>[^\\.]*</code> regular expression itt a string elejétől indulva kijelöl mindent az elso <code>.</code> karakterig. Az <code>str_extract()</code> pedig ezt a kijelölt string szakaszt (ami a törvények neve) menti át az új változónkba.</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-1" aria-hidden="true" tabindex="-1"></a>torveny_meta <span class="ot">&lt;-</span> data_lawtext_meta</span>
+<span id="cb100-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-3" aria-hidden="true" tabindex="-1"></a>torveny_meta <span class="ot">&lt;-</span> torveny_meta <span class="sc">%&gt;%</span></span>
+<span id="cb100-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">doc_id =</span> <span class="fu">str_extract</span>(txt_filename, <span class="st">&quot;[^</span><span class="sc">\\</span><span class="st">.]*&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb100-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>txt_filename)</span>
+<span id="cb100-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(torveny_meta, <span class="dv">5</span>)</span>
+<span id="cb100-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 4</span></span>
+<span id="cb100-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    year electoral_cycle majortopic doc_id     </span></span>
+<span id="cb100-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;      </span></span>
+<span id="cb100-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1998 1998-2002               13 1998XXXV   </span></span>
+<span id="cb100-12"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  1998 1998-2002               20 1998XXXVI  </span></span>
+<span id="cb100-13"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  1998 1998-2002                3 1998XXXVII </span></span>
+<span id="cb100-14"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  1998 1998-2002                6 1998XXXVIII</span></span>
+<span id="cb100-15"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb100-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  1998 1998-2002               13 1998XXXIX</span></span></code></pre></div>
+<p>Végül összefűzzük a dokumentumokat és a metaadatokat tartalmazó data frame-eket.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb101-1" aria-hidden="true" tabindex="-1"></a>torveny_final <span class="ot">&lt;-</span> <span class="fu">left_join</span>(torvenyek_tiszta, torveny_meta, <span class="at">by =</span> <span class="st">&quot;doc_id&quot;</span>)</span></code></pre></div>
+<p>Majd létrehozzuk a korpuszt és ellenőrizzük azt.</p>
+<pre><code>#&gt;       Text Types Tokens Sentences year electoral_cycle majortopic
+#&gt; 1    1998L  2879   9628         1 1998       1998-2002          3
+#&gt; 2   1998LI   352    680         1 1998       1998-2002         20
+#&gt; 3  1998LII   446    992         1 1998       1998-2002          9
+#&gt; 4 1998LIII   126    221         1 1998       1998-2002          9
+#&gt; 5  1998LIV   835   2013         1 1998       1998-2002          9</code></pre>
+<p>Az RStudio environments fülén láthatjuk, hogy egy 1032 elemből álló korpusz jött létre, amelynek tartalmát a <code>summary()</code> paranccsal kiíratva a console ablakban megjelenik a dokumentumok listája és a főbb leíró statisztikai adatok (egyedi szavak - types; szószám - tokens; mondatok - sentences). Az előbbi fejezettől eltérően most a tokenizálás során is végzünk még egy kis tisztítást: a felesleges stop szavakat kitöröljük a <code>tokens_remove()</code> és <code>stopwords()</code> kombinálásával. A <code>quanteda</code> tartalmaz egy beépített magyar stopszó szótárat. A második lépésben szótövesítjük a tokeneket a <code>tokens_words()</code> használatával, ami szintén képes a magyar nyelvű szövegeket kezelni.</p>
+<p>Szükség esetén a beépített magyar nyelvű stopszó szótárat saját stopszavakkal is kiegészíthetjük. Példaként a <code>HunMineR</code> csomagban lévő kiegészítő stopszó data frame-t töltsük be.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb103-1" aria-hidden="true" tabindex="-1"></a>custom_stopwords <span class="ot">&lt;-</span> data_legal_stopwords</span></code></pre></div>
+<p>Mivel a korpusz ellenőrzése során találunk még olyan kifejezéseket, amelyeket el szeretnénk távolítani, ezeket is kiszűrjük.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb104-1" aria-hidden="true" tabindex="-1"></a>custom_stopwords_egyeb <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;lábjegyzet&quot;</span>, <span class="st">&quot;országgyűlés&quot;</span>, <span class="st">&quot;ülésnap&quot;</span>)</span></code></pre></div>
+<p>Aztán pedig a korábban már megismert <strong>pipe operáror</strong> használatával elkészítjük a token objektumunkat. A szótövesített tokeneket egy külön objektumban tároljuk, mert gyakran előfordul hogy később vissza kell térnünk az eredeti token objektumhoz, hogy egyéb műveleteket végezzünk el, például további stopszavakat távolítsunk el.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb105-1" aria-hidden="true" tabindex="-1"></a>torvenyek_tokens <span class="ot">&lt;-</span> <span class="fu">tokens</span>(torvenyek_corpus) <span class="sc">%&gt;%</span></span>
+<span id="cb105-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(<span class="fu">stopwords</span>(<span class="st">&quot;hungarian&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb105-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(custom_stopwords) <span class="sc">%&gt;%</span></span>
+<span id="cb105-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb105-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(custom_stopwords_egyeb) <span class="sc">%&gt;%</span></span>
+<span id="cb105-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb105-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_wordstem</span>(<span class="at">language =</span> <span class="st">&quot;hun&quot;</span>)</span></code></pre></div>
+<p>Végül eltávolítjuk a dokumentum kifejezés mátrixból a túl gyakori kifejezéseket. A <code>dfm_trim()</code> függvénnyel a nagyon ritka és nagyon gyakori szavak megjelenését kontrollálhatjuk. Ha termfreq_type opció értéke “prop” (úgymint proportional) akkor 0 és 1.0 közötti értéket vehetnek fel a <code>max_termfreq/docfreq</code> és <code>min_termfreq/docfreq</code> paraméterek. A lenti példában azokat a tokeneket tartjuk meg, amelyek legalább egyszer előfordulnak ezer dokumentumonként (így kizárva a nagyon ritka kifejezéseket).</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb106-1" aria-hidden="true" tabindex="-1"></a>torvenyek_dfm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(torvenyek_tokens) <span class="sc">%&gt;%</span></span>
+<span id="cb106-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm_trim</span>(<span class="at">min_termfreq =</span> <span class="fl">0.001</span>, <span class="at">termfreq_type =</span> <span class="st">&quot;prop&quot;</span>)</span></code></pre></div>
+<p>A szövegtisztító lépesek eredményét úgy ellenőrizhetjük, hogy a 2. fejezetben bemutatottak szerint szógyakorisági listát készítünk a korpuszban maradt kifejezésekről. Itt kihasználhatjuk a korpuszunkban lévő metaadatokat és megnézhetjük ciklus szerinti bontásban a szófrekvencia ábrát. Az ábránál figyeljünk arra, hogy a tidytext <code>reorder_within</code> függvényét használjuk, ami egy nagyon hasznos megoldás a csoportosított sorrendbe rendezésre a <code>ggplot2</code> ábránál.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb107-1" aria-hidden="true" tabindex="-1"></a>top_tokens <span class="ot">&lt;-</span> <span class="fu">textstat_frequency</span>(torvenyek_dfm, <span class="at">n =</span> <span class="dv">15</span>, <span class="at">groups =</span> <span class="fu">docvars</span>(torvenyek_dfm, </span>
+<span id="cb107-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb107-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">field =</span> <span class="st">&quot;electoral_cycle&quot;</span>))</span>
+<span id="cb107-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb107-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb107-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_tokens, <span class="fu">aes</span>(<span class="fu">reorder_within</span>(feature, frequency, group), frequency)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> group), </span>
+<span id="cb107-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb107-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">&quot;szófrekvencia&quot;</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>group, </span>
+<span id="cb107-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb107-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span> tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-118"></span>
+<img src="_main_files/figure-html/unnamed-chunk-118-1.png" alt="A 15 leggyakoribb token a korpuszban" width="90%" />
+<p class="caption">
+Figure 7.3: A 15 leggyakoribb token a korpuszban
+</p>
+</div>
+<p>A szövegtisztító lépéseket később újabbakkal is kiegészíthetjük, ha észrevesszük, hogy az elemzést zavaró tisztítási lépés maradt ki. Ilyen esetben tovább tisztíthatjuk a korpuszt, majd újra lefuttathatjuk az elemzést. Például, ha szükséges, további stopszavak eltávolítását is elvégezhetjük egy újabb stopszólista hozzáadásával. Ilyenkor ugyanúgy járunk el, mint az előző stopszólista esetén, vagyis beolvassuk a munkakönyvtárban elhelyezett a csv fájlt, a beolvasott stopszólistából karakter vektort, majd objektumot hozunk létre, végezetül pedig ezeket a szavakat is eltávolítjuk a kopuszból.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb108-1" aria-hidden="true" tabindex="-1"></a>custom_stopwords2 <span class="ot">&lt;-</span> data_legal_stopwords2</span>
+<span id="cb108-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb108-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb108-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb108-3" aria-hidden="true" tabindex="-1"></a>torvenyek_tokens_final <span class="ot">&lt;-</span> torvenyek_tokens <span class="sc">%&gt;%</span></span>
+<span id="cb108-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(custom_stopwords2)</span></code></pre></div>
+<p>Ezután újra ellenőrizzük az eredményt.</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb109-1" aria-hidden="true" tabindex="-1"></a>torvenyek_dfm_final <span class="ot">&lt;-</span> <span class="fu">dfm</span>(torvenyek_tokens_final) <span class="sc">%&gt;%</span> <span class="fu">dfm_trim</span>(<span class="at">min_termfreq =</span> <span class="fl">0.001</span>, </span>
+<span id="cb109-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb109-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">termfreq_type =</span> <span class="st">&quot;prop&quot;</span>)</span>
+<span id="cb109-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb109-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb109-4" aria-hidden="true" tabindex="-1"></a>top_tokens_final <span class="ot">&lt;-</span> <span class="fu">textstat_frequency</span>(torvenyek_dfm_final, <span class="at">n =</span> <span class="dv">15</span>, <span class="at">groups =</span> <span class="fu">docvars</span>(torvenyek_dfm, </span>
+<span id="cb109-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb109-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">field =</span> <span class="st">&quot;electoral_cycle&quot;</span>))</span></code></pre></div>
+<p>Ezt egy ábrán is megjelenítjük.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_tokens_final, <span class="fu">aes</span>(<span class="fu">reorder_within</span>(feature, frequency, group), frequency)) <span class="sc">+</span></span>
+<span id="cb110-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> group), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb110-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb110-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb110-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb110-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb110-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
+<span id="cb110-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb110-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;szófrekvencia&quot;</span></span>
+<span id="cb110-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb110-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb110-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb110-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb110-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb110-9" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
+<span id="cb110-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb110-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-121"></span>
+<img src="_main_files/figure-html/unnamed-chunk-121-1.png" alt="A 15 leggyakoribb token a korpuszban, a bovített stop szó listával" width="90%" />
+<p class="caption">
+Figure 7.4: A 15 leggyakoribb token a korpuszban, a bovített stop szó listával
+</p>
+</div>
+<p>A szövegtisztító és a korpusz előkészítő műveletek után következhet az LDA illesztése. Az alábbiakban az LDA illesztés két módszerét, a <code>VEM</code>-et és a <code>Gibbs</code>-et mutatjuk be. A modell minkét módszer esetén ugyanaz, a különbség a következtetés módjában van. A <code>VEM</code> módszer variációs következtetés, míg a <code>Gibbs</code> mintavételen alapuló következtetés. <span class="citation">(<a href="fuggelek.html#ref-bleiLatentDirichletAllocation2003" role="doc-biblioref">Blei, Ng, and Jordan 2003</a>; <a href="fuggelek.html#ref-griffithsFindingScientificTopics2004" role="doc-biblioref">Griffiths and Steyvers 2004</a>; <a href="fuggelek.html#ref-phanLearningClassifyShort2008" role="doc-biblioref">Phan, Nguyen, and Horiguchi 2008</a>)</span>.</p>
+<p>A két modell illesztése nagyon hasonló, meg kell adnunk az elemezni kívánt <code>dfm</code> nevét, majd a <em>„k"</em> értékét, ami egyenlő az általunk létrehozni kívánt topikok számával, ezt követően meg kell jelölnünk, hogy a <code>VEM</code> vagy a <code>Gibbs</code> módszert alkalmazzuk. A <code>set.seed()</code> funkció az R véletlen szám generátor magjának beállítására szolgál, ami ahhoz kell, hogy a kapott eredmények, ábrák stb. pontosan reprodukálhatóak legyenek. A <code>set.seed()</code> bármilyen tetszőleges egész szám lehet. Mivel az elemzésünk célja a két ciklus jogalkotásának összehasonlítása, a korpuszunkat két alkorpuszra bontjuk, ehhez a dokumentumok kormányzati ciklus azonosítóját használjuk fel. A dokumentum változók alapján a <code>dfm_subset()</code>parancs segítségével választjuk szét a már elkészült és a tisztított mátrixunkat.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb111-1" aria-hidden="true" tabindex="-1"></a>dfm_98_02 <span class="ot">&lt;-</span> <span class="fu">dfm_subset</span>(torvenyek_dfm_final, electoral_cycle <span class="sc">==</span> <span class="st">&quot;1998-2002&quot;</span>)</span>
+<span id="cb111-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb111-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb111-3" aria-hidden="true" tabindex="-1"></a>dfm_02_06 <span class="ot">&lt;-</span> <span class="fu">dfm_subset</span>(torvenyek_dfm_final, electoral_cycle <span class="sc">==</span> <span class="st">&quot;2002-2006&quot;</span>)</span></code></pre></div>
+<div id="a-vem-módszer-alkalmazása-a-magyar-törvények-korpuszán" class="section level3" number="7.2.1">
+<h3><span class="header-section-number">7.2.1</span> A „VEM" módszer alkalmazása a magyar törvények korpuszán</h3>
+<p>Saját korpuszunkon először a <code>VEM</code> módszert alkalmazzuk, ahol <code>k = 10</code>, azaz a modell 10 témacsoportot alakít ki. Mint arról korábban már volt szó, a <em>„k"</em> értékét szabadon változtathatjuk aszerint, hogy hány topik kialakítását szeretnénk. Ahogyan korábban arról már volt szó, a <em>„k"</em> értékének meghatározása kutatói döntésen alapul, a modell futtatása során bevett gyakorlat a különböző <em>„k"</em> értékekkel való kísérletezés. Az elkészült modell kiértékelésére az elemzés elkészülte után a <code>perplexity()</code> függvény segítségével van lehetőségünk – ahol a <em>theta</em> az adott topikhoz való tartozás valószínűsége. A függvény a topikok által reprezentált elméleti szóeloszlásokat hasonlítja össze a szavak tényleges eloszlásával a dokumentumokban. A függvény értéke nem önmagában értelmezendő, hanem két modell összehasonlításában, ahol a legalacsonyabb <em>perplexity</em> (zavarodottság) értékkel rendelkező modellt tekintik a legjobbnak.<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a> Az illusztráció kedvéért lefuttatunk 4 LDA modellt az 1998–2002-es kormányzati ciklushoz tartozó dfm-en. Az iterációhoz a <code>purrr</code> csomag <code>map</code> függvényét használtuk. Fontos megjegyezni, hogy minél nagyobb a korpuszunk, annál több számítási kapacitásra van szükség (és annál tovább tart a számítás).</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb112-1" aria-hidden="true" tabindex="-1"></a>k_topics <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>)</span>
+<span id="cb112-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb112-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb112-3" aria-hidden="true" tabindex="-1"></a>lda_98_02 <span class="ot">&lt;-</span> k_topics <span class="sc">%&gt;%</span></span>
+<span id="cb112-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb112-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(LDA, <span class="at">x =</span> dfm_98_02, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">seed =</span> <span class="dv">1234</span>))</span>
+<span id="cb112-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb112-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb112-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb112-7" aria-hidden="true" tabindex="-1"></a>perp_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb112-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb112-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">k =</span> k_topics,</span>
+<span id="cb112-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb112-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">perplexity =</span> <span class="fu">map_dbl</span>(lda_98_02, perplexity)</span>
+<span id="cb112-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb112-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(perp_df, <span class="fu">aes</span>(k, perplexity)) <span class="sc">+</span></span>
+<span id="cb113-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb113-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb113-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb113-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb113-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Klaszterek száma&quot;</span>,</span>
+<span id="cb113-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb113-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Zavarosság&quot;</span></span>
+<span id="cb113-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb113-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-124"></span>
+<img src="_main_files/figure-html/unnamed-chunk-124-1.png" alt="Perplexity változása a k függvényében" width="90%" />
+<p class="caption">
+Figure 7.5: Perplexity változása a k függvényében
+</p>
+</div>
+<p>A perplexity pontszám alapján a 20 topikos modell szerepel a legjobban, de a megfelelő <em>k</em> kiválasztása a kutató kvalitatív döntésén múlik. A perplexity pontszám ehhez ad kvantitatív szempontokat.<a href="#fn31" class="footnote-ref" id="fnref31"><sup>31</sup></a></p>
+<p>A reprodukálhatóság és futási sebesség érdekében a fejezet további részeiben a <em>k</em> paraméternek 10-es értéket adunk. Ezzel lefuttatunk egy-egy modellt a két ciklusra.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb114-1" aria-hidden="true" tabindex="-1"></a>vem_98_02 <span class="ot">&lt;-</span> <span class="fu">LDA</span>(dfm_98_02, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">method =</span> <span class="st">&quot;VEM&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">seed =</span> <span class="dv">1234</span>))</span>
+<span id="cb114-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb114-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb114-3" aria-hidden="true" tabindex="-1"></a>vem_02_06 <span class="ot">&lt;-</span> <span class="fu">LDA</span>(dfm_02_06, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">method =</span> <span class="st">&quot;VEM&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">seed =</span> <span class="dv">1234</span>))</span></code></pre></div>
+<p>Ezt követően a modell által létrehozott topic-okat tidy formátumba tesszük és egyesítjük egy data frame-ben.<a href="#fn32" class="footnote-ref" id="fnref32"><sup>32</sup></a></p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb115-1" aria-hidden="true" tabindex="-1"></a>topics_98_02 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(vem_98_02, <span class="at">matrix =</span> <span class="st">&quot;beta&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb115-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb115-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">electoral_cycle =</span> <span class="st">&quot;1998-2002&quot;</span>)</span>
+<span id="cb115-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb115-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb115-4" aria-hidden="true" tabindex="-1"></a>topics_02_06 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(vem_02_06, <span class="at">matrix =</span> <span class="st">&quot;beta&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb115-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb115-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">electoral_cycle =</span> <span class="st">&quot;2002-2006&quot;</span>)</span>
+<span id="cb115-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb115-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb115-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb115-7" aria-hidden="true" tabindex="-1"></a>lda_vem <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(topics_98_02, topics_02_06)</span></code></pre></div>
+<p>Ezután listázzuk az egyes topikokhoz tartozó leggyakoribb kifejezéseket.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb116-1" aria-hidden="true" tabindex="-1"></a>top_terms <span class="ot">&lt;-</span> lda_vem <span class="sc">%&gt;%</span></span>
+<span id="cb116-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb116-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(electoral_cycle, topic) <span class="sc">%&gt;%</span></span>
+<span id="cb116-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb116-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">5</span>, beta) <span class="sc">%&gt;%</span></span>
+<span id="cb116-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb116-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">5</span>, term) <span class="sc">%&gt;%</span></span>
+<span id="cb116-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb116-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb116-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb116-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(topic, <span class="sc">-</span>beta)</span></code></pre></div>
+<p>Végül a <code>ggplot2</code> csomag segítségével ábrán is megjeleníthetjük az egyes topikok 10 legfontosabb kifejezését.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb117-1" aria-hidden="true" tabindex="-1"></a>top_terms <span class="sc">%&gt;%</span></span>
+<span id="cb117-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb117-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(electoral_cycle <span class="sc">==</span> <span class="st">&quot;1998-2002&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb117-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb117-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder_within</span>(term, beta, topic), beta)) <span class="sc">+</span></span>
+<span id="cb117-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb117-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb117-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb117-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>topic, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb117-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb117-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb117-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb117-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb117-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb117-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb117-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb117-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta)</span>
+<span id="cb117-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb117-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb117-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb117-11" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-128"></span>
+<img src="_main_files/figure-html/unnamed-chunk-128-1.png" alt="1998–2002-es ciklus topikok és kifejezések (VEM mintavételezéssel)" width="90%" />
+<p class="caption">
+Figure 7.6: 1998–2002-es ciklus topikok és kifejezések (VEM mintavételezéssel)
+</p>
+</div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb118-1" aria-hidden="true" tabindex="-1"></a>top_terms <span class="sc">%&gt;%</span></span>
+<span id="cb118-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(electoral_cycle <span class="sc">==</span> <span class="st">&quot;2002-2006&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb118-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder_within</span>(term, beta, topic), beta)) <span class="sc">+</span></span>
+<span id="cb118-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb118-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb118-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb118-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>topic, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb118-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb118-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb118-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb118-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb118-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb118-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb118-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb118-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta)</span>
+<span id="cb118-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb118-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb118-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb118-11" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-129"></span>
+<img src="_main_files/figure-html/unnamed-chunk-129-1.png" alt="2002–2006-os ciklus topikok és kifejezések (VEM mintavételezéssel)" width="90%" />
+<p class="caption">
+Figure 7.7: 2002–2006-os ciklus topikok és kifejezések (VEM mintavételezéssel)
+</p>
+</div>
+</div>
+<div id="az-lda-gibbs-módszer-alkalmazása-a-magyar-törvények-korpuszán" class="section level3" number="7.2.2">
+<h3><span class="header-section-number">7.2.2</span> Az „LDA Gibbs" módszer alkalmazása a magyar törvények korpuszán</h3>
+<p>A következőkben ugyanazon a korpuszon az LDA Gibbs módszert alkalmazzuk. A szövegelőkészítő és tisztító lépések ennél a módszernél is ugyanazok, mint a fentebb bemutatott „VEM" módszer esetében, így itt most csak a modell illesztését mutatjuk be.</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb119-1" aria-hidden="true" tabindex="-1"></a>gibbs_98_02 <span class="ot">&lt;-</span> <span class="fu">LDA</span>(dfm_98_02, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">method =</span> <span class="st">&quot;Gibbs&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">seed =</span> <span class="dv">1234</span>))</span>
+<span id="cb119-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb119-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb119-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb119-3" aria-hidden="true" tabindex="-1"></a>gibbs_02_06 <span class="ot">&lt;-</span> <span class="fu">LDA</span>(dfm_02_06, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">method =</span> <span class="st">&quot;Gibbs&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">seed =</span> <span class="dv">1234</span>))</span></code></pre></div>
+<p>Itt is elvégezzük a topikok tidy formátumra alakítását.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb120-1" aria-hidden="true" tabindex="-1"></a>topics_g98_02 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(gibbs_98_02, <span class="at">matrix =</span> <span class="st">&quot;beta&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb120-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">electoral_cycle =</span> <span class="st">&quot;1998-2002&quot;</span>)</span>
+<span id="cb120-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb120-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb120-4" aria-hidden="true" tabindex="-1"></a>topics_g02_06 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(gibbs_02_06, <span class="at">matrix =</span> <span class="st">&quot;beta&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb120-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb120-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">electoral_cycle =</span> <span class="st">&quot;2002-2006&quot;</span>)</span>
+<span id="cb120-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb120-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb120-7" aria-hidden="true" tabindex="-1"></a>lda_gibbs <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(topics_g98_02, topics_g02_06)</span></code></pre></div>
+<p>Majd listázzuk az egyes topikokhoz tartozó leggyakoribb kifejezéseket.</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb121-1" aria-hidden="true" tabindex="-1"></a>top_terms_gibbs <span class="ot">&lt;-</span> lda_gibbs <span class="sc">%&gt;%</span></span>
+<span id="cb121-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb121-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(electoral_cycle, topic) <span class="sc">%&gt;%</span></span>
+<span id="cb121-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">5</span>, beta) <span class="sc">%&gt;%</span></span>
+<span id="cb121-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb121-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">5</span>, term) <span class="sc">%&gt;%</span></span>
+<span id="cb121-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb121-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb121-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb121-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(topic, <span class="sc">-</span>beta)</span></code></pre></div>
+<p>Majd a <code>ggplot2</code> csomag segítségével ábrán is megjeleníthetjük.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb122-1" aria-hidden="true" tabindex="-1"></a>top_terms_gibbs <span class="sc">%&gt;%</span></span>
+<span id="cb122-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(electoral_cycle <span class="sc">==</span> <span class="st">&quot;1998-2002&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb122-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder_within</span>(term, beta, topic), beta)) <span class="sc">+</span></span>
+<span id="cb122-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb122-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb122-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb122-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>topic, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb122-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb122-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb122-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb122-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb122-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb122-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> ,</span>
+<span id="cb122-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb122-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb122-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb122-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta)</span>
+<span id="cb122-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb122-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb122-12"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb122-12" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-133"></span>
+<img src="_main_files/figure-html/unnamed-chunk-133-1.png" alt="1998–2002-es ciklus topikok és kifejezések (Gibbs mintavétellel)" width="90%" />
+<p class="caption">
+Figure 7.8: 1998–2002-es ciklus topikok és kifejezések (Gibbs mintavétellel)
+</p>
+</div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb123-1" aria-hidden="true" tabindex="-1"></a>top_terms_gibbs <span class="sc">%&gt;%</span></span>
+<span id="cb123-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb123-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(electoral_cycle <span class="sc">==</span> <span class="st">&quot;2002-2006&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb123-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb123-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">reorder_within</span>(term, beta, topic), beta)) <span class="sc">+</span></span>
+<span id="cb123-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb123-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb123-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb123-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>topic, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb123-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb123-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb123-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb123-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb123-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb123-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb123-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb123-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta)</span>
+<span id="cb123-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb123-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb123-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb123-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>()</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-134"></span>
+<img src="_main_files/figure-html/unnamed-chunk-134-1.png" alt="2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel)" width="90%" />
+<p class="caption">
+Figure 7.9: 2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel)
+</p>
+</div>
+</div>
+</div>
+<div id="strukturális-topik-modellek" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Strukturális topik modellek</h2>
+<p>A kvantitatív szövegelemzés elterjedésével együtt megjelentek a módszertani innovációk is. <span class="citation"><a href="fuggelek.html#ref-roberts2014structural" role="doc-biblioref">Roberts et al.</a> (<a href="fuggelek.html#ref-roberts2014structural" role="doc-biblioref">2014</a>)</span> kiváló cikkben mutatták be a strukturális topic modelleket (<em>structural topic models – stm</em>), amelyek fő újítása, hogy a dokumentumok metaadatai kovariánsként<a href="#fn33" class="footnote-ref" id="fnref33"><sup>33</sup></a> tudják befolyásolni, hogy egy-egy kifejezés mekkora valószínűséggel lesz egy-egy téma része. A kovariánsok egyrészről megmagyarázhatják, hogy egy-egy dokumentum mennyire függ össze egy-egy témával (<em>topical prevalence</em>), illetve hogy egy-egy szó mennyire függ össze egy-egy témán belül (<em>topical content</em>).</p>
+<p>Az stm modell becslése során mindkét típusú kovariánst használhatjuk, illetve ha nem adunk meg dokumentum metaadatot akkor az <code>stm</code> csomag <code>stm</code> függvénye a <strong>Korrelált Topic Modell</strong>-t fogja becsülni.</p>
+<p>Az stm modelleket az R-ben az <code>stm</code> csomaggal tudjuk kivitelezni. A csomag fejlesztői között van a módszer kidolgozója is, ami nem ritka az R csomagok esetében.</p>
+<p>A lenti lépésekben a csomag dokumentációjában szereplő ajánlásokat követjük, habár a könyv írásakor a <code>stm</code> már képes volt a <code>quanteda</code>-ban létrehozott dfm-ek kezelésére is. A kiinduló adatbázisunk a <code>törvény_final</code>, amit a fejezet elején hoztunk létre a dokumentumokból és a metaadatokból. A javasolt munkafolyamat a <code>textProcessor()</code>-használatával indul, ami szintén tartalmazza az alap szöveg előkészítési lépéseket. Az egyszerűség és a futási sebesség érdekében itt most ezek többségétől eltekintünk, mivel a fejezet korábbi részeiben részletesen tárgyaltuk őket.</p>
+<p>Az előkészítés utolsó szakaszában az out objektumban tároljuk el a dokumentumokat, egyedi szavakat, illetve a metaadatokat (kovariánsokat).</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-1" aria-hidden="true" tabindex="-1"></a>data_stm <span class="ot">&lt;-</span> torveny_final</span>
+<span id="cb124-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-3" aria-hidden="true" tabindex="-1"></a>processed_stm <span class="ot">&lt;-</span> <span class="fu">textProcessor</span>(</span>
+<span id="cb124-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-4" aria-hidden="true" tabindex="-1"></a>  torveny_final<span class="sc">$</span>text,</span>
+<span id="cb124-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">metadata =</span> torveny_final,</span>
+<span id="cb124-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">lowercase =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb124-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">removestopwords =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb124-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">removenumbers =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb124-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">removepunctuation =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb124-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ucp =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb124-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">stem =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb124-12"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">language =</span> <span class="st">&quot;hungarian&quot;</span>,</span>
+<span id="cb124-13"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb124-14"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb124-15"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb124-16"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb124-16" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">prepDocuments</span>(processed_stm<span class="sc">$</span>documents, processed_stm<span class="sc">$</span>vocab, processed_stm<span class="sc">$</span>meta)</span></code></pre></div>
+<p>A strukturális topic modellünket az <code>stm</code> függvénnyel becsüljük és a kovariánsokat a <code>prevalence</code> opciónál tudjuk formulaként megadni. A lenti példában a Hungarian Comparative Agendas Project<a href="#fn34" class="footnote-ref" id="fnref34"><sup>34</sup></a> kategóriáit (pl. gazdaság, egészségügy stb.) és a kormányciklusokat használjuk. A futási idő kicsit hosszabb mint az LDA modellek esetében.</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb125-1" aria-hidden="true" tabindex="-1"></a>stm_fit <span class="ot">&lt;-</span> <span class="fu">stm</span>(</span>
+<span id="cb125-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb125-2" aria-hidden="true" tabindex="-1"></a>  out<span class="sc">$</span>documents,</span>
+<span id="cb125-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb125-3" aria-hidden="true" tabindex="-1"></a>  out<span class="sc">$</span>vocab,</span>
+<span id="cb125-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb125-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">K =</span> <span class="dv">10</span>,</span>
+<span id="cb125-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb125-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">prevalence =</span> <span class="sc">~</span> majortopic <span class="sc">+</span> electoral_cycle,</span>
+<span id="cb125-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb125-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> out<span class="sc">$</span>meta,</span>
+<span id="cb125-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb125-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">init.type =</span> <span class="st">&quot;Spectral&quot;</span>,</span>
+<span id="cb125-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb125-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">1234</span>,</span>
+<span id="cb125-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb125-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb125-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb125-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Amennyiben a kutatási kérdés megkívánja, akkor megvizsálhatjuk, hogy a kategórikus változóinknak milyen hatása volt az egyes topikok esetében. Ehhez az <code>estimateEffect()</code> függvénnyel lefuttatunk egy lineáris regressziót és a <code>summary()</code> használatával láthatjuk az egyes kovariánsok koefficienseit. Itt az első topikkal illusztráljuk az eredményt, ami azt mutatja, hogy (a kategórikus változóink első kategóriájához mérten) statisztikailag szignifikáns mind a téma, mind pedig a kormányzati ciklusok abban, hogy egyes dokumentumok milyen témákból épülnek fel.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-1" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>meta<span class="sc">$</span>electoral_cycle <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(out<span class="sc">$</span>meta<span class="sc">$</span>electoral_cycle)</span>
+<span id="cb126-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-2" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>meta<span class="sc">$</span>majortopic <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(out<span class="sc">$</span>meta<span class="sc">$</span>majortopic)</span>
+<span id="cb126-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-4" aria-hidden="true" tabindex="-1"></a>cov_estimate <span class="ot">&lt;-</span> <span class="fu">estimateEffect</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">~</span> majortopic <span class="sc">+</span> electoral_cycle, stm_fit, <span class="at">meta =</span> out<span class="sc">$</span>meta, </span>
+<span id="cb126-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">uncertainty =</span> <span class="st">&quot;Global&quot;</span>)</span>
+<span id="cb126-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb126-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cov_estimate, <span class="at">topics =</span> <span class="dv">1</span>)</span>
+<span id="cb126-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb126-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb126-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimateEffect(formula = 1:10 ~ majortopic + electoral_cycle, </span></span>
+<span id="cb126-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     stmobj = stm_fit, metadata = out$meta, uncertainty = &quot;Global&quot;)</span></span>
+<span id="cb126-12"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb126-13"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb126-14"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1:</span></span>
+<span id="cb126-15"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb126-16"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb126-17"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                          Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb126-18"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)               0.30415    0.03037  10.016  &lt; 2e-16 ***</span></span>
+<span id="cb126-19"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic2              -0.21244    0.06279  -3.383 0.000744 ***</span></span>
+<span id="cb126-20"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic3              -0.21468    0.05982  -3.589 0.000348 ***</span></span>
+<span id="cb126-21"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic4              -0.22654    0.05695  -3.978 7.45e-05 ***</span></span>
+<span id="cb126-22"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic5               0.10095    0.04808   2.100 0.035996 *  </span></span>
+<span id="cb126-23"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic6              -0.22807    0.05747  -3.968 7.75e-05 ***</span></span>
+<span id="cb126-24"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic7              -0.16730    0.06390  -2.618 0.008972 ** </span></span>
+<span id="cb126-25"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic8              -0.21106    0.07374  -2.862 0.004295 ** </span></span>
+<span id="cb126-26"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic9               0.48594    0.09943   4.887 1.19e-06 ***</span></span>
+<span id="cb126-27"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic10             -0.11776    0.05220  -2.256 0.024292 *  </span></span>
+<span id="cb126-28"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic12             -0.17952    0.04137  -4.339 1.57e-05 ***</span></span>
+<span id="cb126-29"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic13             -0.13749    0.05578  -2.465 0.013867 *  </span></span>
+<span id="cb126-30"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic14             -0.21884    0.07493  -2.921 0.003571 ** </span></span>
+<span id="cb126-31"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic15             -0.14868    0.04301  -3.457 0.000568 ***</span></span>
+<span id="cb126-32"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic16             -0.10434    0.05516  -1.892 0.058829 .  </span></span>
+<span id="cb126-33"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic17             -0.22342    0.05843  -3.824 0.000139 ***</span></span>
+<span id="cb126-34"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic18              0.22371    0.05670   3.945 8.52e-05 ***</span></span>
+<span id="cb126-35"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic19              0.05846    0.05144   1.136 0.256031    </span></span>
+<span id="cb126-36"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic20             -0.21748    0.03986  -5.456 6.14e-08 ***</span></span>
+<span id="cb126-37"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic21             -0.22344    0.06910  -3.233 0.001263 ** </span></span>
+<span id="cb126-38"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic23             -0.17838    0.09359  -1.906 0.056934 .  </span></span>
+<span id="cb126-39"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; electoral_cycle2002-2006 -0.09963    0.01887  -5.279 1.59e-07 ***</span></span>
+<span id="cb126-40"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb126-41"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb126-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+<p>Az LDA modelleknél már bemutatott munkafolyamat az stm modellünk esetében is alkalmazható, hogy vizuálisan is megjelenítsük az eredményeinket. A <code>tidy()</code> data frammé alakítja az stm objektumot, amit aztán a már ismerős <code>dplyr</code> csomagban lévő függvényekkel tudunk átalakítani és végül vizualizálni a <code>ggplot2</code> csomaggal. A lenti ábrán az egyes témákhoz tartozó 5 legvalószínűbb szót mutatjuk be.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb127-1" aria-hidden="true" tabindex="-1"></a>tidy_stm <span class="ot">&lt;-</span> <span class="fu">tidy</span>(stm_fit)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-1" aria-hidden="true" tabindex="-1"></a>tidy_stm <span class="sc">%&gt;%</span></span>
+<span id="cb128-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic) <span class="sc">%&gt;%</span></span>
+<span id="cb128-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">5</span>, beta) <span class="sc">%&gt;%</span></span>
+<span id="cb128-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb128-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb128-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">topic =</span> <span class="fu">paste0</span>(<span class="st">&quot;Topic &quot;</span>, topic),</span>
+<span id="cb128-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">term =</span> <span class="fu">reorder_within</span>(term, beta, topic)</span>
+<span id="cb128-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb128-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(term, beta)) <span class="sc">+</span></span>
+<span id="cb128-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb128-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>topic, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>, <span class="at">ncol =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb128-12"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb128-13"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
+<span id="cb128-14"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb128-15"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb128-16"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta)</span>
+<span id="cb128-17"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb128-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-139"></span>
+<img src="_main_files/figure-html/unnamed-chunk-139-1.png" alt="Topikonkénti legmagasabb valószínuségu szavak" width="90%" />
+<p class="caption">
+Figure 7.10: Topikonkénti legmagasabb valószínuségu szavak
+</p>
+</div>
+<p>Egy-egy topichoz tartozó meghatározó szavak annak függvényében változhatnak hogy milyen algoritmust használunk. A <code>labelTopics()</code> a már becsült stm modellünket alapul véve kínál négyféle alternatív opciót. Az egyes algoritmusok részletes magyarázatáért érdemes elolvasni a csomag részletes leírását.<a href="#fn35" class="footnote-ref" id="fnref35"><sup>35</sup></a></p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">labelTopics</span>(stm_fit, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>))</span>
+<span id="cb129-2"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1 Top Words:</span></span>
+<span id="cb129-3"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Highest Prob: szerzodo, vagi, egyezméni, fél, államban, nem, másik </span></span>
+<span id="cb129-4"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb129-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       FREX: megadóztatható, haszonhúzója, beruházóinak, segélycsapatok, adóztatást, jövedelemadók, kijelölések </span></span>
+<span id="cb129-5"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb129-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Lift: árucikkeket, átalányösszegben, átléphetik, átszállítást, beruházóikat, célországban, cikktanulók </span></span>
+<span id="cb129-6"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb129-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Score: szerzodo, államban, illetoségu, egyezméni, megadóztatható, adóztatható, cikka </span></span>
+<span id="cb129-7"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb129-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 2 Top Words:</span></span>
+<span id="cb129-8"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb129-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Highest Prob: muködési, célú, támogatások, költségvetésegyéb, felhalmozási, terhelo, beruházási </span></span>
+<span id="cb129-9"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb129-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       FREX: kiadásokfelújításegyéb, kiadásokintézményi, kiadásokközponti, költségvetésfelhalmozási, kiadásokkormányzati, felújításegyéb, rek </span></span>
+<span id="cb129-10"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb129-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Lift: a+b+c, a+b+c+d, adago, adódóa, adósságállományából, adósságrendezésr, adótartozásának </span></span>
+<span id="cb129-11"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb129-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Score: költségvetésegyéb, költségvetésszemélyi, kiadásokfelhalmozási, járulékokdolog, költségvetésintézményi, kiadásokegyéb, juttatásokmunkaadókat</span></span></code></pre></div>
+<p>A korpuszunkon belüli témák megoszlását a <code>plot.STM()</code>-el tudjuk ábrázolni. Jól látszik hogy a Topic 6-ba tartozó szavak vannak jelen a legnagyobb arányban a dokumentumaink között.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.STM</span>(stm_fit, <span class="st">&quot;summary&quot;</span>, <span class="at">main =</span> <span class="st">&quot;&quot;</span>, <span class="at">labeltype =</span> <span class="st">&quot;frex&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Várható topic arányok&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-141"></span>
+<img src="_main_files/figure-html/unnamed-chunk-141-1.png" alt="Leggyakoribb témák és kifejezések" width="90%" />
+<p class="caption">
+Figure 7.11: Leggyakoribb témák és kifejezések
+</p>
+</div>
+<p>Végezetül a témák közötti korrelációt a <code>topicCorr</code> függvénnyel becsülhetjük és az <code>igraph</code> csomagot betöltve a <code>plot()</code> paranccsal tudjuk vizualizálni. Az eredmény egy hálózat lesz, amit gráfként ábrázolunk. A gráfok élei a témák közötti összefüggést (korrelációt) jelölik.</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">topicCorr</span>(stm_fit))</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-142"></span>
+<img src="_main_files/figure-html/unnamed-chunk-142-1.png" alt="Témák közötti korreláció hálózat" width="90%" />
+<p class="caption">
+Figure 7.12: Témák közötti korreláció hálózat
+</p>
+</div>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="28">
+<li id="fn28"><p>A kód részben az alábbiakon alapul: tidytextmining.com/topicmodeling.html. Az általunk is használt <code>topicmodels</code> csomag interfészt biztosít az LDA modellek és a korrelált témamodellek (CTM) C kódjához, valamint az LDA modellek illesztéséhez szükséges C ++ kódhoz.<a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#fnref28" class="footnote-back">↩︎</a></p></li>
+<li id="fn29"><p>A teljes törvényeket és a metaadatokat tartalmazó adatbázisokat a <a href="https://cap.tk.hu/" class="uri">https://cap.tk.hu/</a> honlapról lehet letölteni.<a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#fnref29" class="footnote-back">↩︎</a></p></li>
+<li id="fn30"><p><a href="http://brooksandrew.github.io/simpleblog/articles/latent-dirichlet-allocation-under-the-hood/">Latent Dirichlet Allocation - under the hood</a><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#fnref30" class="footnote-back">↩︎</a></p></li>
+<li id="fn31"><p>A <code>ldatuning</code> R csomagban további indikátor implementációja található, ami a perplexityhez hasonlóan minimalizásra alapoz <span class="citation">(<a href="fuggelek.html#ref-arun2010finding" role="doc-biblioref">Arun et al. 2010</a>; <a href="fuggelek.html#ref-cao2009density" role="doc-biblioref">Cao et al. 2009</a>)</span>, illetve maximalizálásra <span class="citation">(<a href="fuggelek.html#ref-deveaud2014accurate" role="doc-biblioref">Deveaud, SanJuan, and Bellot 2014</a>; <a href="fuggelek.html#ref-griffithsFindingScientificTopics2004" role="doc-biblioref">Griffiths and Steyvers 2004</a>)</span>.<a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#fnref31" class="footnote-back">↩︎</a></p></li>
+<li id="fn32"><p>A tidy formátumról bővebben: <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html" class="uri">https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html</a><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#fnref32" class="footnote-back">↩︎</a></p></li>
+<li id="fn33"><p>A kovariancia megadja két egymástól különböző változó együttmozgását. Kis értékei gyenge, nagy értékei erős lineáris összefüggésre utalnak.<a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#fnref33" class="footnote-back">↩︎</a></p></li>
+<li id="fn34"><p><a href="https://cap.tk.hu/hu">Comparative Agendas Project</a>.<a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#fnref34" class="footnote-back">↩︎</a></p></li>
+<li id="fn35"><p>Az <code>stm</code> csomaghoz tartozó leírás: <a href="https://cran.r-project.org/web/packages/stm/vignettes/stmVignette.pdf" class="uri">https://cran.r-project.org/web/packages/stm/vignettes/stmVignette.pdf</a><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#fnref35" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="sentiment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="embedding.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

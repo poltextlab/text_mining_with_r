@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>11 Természetes-nyelv feldolgozás (NLP) és névelemfelismerés (NER) | Szövegbányászat és mesterséges intelligencia R-ben</title>
+  <meta name="description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="11 Természetes-nyelv feldolgozás (NLP) és névelemfelismerés (NER) | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="11 Természetes-nyelv feldolgozás (NLP) és névelemfelismerés (NER) | Szövegbányászat és mesterséges intelligencia R-ben" />
+  
+  <meta name="twitter:description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
+  
+
+<meta name="author" content="Sebők Miklós, Ring Orsolya, Máté Ákos" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="szövegösszehasonlítás.html"/>
+<link rel="next" href="osztályozás-és-felügyelt-tanulás.html"/>
+<script src="libs/header-attrs-2.7.10/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
+<script src="libs/str_view-binding-1.4.0/str_view.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Üdvözöljük!</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Bevezetés</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#a-kötet-céljai-és-főbb-témái"><i class="fa fa-check"></i><b>1.1</b> A kötet céljai és főbb témái</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#a-kötet-témái-és-alkalmazási-lehetőségei"><i class="fa fa-check"></i><b>1.2</b> A kötet témái és alkalmazási lehetőségei</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#használati-utasítás"><i class="fa fa-check"></i><b>1.3</b> Használati utasítás</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="intro.html"><a href="intro.html#hunminer-telepítése-és-használata"><i class="fa fa-check"></i><b>1.3.1</b> HunMineR telepítése és használata</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#köszönetnyilvánítás"><i class="fa fa-check"></i><b>1.4</b> Köszönetnyilvánítás</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="alapfogalmak.html"><a href="alapfogalmak.html"><i class="fa fa-check"></i><b>2</b> Alapfogalmak</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="alapfogalmak.html"><a href="alapfogalmak.html#elméleti-alapok"><i class="fa fa-check"></i><b>2.1</b> Elméleti alapok</a></li>
+<li class="chapter" data-level="2.2" data-path="alapfogalmak.html"><a href="alapfogalmak.html#fogalmi-alapok"><i class="fa fa-check"></i><b>2.2</b> Fogalmi alapok</a></li>
+<li class="chapter" data-level="2.3" data-path="alapfogalmak.html"><a href="alapfogalmak.html#a-szövegbányászat-alapelvei"><i class="fa fa-check"></i><b>2.3</b> A szövegbányászat alapelvei</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="adatkezeles.html"><a href="adatkezeles.html"><i class="fa fa-check"></i><b>3</b> Az adatkezelés R-ben</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="adatkezeles.html"><a href="adatkezeles.html#adatok-importálása-és-exportálása"><i class="fa fa-check"></i><b>3.1</b> Adatok importálása és exportálása</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="adatkezeles.html"><a href="adatkezeles.html#szöveges-dokumentumok-importálása"><i class="fa fa-check"></i><b>3.1.1</b> Szöveges dokumentumok importálása</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="adatkezeles.html"><a href="adatkezeles.html#adatok-exportálása"><i class="fa fa-check"></i><b>3.2</b> Adatok exportálása</a></li>
+<li class="chapter" data-level="3.3" data-path="adatkezeles.html"><a href="adatkezeles.html#a-pipe-operátor"><i class="fa fa-check"></i><b>3.3</b> A pipe operátor</a></li>
+<li class="chapter" data-level="3.4" data-path="adatkezeles.html"><a href="adatkezeles.html#műveletek-adattáblákkal-data-frame-ekkel"><i class="fa fa-check"></i><b>3.4</b> Műveletek adattáblákkal (<em>data frame-ekkel</em>)</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="adatkezeles.html"><a href="adatkezeles.html#megfigyelések-szűrése-filter"><i class="fa fa-check"></i><b>3.4.1</b> Megfigyelések szűrése: <code>filter()</code></a></li>
+<li class="chapter" data-level="3.4.2" data-path="adatkezeles.html"><a href="adatkezeles.html#változók-kiválogatása-select"><i class="fa fa-check"></i><b>3.4.2</b> Változók kiválogatása: <code>select()</code></a></li>
+<li class="chapter" data-level="3.4.3" data-path="adatkezeles.html"><a href="adatkezeles.html#új-változók-létrehozása-mutate"><i class="fa fa-check"></i><b>3.4.3</b> Új változók létrehozása: <code>mutate()</code></a></li>
+<li class="chapter" data-level="3.4.4" data-path="adatkezeles.html"><a href="adatkezeles.html#csoportonkénti-statisztikák-group_by-és-summarize"><i class="fa fa-check"></i><b>3.4.4</b> Csoportonkénti statisztikák: <code>group_by()</code> és <code>summarize()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="adatkezeles.html"><a href="adatkezeles.html#munka-karakter-vektorokkal4"><i class="fa fa-check"></i><b>3.5</b> Munka karakter vektorokkal</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html"><i class="fa fa-check"></i><b>4</b> Korpuszépítés és szövegelőkészítés</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#szövegbeszerzés"><i class="fa fa-check"></i><b>4.1</b> Szövegbeszerzés</a></li>
+<li class="chapter" data-level="4.2" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#szövegelőkészítés"><i class="fa fa-check"></i><b>4.2</b> Szövegelőkészítés</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#műveletek-karakterláncokkal-stringekkel"><i class="fa fa-check"></i><b>4.2.1</b> Műveletek karakterláncokkal (<em>stringekkel</em>)</a></li>
+<li class="chapter" data-level="4.2.2" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#tokenizálás-szótövezés-kisbetűsítés-és-a-tiltólistás-szavak-eltávolítása"><i class="fa fa-check"></i><b>4.2.2</b> Tokenizálás, szótövezés, kisbetűsítés és a tiltólistás szavak eltávolítása</a></li>
+<li class="chapter" data-level="4.2.3" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#dokumentum-kifejezés-mátrix-dtm"><i class="fa fa-check"></i><b>4.2.3</b> Dokumentum kifejezés mátrix (DTM)</a></li>
+<li class="chapter" data-level="4.2.4" data-path="korpuszépítés-és-szövegel-készítés.html"><a href="korpuszépítés-és-szövegel-készítés.html#súlyozás"><i class="fa fa-check"></i><b>4.2.4</b> Súlyozás</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="leiro-stat.html"><a href="leiro-stat.html"><i class="fa fa-check"></i><b>5</b> Információ-visszakeresés és információkinyerés, leíró statisztika</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="leiro-stat.html"><a href="leiro-stat.html#a-szövegek-reprezentálása-a-vektortérben-szózsák-modell"><i class="fa fa-check"></i><b>5.1</b> A szövegek reprezentálása a vektortérben – szózsák modell</a></li>
+<li class="chapter" data-level="5.2" data-path="leiro-stat.html"><a href="leiro-stat.html#leíró-statisztika"><i class="fa fa-check"></i><b>5.2</b> Leíró statisztika</a></li>
+<li class="chapter" data-level="5.3" data-path="leiro-stat.html"><a href="leiro-stat.html#a-szövegek-lexikai-diverzitása"><i class="fa fa-check"></i><b>5.3</b> A szövegek lexikai diverzitása</a></li>
+<li class="chapter" data-level="5.4" data-path="leiro-stat.html"><a href="leiro-stat.html#összehasonlítás5"><i class="fa fa-check"></i><b>5.4</b> Összehasonlítás</a></li>
+<li class="chapter" data-level="5.5" data-path="leiro-stat.html"><a href="leiro-stat.html#kifejezések-kontextusba-helyezése"><i class="fa fa-check"></i><b>5.5</b> Kifejezések kontextusba helyezése</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="sentiment.html"><a href="sentiment.html"><i class="fa fa-check"></i><b>6</b> Szótáralapú elemzések, érzelem-elemzés</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="sentiment.html"><a href="sentiment.html#szótárak-az-r-ben"><i class="fa fa-check"></i><b>6.1</b> Szótárak az R-ben</a></li>
+<li class="chapter" data-level="6.2" data-path="sentiment.html"><a href="sentiment.html#magyar-nemzet-cikkek-elemzése"><i class="fa fa-check"></i><b>6.2</b> <em>Magyar Nemzet</em> cikkek elemzése</a></li>
+<li class="chapter" data-level="6.3" data-path="sentiment.html"><a href="sentiment.html#mnb-sajtóközlemények"><i class="fa fa-check"></i><b>6.3</b> MNB sajtóközlemények</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><i class="fa fa-check"></i><b>7</b> Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken {lda_ch}</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#k-közép-klaszterezés-kvalitatív-adatokkal"><i class="fa fa-check"></i><b>7.1</b> K közép klaszterezés kvalitatív adatokkal</a></li>
+<li class="chapter" data-level="7.2" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#látens-dirichlet-allokáció-topik-modelleklda-1"><i class="fa fa-check"></i><b>7.2</b> Látens Dirichlet Allokáció topik modellek</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#a-vem-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>7.2.1</b> A „VEM" módszer alkalmazása a magyar törvények korpuszán</a></li>
+<li class="chapter" data-level="7.2.2" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#az-lda-gibbs-módszer-alkalmazása-a-magyar-törvények-korpuszán"><i class="fa fa-check"></i><b>7.2.2</b> Az „LDA Gibbs" módszer alkalmazása a magyar törvények korpuszán</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html"><a href="felügyelet-nélküli-tanulás-topik-modellezés-magyar-törvényszövegeken-lda-ch.html#strukturális-topik-modellek"><i class="fa fa-check"></i><b>7.3</b> Strukturális topik modellek</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="embedding.html"><a href="embedding.html"><i class="fa fa-check"></i><b>8</b> Szóbeágyazások</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="embedding.html"><a href="embedding.html#word2vec-glove-és-fasttext"><i class="fa fa-check"></i><b>8.1</b> Word2Vec, GloVe és fastText</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="embedding.html"><a href="embedding.html#glove-használata-magyar-média-korpuszon"><i class="fa fa-check"></i><b>8.1.1</b> GloVe használata magyar média korpuszon</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="scaling.html"><a href="scaling.html"><i class="fa fa-check"></i><b>9</b> Szövegskálázás: felügyelet nélküli és felügyelt megoldások</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="scaling.html"><a href="scaling.html#wordfish"><i class="fa fa-check"></i><b>9.1</b> Wordfish</a></li>
+<li class="chapter" data-level="9.2" data-path="scaling.html"><a href="scaling.html#wordscores"><i class="fa fa-check"></i><b>9.2</b> Wordscores</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html"><i class="fa fa-check"></i><b>10</b> Szövegösszehasonlítás</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#lexikális-hasonlóság"><i class="fa fa-check"></i><b>10.1</b> Lexikális hasonlóság</a></li>
+<li class="chapter" data-level="10.2" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#szemantikai-hasonlóság"><i class="fa fa-check"></i><b>10.2</b> Szemantikai hasonlóság</a></li>
+<li class="chapter" data-level="10.3" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#hasonlóság-számítás-a-gyakorlatban"><i class="fa fa-check"></i><b>10.3</b> Hasonlóság számítás a gyakorlatban</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#adatbázis-importálás-és-előkészítés"><i class="fa fa-check"></i><b>10.3.1</b> Adatbázis importálás és előkészítés</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#szövegtisztítás"><i class="fa fa-check"></i><b>10.4</b> Szövegtisztítás</a></li>
+<li class="chapter" data-level="10.5" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#jaccard-hasonlóság-számítás"><i class="fa fa-check"></i><b>10.5</b> Jaccard hasonlóság számítás</a></li>
+<li class="chapter" data-level="10.6" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#koszinusz-hasonlóság-számítás"><i class="fa fa-check"></i><b>10.6</b> Koszinusz hasonlóság számítás</a></li>
+<li class="chapter" data-level="10.7" data-path="szövegösszehasonlítás.html"><a href="szövegösszehasonlítás.html#az-eredmények-vizualizációja"><i class="fa fa-check"></i><b>10.7</b> Az eredmények vizualizációja</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="nlp-ch.html"><a href="nlp-ch.html"><i class="fa fa-check"></i><b>11</b> Természetes-nyelv feldolgozás (NLP) és névelemfelismerés (NER)</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="nlp-ch.html"><a href="nlp-ch.html#a-magyarlanc-nyelvi-elemző-használata"><i class="fa fa-check"></i><b>11.1</b> A <code>magyarlanc</code> nyelvi elemző használata</a></li>
+<li class="chapter" data-level="11.2" data-path="nlp-ch.html"><a href="nlp-ch.html#a-szeged-ner-elemző-használata"><i class="fa fa-check"></i><b>11.2</b> A <code>szeged ner</code> elemző használata</a></li>
+<li class="chapter" data-level="11.3" data-path="nlp-ch.html"><a href="nlp-ch.html#angol-nyelvű-szövegek-névelemfelismerése"><i class="fa fa-check"></i><b>11.3</b> Angol nyelvű szövegek névelemfelismerése</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html"><i class="fa fa-check"></i><b>12</b> Osztályozás és felügyelt tanulás</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html#fogalmi-alapok-1"><i class="fa fa-check"></i><b>12.1</b> 12.1. Fogalmi alapok</a></li>
+<li class="chapter" data-level="12.2" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html#osztályozás-felügyelt-tanulással"><i class="fa fa-check"></i><b>12.2</b> 12.2. Osztályozás felügyelt tanulással</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="fuggelek.html"><a href="fuggelek.html"><i class="fa fa-check"></i><b>13</b> Függelék</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="fuggelek.html"><a href="fuggelek.html#az-r-és-az-rstudio-használata"><i class="fa fa-check"></i><b>13.1</b> Az R és az RStudio használata</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="fuggelek.html"><a href="fuggelek.html#az-rstudio-kezdőfelülete"><i class="fa fa-check"></i><b>13.1.1</b> Az RStudio kezdőfelülete</a></li>
+<li class="chapter" data-level="13.1.2" data-path="fuggelek.html"><a href="fuggelek.html#projektmunka"><i class="fa fa-check"></i><b>13.1.2</b> Projekt alapú munka</a></li>
+<li class="chapter" data-level="13.1.3" data-path="fuggelek.html"><a href="fuggelek.html#scriptek-szerkesztése-függvények-használata"><i class="fa fa-check"></i><b>13.1.3</b> Scriptek szerkesztése, függvények használata</a></li>
+<li class="chapter" data-level="13.1.4" data-path="fuggelek.html"><a href="fuggelek.html#packages"><i class="fa fa-check"></i><b>13.1.4</b> R csomagok</a></li>
+<li class="chapter" data-level="13.1.5" data-path="fuggelek.html"><a href="fuggelek.html#objektumok-tárolása-értékadás"><i class="fa fa-check"></i><b>13.1.5</b> Objektumok tárolása, értékadás</a></li>
+<li class="chapter" data-level="13.1.6" data-path="fuggelek.html"><a href="fuggelek.html#vektorok"><i class="fa fa-check"></i><b>13.1.6</b> Vektorok</a></li>
+<li class="chapter" data-level="13.1.7" data-path="fuggelek.html"><a href="fuggelek.html#faktorok"><i class="fa fa-check"></i><b>13.1.7</b> Faktorok</a></li>
+<li class="chapter" data-level="13.1.8" data-path="fuggelek.html"><a href="fuggelek.html#data-frame"><i class="fa fa-check"></i><b>13.1.8</b> Az adattáblák</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="fuggelek.html"><a href="fuggelek.html#vizualizáció"><i class="fa fa-check"></i><b>13.2</b> Vizualizáció</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Szövegbányászat és mesterséges intelligencia R-ben</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="nlp_ch" class="section level1" number="11">
+<h1><span class="header-section-number">11</span> Természetes-nyelv feldolgozás (NLP) és névelemfelismerés (NER)</h1>
+<p>A természetes-nyelv feldolgozása (<em>Natural Language Processing - NLP</em>) a nyelvészet és a mesterséges intelligencia közös területe, amely a számítógépes módszerek segítségével elemzi az emberek által használt (természetes) nyelveket. Azaz képes feldolgozni különböző szöveges dokumentumok tartalmát, kinyerni a bennük található információkat, kategorizálni és rendszerezni azokat. Angol nyelvű szövegek NLP elemzésére több R csomag is rendelkezésünre áll, ezek közül kettőt mutatunk be röviden. Mivel magyar nyelvű szövegek NLP elemzésére ezek a csomagok jelenleg nem alkalmasak, azt mutatjuk be, hogyan végezhetjük el a magyar nyelvű szövegek mondatra és szavakra bontását, szófaji egyértelműsítését, morfológiai és szintaktikai elemzését az R program használata nélkül és azután a kapott fájlokkal hogyan végezhetünk az R program segítségével további elemzéseket.<a href="#fn42" class="footnote-ref" id="fnref42"><sup>42</sup></a></p>
+<p>A fejezeben részletesen foglalkozunk a névelem-felismeréssel (<em>Named Entity Recognition, NER</em>). Névelemnek azokat a tokensorozatokat nevezzük, amelyek valamely entitást egyedi módon jelölnek. A névelem-felismerés az infomációkinyerés részterülete, melynek lényege, hogy automatikusan felismerjük a struktúrálátlan szövegben szereplő tulajdonneveket, majd azokat kigyűjtsük, és típusonként (pl. személynév, földrajzi név, márkanév, stb.) csoportosítsuk. Bár a tulajdonnevek mellett névelemnek tekinthetők még például a telefonszámok vagy az e-mail címek is, a névelem-felismerés leginkább mégis a tulajdonnevek felismerésére irányul. A névelem-felismerés a számítógépes nyelvészetben a korai 1990-es évektől kezdve fontos feladatnak és megoldandó problémának számít.A névelem-felismerés többféle módon is megoldható, így péládul felügyelt tanulással, szótár alapú módszerekkel vagy kollokációk elemzésével. A névelem-felismerés körében két alapvető módszer alkalmazására van lehetőség. A szabályalapú módszer alkalmazása során előre megadott adatok alapján kerül kinyerésre az információ (ilyen szabály például a mondatközi nagybetű mint a tulajdonnév kezdete). A másik módszer a statisztikai tanulás, amikor a gép alkot szabályokat a kutató előzetes mintakódolása alapján. A névelemfelismerés során nehézséget okozhat a különböző névelemosztályok közötti gyakori átfedés, így például ha egy adott szó településnév és vezetéknév is lehet. A magyar nyelvű szövegekben a tulajdonnevek automatikus annotációjára jelenleg három módon van lehetőség: tulajdonnév-felismerő algoritmussal, szófaji címke szintjén történő megkülönböztetéssel, valamint szintaktikai szintű címkézéssel. Utóbbi kettőre példa a fejezetben is bemutatásra kerülő <code>magyarlanc</code> elemző, ami szófaji szinten megkülönbözteti a tulajdonneveket, a szintaxis szintjén pedig jelöli a többtagúakat.<span class="citation">(<a href="fuggelek.html#ref-zsibritaMagyarlancToolMorphological2013" role="doc-biblioref">Zsibrita, Vincze, and Farkas 2013</a>)</span> A tulajdonnév-felismerő algoritmusok megkeresik az adott szövegben a tulajdonneveket, majd azokat valamilyen kategóriába sorolják, ilyen magyar nyelvű algoritmus a <code>a szeged ner</code>, melynek alkalmazását szintén bemutatjuk.<span class="citation">(<a href="fuggelek.html#ref-szarvasMultilingualNamedEntity2006" role="doc-biblioref">Szarvas, Farkas, and Kocsor 2006</a>)</span> Fontos különbséget tenni a névelem-felismerés és a tulajdonnév-felismerés között. A névelem-felismerésbe beletartozik minden olyan kifejezés amely a világ valamely entitására egyedi módon (unikálisan) referál. Ezzel szemben a tulajdonnév-felismerés, kizárólag a tulajdonnevekre koncentrál.<span class="citation">(<a href="fuggelek.html#ref-uvegesNamedEntityRecognition2019" role="doc-biblioref">Üveges 2019</a>; <a href="fuggelek.html#ref-vinczeBeszedesNyelvelemzoSzoftverek2019" role="doc-biblioref">Vincze 2019</a>)</span></p>
+<p>A <code>magyarlanc</code>nyelvi előfeldolgozó eszköz a Szegedi Tudományegyetem fejlesztése,<span class="citation">(<a href="fuggelek.html#ref-zsibritaMagyarlancToolMorphological2013" role="doc-biblioref">Zsibrita, Vincze, and Farkas 2013</a>)</span> ami magyar nyelvű <code>txt</code> formátumú fájlokat feldolgozva képes egy szöveg mondatokra és szavakra bontására, a szavak morfológiai elemzésére, szófaji egyértelműsítésére, emellett kétféle szintaktikai elemzést is képes hozzárendelni a mondatokhoz.<a href="#fn43" class="footnote-ref" id="fnref43"><sup>43</sup></a></p>
+<p>A magyarlanchoz hasonlóan az UDPipe nevű elemző szintén képes magyar nyelvű nyers szövegek mondatra és szavakra bontására és szófaji elemzésére, azaz POS-taggelésére (<em>Part of Speech-tagging</em>) továbbá a mondatok függőségi elemzésére. Ez az elemző a nemzetközileg elismert Universal Dependencies annotációs sémán alapul. <span class="citation">(<a href="fuggelek.html#ref-strakaTokenizingPosTagging2017" role="doc-biblioref">Straka and Straková 2017</a>)</span> A két nyelvi elemző hasonló funkcionalitásokkal rendelkezik, ugyanakkor az UDPipe technikailag könnyebben kezelhető, azonban kevésbé pontos elemzési eredményt ad, mivel jóval kisebb tanító anyagon lett betanítva mint a <code>magyarlanc</code>.<a href="#fn44" class="footnote-ref" id="fnref44"><sup>44</sup></a></p>
+<p>Az alábbiakban a <code>magyarlanc</code> és a <code>szeged ner</code> működését és az általuk létrehozott fájlokkal R-ben végezhető elemzésekre mutatunk példákat.</p>
+<div id="a-magyarlanc-nyelvi-elemző-használata" class="section level2" number="11.1">
+<h2><span class="header-section-number">11.1</span> A <code>magyarlanc</code> nyelvi elemző használata</h2>
+<p>Az elemző használatának részletes leírás megtalálható a már jelzett honlapon, itt most csak vázlatosan ismeretjük. Fontos kiemelni, hogy a <code>magyarlanc</code> JAVA modulokból áll, így használatához szükséges, hogy a számítógépen megfelelő JAVA környezet legyen telepítve. Először fenti oldalról le kell töltenünk a <code>magyarlanc-3.0.jar</code> fájlt, majd bemásolni azt abba a mappába, ahol az elemezni kívánt <code>txt</code> található. A parancssort Windows operációs rendszer alatt a számítógép kereső mezőjébe a <code>cmd</code> parancs beírásával tudjuk megnyitni. Ezután a parancsorban belépve abba a könyvtárba, ahol az elemezni kíván txt és a <code>magyarlanc-3.0.jar</code> elemző van, az alábbi parancs segítségével végezhetjük el az elemzést: <code>java -Xmx1G -jar magyarlanc-3.0.jar -mode morphparse -input in.txt -output out.txt</code>. Ahol az <code>in.txt</code> helyébe az elemezni kívánt <code>txt</code> nevét, az <code>out.txt</code> helyébe, pedig az elemzés eredményeként létrejövő fájl nevét kell megadni.</p>
+<p>Példánkban az Országgyűlésben 2014 és 2018 között elhangzott véletlenszerűen kiválasztott 25 napirend előtti felszólalás korpuszán szemléltetjük az elemző működését.<a href="#fn45" class="footnote-ref" id="fnref45"><sup>45</sup></a> A 25 fájlt elemezhetjük egyesével, de ha ez a későbbi elemzéshez nem szükséges, a parancsorban a <code>copy *.txt eredmeny.txt</code> paranccsal egyesíthetjük azokat egy fájlba. Majd ezen az eredmeny.txt-n végezzük el az elemzést az alábbi paranccsal: <code>java -Xmx1G -jar magyarlanc-3.0.jar -mode morphparse -input eredmeny.txt -output eredmeny_out.txt</code></p>
+<p>Az elemzés eredményéül kapott <code>txt</code> fájlban láthatjuk, hogy az elemző elvégezte a szövegek mondatokrabontását, tokenizálását, lemmatizálását és POS-taggelését, azaz meghatározta a szavak szófaját.</p>
+<p><img src="figures/11-01_magyarlanc_kimenet.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Ezt követően célszerű a <code>txt</code> fájlt excelbe beolvasva oszlopokra tagolni, az oszlopokat fejléccel ellátni, majd <code>csv</code> fájlként elmenteni.</p>
+<p><img src="figures/11-02_napirend_elotti_magyarlanc.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Az így létrehozott <code>csv</code> fájllal megyegyező data frame-t be tudjuk tölteni a <code>HunMineR</code> segítségével.</p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="nlp-ch.html#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb199-2"><a href="nlp-ch.html#cb199-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span> (dplyr)</span>
+<span id="cb199-3"><a href="nlp-ch.html#cb199-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="nlp-ch.html#cb200-1" aria-hidden="true" tabindex="-1"></a>napirend_elotti <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&quot;data/napirend_elotti_magyarlanc.csv&quot;</span>, <span class="at">delim =</span> <span class="st">&quot;;&quot;</span>)</span></code></pre></div>
+<p>Az így létrehozott data frame objektummal, mely esetünkben 17870 megfigyeést és 4 változót tartalmaz, ezután különböző műveleteket végezhetünk, a korábban már bemutatottak szerint, például <code>dplyr</code> csomag <code>filter</code> függvénye segítségével kiválgathatjuk az igéket, és elmenthetjük azokat egy újabb 1769 megfigyelést és 4 váltiozót tartalmazó objektumba.</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="nlp-ch.html#cb201-1" aria-hidden="true" tabindex="-1"></a>verb_napirend_elotti <span class="ot">&lt;-</span> napirend_elotti <span class="sc">%&gt;%</span></span>
+<span id="cb201-2"><a href="nlp-ch.html#cb201-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(POS_tag <span class="sc">==</span> <span class="st">&quot;VERB&quot;</span>)</span></code></pre></div>
+</div>
+<div id="a-szeged-ner-elemző-használata" class="section level2" number="11.2">
+<h2><span class="header-section-number">11.2</span> A <code>szeged ner</code> elemző használata</h2>
+<p>A <code>magyarlanc</code> nyelvi elemzőhöz hasonlóan használhatjuk a <code>szeged ner</code> elemzőt is, melynek részletes leírása és maga a <code>ner.jar</code> elemző is megtalálható az alábbi oldalon <a href="https://rgai.inf.u-szeged.hu/node/109" class="uri">https://rgai.inf.u-szeged.hu/node/109</a>. Az elemző a fent bemutatott módon szintén parancssorból indítható az alábbi parancs használatával: <code>java -Xmx3G -jar ner.jar -mode predicate -input input.txt -output output.txt</code> Az elemző PER (személynév), LOC (hely(szín)), ORG (szervezet) és MISC (vegyes) címkét ad az egyes névelemeknek.</p>
+<p><img src="figures/11-03_ner.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>A fentiekhez hasonlóan ezt a txt-t is átalakíthatjuk táblázattá, majd ezt a <code>csv</code> fájlt beolvashatjuk (a <code>HunMineR</code> csomag szintén tartalmazza ezt a data frame-t).</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="nlp-ch.html#cb202-1" aria-hidden="true" tabindex="-1"></a>napirend_elotti_ner <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">&quot;data/ner.csv&quot;</span>, <span class="at">delim =</span> <span class="st">&quot;;&quot;</span>)</span></code></pre></div>
+<p>Ezután tetszőlegesen kiválogathatjuk például a helyek neveit. A filterezés eredményeként láthatjuk, hogy az elemző korpuszunkban 175 szót azonosított és címkézett fel helynévként.</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="nlp-ch.html#cb203-1" aria-hidden="true" tabindex="-1"></a>loc_napirend_elotti <span class="ot">&lt;-</span> napirend_elotti_ner <span class="sc">%&gt;%</span></span>
+<span id="cb203-2"><a href="nlp-ch.html#cb203-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ner <span class="sc">==</span> <span class="st">&quot;I-LOC&quot;</span>)</span></code></pre></div>
+<p>De ugyanígy kiváogathatjuk a személyneveket is, azonban itt figyelembe kell vennünk, hogy az elemző külön névelemként jelöli a vezeték és keresztneveket, a további elemzés szükségletei szerint ezeket utólag kell összevonnunk.</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="nlp-ch.html#cb204-1" aria-hidden="true" tabindex="-1"></a>pers_napirend_elotti <span class="ot">&lt;-</span> napirend_elotti_ner <span class="sc">%&gt;%</span></span>
+<span id="cb204-2"><a href="nlp-ch.html#cb204-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ner <span class="sc">==</span> <span class="st">&quot;I-PER&quot;</span>)</span></code></pre></div>
+<p>Az így kiválogatott különböző névelemekkel azután további elemzéseket végezhetünk.</p>
+</div>
+<div id="angol-nyelvű-szövegek-névelemfelismerése" class="section level2" number="11.3">
+<h2><span class="header-section-number">11.3</span> Angol nyelvű szövegek névelemfelismerése</h2>
+<p>Amennyiben angol nyelvű korpusszal dolgozunk több lehetőség is a rendelkezésünkre áll a névelemfelsimerés elvégzésére.<a href="#fn46" class="footnote-ref" id="fnref46"><sup>46</sup></a> Ezek közül most röviden a <code>spacyr</code> használatát mutatjuk be.<a href="#fn47" class="footnote-ref" id="fnref47"><sup>47</sup></a> A <code>spaCy</code> nem egy <code>R</code>, hanem egy <code>Phyton</code> csomag<a href="#fn48" class="footnote-ref" id="fnref48"><sup>48</sup></a>, amely azonban az R <code>reticulate</code> csomag segítségével nagyon jól együttműködik a kötetben rendszeresen használt <code>quanteda</code> csomaggal. Használatához a már megszokott módon installálnunk kell a spacyr csomagot, majd beolvasnunk és telepítenünk az angol nyelvi modellt. A Pythonban készült <code>spacy</code>-t a <code>spacyr::spacy_install()</code> paranccsal kell telepíteni (ezt elég egyszer megtenni, amikor először használjuk a csomagot).</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="nlp-ch.html#cb205-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(spacyr)</span>
+<span id="cb205-2"><a href="nlp-ch.html#cb205-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb205-3"><a href="nlp-ch.html#cb205-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb205-4"><a href="nlp-ch.html#cb205-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb205-5"><a href="nlp-ch.html#cb205-5" aria-hidden="true" tabindex="-1"></a><span class="fu">spacy_initialize</span>(<span class="at">model =</span> <span class="st">&quot;en_core_web_sm&quot;</span>)</span></code></pre></div>
+<p>A <code>spacy_parse()</code> függvény segítségével lehetőségünk van a szövegek tokenizálására, szótári alakra hozására és szófaji egyértelműsítésére.</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="nlp-ch.html#cb206-1" aria-hidden="true" tabindex="-1"></a>txt <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">d1 =</span> <span class="st">&quot;spaCy is great at fast natural language processing.&quot;</span>,</span>
+<span id="cb206-2"><a href="nlp-ch.html#cb206-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">d2 =</span> <span class="st">&quot;Mr. Smith spent two years in North Carolina.&quot;</span>)</span>
+<span id="cb206-3"><a href="nlp-ch.html#cb206-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb206-4"><a href="nlp-ch.html#cb206-4" aria-hidden="true" tabindex="-1"></a><span class="co"># process documents and obtain a data.table</span></span>
+<span id="cb206-5"><a href="nlp-ch.html#cb206-5" aria-hidden="true" tabindex="-1"></a>parsedtxt <span class="ot">&lt;-</span> <span class="fu">spacy_parse</span>(txt)</span>
+<span id="cb206-6"><a href="nlp-ch.html#cb206-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb206-7"><a href="nlp-ch.html#cb206-7" aria-hidden="true" tabindex="-1"></a>parsedtxt</span>
+<span id="cb206-8"><a href="nlp-ch.html#cb206-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    doc_id sentence_id token_id      token      lemma   pos   entity</span></span>
+<span id="cb206-9"><a href="nlp-ch.html#cb206-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      d1           1        1      spaCy      spacy  NOUN         </span></span>
+<span id="cb206-10"><a href="nlp-ch.html#cb206-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      d1           1        2         is         be   AUX         </span></span>
+<span id="cb206-11"><a href="nlp-ch.html#cb206-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      d1           1        3      great      great   ADJ         </span></span>
+<span id="cb206-12"><a href="nlp-ch.html#cb206-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      d1           1        4         at         at   ADP         </span></span>
+<span id="cb206-13"><a href="nlp-ch.html#cb206-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      d1           1        5       fast       fast   ADJ         </span></span>
+<span id="cb206-14"><a href="nlp-ch.html#cb206-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      d1           1        6    natural    natural   ADJ         </span></span>
+<span id="cb206-15"><a href="nlp-ch.html#cb206-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      d1           1        7   language   language  NOUN         </span></span>
+<span id="cb206-16"><a href="nlp-ch.html#cb206-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8      d1           1        8 processing processing  NOUN         </span></span>
+<span id="cb206-17"><a href="nlp-ch.html#cb206-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9      d1           1        9          .          . PUNCT         </span></span>
+<span id="cb206-18"><a href="nlp-ch.html#cb206-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10     d2           1        1        Mr.        Mr. PROPN         </span></span>
+<span id="cb206-19"><a href="nlp-ch.html#cb206-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11     d2           1        2      Smith      Smith PROPN PERSON_B</span></span>
+<span id="cb206-20"><a href="nlp-ch.html#cb206-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12     d2           1        3      spent      spend  VERB         </span></span>
+<span id="cb206-21"><a href="nlp-ch.html#cb206-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13     d2           1        4        two        two   NUM   DATE_B</span></span>
+<span id="cb206-22"><a href="nlp-ch.html#cb206-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14     d2           1        5      years       year  NOUN   DATE_I</span></span>
+<span id="cb206-23"><a href="nlp-ch.html#cb206-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15     d2           1        6         in         in   ADP         </span></span>
+<span id="cb206-24"><a href="nlp-ch.html#cb206-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16     d2           1        7      North      North PROPN    GPE_B</span></span>
+<span id="cb206-25"><a href="nlp-ch.html#cb206-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17     d2           1        8   Carolina   Carolina PROPN    GPE_I</span></span>
+<span id="cb206-26"><a href="nlp-ch.html#cb206-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18     d2           1        9          .          . PUNCT</span></span></code></pre></div>
+<p>Az elvégzett tokenizálás eredményéből data frame-et készíthetünk.</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="nlp-ch.html#cb207-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spacy_tokenize</span>(txt, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>, <span class="at">output =</span> <span class="st">&quot;data.frame&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb207-2"><a href="nlp-ch.html#cb207-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tail</span>()</span>
+<span id="cb207-3"><a href="nlp-ch.html#cb207-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    doc_id    token</span></span>
+<span id="cb207-4"><a href="nlp-ch.html#cb207-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11     d2    spent</span></span>
+<span id="cb207-5"><a href="nlp-ch.html#cb207-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12     d2      two</span></span>
+<span id="cb207-6"><a href="nlp-ch.html#cb207-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13     d2    years</span></span>
+<span id="cb207-7"><a href="nlp-ch.html#cb207-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14     d2       in</span></span>
+<span id="cb207-8"><a href="nlp-ch.html#cb207-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15     d2    North</span></span>
+<span id="cb207-9"><a href="nlp-ch.html#cb207-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16     d2 Carolina</span></span></code></pre></div>
+<p>Ugyancsak lehetőségünk van a különböző entitások, így például a tulajdonnevek kinyerésére</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="nlp-ch.html#cb208-1" aria-hidden="true" tabindex="-1"></a>parsedtxt <span class="ot">&lt;-</span> <span class="fu">spacy_parse</span>(txt, <span class="at">lemma =</span> <span class="cn">FALSE</span>, <span class="at">entity =</span> <span class="cn">TRUE</span>, <span class="at">nounphrase =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb208-2"><a href="nlp-ch.html#cb208-2" aria-hidden="true" tabindex="-1"></a><span class="fu">entity_extract</span>(parsedtxt)</span>
+<span id="cb208-3"><a href="nlp-ch.html#cb208-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   doc_id sentence_id         entity entity_type</span></span>
+<span id="cb208-4"><a href="nlp-ch.html#cb208-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     d2           1          Smith      PERSON</span></span>
+<span id="cb208-5"><a href="nlp-ch.html#cb208-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     d2           1 North_Carolina         GPE</span></span></code></pre></div>
+<p>A tulajdonneveken túl felcímkézhetjük a dátumokat, eseményeket is.</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="nlp-ch.html#cb209-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entity_extract</span>(parsedtxt, <span class="at">type =</span> <span class="st">&quot;all&quot;</span>)</span>
+<span id="cb209-2"><a href="nlp-ch.html#cb209-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   doc_id sentence_id         entity entity_type</span></span>
+<span id="cb209-3"><a href="nlp-ch.html#cb209-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     d2           1          Smith      PERSON</span></span>
+<span id="cb209-4"><a href="nlp-ch.html#cb209-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     d2           1      two_years        DATE</span></span>
+<span id="cb209-5"><a href="nlp-ch.html#cb209-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     d2           1 North_Carolina         GPE</span></span></code></pre></div>
+<p>Az entity_consolidate() függvény segítségével arra is lehetőségünk van, hogy a több szóból álló entitásokat egy tokenként kezeljük.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="nlp-ch.html#cb210-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entity_consolidate</span>(parsedtxt) <span class="sc">%&gt;%</span></span>
+<span id="cb210-2"><a href="nlp-ch.html#cb210-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tail</span>()</span>
+<span id="cb210-3"><a href="nlp-ch.html#cb210-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    doc_id sentence_id token_id          token    pos entity_type</span></span>
+<span id="cb210-4"><a href="nlp-ch.html#cb210-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11     d2           1        2          Smith ENTITY      PERSON</span></span>
+<span id="cb210-5"><a href="nlp-ch.html#cb210-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12     d2           1        3          spent   VERB            </span></span>
+<span id="cb210-6"><a href="nlp-ch.html#cb210-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13     d2           1        4      two_years ENTITY        DATE</span></span>
+<span id="cb210-7"><a href="nlp-ch.html#cb210-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14     d2           1        5             in    ADP            </span></span>
+<span id="cb210-8"><a href="nlp-ch.html#cb210-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15     d2           1        6 North_Carolina ENTITY         GPE</span></span>
+<span id="cb210-9"><a href="nlp-ch.html#cb210-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16     d2           1        7              .  PUNCT</span></span></code></pre></div>
+<p>A <code>nounphrase_extract()</code> függvény lehetőséget ad az összetartozó kifejezések összefűzésére.</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="nlp-ch.html#cb211-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nounphrase_extract</span>(parsedtxt)</span>
+<span id="cb211-2"><a href="nlp-ch.html#cb211-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   doc_id sentence_id                       nounphrase</span></span>
+<span id="cb211-3"><a href="nlp-ch.html#cb211-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1     d1           1                            spaCy</span></span>
+<span id="cb211-4"><a href="nlp-ch.html#cb211-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2     d1           1 fast_natural_language_processing</span></span>
+<span id="cb211-5"><a href="nlp-ch.html#cb211-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     d2           1                        Mr._Smith</span></span>
+<span id="cb211-6"><a href="nlp-ch.html#cb211-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4     d2           1                        two_years</span></span>
+<span id="cb211-7"><a href="nlp-ch.html#cb211-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     d2           1                   North_Carolina</span></span></code></pre></div>
+<p>Majd képes arra, hogy ezeket az összetartozó kifejezéseket egyben kezelje.</p>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="nlp-ch.html#cb212-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nounphrase_consolidate</span>(parsedtxt)</span>
+<span id="cb212-2"><a href="nlp-ch.html#cb212-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    doc_id sentence_id token_id                            token        pos</span></span>
+<span id="cb212-3"><a href="nlp-ch.html#cb212-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      d1           1        1                            spaCy nounphrase</span></span>
+<span id="cb212-4"><a href="nlp-ch.html#cb212-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      d1           1        2                               is        AUX</span></span>
+<span id="cb212-5"><a href="nlp-ch.html#cb212-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      d1           1        3                            great        ADJ</span></span>
+<span id="cb212-6"><a href="nlp-ch.html#cb212-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      d1           1        4                               at        ADP</span></span>
+<span id="cb212-7"><a href="nlp-ch.html#cb212-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      d1           1        5 fast_natural_language_processing nounphrase</span></span>
+<span id="cb212-8"><a href="nlp-ch.html#cb212-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      d1           1        6                                .      PUNCT</span></span>
+<span id="cb212-9"><a href="nlp-ch.html#cb212-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      d2           1        1                        Mr._Smith nounphrase</span></span>
+<span id="cb212-10"><a href="nlp-ch.html#cb212-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8      d2           1        2                            spent       VERB</span></span>
+<span id="cb212-11"><a href="nlp-ch.html#cb212-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9      d2           1        3                        two_years nounphrase</span></span>
+<span id="cb212-12"><a href="nlp-ch.html#cb212-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10     d2           1        4                               in        ADP</span></span>
+<span id="cb212-13"><a href="nlp-ch.html#cb212-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11     d2           1        5                   North_Carolina nounphrase</span></span>
+<span id="cb212-14"><a href="nlp-ch.html#cb212-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12     d2           1        6                                .      PUNCT</span></span></code></pre></div>
+<p>Arra is lehetőség van, hogy az egyes kifejezések közötti függőségeket vizsgáljuk.</p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="nlp-ch.html#cb213-1" aria-hidden="true" tabindex="-1"></a><span class="fu">spacy_parse</span>(txt, <span class="at">dependency =</span> <span class="cn">TRUE</span>, <span class="at">lemma =</span> <span class="cn">FALSE</span>, <span class="at">pos =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb213-2"><a href="nlp-ch.html#cb213-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    doc_id sentence_id token_id      token head_token_id  dep_rel   entity</span></span>
+<span id="cb213-3"><a href="nlp-ch.html#cb213-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      d1           1        1      spaCy             2    nsubj         </span></span>
+<span id="cb213-4"><a href="nlp-ch.html#cb213-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      d1           1        2         is             2     ROOT         </span></span>
+<span id="cb213-5"><a href="nlp-ch.html#cb213-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      d1           1        3      great             2    acomp         </span></span>
+<span id="cb213-6"><a href="nlp-ch.html#cb213-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      d1           1        4         at             2     prep         </span></span>
+<span id="cb213-7"><a href="nlp-ch.html#cb213-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      d1           1        5       fast             8     amod         </span></span>
+<span id="cb213-8"><a href="nlp-ch.html#cb213-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      d1           1        6    natural             7     amod         </span></span>
+<span id="cb213-9"><a href="nlp-ch.html#cb213-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7      d1           1        7   language             8 compound         </span></span>
+<span id="cb213-10"><a href="nlp-ch.html#cb213-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8      d1           1        8 processing             4     pobj         </span></span>
+<span id="cb213-11"><a href="nlp-ch.html#cb213-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9      d1           1        9          .             2    punct         </span></span>
+<span id="cb213-12"><a href="nlp-ch.html#cb213-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10     d2           1        1        Mr.             2 compound         </span></span>
+<span id="cb213-13"><a href="nlp-ch.html#cb213-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 11     d2           1        2      Smith             3    nsubj PERSON_B</span></span>
+<span id="cb213-14"><a href="nlp-ch.html#cb213-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 12     d2           1        3      spent             3     ROOT         </span></span>
+<span id="cb213-15"><a href="nlp-ch.html#cb213-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 13     d2           1        4        two             5   nummod   DATE_B</span></span>
+<span id="cb213-16"><a href="nlp-ch.html#cb213-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 14     d2           1        5      years             3     dobj   DATE_I</span></span>
+<span id="cb213-17"><a href="nlp-ch.html#cb213-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 15     d2           1        6         in             3     prep         </span></span>
+<span id="cb213-18"><a href="nlp-ch.html#cb213-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 16     d2           1        7      North             8 compound    GPE_B</span></span>
+<span id="cb213-19"><a href="nlp-ch.html#cb213-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 17     d2           1        8   Carolina             6     pobj    GPE_I</span></span>
+<span id="cb213-20"><a href="nlp-ch.html#cb213-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 18     d2           1        9          .             3    punct</span></span></code></pre></div>
+<p>A következőkben a <a href="sentiment.html#sentiment">Szótáralapú elemzések, érzelem-elemzés fejezetben</a> is használt Magyar Nemzeti Bank kamatdöntéseit kísérő nemzetközi sajtóközleményei korpusznán mutatunk be egy példát a névelemfelismerésre és az eredmények vizualizálására.</p>
+<p>Első lépésként beolvassuk a szövegeket, majd a már megismert <code>quanteda</code> csomag segítségévek korpuszt készítünk belőlük.</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="nlp-ch.html#cb214-1" aria-hidden="true" tabindex="-1"></a>mnb_df <span class="ot">&lt;-</span> data_mnb_pr</span>
+<span id="cb214-2"><a href="nlp-ch.html#cb214-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb214-3"><a href="nlp-ch.html#cb214-3" aria-hidden="true" tabindex="-1"></a>corpus_mnb <span class="ot">&lt;-</span><span class="fu">corpus</span>(mnb_df)</span></code></pre></div>
+<p>Ezután a <code>spacy_extract_entity()</code> függvénye segítségévek elvégezzük a névelemfelismerést, a függvény argumentumában megadva, hogy milyen tipusú névelemeket szeretnénk kigyűjteni a korpuszból. A lehetséges típusok a <strong>named</strong>, <strong>extended</strong>, vagy <strong>all</strong>.<a href="#fn49" class="footnote-ref" id="fnref49"><sup>49</sup></a> Az elemzés eredménye pedig készülhet listában, vagy készülhet belőle data frame. Példánkban mi kimenetként listát állítottunk be.</p>
+<p>A névelemek tokenjeit ezután megritkítottuk, és csak azokat hagytuk meg, amelyek legalább nyolc alkalommal szerepeltek a korpuszban.</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="nlp-ch.html#cb215-1" aria-hidden="true" tabindex="-1"></a>mnb_ner <span class="ot">&lt;-</span> <span class="fu">spacy_extract_entity</span>(</span>
+<span id="cb215-2"><a href="nlp-ch.html#cb215-2" aria-hidden="true" tabindex="-1"></a>  corpus_mnb,</span>
+<span id="cb215-3"><a href="nlp-ch.html#cb215-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="fu">c</span>(<span class="st">&quot;list&quot;</span>),</span>
+<span id="cb215-4"><a href="nlp-ch.html#cb215-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> (<span class="st">&quot;named&quot;</span>),</span>
+<span id="cb215-5"><a href="nlp-ch.html#cb215-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">multithread =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb215-6"><a href="nlp-ch.html#cb215-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb215-7"><a href="nlp-ch.html#cb215-7" aria-hidden="true" tabindex="-1"></a>mnb_tokens <span class="ot">&lt;-</span> <span class="fu">tokens</span>(mnb_ner)</span>
+<span id="cb215-8"><a href="nlp-ch.html#cb215-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb215-9"><a href="nlp-ch.html#cb215-9" aria-hidden="true" tabindex="-1"></a>features <span class="ot">&lt;-</span> <span class="fu">dfm</span>(mnb_tokens) <span class="sc">%&gt;%</span></span>
+<span id="cb215-10"><a href="nlp-ch.html#cb215-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm_trim</span>(<span class="at">min_termfreq =</span> <span class="dv">8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb215-11"><a href="nlp-ch.html#cb215-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">featnames</span>()</span>
+<span id="cb215-12"><a href="nlp-ch.html#cb215-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb215-13"><a href="nlp-ch.html#cb215-13" aria-hidden="true" tabindex="-1"></a>mnb_tokens <span class="ot">&lt;-</span> <span class="fu">tokens_select</span>(mnb_tokens, features, <span class="at">padding =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>Ezután a különböző alakban előforduló, de ugyanarra az entitásra vonatkozó névelemeket összevontuk.</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="nlp-ch.html#cb216-1" aria-hidden="true" tabindex="-1"></a>mnb <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Magyar Nemzeti Bank&quot;</span>, <span class="st">&quot;MAGYAR NEMZETI BANK&quot;</span>, <span class="st">&quot;The Magyar Nemzeti Bank &quot;</span>, <span class="st">&quot;the Magyar Nemzeti Bank&quot;</span>, <span class="st">&quot;MNB&quot;</span>, <span class="st">&quot;the Magyar Nemzeti Banks&quot;</span>, <span class="st">&quot;Nemzeti Bank&quot;</span>, <span class="st">&quot;The Magyar Nemzeti Banks MNB&quot;</span> )</span>
+<span id="cb216-2"><a href="nlp-ch.html#cb216-2" aria-hidden="true" tabindex="-1"></a>lemma <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">&quot;Magyar Nemzeti Bank&quot;</span>, <span class="fu">length</span>(mnb))</span>
+<span id="cb216-3"><a href="nlp-ch.html#cb216-3" aria-hidden="true" tabindex="-1"></a>mnb_tokens <span class="ot">&lt;-</span> <span class="fu">tokens_replace</span>(mnb_tokens, mnb, lemma, <span class="at">valuetype =</span> <span class="st">&quot;fixed&quot;</span>)</span>
+<span id="cb216-4"><a href="nlp-ch.html#cb216-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb216-5"><a href="nlp-ch.html#cb216-5" aria-hidden="true" tabindex="-1"></a>mc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Monetary Council&quot;</span>, <span class="st">&quot;MONETARY COUNCIL&quot;</span>, <span class="st">&quot;Magyar Nemzeti Bank Monetary Council&quot;</span>, <span class="st">&quot;MAGYAR NEMZETI BANK Monetary Council&quot;</span>, <span class="st">&quot;NEMZETI BANK Monetary Council&quot;</span> ,<span class="st">&quot;The Monetary Council&quot;</span>, <span class="st">&quot;Council&quot;</span>, <span class="st">&quot;The Council&quot;</span>, <span class="st">&quot;Councils&quot;</span>, <span class="st">&quot;the Monetary Council&quot;</span>, <span class="st">&quot;Monetary Councils&quot;</span>, <span class="st">&quot;the Monetary Councils&quot;</span>, <span class="st">&quot;The Monetary Councils&quot;</span>, <span class="st">&quot;Monetray Council&quot;</span>, <span class="st">&quot;May the Monetary Council&quot;</span>)</span>
+<span id="cb216-6"><a href="nlp-ch.html#cb216-6" aria-hidden="true" tabindex="-1"></a>lemma <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">&quot;Monetary Council&quot;</span>, <span class="fu">length</span>(mc))</span>
+<span id="cb216-7"><a href="nlp-ch.html#cb216-7" aria-hidden="true" tabindex="-1"></a>mnb_tokens <span class="ot">&lt;-</span> <span class="fu">tokens_replace</span>(mnb_tokens, mc, lemma, <span class="at">valuetype =</span> <span class="st">&quot;fixed&quot;</span>)</span></code></pre></div>
+<p>Majd elkészítettük a szóbeágyazás fejezetben már megismert fcm-et, végezetül pedig egy együttes előfordulási mátrixot készítettünk a kinyert entitásokból és a ggplot segítségével ábrázoltuk.<a href="#fn50" class="footnote-ref" id="fnref50"><sup>50</sup></a></p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="nlp-ch.html#cb217-1" aria-hidden="true" tabindex="-1"></a>mnb_fcm <span class="ot">&lt;-</span> <span class="fu">fcm</span>(mnb_tokens, <span class="at">context =</span> <span class="st">&quot;window&quot;</span>, <span class="at">count =</span> <span class="st">&quot;weighted&quot;</span>, <span class="at">weights =</span> <span class="dv">1</span> <span class="sc">/</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>), <span class="at">tri =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb217-2"><a href="nlp-ch.html#cb217-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-3"><a href="nlp-ch.html#cb217-3" aria-hidden="true" tabindex="-1"></a>feat <span class="ot">&lt;-</span> <span class="fu">names</span>(<span class="fu">topfeatures</span>(mnb_fcm, <span class="dv">80</span>))</span>
+<span id="cb217-4"><a href="nlp-ch.html#cb217-4" aria-hidden="true" tabindex="-1"></a>mnb_fcm_select <span class="ot">&lt;-</span> <span class="fu">fcm_select</span>(mnb_fcm, <span class="at">pattern =</span> feat, <span class="at">selection =</span> <span class="st">&quot;keep&quot;</span>)</span>
+<span id="cb217-5"><a href="nlp-ch.html#cb217-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(mnb_fcm_select)</span>
+<span id="cb217-6"><a href="nlp-ch.html#cb217-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 35 35</span></span>
+<span id="cb217-7"><a href="nlp-ch.html#cb217-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-8"><a href="nlp-ch.html#cb217-8" aria-hidden="true" tabindex="-1"></a>size <span class="ot">&lt;-</span> <span class="fu">log</span>(<span class="fu">colSums</span>(<span class="fu">dfm_select</span>(mnb_fcm, feat, <span class="at">selection =</span> <span class="st">&quot;keep&quot;</span>)))</span>
+<span id="cb217-9"><a href="nlp-ch.html#cb217-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-10"><a href="nlp-ch.html#cb217-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">144</span>)</span>
+<span id="cb217-11"><a href="nlp-ch.html#cb217-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb217-12"><a href="nlp-ch.html#cb217-12" aria-hidden="true" tabindex="-1"></a><span class="fu">textplot_network</span>(mnb_fcm_select, <span class="at">min_freq =</span> <span class="fl">0.7</span>, <span class="at">vertex_size =</span> size <span class="sc">/</span> <span class="fu">max</span>(size) <span class="sc">*</span> <span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb217-13"><a href="nlp-ch.html#cb217-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Co-occurance matrix - MNB&quot;</span>)<span class="sc">+</span></span>
+<span id="cb217-14"><a href="nlp-ch.html#cb217-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>))<span class="sc">+</span></span>
+<span id="cb217-15"><a href="nlp-ch.html#cb217-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">face =</span> <span class="st">&quot;bold&quot;</span>))</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-236-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>A spacyr alapvetően az angol nyelvi modellel működik, de arra is van lehetőség, hogy a spaCy egyéb beépített nyelvi modelljeit (német, spanyol, portugál) használjuk. Létezik magyar nyelvi modell is, ez azonban jelenleg még nincs integrálva a spaCy-be, hanem egy GitHub repozitoriból tölthető le. Ennek R-ben történő megvalósításához azonban haladó R ismeretek szükségesek, azért ennek leírásától jelen kötetben eltekintünk. A magyar nyelvi modell és leírása elérhető az alábbi linken: <a href="https://github.com/oroszgy/spacy-hungarian-models" class="uri">https://github.com/oroszgy/spacy-hungarian-models</a></p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="42">
+<li id="fn42"><p><a href="https://cap.tk.hu/a-media-es-a-kozvelemeny-napirendje" class="uri">https://cap.tk.hu/a-media-es-a-kozvelemeny-napirendje</a><a href="nlp-ch.html#fnref42" class="footnote-back">↩︎</a></p></li>
+<li id="fn43"><p><a href="Comparative%20Agendas%20Project">Közpolitikai témakörök kódkönyve</a>[<a href="https://cap.tk.hu/kozpolitikai-cap" class="uri">https://cap.tk.hu/kozpolitikai-cap</a>]<a href="nlp-ch.html#fnref43" class="footnote-back">↩︎</a></p></li>
+<li id="fn44"><p><a href="http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html">SVM, Random Forests, and beyond</a>.<a href="nlp-ch.html#fnref44" class="footnote-back">↩︎</a></p></li>
+<li id="fn45"><p>A napirend előtti felszólalásokat tartalmazó korpusz a Hungarian Comparative Agendas Project keretében készült: <a href="https://cap.tk.hu/hu" class="uri">https://cap.tk.hu/hu</a><a href="nlp-ch.html#fnref45" class="footnote-back">↩︎</a></p></li>
+<li id="fn46"><p>További lehetőségekhez lásd például: <a href="https://analyticsindiamag.com/top-10-r-packages-for-natural-language-processing-nlp/" class="uri">https://analyticsindiamag.com/top-10-r-packages-for-natural-language-processing-nlp/</a><a href="nlp-ch.html#fnref46" class="footnote-back">↩︎</a></p></li>
+<li id="fn47"><p>Részletes leírása: <a href="https://spacyr.quanteda.io/articles/using_spacyr.html" class="uri">https://spacyr.quanteda.io/articles/using_spacyr.html</a><a href="nlp-ch.html#fnref47" class="footnote-back">↩︎</a></p></li>
+<li id="fn48"><p>Részletes leírása: <a href="https://spacy.io/usage/linguistic-features#named-entities" class="uri">https://spacy.io/usage/linguistic-features#named-entities</a><a href="nlp-ch.html#fnref48" class="footnote-back">↩︎</a></p></li>
+<li id="fn49"><p>Részletes leírását lásd: <a href="https://towardsdatascience.com/extend-named-entity-recogniser-ner-to-label-new-entities-with-spacy-339ee5979044" class="uri">https://towardsdatascience.com/extend-named-entity-recogniser-ner-to-label-new-entities-with-spacy-339ee5979044</a><a href="nlp-ch.html#fnref49" class="footnote-back">↩︎</a></p></li>
+<li id="fn50"><p>Részletes leírását lásd: <a href="https://tutorials.quanteda.io/basic-operations/fcm/fcm/" class="uri">https://tutorials.quanteda.io/basic-operations/fcm/fcm/</a><a href="nlp-ch.html#fnref50" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="szövegösszehasonlítás.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="osztályozás-és-felügyelt-tanulás.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
