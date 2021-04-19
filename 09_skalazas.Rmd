@@ -16,12 +16,13 @@ library(ggplot2)
 library(ggrepel)
 library(quanteda)
 library(quanteda.textmodels)
+library(HunMineR)
 ```
 
 A skálázási algoritmusokat egy kis korpuszon mutatjuk be. A minta dokumentumok a 2014–2018-as parlamenti ciklusban az Országgyűlésben frakcióvezető politikusok egy-egy véletlenszerűen kiválasztott napirend előtti felszólalásai. Ebben a ciklusban összesen 11 frakcióvezetője volt a két kormánypárti és öt ellenzéki frakciónak [^skala-1]. A dokumentumokon először elvégeztük a szokásos előkészítési lépéseket. [^skala-1]: a mintába nem került be Rogán Antal, akinek csak egy darab napirend előtti felszólalása volt.
 
 ```{r}
-parl_beszedek <- read_csv("data/ps_sample.csv")
+parl_beszedek <- data_parlspeakers_small
 
 beszedek_tiszta <- parl_beszedek %>% 
     mutate(
@@ -106,7 +107,6 @@ ggplot(szavak_wf, aes(x = beta, y = psi)) +
 A dokumentumok szintjén is érdemes megvizsgálni az eredményeket. Ehhez a dokumentum szintű paramétereket fogjuk egy data frame-be gyűjteni: a $\theta$ ideológiai pozíciót, illetve a beszélő nevét. A vizualizáció kedvéért a párttagságot is hozzáadjuk. A data frame összerakása után az alsó és a felső határát is kiszámoljuk a konfidencia intervallumnak és azt is ábrázoljuk.
 
 ```{r, fig.cap="A beszédek egymáshoz viszonyított pozíciója"}
-
 dokumentumok_wf <- data.frame(
   speaker = beszedek_wf$x@docvars$felszolalo,
   part = beszedek_wf$x@docvars$part,
@@ -206,5 +206,4 @@ ggplot(dokumentumok_ws, aes(fit, reorder(speaker, fit))) +
     x = "Wordscore"
   ) +
   facet_wrap(~part, ncol = 1, scales = "free_y")
-
 ```

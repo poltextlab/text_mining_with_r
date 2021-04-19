@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 # Korpuszépítés és szövegelőkészítés
 
 ## Szövegbeszerzés
@@ -27,6 +21,7 @@ library(lubridate)
 library(stringr)
 library(quanteda)
 library(quanteda.textmodels)
+library(HunMineR)
 ```
 
 A szükséges csomagok beolvasása után a `read_html()` függvény
@@ -324,15 +319,14 @@ statisztikai műveleteket végezhetünk.[^1]
     használt korpusz a Hungarian Comparative Agendas Project keretében
     készült adatbázis része: <https://cap.tk.hu/torveny>
 
-Ehhez először importáljuk a törvények egy `.csv` kiterjesztésű fájlból.
-A `read_csv()` használatának az az előnye, hogy alapbeállításként UTF-8
-formátumban importálja be a szöveges oszlopokat.
+
+A `HunMineR` csomagból tudjuk importálni a törvényeket.
 
 ```{r}
-lawtext_df <- read_csv("data/lawtext_1999.csv")
+lawtext_df <- data_lawtext_1999
 ```
 
-Majd az importált fájlokból létrehozzuk a korpuszt `lawtext_corpus`
+Majd az importált adatokból létrehozzuk a korpuszt `lawtext_corpus`
 néven. Ezt követi a dokumentum kifejezés mátrix kialakítása (mivel a
 `quanteda` csomaggal dolgozunk, `dfm` mátrixot hozunk létre), és ezzel
 egy lépésben elvégezzük az alapvető szövegtisztító lépéseket is.

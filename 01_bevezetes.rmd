@@ -12,7 +12,7 @@ Az Olvasó a két kötet együttes használatával olyan ismeretek birtokába ju
 
 ## Használati utasítás
 
-A könyv célja, hogy keresztmetszeti képet adjon a szövegbányászat R programnyelven használatos eszközeiről. A fejezetekben ezért a magyarázó szövegben maga az R kód is megtalálható, illetve láthatóak a lefuttatott kód eredményei is. Az alábbi példában a sötét háttér az R környezetet jelöli, ahol az R kód betűtípusa is eltérő a főszövegétől. A kód eredményét pedig a \#\> kezdetű sorokba szedtük, ezzel szimulálva az R console ablakát.
+A könyv célja, hogy keresztmetszeti képet adjon a szövegbányászat R programnyelven használatos eszközeiről. A fejezetekben ezért a magyarázó szövegben maga az R kód is megtalálható, illetve láthatóak a lefuttatott kód eredményei is. Az alábbi példában a sötét háttér az R környezetet jelöli, ahol az R kód betűtípusa is eltérő a főszövegétől. A kód eredményét pedig a `#>` kezdetű sorokba szedtük, ezzel szimulálva az R console ablakát.
 
 ```{r}
 # példa R kód
@@ -25,6 +25,8 @@ Az egyes fejezetekben szereplő kódrészleteket egymás utáni sorrendben bemá
 [^1]: Az R Windows, OS X és Linux változatai itt érhetőek el: <https://cloud.r-project.org/>. Az RStudio pedig innen érhető el: <https://www.rstudio.com/products/rstudio/download/>.
 
 A könyvhöz tartozik egy `HunMineR` R csomag is, amely tartalmazza az egyes fejezetekben használt összes adatbázist, így az adatbeviteli problémákat elkerülve lehet gyakorolni a szövegbányászatot. A könyv megjelenésekor a csomag még nem került be a központi R CRAN csomag repozitóriumba, hanem a poltextLAB GitHub repozitóriumából tölthető le.
+
+A könyvben szereplő ábrák nagy része a `ggplot2` csomaggal készült a `theme_set(theme_light())` opció beállításával a háttérben. Ez azt jelenti, hogy az ábrákat előállító kódok a `theme_light()` sort nem tartalmazzák, de a tényleges ábrán már megjelennek a tematikus elemek.
 
 ### HunMineR telepítése és használata
 

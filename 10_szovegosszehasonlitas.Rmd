@@ -54,16 +54,18 @@ A fejezet második felében a lexikai hasonlóság vizsgálatra, ezen belül a J
 library(readr)
 library(stringr)
 library(dplyr)
+library(tidyr)
 library(quanteda)
 library(readtext)
 library(ggplot2)
 library(nandb)
+library(HunMineR)
 ```
 
 Ezt követően betöltjük azokat az adatbázisokat, amelyeken a szövegösszehasonlítást fogjuk végezni: az elfogadott törvények szövegét tartalmazó korpuszt, a törvényjavaslatok szövegét tartalmazó korpuszt, valamint az ezek összekapcsolását segítő adatbázist, melyben az összetartozó törvényjavaslatok és törvények azonosítóját (id-ját) tároltuk el. Ahogy behívjuk a három CSV-t, érdemes rögtön lekérni az oszlopneveket `colnames()` és a táblázat dimenzióit `dim()`, hogy lássuk, milyen adatok állnak a rendelkezésünkre, és mekkora táblákkal fogunk dolgozni. A `dim()` függvény első értéke a sorok száma, a második pedig az oszlopok száma lesz az adott táblázatban.
 
 ```{r }
-torvenyek <- read_csv("data/torveny_korpusz.csv")
+torvenyek <- data_lawtext_sample
 
 colnames(torvenyek)
 
@@ -72,7 +74,7 @@ dim(torvenyek)
 
 
 ```{r }
-tv_javaslatok <- read_csv("data/tv_javaslat_korpusz.csv")
+tv_javaslatok <- data_lawprop_sample
 
 colnames(tv_javaslatok)
 
@@ -80,7 +82,7 @@ dim(tv_javaslatok)
 ```
 
 ```{r }
-parok <- read.csv("data/parok.csv")
+parok <- data_lawsample_match
 
 colnames(parok)
 
@@ -172,11 +174,10 @@ szovegek <- c("torveny_szoveg","tvjav_szoveg")
 tv_tvjav_minta[, szovegek] <- mapply(tv_tvjav_minta[, szovegek], FUN = szovegtisztitas)
 ```
 
-A szövegtisztítás következő lépése a stopszavak meghatározása és kiszűrése a szövegből. Itt a `quanteda` csomagban elérhető magyar nyelvű stopszavakat, valamint a 9. fejezetben meghatározott speciális jogi stopszavak listáját használjuk.
+A szövegtisztítás következő lépése a stopszavak meghatározása és kiszűrése a szövegből. Itt a `quanteda` csomagban elérhető magyar nyelvű stopszavakat, valamint a [7. fejezetben](#lda_ch) meghatározott speciális jogi stopszavak listáját használjuk.
 
 ```{r }
-legal_stopwords <- readtext("data/custom_legal_stopwords.csv", encoding = "UTF8") %>%
-  pull(text)
+legal_stopwords <- data_legal_stopwords
 ```
 
 A stopszavak beimportálását követően korpusszá alakítjuk a szövegeinket és tokenizáljuk azokat. Ezt már külön-külön végezzük el a törvények és a törvényjavaslatok szövegeire, azonos lépésekben haladva. A létrehozott objektumokat itt is ellenőrizhetjük, például a `summary(torvenyek_coprus)` paranccsal, vagy a `torvenyek_tokens[1:3]` paranccsal, mely az első 3 dokumentum tokenjeit fogja megmutatni. 
@@ -391,7 +392,10 @@ ggplot(tv_tvjav_minta, aes((ev), jaccard_index, color = korm_ciklus)) +
   ylab("Jaccard hasonlóság")+
   labs(color = "Kormányzati ciklus")+
   scale_x_continuous(breaks=c(unique(tv_tvjav_minta$év)), labels=c(unique(tv_tvjav_minta$év)))+
-  theme(axis.text.x = element_text(angle = 45))
+  theme(
+    axis.text.x = element_text(angle = 45),
+    legend.position = "bottom"
+    )
 ```
 
 A pontdiagram látványos, de esetünkben kevés érdemi információ derül ki róla. A második ábránkon boxplotokkal fogjuk ábrázolni a jaccard hasonlóság alakulását.
@@ -402,7 +406,10 @@ ggplot(tv_tvjav_minta, aes(factor(ev), jaccard_index, color = korm_ciklus)) +
   xlab("Év") +
   ylab("Jaccard hasonlóság")+ 
   labs(color = "Kormányzati ciklus")+
-  theme(axis.text.x = element_text(angle = 45))
+  theme(
+    axis.text.x = element_text(angle = 45),
+    legend.position = "bottom"
+    )
 ```
 
 Az ábrán szembetűnő a 2003-as év kiugróan alacsony értéke, azonban itt érdemes figyelembe venni – ami a pontdiagramról is leolvasható –, hogy 2003-ra csupán 2 adatpont áll rendelkezésre. A legalacsonyabb Jaccard hasonlóság talán az 1994–1998-as időszakra jellemző, míg a 2014–2018-as iőszakra szembetűnően magas Jaccard értékeket látunk az első ábrázolt ciklushoz képest. Összességében nehéz trendet látni az ábrán, de érdemes azt is megjegyezni, hogy a negatív irányba kiugró adatpontok a 2014–2018-as ciklusban jelentősen nagyobb arányban tűnnek fel, mint a korábbi kormányzati ciklusok alatt.
@@ -456,13 +463,13 @@ ggplot(tv_tvjav_minta, aes(ev, jaccard_index, color = as.factor(korm_ell2))) +
   geom_jitter(size = 1.2, width = 0.1, alpha = 0.7)+
   scale_color_manual(
       breaks = c("0", "1", "2", "900", "901", "902"), 
-      values = c("slateblue3", "deeppink3", "goldenrod2", "thistle2", "gray80", "gray80"), 
-      labels =  korm_ell_labels)+
+      values = c("#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f"), 
+      labels =  korm_ell_labels) +
   xlab("Év") +
-  ylab("Jaccard hasonlóság")+
-  scale_x_continuous(breaks=c(unique(tv_tvjav_minta$ev)), labels=c(unique(tv_tvjav_minta$ev)))+
+  ylab("Jaccard hasonlóság") +
+  scale_x_continuous(breaks=c(unique(tv_tvjav_minta$ev)), labels=c(unique(tv_tvjav_minta$ev))) +
   guides(color=guide_legend(ncol=3))+
-  theme(axis.text.x = element_text(angle = 45), legend.position = "bottom")+
+  theme(axis.text.x = element_text(angle = 45), legend.position = "bottom") +
   labs(color = "Beterjesztő")
 ```
 

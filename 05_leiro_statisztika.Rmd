@@ -24,16 +24,16 @@ library(stringr)
 library(ggplot2)
 library(quanteda)
 library(GGally)
+library(ggdendro)
 library(tidytext)
 library(tidyverse)
+library(HunMineR)
 ```
 
-Első lépésben a már ismertetett módon a `readtext ()` segítségével beolvassuk a beszédek `.txt` formátumú változatát `utf-8` karakterkódolással.
+Első lépésben a [Bevezetőben](#intro) már ismertetett módon a `HunMineR` csomagból betöltjük a beszédeket.
 
 ```{r}
-texts <- readtext("data/mineln/*.txt", encoding = "UTF-8")
-
-head(texts)
+texts <- data_miniszterelnokok_raw
 ```
 
 Ezt követően az [„Adatkezelés R-ben"](#adatkezeles) fejezetben ismertetett `mutate()` függvény használatával két csoportra osztjuk a beszédeket. Ehhez először a `string_extract()`segítségével meghatározzuk, hogy a kettéosztáshoz használni kívánt új változó a doc_id legyen a `[^\\.]*` regex segítségével leválasztva arról a `.txt` kiterjesztést, majd a `str_sub()` függvénnyel megmondjuk, hogy a miniszterelnökök neve a `doc_id` hátulról számított hatodik karakteréig tart. Ezután kialakítjuk a két csoportot, azaz az `if_else()` segítségével meghatározzuk, hogy ha „antall_jozsef", „boross_peter", „orban_viktor" beszédeiről van szó azokat a jobb csoportba tegye, a maradékot pedig a bal csoportba.
@@ -109,12 +109,12 @@ corpus_mineln %>%
   head(n = 10)
 ```
 
-A szókapcsolatok listázásánál is láthattuk, hogy a korpuszunk még minden szót tartalmaz, ezért találtunk például „hogy ez a" összetételt. A következőkben eltávolítjuk az ilyen funkció nélküli stopszavakat a korpuszból, amihez saját stopszólistát használunk. Először beolvassuk és egy `custom_stopwords` nevű objektumban tároljuk a stopszavakat, majd a `tokens()` függvény segítségével tokenizáljuk a korpuszt és a `tokens_select()` használatával eltávolítjuk a stopszavakat.
+A szókapcsolatok listázásánál is láthattuk, hogy a korpuszunk még minden szót tartalmaz, ezért találtunk például „hogy ez a" összetételt. A következőkben eltávolítjuk az ilyen funkció nélküli stopszavakat a korpuszból, amihez saját stopszólistát használunk. Először a `HunMineR` csomagból beolvassuk és egy `custom_stopwords` nevű objektumban tároljuk a stopszavakat, majd a `tokens()` függvény segítségével tokenizáljuk a korpuszt és a `tokens_select()` használatával eltávolítjuk a stopszavakat.
 
 Ha ezután újra megnézzük a kollokációkat, jól látható a stopszavak eltávolításának eredménye:
 
 ```{r}
-custom_stopwords <- readLines("data/stopwords_hun.txt", encoding = "UTF-8")
+custom_stopwords <- data_stopwords_extra
 
 corpus_mineln %>%
   tokens() %>%
@@ -270,16 +270,7 @@ dist <- mineln_dfm %>%
 ```{r fig.cap="A dokumentumok csoportosítása a távolságuk alapján"}
 hierarchikus_klaszter <- hclust(as.dist(dist))
 
-
-plot(
-  hierarchikus_klaszter, 
-  hang = -0.5, 
-  main = "",
-  sub = "",
-  xlab = "Miniszterelnöki beszédek",
-  ylab = ""
-)
-
+ggdendrogram(hierarchikus_klaszter)
 ```
 
 ```{r}
@@ -291,24 +282,25 @@ mineln_dfm %>%
 Arra is van lehetőségünk, hogy a két alkorpuszt hasonlítsuk össze egymással. Ehhez a `textstat_keyness()` függvényt használjuk, melynek a bemenete a `dfm`. A függvény argumentumában a `target =` után kell megadni, hogy mely alkorpusz a viszonyítási alap. Az összehasonlítás eredményét a 'textplot_keyness()\` függvény segítségével ábrázolhatjuk, ami megjeleníti a két alkorpusz leggyakoribb kifejezéseit.
 
 ```{r}
-dfm <- dfm(
+dfm_keyness <- dfm(
   corpus_mineln,
   groups = "jobb_bal", 
   remove = custom_stopwords,
   remove_punct = TRUE
 )
 
-result_keyness <- textstat_keyness(dfm, target = "jobb")
+result_keyness <- textstat_keyness(dfm_keyness, target = "jobb")
 ```
 
 ```{r fig.cap="A korpuszok legfontosabb kifejezései"}
-textplot_keyness(result_keyness)
+textplot_keyness(result_keyness) +
+  theme(legend.position = c(0.9,0.1))
 ```
 
 Ha az egyes miniszterelnökök beszédeinek leggyakoribb kifejezéseit szeretnénk összehasonlítani, azt a `textstat_frequency()` függvény segítségével tehetjük meg, melynek bemenete a megtisztított és súlyozott `dfm`. Az összehasonlítás eredményét pedig a `ggplot2` segítségével ábrázolhatjuk is.
 
 ```{r,  tidy.opts=list(width.cutoff=80)}
-dfm_weight <- corpus_mineln %>%
+dfm_weighted <- corpus_mineln %>%
   dfm(
     remove = custom_stopwords, 
     tolower = TRUE, 
@@ -319,7 +311,7 @@ dfm_weight <- corpus_mineln %>%
     ) %>%
   dfm_weight(scheme = "prop")
 
-freq_weight <- textstat_frequency(dfm_weight, n = 5, groups = "mineln")
+freq_weight <- textstat_frequency(dfm_weighted, n = 5, groups = "mineln")
 ```
 
 ```{r fig.cap="Leggyakoribb kifejezések a miniszterelnöki beszédekben"}

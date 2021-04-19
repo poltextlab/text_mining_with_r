@@ -26,7 +26,7 @@ A fejezetben a gyakorlati példa során a GloVe algoritmust használjuk majd, mi
 
 Az elemzéshez a `text2vec` csomagot használjuk, ami a GloVe implementációt tartalmazza. A lenti kód a csomag dokumentáción alapul és a Társadalomtudományi Kutatóközpont által a *Hungarian Comparative Agendas Project (CAP)* adatbázisában tárolt *Magyar Nemzet* korpuszt használja.[^cap-link]
 
-[^cap-link]: A Magyar CAP Projekt által kezelt adatbázisok itt megtalálhatóak: [https://cap.tk.hu/adatbazisok](https://cap.tk.hu/adatbazisok).
+[^cap-link]: A Magyar CAP Project által kezelt adatbázisok itt megtalálhatóak: [https://cap.tk.hu/adatbazisok](https://cap.tk.hu/adatbazisok).
 
 
 ```{r}
@@ -38,12 +38,13 @@ library(dplyr)
 library(tibble)
 library(stringr)
 library(ggplot2)
+library(HunMineR)
 ```
 
 A lenti kód blokk azt mutatja be, hogyan kell a betöltött korpuszt tokenizálni és mátrix formátumba alakítani. A korpusz a *Magyar Nemzet* 2004 és 2014 közötti címlapos cikkeit tartalmazza. Az eddigi előkészítő lépéseket most is megtesszük: kitöröljük a központozást, a számokat, a magyar töltelékszavakat, illetve kisbetűsítünk és eltávolítjuk a felesleges szóközöket és töréseket.
 
 ```{r}
-mn <- read_csv("data/mn_large.csv")
+mn <- data_magyar_nemzet_large
 
 mn_clean <- mn %>%
   mutate(

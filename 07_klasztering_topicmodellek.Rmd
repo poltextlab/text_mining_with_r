@@ -31,18 +31,17 @@ library(topicmodels)
 library(factoextra)
 library(stm)
 library(igraph)
+library(HunMineR)
 ```
 
 A beszédek szövege meglehetősen tiszta, ezért az egyszerűség kedvéért most kihagyjuk a szövegtisztítás lépéseit. Az elemzés első lépéseként a `.csv` fájlból beolvasott szövegeinkből a `quanteda` csomaggal korpuszt hozunk létre, majd abból egy dokumentum-kifejezés mátrixot készítünk a `dfm()` függvénnyel. Láthatjuk, hogy márixunk 7 megfigyelést és 4 változót tartalmaz.
 
 ```{r}
-beszedek <- read_csv("data/miniszterelnokok.csv")
+beszedek <- data_miniszterelnokok
 
 beszedek_corpus <- corpus(beszedek)
 
 beszedek_dfm <- dfm(beszedek_corpus)
-
-
 ```
 
 A beszédek klaszterekbe rendezését az R egyik alapfüggvénye, a kmeans végzi. Első lépésben 3 klasztert készítünk. A `table()` függvénnyel megnézhetjük, hogy egy-egy csoportba hány dokumentum került.
@@ -50,19 +49,16 @@ A beszédek klaszterekbe rendezését az R egyik alapfüggvénye, a kmeans végz
 ```{r}
 beszedek_klaszter <- kmeans(beszedek_dfm, centers = 2)
 
-
 table(beszedek_klaszter$cluster)
 ```
 
 A felügyelet nélküli klasszifikáció nagy kérdése, hány klasztert alakítsunk ki, hogy megközelítsük a valóságot, és ne csak mesterségesen kreáljunk csoportokat. Ez ugyanis azzal a kockázattal jár, hogy ténylegesen nem létező csoportok is létrejönnek. A klaszterek optimális számának meghatározására kvalitatív és kvantitatív lehetőségeink is vannak. A következőkben az utóbbira mutatunk példát, amihez a `factoextra` csomagot használjuk A lenti ábra azt mutatja hogy a klasztereken belüli négyzetösszegek hogyan változnak a **k** paraméter változásának függvényében. Minél kisebb a klasztereken belüli négyzetösszegek értéke, annál közelebbi pontok tartoznak össze, így a kisebb értékekkel definiált klasztereket kapunk. Az ábra alapján tehát az ideális **k** 4 vagy 2, attól fuggően, hogy milyen feltevésekkel élünk a kutatásunk során. A 2-es érték azért lehet jó, mert a $k > 2$ értékek esetén a négyzetösszegek értéke nem csökken drasztikusan és a korpuszunk alapján a két („jobb-bal”) klaszter kvalitativ alapon is jól definiálható. A $k = 4$ pedig azért lehet jó, mert utánna gyakorlatilag nem változik a kapott négyzetösszeg, ami azt jelzi, hogy a további klaszterek hozzáadásával nem lesz pontosabb a csoportosítás.
 
 ```{r, fig.cap="Optimális klaszterek száma"}
-
 fviz_nbclust(as.matrix(beszedek_dfm), kmeans, method = "wss", k.max = 5, linecolor = "black") +
 labs(
   x = "Klaszterek száma",
   y = "Klasztereken belüli négyzetösszeg")
-
 ```
 
 A kialakított csoportokat vizuálisan is megjeleníthetjük.
@@ -102,7 +98,7 @@ Az alábbiakban a 1998–2002-es és a 2002–2006-os parlamenti ciklus 1032 tö
 Töltsük be az elemezni kívánt csv fájlt, megadva az elérési útvonalát.
 
 ```{r warning=FALSE, message=FALSE}
-torvenyek <- read_csv("data/lawtext_1998_2006.csv")
+torvenyek <- data_lawtext_1998_2006
 ```
 
 Az előző fejezetekben láthattuk, hogyan lehet használni a stringr csomagot a szövegtisztításra. A lépések a már megismert sztenderd folyamatot követik: számok, központozás, sortörések, extra szóközök eltávolítása, illetve a szöveg kisbetűsítése. Az eddigieket további szövegtisztító lépésekkel is kiegészíthetjük. Olyan elemek esetében, amelyek nem feltétlenül különálló szavak és el akarjuk távolítani őket a korpuszból, szintén a `str_remove_all()` a legegyszerűbb megoldás.
@@ -131,10 +127,10 @@ torvenyek_tiszta <- torvenyek %>%
   )
 ```
 
-A dokumentum változókat egy külön fájlból adjuk hozzá, ami a törvények keletkezési évét tartalmazza, illetve azt, hogy melyik kormányzati ciklusban születtek. Mindkét adatbázisban egy közös egyedi azonosító jelöli az egyes törvényeket, így ki tudjuk használni a `dplyr` `left_join()` függvényét, ami hatékonyan és gyorsan kapcsol össze adatbázisokat közös egyedi azonosító mentén. Jelen esetben ez az egyedi azonosító a `txt_filename` oszlopból fog elkészülni, amely a törvények neveit tartalmazza. Első lépésben betöltjük a metaadatokat tartalmazó .csv fájlt, majd a `.txt` rész előtti törvényneveket tartjuk csak meg a létrehozott `doc_id`- oszlopban. A `[^\\.]*` regular expression itt a string elejétől indulva kijelöl mindent az elso `.` karakterig. Az `str_extract()` pedig ezt a kijelölt string szakaszt (ami a törvények neve) menti át az új változónkba.
+A dokumentum változókat egy külön fájlból adjuk hozzá, ami a törvények keletkezési évét tartalmazza, illetve azt, hogy melyik kormányzati ciklusban születtek. Mindkét adatbázisban egy közös egyedi azonosító jelöli az egyes törvényeket, így ki tudjuk használni a `dplyr` `left_join()` függvényét, ami hatékonyan és gyorsan kapcsol össze adatbázisokat közös egyedi azonosító mentén. Jelen esetben ez az egyedi azonosító a `txt_filename` oszlopból fog elkészülni, amely a törvények neveit tartalmazza. Első lépésben betöltjük a metaadatokat tartalmazó data frame-t, majd a `.txt` rész előtti törvényneveket tartjuk csak meg a létrehozott `doc_id`- oszlopban. A `[^\\.]*` regular expression itt a string elejétől indulva kijelöl mindent az elso `.` karakterig. Az `str_extract()` pedig ezt a kijelölt string szakaszt (ami a törvények neve) menti át az új változónkba.
 
 ```{r}
-torveny_meta <- read_csv("data/cap_law_meta.csv")
+torveny_meta <- data_lawtext_meta
 
 torveny_meta <- torveny_meta %>%
   mutate(doc_id = str_extract(txt_filename, "[^\\.]*")) %>%
@@ -147,7 +143,6 @@ Végül összefűzzük a dokumentumokat és a metaadatokat tartalmazó data fram
 
 ```{r}
 torveny_final <- left_join(torvenyek_tiszta, torveny_meta, by = "doc_id")
-
 ```
 
 Majd létrehozzuk a korpuszt és ellenőrizzük azt.
@@ -160,11 +155,10 @@ head(summary(torvenyek_corpus), 5)
 
 Az RStudio environments fülén láthatjuk, hogy egy `r length(torvenyek_corpus)` elemből álló korpusz jött létre, amelynek tartalmát a `summary()` paranccsal kiíratva a console ablakban megjelenik a dokumentumok listája és a főbb leíró statisztikai adatok (egyedi szavak - types; szószám - tokens; mondatok - sentences). Az előbbi fejezettől eltérően most a tokenizálás során is végzünk még egy kis tisztítást: a felesleges stop szavakat kitöröljük a `tokens_remove()` és `stopwords()` kombinálásával. A `quanteda` tartalmaz egy beépített magyar stopszó szótárat. A második lépésben szótövesítjük a tokeneket a `tokens_words()` használatával, ami szintén képes a magyar nyelvű szövegeket kezelni.
 
-Szükség esetén a beépített magyar nyelvű stopszó szótárat saját stopszavakkal is kiegészíthetjük. Ehhez először `csv` fájlba el kell mentenünk a stopszavakat, majd a `csv` fájlt be kell olvasnunk. Az `pull()` egy karaktervektort fog kreálni a data frame `text` oszlopából.
+Szükség esetén a beépített magyar nyelvű stopszó szótárat saját stopszavakkal is kiegészíthetjük. Példaként a `HunMineR` csomagban lévő kiegészítő stopszó data frame-t töltsük be.
 
 ```{r}
-custom_stopwords <- readtext("data/custom_legal_stopwords.csv", encoding = "UTF8") %>%
-  pull(text)
+custom_stopwords <- data_legal_stopwords
 ```
 
 Mivel a korpusz ellenőrzése során találunk még olyan kifejezéseket, amelyeket el szeretnénk távolítani, ezeket is kiszűrjük.
@@ -194,7 +188,11 @@ torvenyek_dfm <- dfm(torvenyek_tokens) %>%
 A szövegtisztító lépesek eredményét úgy ellenőrizhetjük, hogy a 2. fejezetben bemutatottak szerint szógyakorisági listát készítünk a korpuszban maradt kifejezésekről. Itt kihasználhatjuk a korpuszunkban lévő metaadatokat és megnézhetjük ciklus szerinti bontásban a szófrekvencia ábrát. Az ábránál figyeljünk arra, hogy a tidytext `reorder_within` függvényét használjuk, ami egy nagyon hasznos megoldás a csoportosított sorrendbe rendezésre a `ggplot2` ábránál.
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80), fig.cap="A 15 leggyakoribb token a korpuszban"}
-top_tokens <- textstat_frequency(torvenyek_dfm, n = 15, groups = docvars(torvenyek_dfm, field = "electoral_cycle"))
+top_tokens <- textstat_frequency(
+  torvenyek_dfm, 
+  n = 15, 
+  groups = docvars(torvenyek_dfm, field = "electoral_cycle")
+  )
 
 ggplot(top_tokens, aes(reorder_within(feature, frequency, group), frequency)) +
   geom_point(aes(shape = group), size = 2) +
@@ -211,8 +209,7 @@ ggplot(top_tokens, aes(reorder_within(feature, frequency, group), frequency)) +
 A szövegtisztító lépéseket később újabbakkal is kiegészíthetjük, ha észrevesszük, hogy az elemzést zavaró tisztítási lépés maradt ki. Ilyen esetben tovább tisztíthatjuk a korpuszt, majd újra lefuttathatjuk az elemzést. Például, ha szükséges, további stopszavak eltávolítását is elvégezhetjük egy újabb stopszólista hozzáadásával. Ilyenkor ugyanúgy járunk el, mint az előző stopszólista esetén, vagyis beolvassuk a munkakönyvtárban elhelyezett a csv fájlt, a beolvasott stopszólistából karakter vektort, majd objektumot hozunk létre, végezetül pedig ezeket a szavakat is eltávolítjuk a kopuszból.
 
 ```{r}
-custom_stopwords2 <- readtext("data/custom_stopwords2.csv", encoding = "UTF8") %>%
-  pull(text)
+custom_stopwords2 <- data_legal_stopwords2
 
 torvenyek_tokens_final <- torvenyek_tokens %>%
   tokens_remove(custom_stopwords2)
@@ -224,7 +221,10 @@ Ezután újra ellenőrizzük az eredményt.
 torvenyek_dfm_final <- dfm(torvenyek_tokens_final) %>%
   dfm_trim(min_termfreq = 0.001, termfreq_type = "prop")
 
-top_tokens_final <- textstat_frequency(torvenyek_dfm_final, n = 15, groups = docvars(torvenyek_dfm, field = "electoral_cycle"))
+top_tokens_final <- textstat_frequency(torvenyek_dfm_final,
+                                       n = 15, 
+                                       groups = docvars(torvenyek_dfm, field = "electoral_cycle")
+                                       )
 ```
 
 Ezt egy ábrán is megjelenítjük.
