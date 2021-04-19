@@ -1,5 +1,11 @@
 # Korpuszépítés és szövegelőkészítés
 
+```{r, include=FALSE}
+
+source("_common.R")
+
+```
+
 ## Szövegbeszerzés
 
 A szövegbányászati elemzések egyik első lépése az elemzés alapjául
