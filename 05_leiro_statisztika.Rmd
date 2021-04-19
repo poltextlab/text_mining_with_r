@@ -16,7 +16,8 @@ Fejezetünkben nyolc véletlenszerűen kiválasztott magyar miniszterelnöki bes
 
 [^1]: A beszédeket a Hungarian Comarative Agendas Project miniszterelnöki beszéd korpuszából válogattuk: <https://cap.tk.hu/vegrehajto>
 
-```{r}
+```{r message=FALSE, warning=FALSE}
+library(HunMineR)
 library(readtext)
 library(dplyr)
 library(lubridate)
@@ -26,8 +27,6 @@ library(quanteda)
 library(GGally)
 library(ggdendro)
 library(tidytext)
-library(tidyverse)
-library(HunMineR)
 ```
 
 Első lépésben a [Bevezetőben](#intro) már ismertetett módon a `HunMineR` csomagból betöltjük a beszédeket.
@@ -45,14 +44,14 @@ Majd azt is meghatározzuk, hogy melyik beszédnek mi a dátuma. Ehhez szintén 
 Ezután a `glimpse()` függvény segítségével megtekintjük, hogy milyen változtatásokat végeztünk az adattáblánkon. Láthatjuk, hogy míg korábban 8 dokumentumunk és 2 változónk volt, az átalakítás eredményeként a 8 dokumentum mellett már 5 változót találunk. Ezzel a lépéssel tehát kialakítottuk azokat a változókat, amelyekre az elemzés során szükségünk lesz.
 
 
-```{r,  tidy = TRUE, tidy.opts=list(width.cutoff=80)}
+```{r}
 miniszterelnokok <- c("antall_jozsef", "boross_peter", "orban_viktor")
 
 texts <- texts %>%
   mutate(
     doc_id = str_extract(doc_id, "[^\\.]*"),
     mineln = str_sub(doc_id, end = -6),
-    jobb_bal = if_else(mineln %in% miniszterelnokok, "jobb", "bal")
+    partoldal = if_else(mineln %in% miniszterelnokok, "jobb", "bal")
   )
 
 texts$year <- str_sub(texts$doc_id, start = -2) %>%
@@ -73,10 +72,12 @@ summary(corpus_mineln)
 
 Mivel az elemzés során a korpuszon belül két csoportra osztva szeretnénk összehasonlításokat tenni, az alábbiakban két alkorpuszt alakítunk ki.
 
-```{r  tidy = TRUE, tidy.opts=list(width.cutoff=80)}
-mineln_jobb <- corpus_subset(corpus_mineln, jobb_bal == "jobb")
+```{r}
+mineln_jobb <- corpus_subset(corpus_mineln, mineln %in% c("antall_jozsef", "boross_peter", 
+    "orban_viktor"))
 
-mineln_bal <- corpus_subset(corpus_mineln, jobb_bal == "bal")
+mineln_bal <- corpus_subset(corpus_mineln, mineln %in% c("horn_gyula", "gyurcsany_ferenc", 
+    "medgyessy_peter", "bajnai_gordon"))
 
 summary(mineln_jobb)
 
@@ -85,9 +86,9 @@ summary(mineln_bal)
 
 A korábban létrehozott „jobb" és „bal" változó segítségével nem csak az egyes dokumentumokat, hanem a két csoportba sorolt beszédeket is összehasonlíthatjuk egymással.
 
-```{r}
+```{r eval=FALSE}
 summary(corpus_mineln) %>%
-  group_by(jobb_bal) %>%
+  group_by(partoldal) %>%
   summarise(
     mean_wordcount = mean(Tokens), 
     std_dev = sd(Tokens), 
@@ -95,6 +96,22 @@ summary(corpus_mineln) %>%
     max_wordc = max(Tokens)
     )
 ```
+
+```{r echo=FALSE}
+# a <- summary(corpus_mineln) %>%
+#   group_by(partoldal) %>%
+#   summarise(
+#     mean_wordcount = mean(Tokens), 
+#     std_dev = sd(Tokens), 
+#     min_wordc = min(Tokens), 
+#     max_wordc = max(Tokens)
+#     )
+# 
+# saveRDS(a, "data/temp/05_summary.rds")
+
+readRDS("data/temp/05_summary.rds")
+```
+
 
 A `textstat_collocations()` függvény segítségével szókapcsolatokat kereshetünk. A függvény argumentumai közül a `size` a szókapcsolatok hossza, a `min_count` pedig a minimális előfordulásuk száma. Miután a szókapcsolatokat megkerestük a korábban már megismert `head()` függvény segítségével közülük tetszőleges számút megnézhetünk[^3].
 
@@ -223,10 +240,10 @@ Majd a `ggplot2` segítségével vizualizálhatjuk az eredményt. Ehhez az olvas
 corpus_df <- docvars(corpus_mineln)
 ```
 
-```{r fig.cap="Az olvashatósági index alakulása"}
-ggplot(corpus_df, aes(year, f_k, color = jobb_bal)) +
+```{r eval=FALSE}
+ggplot(corpus_df, aes(year, f_k, color = partoldal)) +
   geom_point(size = 2) +
-  geom_line(aes(linetype = jobb_bal), size = 1) +
+  geom_line(aes(linetype = partoldal), size = 1) +
   geom_text(aes(label = mineln), color = "black", nudge_y = 0.15) +
   scale_x_continuous(limits = c(1988, 2020)) +
   labs(
@@ -238,6 +255,27 @@ ggplot(corpus_df, aes(year, f_k, color = jobb_bal)) +
   theme_minimal() +
   theme(legend.position = "bottom")
 ```
+
+```{r, echo=FALSE, fig.cap="Az olvashatósági index alakulása"}
+# b <- ggplot(corpus_df, aes(year, f_k, color = partoldal)) +
+#   geom_point(size = 2) +
+#   geom_line(aes(linetype = partoldal), size = 1) +
+#   geom_text(aes(label = mineln), color = "black", nudge_y = 0.15) +
+#   scale_x_continuous(limits = c(1988, 2020)) +
+#   labs(
+#     x = NULL,
+#     y = "Flesch-Kincaid index",
+#     color = NULL,
+#     linetype = NULL
+#   ) +
+#   theme_minimal() +
+#   theme(legend.position = "bottom")
+# 
+# saveRDS(b, "data/temp/05_plot.rds")
+
+readRDS("data/temp/05_plot.rds")
+```
+
 
 ## Összehasonlítás[^5]
 
@@ -284,7 +322,7 @@ Arra is van lehetőségünk, hogy a két alkorpuszt hasonlítsuk össze egymáss
 ```{r}
 dfm_keyness <- dfm(
   corpus_mineln,
-  groups = "jobb_bal", 
+  groups = "partoldal", 
   remove = custom_stopwords,
   remove_punct = TRUE
 )
