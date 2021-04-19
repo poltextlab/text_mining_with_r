@@ -2,7 +2,7 @@
 
 ## Adatok importálása és exportálása
 
-```{r include=FALSE}
+```{r, include=FALSE}
 
 source("_common.R")
 
