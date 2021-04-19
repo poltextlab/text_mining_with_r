@@ -6,7 +6,6 @@ site: bookdown::bookdown_site
 documentclass: book
 link-citations: true
 always_allow_html: true
-cover-image: index_logo.jpg
 description: > 
   Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L'Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést.
 output:
@@ -44,6 +43,6 @@ output:
 ```
 
 
-<img src="figures/index_logo.png" width="250" height="328" align="right" alt="Cover image" />
+<img src="figures/index_logo.png" width="250" height="328" align="right" alt="Cover image"/>
 
 A szövegek kvantitatív elemzése (quantitative text analysis -- QTA) a nemzetközi társadalomtudomány egyik leggyorsabban fejlődő irányzata. A szövegek és más minőségi adatok (filmek, képek) elemzése annyiban különbözik a mennyiségi (kvantitatív) adatokétól, hogy nyers formájukban még nem alkalmasak arra, hogy statisztikai, illetve ökonometriai elemzés alá vessük őket, s így további módszertani problémákat vetnek fel, melyek speciális tárgyalása szükséges. A tervezett kötetben bemutatott példák többsége a politikatudományhoz kapcsolódik, de más alkalmazási területekre is kitér.
