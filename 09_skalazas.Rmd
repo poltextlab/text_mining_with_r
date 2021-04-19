@@ -90,7 +90,7 @@ Az eredményeinket mind a szavak, mind a dokumentumok szintjén tudjuk vizualiz�
 
 Kihasználhatjuk, hogy a `ggplot` ábra definiálása közben a felhasznált bemeneti data frame-et különböző szempontok alapján lehet szűrni. Így ábrázolni tudjuk a gyakran használt ám semleges szavakat (magas $\psi$, alacsony $\beta$), illetve a ritkább, de meghatározóbb szavakat (magas $\beta$, alacsony $\psi$).
 
-```{r, fig.cap="A Wordfish "Eiffel-torony"}
+```{r, fig.cap="A Wordfish 'Eiffel-torony'"}
 ggplot(szavak_wf, aes(x = beta, y = psi)) +
   geom_point(color = "grey") +
   geom_text_repel(
