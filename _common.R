@@ -11,5 +11,4 @@ knitr::opts_chunk$set(
   fig.align = "center"
 )
 
-suppressPackageStartupMessages(library(tidyverse))
 theme_set(theme_light())
