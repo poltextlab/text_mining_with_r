@@ -317,7 +317,7 @@ mineln_dfm %>%
   head(n = 10)
 ```
 
-Arra is van lehetőségünk, hogy a két alkorpuszt hasonlítsuk össze egymással. Ehhez a `textstat_keyness()` függvényt használjuk, melynek a bemenete a `dfm`. A függvény argumentumában a `target =` után kell megadni, hogy mely alkorpusz a viszonyítási alap. Az összehasonlítás eredményét a 'textplot_keyness()\` függvény segítségével ábrázolhatjuk, ami megjeleníti a két alkorpusz leggyakoribb kifejezéseit.
+Arra is van lehetőségünk, hogy a két alkorpuszt hasonlítsuk össze egymással. Ehhez a `textstat_keyness()` függvényt használjuk, melynek a bemenete a `dfm`. A függvény argumentumában a `target =` után kell megadni, hogy mely alkorpusz a viszonyítási alap. Az összehasonlítás eredményét a 'textplot_keyness()` függvény segítségével ábrázolhatjuk, ami megjeleníti a két alkorpusz leggyakoribb kifejezéseit.
 
 ```{r}
 dfm_keyness <- dfm(
