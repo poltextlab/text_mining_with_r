@@ -401,23 +401,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="adatkezeles.html#cb20-1" aria-hidden="true" tabindex="-1"></a>szoveg <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;gitar&quot;</span>, <span class="st">&quot;ukulele&quot;</span>, <span class="st">&quot;nagybogo&quot;</span>)</span>
 <span id="cb20-2"><a href="adatkezeles.html#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="adatkezeles.html#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(szoveg, <span class="at">pattern =</span> <span class="st">&quot;ar&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-05ff953b01d4dd455172" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-05ff953b01d4dd455172">{"x":{"html":"<ul>\n  <li>git<span class='match'>ar<\/span><\/li>\n  <li>ukulele<\/li>\n  <li>nagybogo<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-805ca6ab977bc6d12c09" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-805ca6ab977bc6d12c09">{"x":{"html":"<ul>\n  <li>git<span class='match'>ar<\/span><\/li>\n  <li>ukulele<\/li>\n  <li>nagybogo<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <p>Az ún. „horgonyokkal“, (<em>anchor</em>) azt lehet megadni, hogy a karakter string elején vagy végén szeretnénk egyezést találni. A string eleji anchor a <code>^</code>, a string végi pedig a <code>$</code>.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="adatkezeles.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;Dr. Doktor Dr.&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;^Dr.&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-85db70db1c694936b4c6" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-85db70db1c694936b4c6">{"x":{"html":"<ul>\n  <li><span class='match'>Dr.<\/span> Doktor Dr.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-c272746514d4e2be1b0c" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c272746514d4e2be1b0c">{"x":{"html":"<ul>\n  <li><span class='match'>Dr.<\/span> Doktor Dr.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="adatkezeles.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;Dr. Doktor Dr.&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;Dr.$&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-729e3bf0b4c02a29f0fd" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-729e3bf0b4c02a29f0fd">{"x":{"html":"<ul>\n  <li>Dr. Doktor <span class='match'>Dr.<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-28b9478b7becbe5ba36d" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-28b9478b7becbe5ba36d">{"x":{"html":"<ul>\n  <li>Dr. Doktor <span class='match'>Dr.<\/span><\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <p>Egy másik jellemző probléma, hogy olyan speciális karaktert akarunk leírni a regex kifejezésünkkel, ami amúgy a regex szintaxisban használt. Ilyen eset például a <code>.</code>, ami mint írásjel sokszor csak zaj, ám a regex kontextusban a „bármilyen karakter„ megfelelője.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="adatkezeles.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;Dr. Doktor Dr.&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;.k.&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-a1ec5018b1b34a4bfe9c" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a1ec5018b1b34a4bfe9c">{"x":{"html":"<ul>\n  <li>Dr. D<span class='match'>okt<\/span>or Dr.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-d8ef26df07d4f1b5b064" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d8ef26df07d4f1b5b064">{"x":{"html":"<ul>\n  <li>Dr. D<span class='match'>okt<\/span>or Dr.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <p>Ahhoz, hogy magát az írásjelet jelöljük, a <code>\\</code> -t kell elé rakni.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="adatkezeles.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str_view</span>(<span class="st">&quot;Dr. Doktor Dr.&quot;</span>, <span class="at">pattern =</span> <span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-7a38cba2fbada0768153" style="width:960px;height:100%;" class="str_view html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7a38cba2fbada0768153">{"x":{"html":"<ul>\n  <li>Dr<span class='match'>.<\/span> Doktor Dr.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-be47d21307e927edb08a" style="width:960px;height:100%;" class="str_view html-widget"></div>
+<script type="application/json" data-for="htmlwidget-be47d21307e927edb08a">{"x":{"html":"<ul>\n  <li>Dr<span class='match'>.<\/span> Doktor Dr.<\/li>\n<\/ul>"},"evals":[],"jsHooks":[]}</script>
 <p>Néhány hasznos regex kifejezés:</p>
 <ul>
 <li><code>[:digit:]</code> - számok (123)</li>
