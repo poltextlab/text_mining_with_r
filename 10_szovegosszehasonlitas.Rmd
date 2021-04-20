@@ -1,5 +1,5 @@
-# Szövegösszehasonlítás
-
+# Szövegösszehasonlítás {#similarity}
+## A szövegösszehasonlítás különböző megközelítései
 A gépi szövegösszehasonlítás a mindennapi életünk számos területén megjelenő szövegbányászati technika, bár az emberek többség nincs ennek tudatában. Ezen a módszeren alapulnak a böngészők kereső mechanizmusai, vagy a kérdés-felelet (Q&A) fórumok algoritmusai, melyek ellenőrzik, hogy szerepel-e már a feltenni kívánt kérdés a fórumon [@siegTextSimilaritiesEstimate2018]. Alkalmazzák továbbá a szövegösszehasonlítást a gépi szövegfordításban és az automatikus kérdésmegválaszolási feladatok esetén is  [@wangMeasurementTextSimilarity2020], de akár automatizált esszé értékelésre vagy plágiumellenőrzésre is hasznosítható az eljárás [@barReflectiveViewText2011].
 
 A szövegösszehasonlítás hétköznapi életben előforduló rejtett alkalmazásain túl a társadalomtudományok művelői is számos esetben hasznosítják az eljárást. A politikatudomány területén többek között használhatjuk arra, hogy eldöntsük, mennyire különböznek egymástól a benyújtott törvényjavaslatok és az elfogadott törvények szövegei, ezzel fontos információhoz jutva arról, hogy milyen szerepe van a parlamenti vitának a végleges törvények kialakításában. Egy másik példa a szakpolitikai prioritásokban és alapelvekben végbemenő változások elemzése, melyet például szakpolitikai javaslatok vagy ilyen témájú viták leiratainak elemzésével is megtehetünk.
@@ -44,7 +44,7 @@ Az LSA-nél és az LDA-nél azonban egy fokkal komplexebb megközelítés a szó
 source("_common.R")
 ```
 
-## Hasonlóság számítás a gyakorlatban
+## Hasonlóság-számítás
 
 ### Adatbázis importálás és előkészítés
 
@@ -202,7 +202,7 @@ tv_javaslatok_tokens <- tokens(tv_javaslatok_corpus) %>%
 
 A szövegek tokenizálásával és a stopszavak eltávolításával a szövegtisztítás végére értünk, így megkezdhetjük az elemzést.
 
-## Jaccard hasonlóság számítás
+## A Jaccard hasonlóság számítás
 
 A Jaccard hasonlóság kiszámításához a `quanteda` `textstat_simil()` függvényét fogjuk alkalmazni. Mivel a `textstat_simil()` függvény dokumentum-kifejezés mátrixot vár bemenetként, elsőként alakítsuk át ennek megfelelően a korpuszainkat. Az előző fejezetekhez hasonlóan itt is a tf-idf súlyozást választottuk a mátrix létrehozásakor.
 
@@ -275,7 +275,7 @@ tv_tvjav_minta[, c("tv_id", "korm_ciklus", "tvjav_id", "jaccard_index")] %>%
 ```
 Láthatjuk, hogy az öt leghasonlóbb törvény–törvényjavaslat pár esetén 0.98 felett van a Jaccard hasonlág értéke, míg a leginkább különböző ötnél 0.03 alatt.
 
-## Koszinusz hasonlóság számítás
+## A koszinusz hasonlóság számítás
 
 A Jaccard hasonlóság számítás után a koszinusz távolság számítása már nem jelent nagy kihívást, hiszen a `textat_simil()` függvénnyel ezt is kiszámíthatjuk, csupán a metrika paramétereként (`method = `) megadhatjuk a koszinuszt is. Ahogy az előbbiekben, itt is a dokumentum-kifejezés mátrixokat adjuk meg bemeneti értékként. 
 
@@ -316,7 +316,7 @@ colnames(tv_tvjav_minta)
 
 ## Az eredmények vizualizációja
 
-A hasonlóság metrikák vizulizációjára gyakran alkalmazott megoldás a hőtérkép ( __heatmap__), mellyel korrelációs mátrixokat ábrázolhatunk. Ebben az esetben a mátrix értékeit egy színskálán vizualizáljuk, ahol a világosabb színek a magasabb, a sötétebb színek az alacsonyabb értékeket jelölik. A Jaccard hasonlóság számítás és a koszinusz hasonlóság számításakor kapott mátrixok esetén is ábrázoljhatjuk az értékeinket ilyen módon. Mivel azonban mindkét mátrix 600x600-as, nem érdemes a teljes mátrixot megjeleníteni, mert ilyen nagy mennyiségű adatnál már értelmezhetetlenné válik az ábra, így csak az utolsó 100 elemet, vagyis a 2014–2018-as időszakra vonatkozó értékeket jelenítjük meg. Ezt a `kosziunsz_hasonlóság` nevű objektumunk feldarabolásával tesszük meg, szögletes zárójelben jelölve, hogy a mátrix mely sorait, és mely oszlopait szeretnénk használni: `koszinusz_hasonlosag[501:600, 501:600`. A `koszinusz_hasonlosag` objektumból egy data frame-t készítünk, ahol a dokumentumok közötti hasonlóság szerepel. A mátrix formátumból a `tidyr` csomag `pivot_longer()` függvényét használva tudjuk a kívánt formátumot elérni.
+A hasonlóság metrikák vizulizációjára gyakran alkalmazott megoldás a hőtérkép (*heatmap*), mellyel korrelációs mátrixokat ábrázolhatunk. Ebben az esetben a mátrix értékeit egy színskálán vizualizáljuk, ahol a világosabb színek a magasabb, a sötétebb színek az alacsonyabb értékeket jelölik. A Jaccard hasonlóság számítás és a koszinusz hasonlóság számításakor kapott mátrixok esetén is ábrázoljhatjuk az értékeinket ilyen módon. Mivel azonban mindkét mátrix 600x600-as, nem érdemes a teljes mátrixot megjeleníteni, mert ilyen nagy mennyiségű adatnál már értelmezhetetlenné válik az ábra, így csak az utolsó 100 elemet, vagyis a 2014–2018-as időszakra vonatkozó értékeket jelenítjük meg. Ezt a `kosziunsz_hasonlóság` nevű objektumunk feldarabolásával tesszük meg, szögletes zárójelben jelölve, hogy a mátrix mely sorait, és mely oszlopait szeretnénk használni: `koszinusz_hasonlosag[501:600, 501:600`. A `koszinusz_hasonlosag` objektumból egy data frame-t készítünk, ahol a dokumentumok közötti hasonlóság szerepel. A mátrix formátumból a `tidyr` csomag `pivot_longer()` függvényét használva tudjuk a kívánt formátumot elérni.
 
 
 ```{r, fig.cap="A koszinusz hasonlósági hőtérkép"}
@@ -469,11 +469,11 @@ _3 - Benyújtók legalább két ellenzéki pártból_
 
 _4 - Benyújtók legalább két kormánypártból_
 
-_5 - Nem releváns - a benyújtó a kabinet tagja_
+_900 - Nem releváns - a benyújtó a kabinet tagja_
 
-_6 - Nem releváns - a benyújtó a bizottság tagja volt_
+_901 - Nem releváns - a benyújtó a bizottság tagja volt_
 
-_7 - Nem releváns - a benyújtó sem a parlamentnek, sem a kabinetnek, sem a bizottságnak nem tagja_
+_902 - Nem releváns - a benyújtó sem a parlamentnek, sem a kabinetnek, sem a bizottságnak nem tagja_
 
 Mivel nincs túl sok adatpontunk, és ezek többsége a 900-as adatpont alá esik (lásd `tv_tvjav_minta %>% count(korm_ell)`), érdemes összevonni a 0-ás és a 3-as változót, valamint az 1-es és a 4-es változót egy-egy értékbe, hogy jobban elemezhetőek legyenek az eredményeink. Ehhez a `korm_ell` változó értékei alapján definiálunk egy új `korm_ell2` változót. Az új változó definiálását és az értékadásokat a `dplyr` `case_when()` függvényével fogjuk megtenni. A függvényen belül a bal oldalra kerül, hogy milyen értékek alapján szeretnénk az új értéket meghatározni, a tilde (~) után pedig az, hogy mi legyen az újonnan létrehozott oszlop értéke. Tehát a `case_when()`-en belül lévő első sor azt fejezi ki, hogy amennyiben a `korm_ell` egyenlő 0-val, vagy (`|`) a `korm_ell` egyenlő 3-mal, legyen a korm_ell2 értéke 0.
 
