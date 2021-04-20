@@ -26,13 +26,13 @@ Példánkban az Országgyűlésben 2014 és 2018 között elhangzott véletlensz
 
 Az elemzés eredményéül kapott `txt` fájlban láthatjuk, hogy az elemző elvégezte a szövegek mondatokrabontását, tokenizálását, lemmatizálását és POS-taggelését, azaz meghatározta a szavak szófaját.
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.cap="A magyarlánc elemző nyers eredménye"}
 knitr::include_graphics("figures/11-01_magyarlanc_kimenet.png")
 ```
 
 Ezt követően célszerű a `txt` fájlt excelbe beolvasva oszlopokra tagolni, az oszlopokat fejléccel ellátni, majd `csv` fájlként elmenteni.
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.cap="Az Excelben megnyitott magyarlánc eredmény"}
 knitr::include_graphics("figures/11-02_napirend_elotti_magyarlanc.png")
 
 ```
@@ -60,7 +60,7 @@ verb_napirend_elotti <- napirend_elotti %>%
 
 A `magyarlanc` nyelvi elemzőhöz hasonlóan használhatjuk a `szeged ner` elemzőt is, melynek részletes leírása és maga a `ner.jar` elemző is megtalálható az alábbi oldalon <https://rgai.inf.u-szeged.hu/node/109>. Az elemző a fent bemutatott módon szintén parancssorból indítható az alábbi parancs használatával: `java -Xmx3G -jar ner.jar -mode predicate -input input.txt -output output.txt` Az elemző PER (személynév), LOC (hely(szín)), ORG (szervezet) és MISC (vegyes) címkét ad az egyes névelemeknek.
 
-```{r echo=FALSE}
+```{r echo=FALSE, fig.cap="A szeged ner elemző eredménye"}
 knitr::include_graphics("figures/11-03_ner.png")
 
 ```
@@ -210,7 +210,7 @@ Majd elkészítettük a szóbeágyazás fejezetben már megismert fcm-et, végez
 
 [^9]: Részletes leírását lásd: <https://tutorials.quanteda.io/basic-operations/fcm/fcm/>
 
-```{r fig.cap="A Magyar Nemzeti Bank korpusz névelemeinek együttelőfordulási mátrixa "}
+```{r fig.cap="A Magyar Nemzeti Bank korpusz névelemeinek együttelőfordulási mátrixa"}
 mnb_fcm <- fcm(mnb_tokens, context = "window", count = "weighted", weights = 1 / (1:5), tri = TRUE)
 
 feat <- names(topfeatures(mnb_fcm, 80))
