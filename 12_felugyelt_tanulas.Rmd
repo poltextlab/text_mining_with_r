@@ -2,6 +2,11 @@
 
 ## 12.1. Fogalmi alapok
 
+A mesterséges intelligencia két fontos társadalomtudományi alkalmazási területe a felügyelet nélküli és a felügyelt tanulás. Míg az előző esetben – ahogy azt a *[Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken](#lda_ch)* fejezetben bemutattuk – az emberi beavatkozás néhány kulcsparaméter megadására (így pl. a kívánt topikok számának meghatározására) szorítkozik, addig a felügyelt tanulás esetében a kutatónak nagyobb mozgástere van "tanítani" a gépet. Ennyiben a felügyelt tanulás alkalmasabb hipotézisek tesztelésére, mint az adatok rejtett mintázatait felfedező felügyelet nélküli tanulás. 
+A felügyelt tanulási feladat megoldása egy úgynevezett tanító halmaz (*training set*) meghatározásával kezdődik, melynek során a kutatók saját maguk végzik el kézzel azt a feladatot melyet a továbbiakban gépi közreműködéssel szeretnének nagyobb nagyságrendben, de egyben érvényesen (*validity*) és megbízhatóan (*reliability*) kivitelezni. Eredményeinket az ugyanúgy eredetileg kézzel lekódolt, de a modell-építés során félretett teszthalmazunkon (test set) értékelhetjük. Ennek során négy kategóriába rendezzük modellünk előrejelzéseit. Egy, a politikusi beszédeket a pozitív hangulatuk alapján osztályozó példát véve ezek a következők: azok a beszédek amelyeket a modell helyesen sorolt be pozitívba (valódi pozitív), vagy negatívba (valódi negatív), illetve azok, amelyek hibásan szerepelnek a pozitív (ál-pozitív), vagy a negatív kategóriában (ál-negatív). Mindezek együttesen egy ún. tévesztési táblát (confusion matrix) adnak, melynek további elemzésével ítéletet alkothatunk modellépítésünk eredményességéről.
+A felügyelt tanulás számos kutatási feladat megoldására alkalmazhatjuk, melyek közül a leggyakoribbak a különböző osztályozási (classification) feladatok. Miközben ezek – így pl. a véleményelemzés – szótáralapú módszertannal is megoldhatóak (lásd a *[Szótáralapú elemzések, érzelem-elemzés](#sentiment)* fejezetet), a felügyelt tanulás a nagyobb élőmunkaigényt rendszerint jobb eredményekkel és rugalmasabb felhasználhatósággal hálálja meg (gondoljunk csak a szótárak domain-függőségére). A felügyelt tanulás egyben a mesterséges intelligencia kutatásának gyorsan fejlődő területe, mely az e fejezetben tárgyalt algoritmus-központú gépi tanuláson túl az ún. mélytanulás (*deep learning*) és a neurális hálók területén is zajlik egyre látványosabb sikerekkel.
+
+
 ## 12.2. Osztályozás felügyelt tanulással
 
 Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapokat tartalmazó modult használjuk.[^1] Az induló adatbázis 61 835 cikk szövegét és metaadatait (összesen öt változót: sorszám, fájlnév, a közpolitikai osztály kódja, szöveg, illetve a korpusz forrása -- *Magyar Nemzet* vagy *Népszabadság*) tartalmazza. Az a célunk, hogy az egyes cikkekhez kézzel, jó minőségben (két, egymástól függetlenül dolgozó kódoló által) kiosztott és egyeztetett közpolitikai kódokat -- ez a tanítóhalmaz -- arra használjuk, hogy meghatározzuk egy kiválasztott cikkcsoport hasonló kódjait. Az osztályozási feladathoz a CAP közpolitikai kódrendszerét használjuk, mely 21 közpolitikai kategóriát határoz meg az oktatástól az egészségügyön át a honvédelemig [^2]
@@ -34,7 +39,7 @@ CAPcode <- 1
 Ezt követi a szövegelőkészítésen és tisztításon már átesett adatok betöltése. Ahogyan arról korábban már volt szó, `read.csv` függvény használatakor megadhatjuk a beolvasás paramétereit, így például, hogy milyen karakterkódolást szeretnénk használni (esetünkben ez az utf-8 lesz).
 
 ```{r include = TRUE}
-Data_NOL_MNO <- data_nol_mno_clean
+Data_NOL_MNO <- Data_NOL_MNO <- data_nol_mno_clean
 ```
 
 A következő lépésben eltávolítjuk a szöveges adatot nem tartalmazó (a text változóra semmilyen értéket nem adó) sorokat az adatbázisból.
@@ -56,7 +61,7 @@ Majd szétválasztjuk a két újsághoz tartozó cikkeket is (esetünkben a *Né
 Data_NOL <- Data_NOL_MNO[Data_NOL_MNO$corpus == "NOL",]
 ```
 
-Mint az **Environment** ablakban is látható, ez a lépés 37 135 cikkes halmazt adott. Ezen a ponton megkezdhetjük a felügyelt gépi tanulásra épülő lépéseket! Először egy 4500-as mintát veszünk az adatbázisból, hogy rövidítsük a futásidőt.
+Mint az *Environment* ablakban is látható, ez a lépés 37 135 cikkes halmazt adott. Ezen a ponton megkezdhetjük a felügyelt gépi tanulásra épülő lépéseket! Először egy 4500-as mintát veszünk az adatbázisból, hogy rövidítsük a futásidőt.
 
 ```{r include = TRUE}
 Data_NOL <- Data_NOL[sample(nrow(Data_NOL), 4500), ]
@@ -110,7 +115,6 @@ SVMmodel <- svm(
 
 SVMmodel <- readRDS("data/temp/svm_model.rds")
 ```
-
 
 A létrejövő *predictions* objektum tartalmazza majd az előrejelzési eredményeket.
 
@@ -215,6 +219,6 @@ df <- ggplot_data %>%
 ```{r include = TRUE, fig.cap="Az SVM modell klasszifikációs eredményei"}
 ggplot(df, aes(majortopic_code, n, fill = predictions_label)) + 
   geom_bar(, stat = "identity") +
-  labs(fill = NULL)
+  labs(fill = NULL) +
   theme(legend.position = "bottom")
 ```
