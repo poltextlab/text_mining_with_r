@@ -208,10 +208,13 @@ ggplot_data$predictions_label <- factor(ggplot_data$predictions_label)
 ```{r include = TRUE}
 df <- ggplot_data %>%
   group_by(majortopic_code, predictions_label) %>%
-  summarise(n = n())
+  summarise(n = n()) %>% 
+  filter(majortopic_code < 30)
 ```
 
-```{r include = TRUE}
+```{r include = TRUE, fig.cap="Az SVM modell klasszifikációs eredményei"}
 ggplot(df, aes(majortopic_code, n, fill = predictions_label)) + 
-  geom_bar(, stat = "identity")
+  geom_bar(, stat = "identity") +
+  labs(fill = NULL)
+  theme(legend.position = "bottom")
 ```
