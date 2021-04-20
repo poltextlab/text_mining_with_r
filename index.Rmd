@@ -10,7 +10,6 @@ description: >
   Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L'Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést.
 output:
   bookdown::gitbook: default
-  bookdown::word_document2: default
 bibliography: references.bib
 ---
 

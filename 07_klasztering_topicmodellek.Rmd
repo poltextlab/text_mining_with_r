@@ -1,4 +1,4 @@
-# Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken {lda_ch}
+# Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken {#lda_ch}
 
 ```{r include=FALSE}
 
