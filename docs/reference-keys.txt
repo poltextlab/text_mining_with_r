@@ -54,10 +54,9 @@ adatok-exportálása
 a-pipe-operátor
 műveletek-adattáblákkal
 munka-karakter-vektorokkaladatkezel-4
-korpuszépítés-és-szövegelőkészítés
+corpus_ch
 szövegbeszerzés
 szövegelőkészítés
-műveletek-karakterláncokkal-stringekkel
 tokenizálás-szótövezés-kisbetűsítés-és-a-tiltólistás-szavak-eltávolítása
 dokumentum-kifejezés-mátrix-dtm
 súlyozás
@@ -66,10 +65,10 @@ a-szövegek-a-vektortérben
 leíró-statisztika
 a-szövegek-lexikai-diverzitása
 összehasonlításleiro-5
-kifejezések-kontextusba-helyezése
+kulcsszavak-kontextusa
 sentiment
 szótárak-az-r-ben
-magyar-nemzet-cikkek-elemzése
+magyar-nemzet-elemzése
 mnb-sajtóközlemények
 lda_ch
 k-közép-klaszterezés

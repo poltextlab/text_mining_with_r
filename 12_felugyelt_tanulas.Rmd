@@ -11,13 +11,13 @@ A felügyelt tanulás számos kutatási feladat megoldására alkalmazhatjuk, me
 
 ## Osztályozás felügyelt tanulással
 
-Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapokat tartalmazó modult használjuk.[^sml-1] Az induló adatbázis 61 835 cikk szövegét és metaadatait (összesen öt változót: sorszám, fájlnév, a közpolitikai osztály kódja, szöveg, illetve a korpusz forrása -- *Magyar Nemzet* vagy *Népszabadság*) tartalmazza. Az a célunk, hogy az egyes cikkekhez kézzel, jó minőségben (két, egymástól függetlenül dolgozó kódoló által) kiosztott és egyeztetett közpolitikai kódokat -- ez a tanítóhalmaz -- arra használjuk, hogy meghatározzuk egy kiválasztott cikkcsoport hasonló kódjait. Az osztályozási feladathoz a CAP közpolitikai kódrendszerét használjuk, mely 21 közpolitikai kategóriát határoz meg az oktatástól az egészségügyön át a honvédelemig [^sml-2]
+Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapokat tartalmazó modult használjuk.[^sml-1] Az induló adatbázis 61 835 cikk szövegét és metaadatait (összesen öt változót: sorszám, fájlnév, a közpolitikai osztály kódja, szöveg, illetve a korpusz forrása -- *Magyar Nemzet* vagy *Népszabadság*) tartalmazza. Az a célunk, hogy az egyes cikkekhez kézzel, jó minőségben (két, egymástól függetlenül dolgozó kódoló által) kiosztott és egyeztetett közpolitikai kódokat -- ez a tanítóhalmaz -- arra használjuk, hogy meghatározzuk egy kiválasztott cikkcsoport hasonló kódjait. Az osztályozási feladathoz a CAP közpolitikai kódrendszerét használjuk, mely 21 közpolitikai kategóriát határoz meg az oktatástól az egészségügyön át a honvédelemig. [^sml-2]
 
 [^sml-1]: A korpusz regisztációt követően elérhető az alábbi linken: <https://cap.tk.hu/a-media-es-a-kozvelemeny-napirendje>
 
 [^sml-2]: A kódkönyv regisztrációt követően elérhető az alábbi linken: [https://cap.tk.hu/kozpolitikai-cap](https://cap.tk.hu/kozpolitikai-cap)
 
-Annak érdekében, hogy egyértelműen értékelhessük a gépi tanulás hatékonyságát, a kiválasztott cikkcsoport (azaz a teszthalmaz) esetében is ismerjük a kézi kódolás eredményét („éles“ kutatási helyzetben, ismeretlen kódok esetében ugyanakkor ezt gyakran szintén csak egy kisebb mintán tudjuk kézzel validálni). További fontos lépés, hogy az ésszerű futási idő érdekében a gyakorlat során a teljes adatbázisból -- és ezen belül is csak a Népszabadság részhalmazból -- fogunk venni egy 4500 darabos mintát. E mintán fogjuk vizsgálni, hogy milyen hatékonysággal képes a modellünk egy megadott közpolitikai kódba besorolni egy adott cikket, illetve, hogy ezt képes-e a hús-vér kutatókkal azonos színvonalon megtenni. Nézzük mindezek után a kutatás lépéseit!
+Annak érdekében, hogy egyértelműen értékelhessük a gépi tanulás hatékonyságát, a kiválasztott cikkcsoport (azaz a teszthalmaz) esetében is ismerjük a kézi kódolás eredményét („éles“ kutatási helyzetben, ismeretlen kódok esetében ugyanakkor ezt gyakran szintén csak egy kisebb mintán tudjuk kézzel validálni). További fontos lépés, hogy az észszerű futási idő érdekében a gyakorlat során a teljes adatbázisból -- és ezen belül is csak a Népszabadság részhalmazból -- fogunk venni egy 4500 darabos mintát. E mintán fogjuk vizsgálni, hogy milyen hatékonysággal képes a modellünk egy megadott közpolitikai kódba besorolni egy adott cikket, illetve, hogy ezt képes-e a hús-vér kutatókkal azonos színvonalon megtenni. Nézzük mindezek után a kutatás lépéseit!
 
 A először behívjuk a szükséges csomagokat, melyek közül a `quanteda` a szokásos szövegbányászati alapcsomagunk, az `e1071` az SVM algoritmus használatát teszi a lehetővé, a `ggplot2` a vizualizációt segíti, a `dplyr` a korpuszon végzett műveletekhez kell, a `SparseM` pedig a mátrixtranszformációkhoz.
 
@@ -32,7 +32,7 @@ library(HunMineR)
 set.seed(1234)
 ```
 
-Ezt követően meg adjuk azt a kódkategóriát, melynek kapcsán szeretnénk elvégezni a bináris osztályozást (beletartozik-e az adott cikk az adott kategóriába vagy nem). A kódban ez az egyes, azaz a makrogazdaság (adózás, költségvetés, monetáris politika stb.) lesz.
+Ezt követően megadjuk azt a kódkategóriát, melynek kapcsán szeretnénk elvégezni a bináris osztályozást (beletartozik-e az adott cikk az adott kategóriába vagy nem). A kódban ez az egyes, azaz a makrogazdaság (adózás, költségvetés, monetáris politika stb.) lesz.
 
 ```{r include = TRUE}
 CAPcode <- 1
@@ -94,13 +94,13 @@ lemma_corpus_NOL <- corpus(Data_NOL, docid_field = "filename", text_field = "tex
 dtm_NOL <- dfm(lemma_corpus_NOL)
 ```
 
-A dimenzió-csökkentés érdekében eltávolítjuk a ritka (5-nél kevesebbszer szereplő) kifejezéseket a mátrixból. Láthatjuk, hogy ezzel a feature -ök majd 81 százalékát eltávolítottuk!
+A dimenzió-csökkentés érdekében eltávolítjuk a ritka (5-nél kevesebbszer szereplő) kifejezéseket a mátrixból. Láthatjuk, hogy ezzel a feature-ök majd 81 százalékát eltávolítottuk.
 
 ```{r include = TRUE}
 dtm_NOL <- dfm_trim(dtm_NOL, min_docfreq = 5, verbose=TRUE)
 ```
 
-Ezen a ponton megkezdhetjük a modellünk tanítását! Erre a fent említett SVM algoritmust használjuk. E lépés futási ideje akár 1-2 percig is eltarthat!
+Ezen a ponton megkezdhetjük a modellünk tanítását! Erre a fent említett SVM algoritmust használjuk. E lépés futási ideje akár 1--2 percig is eltarthat.
 
 ```{r eval=FALSE}
 SVMmodel <- svm(
@@ -134,7 +134,7 @@ Ezt követően meghatározzuk azt a küszöbértéket, ahonnan egy előrejelzés
 cutoff_point = 0.5
 ```
 
-Majd ez alapján átalakítjuk az SVM eredményeinket immár a végleges, a bináris osztályozási feladatnak megfelelő előrejelzésekké. A`cbind` függvénnyel pedig összevonjuk egy táblázatba az előrejelzés eredményét és ennek cimkéit.
+Majd ez alapján átalakítjuk az SVM eredményeinket immár a végleges, a bináris osztályozási feladatnak megfelelő előrejelzésekké. A `cbind` függvénnyel pedig összevonjuk egy táblázatba az előrejelzés eredményét és annak cimkéit.
 
 ```{r include = TRUE}
 predictions_label <- ifelse(predictions > 0.5, 1, 0)
@@ -144,17 +144,17 @@ predictions_label <- ifelse(predictions > 0.5, 1, 0)
 Data_NOL_predictions <- cbind(Data_NOL_predictions, predictions_label)
 ```
 
-Miután eredményeink elkészültek, kiszámoljuk a felügyelt gépi tanulás szokásos eredményességi mutatóit (ettől a résztől kódunkban Pablo Barbera munkájára támaszkodunk)[^sml3]. Mindezek alapjául a tévesztési mátrix szolgál, vizsgáljuk először meg ennek adatait!
+Miután eredményeink elkészültek, kiszámoljuk a felügyelt gépi tanulás szokásos eredményességi mutatóit (ettől a résztől kódunkban Pablo Barbera munkájára támaszkodunk)[^sml3]. Mindezek alapjául a tévesztési mátrix szolgál, először ennek adatait vizsgáljuk meg.
 
-[^sml3]: [http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html](http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html).
+[^sml3]: Elérhető az alábbi linken: [http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html](http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html).
 
 ```{r include = TRUE}
 table(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)
 ```
 
-Látható, hogy modellünk alapvetően helyesen értékelte, hogy a teszthalmaz cikkeinek döntő többsége nem makrogazdasági tárgyú (1139). Szintén sikerrel sorolt be 83 cikket a makrogazdasági osztályba. Ugyanakkor 117-et hibásan tartott 1-es kategóriásnak, 161-et pedig nem "talált meg" közülük.
+Látható, hogy modellünk alapvetően helyesen értékelte, hogy a teszthalmaz cikkeinek döntő többsége nem makrogazdasági tárgyú (1139). Szintén sikerrel sorolt be 83 cikket a makrogazdasági osztályba. Ugyanakkor 117-et hibásan tartott 1-es kategóriásnak, 161-et pedig nem „talált meg” közülük.
 
-A mutatószámok esetében kezdjük a legáltalánosabbal, a hitelességgel (*accuracy*), ami a mátrix átlójára épít!
+A mutatószámok esetében kezdjük a legáltalánosabbal, a hitelességgel (*accuracy*), ami a mátrix átlójára épít.
 
 ```{r include = TRUE}
 accuracy <- function(ypred, y){
@@ -168,7 +168,7 @@ accuracy <- function(ypred, y){
 accuracy(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)
 ```
 
-Ennek adatai azt mutatják, hogy nagy általánosságban jól működött a modell. Ugyanakkor kutatási kérdésünk szempontjából fontosabb, hogy milyen arányban találtuk meg a makrogazdasági cikkeket (felidézés - *recall*), illetve milyen pontossággal osztottuk ki ezeket a kódokat (pontosság - *precision*). A következő lépésben így először definiáljuk, majd kiszámoljuk a pontosságot és a felidézést, valamint ezek harmonikus átlagát, az F1 mutatót.
+Ennek adatai azt mutatják, hogy nagy általánosságban jól működött a modell. Ugyanakkor kutatási kérdésünk szempontjából fontosabb, hogy milyen arányban találtuk meg a makrogazdasági cikkeket (felidézés -- *recall*), illetve milyen pontossággal osztottuk ki ezeket a kódokat (pontosság -- *precision*). A következő lépésben így először definiáljuk, majd kiszámoljuk a pontosságot és a felidézést, valamint ezek harmonikus átlagát, az F1 mutatót.
 
 ```{r include = TRUE}
 precision <- function(ypred, y){
@@ -196,7 +196,7 @@ recall(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)
 F1(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)
 ```
 
-Összességében azt állapíthatjuk meg, hogy "játékmodellünk" közel hasonló arányú, azaz 60 százalékos pontosságot illetve fedést eredményezett. Ez elmaradt a kettős vak kézi kódolás akár 80-90 százalékos találati arányától, ugyanakkor mintánkat didaktikai okokból szándékosan kisebbre vettük a lehetségesnél. A nagymintás adatok alapján (lásd @sebokMulticlassClassificationNewspaper2021) különösen a pontosság esetében akár 90 százalék feletti érték is elérhető felügyelt gépi tanulással, mely ponton már világossá válik a mesterséges intelligenciára épülő megközelítés versenyképessége a kézi kódoláséval, különösen nagymintás projektek esetében.
+Összességében azt állapíthatjuk meg, hogy „játékmodellünk” közel hasonló arányú, azaz 60 százalékos pontosságot, illetve fedést eredményezett. Ez elmaradt a kettős vak kézi kódolás akár 80-90 százalékos találati arányától, ugyanakkor mintánkat didaktikai okokból szándékosan kisebbre vettük a lehetségesnél. A nagymintás adatok alapján (lásd @sebokMulticlassClassificationNewspaper2021) különösen a pontosság esetében akár 90 százalék feletti érték is elérhető felügyelt gépi tanulással, mely ponton már világossá válik a mesterséges intelligenciára épülő megközelítés versenyképessége a kézi kódoláséval, különösen nagymintás projektek esetében.
 
 De térjünk még vissza eredményeinkhez és vizsgáljuk meg őket közpolitikai kódonként is! Itt is látható, hogy 83 cikkre jeleztük előre helyesen az 1-es kódot.
 

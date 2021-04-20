@@ -6,13 +6,15 @@ source("_common.R")
 
 ## A szövegek a vektortérben
 
-A szövegbányászati feladatok két altípusa a keresés és a rendszerezés. A keresés során olyan szövegeket keresünk, amelyekben egy adott kifejezés előfordul, a rendszerezés során pedig a szövegeket hasonlítjuk össze egymással és egy előre megadott, vagy egy előzetesen nem ismert kategóriarendszer csoportjaihoz soroljuk őket. A webes keresőprogramok egyik jellemző tevékenysége, az információ-visszakeresés (*information retrieval*) során például az a cél, hogy a korpuszból visszakeressük a kereső információigénye szempontjából releváns információkat, mely keresés alapulhat metaadatokon vagy teljes szöveges indexelésen [@tikkSzovegbanyaszat2007; @russelMestersegesIntelligencia2005, 742.o]. Az információkinyerés (*information extraction*) esetén a cél, hogy a strukturálatlan szövegekből strukturált adatokat állítsunk elő. Azaz az információkinyerés során nem a felhasználó által keresett információt keressük meg és lokalizáljuk, hanem az adott kérdés szempontjából releváns információkat gyűjtjük ki a dokumentumokból. Az információkinyerés alternatív megoldása segítségével már képesek lehetünk a kifejezések közötti kapcsolatok elemzésére, tendenciák és minták felismerésére és az információk összekapcsolás révén új információk létrehozására, azaz a segítségével strukturálatlan szövegekből is előállíthatunk strukturált információkat [@kwartlerTextMiningPractice2017; @schutzeIntroductionInformationRetrieval2008; @tikkSzovegbanyaszat2007, 63-81.o].
+A szövegbányászati feladatok két altípusa a keresés és a rendszerezés. A keresés során olyan szövegeket keresünk, amelyekben egy adott kifejezés előfordul, a rendszerezés során pedig a szövegeket hasonlítjuk össze egymással és egy előre megadott, vagy egy előzetesen nem ismert kategóriarendszer csoportjaihoz soroljuk őket. A webes keresőprogramok egyik jellemző tevékenysége, az információ-visszakeresés (*information retrieval*) során például az a cél, hogy a korpuszból visszakeressük a kereső információigénye szempontjából releváns információkat, mely keresés alapulhat metaadatokon vagy teljes szöveges indexelésen [@tikkSzovegbanyaszat2007; @russelMestersegesIntelligencia2005, 742.o]. Az információkinyerés (*information extraction*) esetén a cél, hogy a strukturálatlan szövegekből strukturált adatokat állítsunk elő. Azaz az információkinyerés során nem a felhasználó által keresett információt keressük meg és lokalizáljuk, hanem az adott kérdés szempontjából releváns információkat gyűjtjük ki a dokumentumokból. Az információkinyerés alternatív megoldása segítségével már képesek lehetünk a kifejezések közötti kapcsolatok elemzésére, tendenciák és minták felismerésére és az információk összekapcsolása révén új információk létrehozására, azaz a segítségével strukturálatlan szövegekből is előállíthatunk strukturált információkat [@kwartlerTextMiningPractice2017; @schutzeIntroductionInformationRetrieval2008; @tikkSzovegbanyaszat2007, 63-81.o].
 
-A szövegbányászati vizsgálatok során folyó szövegek, azaz strukturálatlan vagy részben strukturált dokumentumok elemzésére kerül sor. Ezekből a kutatási kérdéseink szempontjából releváns, látens összefüggéseket nyerünk ki, amelyek már strukturált szerkezetűek. A dokumentumok reprezentálásának három legelterjedtebb módjai a halmazelmélet alapú, az algebrai és a valószínűségi modellek. A halmazelméleti modellek a dokumentumok hasonlóságát halmazelmélet, a valószínűségi modellek pedig feltételes valószínűségi becslés alapján határozzák meg. Az algebrai modellek a dokumentumokat vektorként vagy mátrixként ábrázolják és algebrai műveletek segítségével hasonlítják össze. A vektortérmodell sokdimenziós vektortérben ábrázolja a dokumentumokat, úgy, hogy a dokumentumokat vektorokkal reprezentálja, a vektortér dimenziói pedig a dokumentumok összességében előforduló egyedi szavak. A modell alkalmazása során azok a dokumentumok hasonlítanak egymásra, amelyeknek a szókészlete átfedi egymást, és a hasonlóság mértéke az átfedéssel arányos. A vektortérmodellben a dokumentumgyűjteményt a szó-dokumentum mátrixszal (*term-document matrix*) reprezentáljuk, a mátrixban a sorok száma megegyezik az egyedi szavak számával, az oszlopokat pedig a dokumentumvektorok alkotják. Az egyedi szavak összességét szótárnak nevezzük. Mivel mátrixban az egyedi szavak száma általában igen nagy, ezért a mátrix hatékony kezeléséhez annak mérete különböző eljárásokkal csökkenthető. Fontos tudni, hogy a dokumentumok vektortér reprezentációjában a szavak szövegen belüli sorrendjére és pozíciójára vonatkozó információ nem található meg [@russelMestersegesIntelligencia2005, 742-744 o.; @kwartlerTextMiningPractice2017; @welbersTextAnalysis2017]. A vektortérmodellt szózsák (*bag of words*) modellnek is nevezzük, melynek segítségével a fent leírtak szerint az egyes szavak gyakoriságát vizsgálhatjuk meg egy adott korpuszon belül.
+A szövegbányászati vizsgálatok során folyó szövegek, azaz strukturálatlan vagy részben strukturált dokumentumok elemzésére kerül sor. Ezekből a kutatási kérdéseink szempontjából releváns, látens összefüggéseket nyerünk ki, amelyek már strukturált szerkezetűek. A dokumentumok reprezentálásának három legelterjedtebb módja a halmazelmélet alapú, az algebrai és a valószínűségi modell. A halmazelméleti modellek a dokumentumok hasonlóságát halmazelmélet, a valószínűségi modellek pedig feltételes valószínűségi becslés alapján határozzák meg. Az algebrai modellek a dokumentumokat vektorként vagy mátrixként ábrázolják és algebrai műveletek segítségével hasonlítják össze. 
+
+A vektortérmodell sokdimenziós vektortérben ábrázolja a dokumentumokat, úgy, hogy a dokumentumokat vektorokkal reprezentálja, a vektortér dimenziói pedig a dokumentumok összességében előforduló egyedi szavak. A modell alkalmazása során azok a dokumentumok hasonlítanak egymásra, amelyeknek a szókészlete átfedi egymást, és a hasonlóság mértéke az átfedéssel arányos. A vektortérmodellben a dokumentumgyűjteményt a szó-dokumentum mátrixszal (*term-document matrix*) reprezentáljuk, a mátrixban a sorok száma megegyezik az egyedi szavak számával, az oszlopokat pedig a dokumentumvektorok alkotják. Az egyedi szavak összességét szótárnak nevezzük. Mivel mátrixban az egyedi szavak száma általában igen nagy, ezért a mátrix hatékony kezeléséhez annak mérete különböző eljárásokkal csökkenthető. Fontos tudni, hogy a dokumentumok vektortér reprezentációjában a szavak szövegen belüli sorrendjére és pozíciójára vonatkozó információ nem található meg [@russelMestersegesIntelligencia2005, 742-744 o.; @kwartlerTextMiningPractice2017; @welbersTextAnalysis2017]. A vektortérmodellt szózsák (*bag of words*) modellnek is nevezzük, melynek segítségével a fent leírtak szerint az egyes szavak gyakoriságát vizsgálhatjuk meg egy adott korpuszon belül.
 
 ## Leíró statisztika
 
-Fejezetünkben nyolc véletlenszerűen kiválasztott magyar miniszterelnöki beszéd vizsgálatát végezzük el[^leiro-1], amihez az alábbi csomagokat használjuk:
+Fejezetünkben nyolc véletlenszerűen kiválasztott magyar miniszterelnöki beszéd vizsgálatát végezzük el,[^leiro-1] amihez az alábbi csomagokat használjuk:
 
 [^leiro-1]: A beszédeket a Hungarian Comparative Agendas Project miniszterelnöki beszéd korpuszából válogattuk: <https://cap.tk.hu/vegrehajto>
 
@@ -35,9 +37,9 @@ Első lépésben a [Bevezetőben](#intro) már ismertetett módon a `HunMineR` c
 texts <- HunMineR::data_miniszterelnokok_raw
 ```
 
-Ezt követően az [„Adatkezelés R-ben"](#adatkezeles) fejezetben ismertetett `mutate()` függvény használatával két csoportra osztjuk a beszédeket. Ehhez először a `string_extract()`segítségével meghatározzuk, hogy a kettéosztáshoz használni kívánt új változó a doc_id legyen a `[^\\.]*` regex segítségével leválasztva arról a `.txt` kiterjesztést, majd a `str_sub()` függvénnyel megmondjuk, hogy a miniszterelnökök neve a `doc_id` hátulról számított hatodik karakteréig tart. Ezután kialakítjuk a két csoportot, azaz az `if_else()` segítségével meghatározzuk, hogy ha „antall_jozsef", „boross_peter", „orban_viktor" beszédeiről van szó azokat a jobb csoportba tegye, a maradékot pedig a bal csoportba.
+Ezt követően az [*Adatkezelés R-ben*](#adatkezeles) című fejezetben ismertetett `mutate()` függvény használatával két csoportra osztjuk a beszédeket. Ehhez először a `string_extract()` függvény segítségével meghatározzuk, hogy a kettéosztáshoz használni kívánt új változó a doc_id legyen, a `[^\\.]*` regex segítségével leválasztva arról a `.txt` kiterjesztést, majd a `str_sub()` függvénnyel megmondjuk, hogy a miniszterelnökök neve a `doc_id` hátulról számított hatodik karakteréig tart. Ezután kialakítjuk a két csoportot, azaz az `if_else()` segítségével meghatározzuk, hogy ha „antall_jozsef", „boross_peter", „orban_viktor" beszédeiről van szó azokat a jobb csoportba tegye, a maradékot pedig a bal csoportba.
 
-Majd azt is meghatározzuk, hogy melyik beszédnek mi a dátuma. Ehhez szintén a `str_sub()` függvényt használjuk, majd a `lubridate` segítségével alakítjuk ki a kívánt dátumformátumot[^leiro-2].
+Majd azt is meghatározzuk, hogy melyik beszédnek mi a dátuma. Ehhez szintén a `str_sub()` függvényt használjuk, majd a `lubridate` segítségével alakítjuk ki a kívánt dátumformátumot.[^leiro-2]
 
 [^leiro-2]: A `lubridate` használatának részletes leírása megtalálható az alábbi linken: <https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf>
 
@@ -113,7 +115,7 @@ readRDS("data/temp/05_summary.rds")
 ```
 
 
-A `textstat_collocations()` függvény segítségével szókapcsolatokat kereshetünk. A függvény argumentumai közül a `size` a szókapcsolatok hossza, a `min_count` pedig a minimális előfordulásuk száma. Miután a szókapcsolatokat megkerestük a korábban már megismert `head()` függvény segítségével közülük tetszőleges számút megnézhetünk[^leiro-3].
+A `textstat_collocations()` függvény segítségével szókapcsolatokat kereshetünk. A függvény argumentumai közül a `size` a szókapcsolatok hossza, a `min_count` pedig a minimális előfordulásuk száma. Miután a szókapcsolatokat megkerestük, közülük a korábban már megismert `head()` függvény segítségével tetszőleges számút megnézhetünk.[^leiro-3]
 
 [^leiro-3]: A lambda leírása megtalálható itt: <https://quanteda.io/reference/textstat_collocations.html>
 
@@ -143,7 +145,9 @@ corpus_mineln %>%
   head(n = 10)
 ```
 
-A korpusz további elemzése előtt fontos, hogy ne csak a stopszavakat távolítsuk el, hanem az egyéb alapvető szövegtisztító lépéseket is elvégezzük. Azaz a `tokens_select()` segítségével eltávolítsuk a számokat, a központozást, az elválasztó karaktereket, mint például a szóközöket, tabulátorokat, sortöréseket. Ezután a `tokens_ngrams()` segítségével ngramokat hozunk létre a tokenekből, majd kialakítjuk a dokumentum kifejezés mátrixot (`dfm`) és elvégezzük a `tf-idf` szerinti súlyozást. A `dfm_tfidf()`függvény kiszámolja a dokumentum gyakoriság inverz súlyozását. A függvény alapértelmezés szerint a normalizált kifejezések gyakoriságát használja a dokumentumon belüli relatív kifejezés gyakoriság helyett, ezt írjuk felül a `schem_tf = "prop"` használatával. Végül a `textstat_frequency()` segítségével gyakorisági statisztikát készíthetünk a korábban meghatározott (példánkban két és három tagú) n-gramokról.
+A korpusz további elemzése előtt fontos, hogy ne csak a stopszavakat távolítsuk el, hanem az egyéb alapvető szövegtisztító lépéseket is elvégezzük. Azaz a `tokens_select()` segítségével eltávolítsuk a számokat, a központozást, az elválasztó karaktereket, mint például a szóközöket, tabulátorokat, sortöréseket. 
+
+Ezután a `tokens_ngrams()` segítségével ngramokat hozunk létre a tokenekből, majd kialakítjuk a dokumentum kifejezés mátrixot (`dfm`) és elvégezzük a `tf-idf` szerinti súlyozást. A `dfm_tfidf()` függvény kiszámolja a dokumentum gyakoriság inverz súlyozását. A függvény alapértelmezés szerint a normalizált kifejezések gyakoriságát használja a dokumentumon belüli relatív kifejezés gyakoriság helyett, ezt írjuk felül a `schem_tf = "prop"` használatával. Végül a `textstat_frequency()` segítségével gyakorisági statisztikát készíthetünk a korábban meghatározott (példánkban két és három tagú) n-gramokról.
 
 ```{r}
 corpus_mineln %>%
@@ -161,7 +165,7 @@ corpus_mineln %>%
 
 ## A szövegek lexikai diverzitása
 
-Az alábbiakban a korpuszunkat alkotó szövegek lexikai diverzitását vizsgáljuk. Ehhez a `quanteda` csomag `textstat_lexdiv()`függvényét használjuk. Mivel ez a függvény `dfm`-et elemez, először a `corpus_mineln` nevű korpuszunkból létrehozzuk a `mineln_dfm` nevű `dfm`-et, amelyen elvégezzük a korábban már megismert alapvető tisztító lépéseket. A `textstat_lexdiv()` függvény eredménye szintén egy `dfm`, így azt `arrange()`parancs argumentumában a `desc` megadásával csökkenő sorba is rendezhetjük. A`textstat_lexdiv()` különböző indexek segítségével számítja ki a szövegek lexikai különbözőséget, példánkban a `CTTR` indexet használjuk.[^leiro-4]
+Az alábbiakban a korpuszunkat alkotó szövegek lexikai diverzitását vizsgáljuk. Ehhez a `quanteda` csomag `textstat_lexdiv()` függvényét használjuk. Mivel ez a függvény `dfm`-et elemez, először a `corpus_mineln` nevű korpuszunkból létrehozzuk a `mineln_dfm` nevű `dfm`-et, amelyen elvégezzük a korábban már megismert alapvető tisztító lépéseket. A `textstat_lexdiv()` függvény eredménye szintén egy `dfm`, így azt `arrange()` parancs argumentumában a `desc` megadásával csökkenő sorba is rendezhetjük. A`textstat_lexdiv()` különböző indexek segítségével számítja ki a szövegek lexikai különbözőségét, példánkban a `CTTR` indexet használjuk.[^leiro-4]
 
 [^leiro-4]: A különböző indexek leírása megtalálható az alábbi linken: <https://quanteda.io/reference/textstat_lexdiv.html>
 
@@ -234,7 +238,7 @@ docvars(corpus_mineln, "f_k") <- textstat_readability(corpus_mineln, measure = "
 docvars(corpus_mineln)
 ```
 
-Majd a `ggplot2` segítségével vizualizálhatjuk az eredményt. Ehhez az olvashatósági pontszámmal kiegészített korpuszból egy adattáblát alakítunk ki, majd beállítjuk az ábrázolás paramétereit. Azaz ahhoz, hogy a két tengelyen az év illetve az olvashatósági pontszám szerepeljen, a színezés különböztesse meg a jobb és a bal oldalt, az egyes dokumentumokat ponttal jelöljük, a jobb és a bal oldali beszédeket vonallal kötjük össze, az ábrára fekete színnel felíratjuk a miniszterelnökök nevét. Valamint azt is beállítjuk, hogy az x tengely beosztása az egyes beszédek dátumához igazodjon. A `theme_minimal()` függvénnyel pedig azt határozzuk meg, hogy mindez fehér hátteret kapjon.
+Majd a `ggplot2` segítségével vizualizálhatjuk az eredményt. Ehhez az olvashatósági pontszámmal kiegészített korpuszból egy adattáblát alakítunk ki, majd beállítjuk az ábrázolás paramétereit. Azaz ahhoz, hogy a két tengelyen az év, illetve az olvashatósági pontszám szerepeljen, a színezés különböztesse meg a jobb és a bal oldalt, az egyes dokumentumokat ponttal jelöljük, a jobb és a bal oldali beszédeket vonallal kötjük össze, az ábrára fekete színnel felíratjuk a miniszterelnökök nevét. Valamint azt is beállítjuk, hogy az x tengely beosztása az egyes beszédek dátumához igazodjon. A `theme_minimal()` függvénnyel pedig azt határozzuk meg, hogy mindez fehér hátteret kapjon.
 
 ```{r}
 corpus_df <- docvars(corpus_mineln)
@@ -317,7 +321,7 @@ mineln_dfm %>%
   head(n = 10)
 ```
 
-Arra is van lehetőségünk, hogy a két alkorpuszt hasonlítsuk össze egymással. Ehhez a `textstat_keyness()` függvényt használjuk, melynek a bemenete a `dfm`. A függvény argumentumában a `target =` után kell megadni, hogy mely alkorpusz a viszonyítási alap. Az összehasonlítás eredményét a 'textplot_keyness()` függvény segítségével ábrázolhatjuk, ami megjeleníti a két alkorpusz leggyakoribb kifejezéseit.
+Arra is van lehetőségünk, hogy a két alkorpuszt hasonlítsuk össze egymással. Ehhez a `textstat_keyness()` függvényt használjuk, melynek a bemenete a `dfm`. A függvény argumentumában a `target =` után kell megadni, hogy mely alkorpusz a viszonyítási alap. Az összehasonlítás eredményét a `textplot_keyness()` függvény segítségével ábrázolhatjuk, ami megjeleníti a két alkorpusz leggyakoribb kifejezéseit.
 
 ```{r}
 dfm_keyness <- dfm(
@@ -370,9 +374,9 @@ ggplot(data = freq_weight, aes(x = nrow(freq_weight):1, y = frequency)) +
 
 Mivel a szövegösszehasonlítás egy komplex kutatási feladat, a témával bőbben is foglalkozunk a *[Szövegösszhasonlítás](#similarity)* fejezetben.
 
-## Kifejezések kontextusba helyezése
+## Kulcsszavak kontextusa
 
-Arra is lehetőségünk van, hogy egyes kulcszavakat a korpuszon belül szövegkörnyezetükben vizsgáljunk meg. Ehhez a `kwic()` függvényt használjuk, az argumentumok között a `pattern =` kifejezés után megadva azt a szót, amelyet vizsgálni szeretnénk, a 'window =' után pedig megadhatjuk hogy az adott szó hány szavas környezetére vagyunk kíváncsiak.
+Arra is lehetőségünk van, hogy egyes kulcszavakat a korpuszon belül szövegkörnyezetükben vizsgáljunk meg. Ehhez a `kwic()` függvényt használjuk, az argumentumok között a `pattern =` kifejezés után megadva azt a szót, amelyet vizsgálni szeretnénk, a `window =` után pedig megadhatjuk, hogy az adott szó hány szavas környezetére vagyunk kíváncsiak.
 
 ```{r tidy.opts=list(width.cutoff=80)}
 kwic(corpus_mineln, pattern = "válság*", valuetype = "glob", window = 3, case_insensitive = TRUE) %>%
