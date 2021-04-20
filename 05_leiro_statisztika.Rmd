@@ -32,7 +32,7 @@ library(tidytext)
 Első lépésben a [Bevezetőben](#intro) már ismertetett módon a `HunMineR` csomagból betöltjük a beszédeket.
 
 ```{r}
-texts <- data_miniszterelnokok_raw
+texts <- HunMineR::data_miniszterelnokok_raw
 ```
 
 Ezt követően az [„Adatkezelés R-ben"](#adatkezeles) fejezetben ismertetett `mutate()` függvény használatával két csoportra osztjuk a beszédeket. Ehhez először a `string_extract()`segítségével meghatározzuk, hogy a kettéosztáshoz használni kívánt új változó a doc_id legyen a `[^\\.]*` regex segítségével leválasztva arról a `.txt` kiterjesztést, majd a `str_sub()` függvénnyel megmondjuk, hogy a miniszterelnökök neve a `doc_id` hátulról számított hatodik karakteréig tart. Ezután kialakítjuk a két csoportot, azaz az `if_else()` segítségével meghatározzuk, hogy ha „antall_jozsef", „boross_peter", „orban_viktor" beszédeiről van szó azokat a jobb csoportba tegye, a maradékot pedig a bal csoportba.
@@ -241,7 +241,7 @@ corpus_df <- docvars(corpus_mineln)
 ```
 
 ```{r eval=FALSE}
-ggplot(corpus_df, aes(year, f_k, color = partoldal)) +
+ggplot(corpus_df, aes(year, f_k)) +
   geom_point(size = 2) +
   geom_line(aes(linetype = partoldal), size = 1) +
   geom_text(aes(label = mineln), color = "black", nudge_y = 0.15) +
@@ -257,7 +257,7 @@ ggplot(corpus_df, aes(year, f_k, color = partoldal)) +
 ```
 
 ```{r, echo=FALSE, fig.cap="Az olvashatósági index alakulása"}
-# b <- ggplot(corpus_df, aes(year, f_k, color = partoldal)) +
+# b <- ggplot(corpus_df, aes(year, f_k)) +
 #   geom_point(size = 2) +
 #   geom_line(aes(linetype = partoldal), size = 1) +
 #   geom_text(aes(label = mineln), color = "black", nudge_y = 0.15) +
@@ -331,7 +331,8 @@ result_keyness <- textstat_keyness(dfm_keyness, target = "jobb")
 ```
 
 ```{r fig.cap="A korpuszok legfontosabb kifejezései"}
-textplot_keyness(result_keyness) +
+textplot_keyness(result_keyness, color = c("#484848", "#D0D0D0")) +
+  xlim(c(-65, 65)) +
   theme(legend.position = c(0.9,0.1))
 ```
 
@@ -367,7 +368,7 @@ ggplot(data = freq_weight, aes(x = nrow(freq_weight):1, y = frequency)) +
     )
 ```
 
-Mivel a szövegösszehasonlítás egy komplex kutatási feladat, a témával bőbben is foglalkozunk a **KERESZTHIVATKOZÁS** *Szövegösszhasonlítás* fejezetben.
+Mivel a szövegösszehasonlítás egy komplex kutatási feladat, a témával bőbben is foglalkozunk a *[Szövegösszhasonlítás](#similarity)* fejezetben.
 
 ## Kifejezések kontextusba helyezése
 
