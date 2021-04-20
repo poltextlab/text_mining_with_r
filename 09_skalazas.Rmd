@@ -88,7 +88,7 @@ szavak_wf %>%
   head(n = 15)
 ```
 
-Az eredményeinket mind a szavak, mind a dokumentumok szintjén tudjuk vizualizálni. Elsőként a klasszikus „Eiffel-torony” ábrát reprodukáljuk, ami a szavak gyakoriságának és a skálára gyakorolt befolyásának az illusztrálására szolgál. Ehhez a már elkészült `szavak_wf` data framet-et és a `ggplot2` csomagot fogjuk használni. Mivel a korpuszunk nagyon kicsi, ezért csak `r nrow(szavak_wf)` kifejezést fogunk ábrázolni. Ennek ellenére a lényeg kirajzolódik a lenti ábrán is.[^2]
+Az eredményeinket mind a szavak, mind a dokumentumok szintjén tudjuk vizualizálni. Elsőként a klasszikus „Eiffel-torony” ábrát reprodukáljuk, ami a szavak gyakoriságának és a skálára gyakorolt befolyásának az illusztrálására szolgál. Ehhez a már elkészült `szavak_wf` data framet-et és a `ggplot2` csomagot fogjuk használni. Mivel a korpuszunk nagyon kicsi, ezért csak `r nrow(szavak_wf)` kifejezést fogunk ábrázolni. Ennek ellenére a lényeg kirajzolódik a lenti ábrán is.[^skala-2]
 
 [^skala-2]: A `quanteda.textplots` csomag több megoldást is kínál az ábrák elkészítésére. Mivel ezek a megoldások kifejezetten a quanteda elemzések ábrázolására készültek, ezért rövid egysoros függvényekkel tudunk gyorsan ábrákat készíteni. A hátrányuk, hogy kevésbé tudjuk „személyre szabni” az ábráinkat, mint a `ggplot2` példák esetében. A `quanteda.textplots` megoldásokat ezen a linken demonstrálják a csomag készítői: [https://quanteda.io/articles/pkgdown/examples/plotting.html](https://quanteda.io/articles/pkgdown/examples/plotting.html).
 
