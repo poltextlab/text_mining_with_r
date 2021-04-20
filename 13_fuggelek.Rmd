@@ -15,7 +15,7 @@ source("_common.R")
 ## Az R és az RStudio használata
 
 Az R egy programozási nyelv, amely alkalmas statisztikai számítások elvégzésére és ezek eredményeinek grafikus megjelenítésére.
-Az R ingyenes, nyílt forráskódú szoftver, mely telepíthető mind Windows, mind Linux, mind MacOS operációs rendszerek alatt, az alábbi oldalról: <https://cran.r-project.org/> Az RStudio az R integrált fejlesztői környezete (*integrated development environment - IDE*), mely egy olyan felhasználóbarát felületet biztosít, ami egyszerűbb és átláthatóbb munkát tesz lehetővé.
+Az R ingyenes, nyílt forráskódú szoftver, mely telepíthető mind Windows, mind Linux, mind MacOS operációs rendszerek alatt, az alábbi oldalról: <https://cran.r-project.org/> Az RStudio az R integrált fejlesztői környezete (*integrated development environment -- IDE*), mely egy olyan felhasználóbarát felületet biztosít, ami egyszerűbb és átláthatóbb munkát tesz lehetővé.
 Az RStudio az alábbi oldalról tölthető le: <https://rstudio.com/products/rstudio/download/>
 
 A *„point and click"* szoftverekkel szemben az R használata során scripteket kell írni, ami bizonyos programozási jártasságot feltételez, de a későbbiekben lehetővé teszi azt adott kutatási kérdéshez maximálisan illeszkedő kódok összeállítását, melyek segítségével az elemzések mások számára is megbízhatóan reprodukálhatók lesznek. Ugyancsak az R használata mellett szól, hogy komoly fejlesztői és felhasználói közösséggel rendelkezik, így a használat során felmerülő problémákra általában gyorsan megoldást találhatunk.
@@ -36,7 +36,7 @@ A jobb alsó ablak **(4) files** fülén az aktuális munkakönyvtárban tárolt
 A **packages** fülön frissíthetjük a meglévő r csomagokat és telepíthetünk újakat.
 A **help** fülön a különböző függvények, parancsok leírását, és használatát találjuk meg.
 A `Tools -> Global Options` menüpont alatt végezhetjük el az RStudio testreszabását.
-Így például beállíthatjuk az ablaktér elrendezését (*Pane layout*), vagy a színvilágot (*Appearance*), illetve azt hogy a kódok ne fussanak ki az ablakból (`Code -> Editing -> Soft wrap R source files`)
+Így például beállíthatjuk az ablaktér elrendezését (*Pane layout*), vagy a színvilágot (*Appearance*), illetve azt, hogy a kódok ne fussanak ki az ablakból (`Code -> Editing -> Soft wrap R source files`)
 
 ## Projekt alapú munka {#projektmunka}
 
@@ -96,11 +96,11 @@ A függvények a következőképpen épülnek fel: `Függvénynév(paraméter)`.
 Például tartalom képernyőre való kiíratását a `print()` függvénnyel tehetjük, amelynek gömbölyű zárójelekkel határolt részébe írhatjuk a megjelenítendő szöveget.
 A `citation()` függvénnyel lekérdezhetjük az egyes beépített csomagokra való hivatkozást is: a `citation(quanteda)` függvény a quanteda csomag hivatkozását adja meg.
 Az R súgórendszere a `help.start()` utasítással indítható el.
-Egy adott függvényre vonatkozó súgórészlet a függvények neve elé kérdőjel írásával, vagy a `help()` argumentumába a kérdéses függvény nevének beírásával jeleníthető meg (pl.: `help(sum)`).
+Egy adott függvényre vonatkozó súgórészlet a függvények neve elé kérdőjel írásával, vagy a `help()` argumentumába a kérdéses függvény nevének beírásával jeleníthető meg (például: `help(sum)`).
 
 ## R csomagok {#packages}
 
-Az `R`-ben telepíthetők kiegészítő csomagok (packages), amelyek alapértelmezetten el nem érhető algoritmusokat, függvényeket tartalmaznak.
+Az `R`-ben telepíthetők kiegészítő csomagok (*packages*), amelyek alapértelmezetten el nem érhető algoritmusokat, függvényeket tartalmaznak.
 A csomagok saját dokumentációval rendelkeznek, amelyeket fel kell tüntetni a használatukkal készült publikációink hivatkozáslistájában.
 A csomagok telepítésére több lehetőségünk is van: használhatjuk a menüsor `Tools -> Install Packages` menüpontját, vagy a jobb alsó ablak **packages** fül `Install` menüpontját, illetve az **editor** ablakban az `install.packages()` parancsot futtatva, ahol a `()`-be a telepíteni kívánt csomag nevét kell beírnunk (pl. `install.packages(dplyr)`).
 
@@ -113,7 +113,7 @@ knitr::include_graphics('figures/13-04_packages.png')
 Az objektumok lehetnek például **vektorok**, **mátrixok**, **tömbök** (*array*), **adat táblák** (*data frame*).
 Értékadás nélkül az `R` csak megjeleníti a műveletek eredményét, de nem tárolja el azokat.
 Az eredmények eltárolásához azokat egy objektumba kell elmentenünk.
-Ehhez meg kell adnunk az objektum nevét majd az `<-` után adjuk meg annak értékét: `a <- 12 + 3`.Futtatás után az environments fülön megjelenik az a objektum, melynek értéke `15`.
+Ehhez meg kell adnunk az objektum nevét majd az `<-` után adjuk meg annak értékét: `a <- 12 + 3`. Futtatás után az environments fülön megjelenik az a objektum, melynek értéke `15`.
 Az objektumok elnevezésénél figyelnünk kell arra, hogy az R különbséget tesz a kis és a nagybetűk között, valamint azt, hogy az ugyanolyan nevű objektumokat kérdés nélkül felülírja és ezt a felülírást nem lehet visszavonni.
 
 ## Vektorok
@@ -128,10 +128,10 @@ A leggyakrabban valamilyen numerikus, logikai vagy karakter vektorral használju
 Az egyedüli vektorok onnan kapták a nevüket hogy csak egy féle adattípust tudnak tárolni.
 A listák ezzel szemben gyakorlatilag bármit tudnak tárolni, akár több listát is egybeágyazhatunk.
 
-A vektorok és a listák azok az építőelemek amikből felépülnek az `R` objektumaink.
+A vektorok és a listák azok az építőelemek, amikből felépülnek az `R` objektumaink.
 Több érték vagy azonos típusú objektum összefűzését a `c()` függvénnyel végezhetjük el.
 A lenti példában három különböző objektumot kreálunk: egy numerikusat, egy karaktert és egy logikait.
-A karakter vektorban az elemeket időzőjellel és vesszővel szeparáljuk.
+A karakter vektorban az elemeket idézőjellel és vesszővel szeparáljuk.
 A logikai vektor csak `TRUE`, illetve `FALSE` értékeket tartalmazhat.
 
 ```{r}
@@ -164,7 +164,7 @@ karakter_kombinalt
 
 ```
 
-Ha egy vektorról szeretnénk megtudni, hogy milyen típusú azt a `typeof()` vagy a `class()` paranccsal tehetjük meg, ahol `()`-ben az adott objektumként tárolt vektor nevét kell megadnunk: `typeof(karakter1)`.
+Ha egy vektorról szeretnénk megtudni, hogy milyen típusú, azt a `typeof()` vagy a `class()` paranccsal tehetjük meg, ahol `()`-ben az adott objektumként tárolt vektor nevét kell megadnunk: `typeof(karakter1)`.
 A vektor hosszúságát (a benne tárolt elemek száma vektorok esetén) a `lenght()` függvénnyel tudhatjuk meg.
 
 ```{r}
@@ -177,7 +177,7 @@ length(karakter1)
 
 A faktorok a kategórikus adatok tárolására szolgálnak.
 Faktor típusú változó a `factor()` függvénnyel hozható létre.
-A faktor szintjeit (igen, semleges, nem), a `levels()` függvénnyel kaphatjuk meg míg az adatok címkéit (tehát a kapott válaszok számát), a `labels()` paranccsal érhetjük el.
+A faktor szintjeit (igen, semleges, nem), a `levels()` függvénnyel kaphatjuk meg, míg az adatok címkéit (tehát a kapott válaszok számát), a `labels()` paranccsal érhetjük el.
 
 ```{r}
 survey_response <- factor(c("igen", "semleges", "nem", "semleges", "nem", "nem", "igen"), ordered = TRUE)
@@ -190,9 +190,8 @@ labels(survey_response)
 ## Az adattáblák {#data-frame}
 
 Az adattábla (*data frame*) a statisztikai és adatelemzési folyamatok egyik leggyakrabban használt adattárolási formája.
-Egy data frame többféle típusú adatot tartalmazhat.
-A data frame-k különféle oszlopokból állhatnak, amelyek különféle típusú adatokat tartalmazhatnak, de egy oszlop csak egy típusú adatból állhat.
-Az itt bemutatott *data frame* 7 megfigyelést és 4 féle változót tartalmaz (id, country, pop, continent).
+Az adattáblák különféle oszlopokból állhatnak, amelyek különféle típusú adatokat tartalmazhatnak, de egy oszlop csak egy típusú adatból állhat.
+Az itt bemutatott adattábla 7 megfigyelést és 4 féle változót tartalmaz (id, country, pop, continent).
 
 ```{r echo=FALSE}
 id <- 1:7
@@ -207,7 +206,7 @@ orszag_adatok <- data.frame(id, orszag, nepesseg, kontinens, stringsAsFactors = 
 orszag_adatok
 ```
 
-A *data frame*-be rendezett adatokhoz különböző módon férhetünk hozzá, például a *data frame* nevének majd []-ben a kívánt sor megadásával, kiírathatjuk a **console** ablakba annak tetszőleges sorát ás oszlopát: `orszag_adatok[1, 1]`.
+A *data frame*-be rendezett adatokhoz különböző módon férhetünk hozzá, például a *data frame* nevének, majd utána []-ben a kívánt sor(ok) számának megadásával, kiírathatjuk a **console** ablakba annak tetszőleges sorát ás oszlopát: `orszag_adatok[1, 1]`.
 Az R több különböző módot kínál a *data frame* sorainak és oszlopainak eléréséhez.
 A `[` általános használata: `data_frame[sor, oszlop]`.
 Egy másik megoldás a `$` haszálata: `data_frame$oszlop`.
