@@ -158,7 +158,9 @@ Az ún. „horgonyokkal“, (*anchor*) azt lehet megadni, hogy a karakter string
 
 ```{r}
 str_view("Dr. Doktor Dr.", pattern = "^Dr.")
+```
 
+```{r}
 str_view("Dr. Doktor Dr.", pattern = "Dr.$")
 ```
 
