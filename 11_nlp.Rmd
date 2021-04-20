@@ -1,22 +1,22 @@
-# Természetes-nyelv feldolgozás (NLP) és névelemfelismerés (NER) {#nlp_ch}
+# NLP és névelemfelismerés {#nlp_ch}
 
 A természetes-nyelv feldolgozása (*Natural Language Processing - NLP*) a nyelvészet és a mesterséges intelligencia közös területe, amely a számítógépes módszerek segítségével elemzi az emberek által használt (természetes) nyelveket. Azaz képes feldolgozni különböző szöveges dokumentumok tartalmát, kinyerni a bennük található információkat, kategorizálni és rendszerezni azokat. Angol nyelvű szövegek NLP elemzésére több R csomag is rendelkezésünre áll, ezek közül kettőt mutatunk be röviden. Mivel magyar nyelvű szövegek NLP elemzésére ezek a csomagok jelenleg nem alkalmasak, azt mutatjuk be, hogyan végezhetjük el a magyar nyelvű szövegek mondatra és szavakra bontását, szófaji egyértelműsítését, morfológiai és szintaktikai elemzését az R program használata nélkül és azután a kapott fájlokkal hogyan végezhetünk az R program segítségével további elemzéseket.[^1]
 
-[^1]: Magyar nyelvű szövegek NLP elemzésére használható eszközök részletes listája: <https://github.com/oroszgy/awesome-hungarian-nlp>
+[^nlp-1]: Magyar nyelvű szövegek NLP elemzésére használható eszközök részletes listája: <https://github.com/oroszgy/awesome-hungarian-nlp>
 
 A fejezeben részletesen foglalkozunk a névelem-felismeréssel (*Named Entity Recognition, NER*). Névelemnek azokat a tokensorozatokat nevezzük, amelyek valamely entitást egyedi módon jelölnek. A névelem-felismerés az infomációkinyerés részterülete, melynek lényege, hogy automatikusan felismerjük a struktúrálátlan szövegben szereplő tulajdonneveket, majd azokat kigyűjtsük, és típusonként (pl. személynév, földrajzi név, márkanév, stb.) csoportosítsuk. Bár a tulajdonnevek mellett névelemnek tekinthetők még például a telefonszámok vagy az e-mail címek is, a névelem-felismerés leginkább mégis a tulajdonnevek felismerésére irányul. A névelem-felismerés a számítógépes nyelvészetben a korai 1990-es évektől kezdve fontos feladatnak és megoldandó problémának számít.A névelem-felismerés többféle módon is megoldható, így péládul felügyelt tanulással, szótár alapú módszerekkel vagy kollokációk elemzésével. A névelem-felismerés körében két alapvető módszer alkalmazására van lehetőség. A szabályalapú módszer alkalmazása során előre megadott adatok alapján kerül kinyerésre az információ (ilyen szabály például a mondatközi nagybetű mint a tulajdonnév kezdete). A másik módszer a statisztikai tanulás, amikor a gép alkot szabályokat a kutató előzetes mintakódolása alapján. A névelemfelismerés során nehézséget okozhat a különböző névelemosztályok közötti gyakori átfedés, így például ha egy adott szó településnév és vezetéknév is lehet. A magyar nyelvű szövegekben a tulajdonnevek automatikus annotációjára jelenleg három módon van lehetőség: tulajdonnév-felismerő algoritmussal, szófaji címke szintjén történő megkülönböztetéssel, valamint szintaktikai szintű címkézéssel. Utóbbi kettőre példa a fejezetben is bemutatásra kerülő `magyarlanc` elemző, ami szófaji szinten megkülönbözteti a tulajdonneveket, a szintaxis szintjén pedig jelöli a többtagúakat.[@zsibritaMagyarlancToolMorphological2013] A tulajdonnév-felismerő algoritmusok megkeresik az adott szövegben a tulajdonneveket, majd azokat valamilyen kategóriába sorolják, ilyen magyar nyelvű algoritmus a `a szeged ner`, melynek alkalmazását szintén bemutatjuk.[@szarvasMultilingualNamedEntity2006] Fontos különbséget tenni a névelem-felismerés és a tulajdonnév-felismerés között. A névelem-felismerésbe beletartozik minden olyan kifejezés amely a világ valamely entitására egyedi módon (unikálisan) referál. Ezzel szemben a tulajdonnév-felismerés, kizárólag a tulajdonnevekre koncentrál.[@uvegesNamedEntityRecognition2019; @vinczeBeszedesNyelvelemzoSzoftverek2019]
 
 A `magyarlanc`nyelvi előfeldolgozó eszköz a Szegedi Tudományegyetem fejlesztése,[@zsibritaMagyarlancToolMorphological2013] ami magyar nyelvű `txt` formátumú fájlokat feldolgozva képes egy szöveg mondatokra és szavakra bontására, a szavak morfológiai elemzésére, szófaji egyértelműsítésére, emellett kétféle szintaktikai elemzést is képes hozzárendelni a mondatokhoz.[^2]
 
-[^2]: A magyarlanc elérhető a [\<https://rgai.inf.u-szeged.hu/magyarlanc\>](https://rgai.inf.u-szeged.hu/magyarlanc){.uri} oldalon, az innen letölthető `jar` fájl segítségével a `txt` formátumú szövegfájlok elemzése parancssorból lehetséges.
+[^nlp-2]: A magyarlanc elérhető a [\<https://rgai.inf.u-szeged.hu/magyarlanc\>](https://rgai.inf.u-szeged.hu/magyarlanc){.uri} oldalon, az innen letölthető `jar` fájl segítségével a `txt` formátumú szövegfájlok elemzése parancssorból lehetséges.
 
 A magyarlanchoz hasonlóan az UDPipe nevű elemző szintén képes magyar nyelvű nyers szövegek mondatra és szavakra bontására és szófaji elemzésére, azaz POS-taggelésére (*Part of Speech-tagging*) továbbá a mondatok függőségi elemzésére. Ez az elemző a nemzetközileg elismert Universal Dependencies annotációs sémán alapul. [@strakaTokenizingPosTagging2017] A két nyelvi elemző hasonló funkcionalitásokkal rendelkezik, ugyanakkor az UDPipe technikailag könnyebben kezelhető, azonban kevésbé pontos elemzési eredményt ad, mivel jóval kisebb tanító anyagon lett betanítva mint a `magyarlanc`.[^3]
 
-[^3]: Az UDPipe elérhetősége: <http://lindat.mff.cuni.cz/services/udpipe>
+[^nlp-3]: Az UDPipe elérhetősége: <http://lindat.mff.cuni.cz/services/udpipe>
 
 Az alábbiakban a `magyarlanc` és a `szeged ner` működését és az általuk létrehozott fájlokkal R-ben végezhető elemzésekre mutatunk példákat.
 
-## A `magyarlanc` nyelvi elemző használata
+## A `magyarlanc`
 
 Az elemző használatának részletes leírás megtalálható a már jelzett honlapon, itt most csak vázlatosan ismeretjük. Fontos kiemelni, hogy a `magyarlanc` JAVA modulokból áll, így használatához szükséges, hogy a számítógépen megfelelő JAVA környezet legyen telepítve. Először fenti oldalról le kell töltenünk a `magyarlanc-3.0.jar` fájlt, majd bemásolni azt abba a mappába, ahol az elemezni kívánt `txt` található. A parancssort Windows operációs rendszer alatt a számítógép kereső mezőjébe a `cmd` parancs beírásával tudjuk megnyitni. Ezután a parancsorban belépve abba a könyvtárba, ahol az elemezni kíván txt és a `magyarlanc-3.0.jar` elemző van, az alábbi parancs segítségével végezhetjük el az elemzést: `java -Xmx1G -jar magyarlanc-3.0.jar -mode morphparse -input in.txt -output out.txt`. Ahol az `in.txt` helyébe az elemezni kívánt `txt` nevét, az `out.txt` helyébe, pedig az elemzés eredményeként létrejövő fájl nevét kell megadni.
 
@@ -56,7 +56,7 @@ verb_napirend_elotti <- napirend_elotti %>%
   filter(POS_tag == "VERB")
 ```
 
-## A `szeged ner` elemző használata
+## A `szeged ner`
 
 A `magyarlanc` nyelvi elemzőhöz hasonlóan használhatjuk a `szeged ner` elemzőt is, melynek részletes leírása és maga a `ner.jar` elemző is megtalálható az alábbi oldalon <https://rgai.inf.u-szeged.hu/node/109>. Az elemző a fent bemutatott módon szintén parancssorból indítható az alábbi parancs használatával: `java -Xmx3G -jar ner.jar -mode predicate -input input.txt -output output.txt` Az elemző PER (személynév), LOC (hely(szín)), ORG (szervezet) és MISC (vegyes) címkét ad az egyes névelemeknek.
 
@@ -117,7 +117,7 @@ parsedtxt <- spacy_parse(txt)
 parsedtxt
 ```
 
-Az elvégzett tokenizálás eredményéből data frame-et készíthetünk.
+Az elvégzett tokenizálás eredményéből adattáblát készíthetünk.
 
 ```{r}
 spacy_tokenize(txt, remove_punct = TRUE, output = "data.frame") %>%
@@ -210,7 +210,7 @@ Majd elkészítettük a szóbeágyazás fejezetben már megismert fcm-et, végez
 
 [^9]: Részletes leírását lásd: <https://tutorials.quanteda.io/basic-operations/fcm/fcm/>
 
-```{r}
+```{r fig.cap="A Magyar Nemzeti Bank korpusz névelemeinek együttelőfordulási mátrixa "}
 mnb_fcm <- fcm(mnb_tokens, context = "window", count = "weighted", weights = 1 / (1:5), tri = TRUE)
 
 feat <- names(topfeatures(mnb_fcm, 80))
@@ -221,10 +221,7 @@ size <- log(colSums(dfm_select(mnb_fcm, feat, selection = "keep")))
 
 set.seed(144)
 
-textplot_network(mnb_fcm_select, min_freq = 0.7, vertex_size = size / max(size) * 3)+
-  ggtitle("Co-occurance matrix - MNB")+
-  theme(plot.title = element_text(hjust = 0.5))+
-  theme(plot.title = element_text(size = 20, face = "bold"))
+textplot_network(mnb_fcm_select, min_freq = 0.7, vertex_size = size / max(size) * 3)
 ```
 
 A spacyr alapvetően az angol nyelvi modellel működik, de arra is van lehetőség, hogy a spaCy egyéb beépített nyelvi modelljeit (német, spanyol, portugál) használjuk. Létezik magyar nyelvi modell is, ez azonban jelenleg még nincs integrálva a spaCy-be, hanem egy GitHub repozitoriból tölthető le. Ennek R-ben történő megvalósításához azonban haladó R ismeretek szükségesek, azért ennek leírásától jelen kötetben eltekintünk. A magyar nyelvi modell és leírása elérhető az alábbi linken: <https://github.com/oroszgy/spacy-hungarian-models>

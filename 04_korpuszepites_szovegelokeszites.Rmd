@@ -8,16 +8,9 @@ source("_common.R")
 
 ## Szövegbeszerzés
 
-A szövegbányászati elemzések egyik első lépése az elemzés alapjául
-szolgáló korpusz megépítése. A korpuszt alkotó szövegek beszerzésének
-egyik módja a webscarping, melynek során weboldalakról történik az
-információ kinyerése.
+A szövegbányászati elemzések egyik első lépése az elemzés alapjául szolgáló korpusz megépítése. A korpuszt alkotó szövegek beszerzésének egyik módja a *webscarping*, melynek során weboldalakról történik az információ kinyerése.
 
-A scrapelést végezhetjük R-ben az `rvest` csomag segítségével.
-Fejezetünkben a scrapelésnek csupán néhány alaplépését mutatjuk meg, a
-folyamatról bővebb információ található például az alábbi oldalakon:
-[https://cran.r-project.org/web/packages/rvest/rvest.pdf](https://cran.r-project.org/web/packages/rvest/rvest.pdf),
-[https://rvest.tidyverse.org](https://rvest.tidyverse.org).
+A scrapelést végezhetjük R-ben az `rvest` csomag segítségével. Fejezetünkben a scrapelésnek csupán néhány alaplépését mutatjuk meg, a folyamatról bővebb információ található például az alábbi oldalakon: <https://cran.r-project.org/web/packages/rvest/rvest.pdf>, <https://rvest.tidyverse.org>.
 
 ```{r}
 library(rvest)
@@ -30,12 +23,9 @@ library(quanteda.textmodels)
 library(HunMineR)
 ```
 
-A szükséges csomagok beolvasása után a `read_html()` függvény
-segítségével az adott weboldal adatait kérjük le a szerverről. A
-`read_html()` függvény argumentuma az adott weblap URL-je.
+A szükséges csomagok beolvasása után a `read_html()` függvény segítségével az adott weboldal adatait kérjük le a szerverről. A `read_html()` függvény argumentuma az adott weblap URL-je.
 
-Ha például a `poltextLAB` projekt honlapjáról szeretnénk adatokat
-gyűjteni, azt az alábbi módon tehetjük meg:
+Ha például a `poltextLAB` projekt honlapjáról szeretnénk adatokat gyűjteni, azt az alábbi módon tehetjük meg:
 
 ```{r}
 r <- read_html("https://poltextlab.tk.hu/hu")
@@ -43,17 +33,9 @@ r <- read_html("https://poltextlab.tk.hu/hu")
 r
 ```
 
-Ezután a `html_nodes()` függvény argumentumaként meg kell adnunk azt a
-HTML címkét vagy CSS azonosítót, ami a legyűjteni kívánt elemeket
-azonosítja a weboldalon. Ezeket az azonosítókat az adott weboldal
-forráskódjának megtekintésével tudhatjuk meg, amire a különböző
-böngészők különböző lehetőségeket kínálnak. Majd a `html_text()`
-függvény segítségével megkapjuk azokat a szövegeket, amelyek az adott
-weblapon az adott azonosítóval rendelkeznek.
+Ezután a `html_nodes()` függvény argumentumaként meg kell adnunk azt a HTML címkét vagy CSS azonosítót, ami a legyűjteni kívánt elemeket azonosítja a weboldalon. Ezeket az azonosítókat az adott weboldal forráskódjának megtekintésével tudhatjuk meg, amire a különböző böngészők különböző lehetőségeket kínálnak. Majd a `html_text()` függvény segítségével megkapjuk azokat a szövegeket, amelyek az adott weblapon az adott azonosítóval rendelkeznek.
 
-Példánkban a [https://poltextlab.tk.hu/hu](https://poltextlab.tk.hu/hu) weboldalról azokat az
-információkat szeretnénk kigyűjteni, amelyek az `<title>` címke alatt
-szerepelnek.
+Példánkban a <https://poltextlab.tk.hu/hu> weboldalról azokat az információkat szeretnénk kigyűjteni, amelyek az `<title>` címke alatt szerepelnek.
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 title <- read_html("https://poltextlab.tk.hu/hu") %>%
@@ -69,51 +51,22 @@ A kigyűjtött információkat pedig ezután kiíratjuk egy `csv` fájlba.
 write_csv(title, "title.csv")
 ```
 
-A web scraping során az egyik nehézség, ha a weboldal letiltja az
-automatikus letöltést, ezt kivédhetjük például különböző
-böngészőbővítmények segítségével, illetve a fejléc (header) vagy a user
-agent megváltoztatásával, de segíthet véletlenszerű proxy vagy VPN
-szolgáltatás használata is, valamint ha az egyes kérések között időt
-hagyunk. A weboldalakon legtöbbször a legyűjtött szövegekhez tartozó
-különböző metaadatok is szerepelnek (például egy parlamenti beszéd
-dátuma, az azt elmondó képviselő neve), melyeket érdemes a scarpelés
-során szintén összegyűjteni. A scrapelés során fontos figyelnünk arra,
-hogy később jól használható formában mentsük el az adatokat, például
-`.csv`,`.json` vagy `.txt` kiterjesztésekkel. A karakterkódolási
-problémák elkerülése érdekében érdemes UTF-8 vagy UTF-16-os kódolást
-alkalmazni, mivel ezek tartalmazzák a magyar nyelv ékezetes karaktereit
-is. A karakterkódolással kapcsolatosan további hasznos információk
-találhatóak az alábbi oldalon: [http://www.cs.bme.hu/~egmont/utf8](http://www.cs.bme.hu/~egmont/utf8)
+A *webscraping* során az egyik nehézség, ha a weboldal letiltja az automatikus letöltést, ezt kivédhetjük például különböző böngészőbővítmények segítségével, illetve a fejléc (*header*) vagy a hálózati kliens (*user agent*) megváltoztatásával. De segíthet véletlenszerű kiszolgáló (*proxy*) vagy VPN szolgáltatás[^korpusz-1] használata is, valamint ha az egyes kérések között időt hagyunk. A weboldalakon legtöbbször a legyűjtött szövegekhez tartozó különböző metaadatok is szerepelnek (például egy parlamenti beszéd dátuma, az azt elmondó képviselő neve), melyeket érdemes a scarpelés során szintén összegyűjteni. A scrapelés során fontos figyelnünk arra, hogy később jól használható formában mentsük el az adatokat, például `.csv`,`.json` vagy `.txt` kiterjesztésekkel. A karakterkódolási problémák elkerülése érdekében érdemes UTF-8 vagy UTF-16-os kódolást alkalmazni, mivel ezek tartalmazzák a magyar nyelv ékezetes karaktereit is. A karakterkódolással kapcsolatosan további hasznos információk találhatóak az alábbi oldalon: <http://www.cs.bme.hu/~egmont/utf8>
 
-Arra is van lehetőség, hogy az elemezni kívánt korpuszt papíron
-keletkezett, majd szkennelt és szükség szerint optikai
-karakterfelismerés (*Optical Character Recognition - OCR*) segítségével
-feldolgozott szövegekből építsük fel. Azonban mivel ezeket a feladatokat
-nem R-ben végezzük, ezekről itt nem szólunk bővebben. Az így beszerzett
-és `.txt` vagy `.csv` fájllá alakított szövegekből való korpuszépítés a
-következő lépésekben megegyezik a weboldalakról gyűjtött szövegekével.
+[^korpusz-1]: A VPN (Virtual Private Network, azaz a virtuális magánhálózat) azt teszi lehetővé, hogy a felhasználók egy megosztott vagy nyilvános hálózaton keresztül úgy küldjenek és fogadjanak adatokat, mintha számítógépeik közvetlenül kapcsolódnának a helyi hálózathoz.
+
+
+Arra is van lehetőség, hogy az elemezni kívánt korpuszt papíron keletkezett, majd szkennelt és szükség szerint optikai karakterfelismerés (*Optical Character Recognition - OCR*) segítségével feldolgozott szövegekből építsük fel. Azonban mivel ezeket a feladatokat nem R-ben végezzük, ezekről itt nem szólunk bővebben. Az így beszerzett és `.txt` vagy `.csv` fájllá alakított szövegekből való korpuszépítés a következő lépésekben megegyezik a weboldalakról gyűjtött szövegekével.
 
 ## Szövegelőkészítés
 
-Az elemzéshez vezető következő lépés a szövegelőkészítés, amit a szöveg
-tisztításával kell kezdenünk. A szövegtisztításnál mindig járjunk el
-körültekintően és az egyes lépéseket a kutatási kérdésünknek megfelelően
-tervezzük meg, a folyamat során pedig időnként végezzünk ellenőrzést,
-ezzel elkerülhetjük a kutatásunkhoz szükséges információk elvesztését.
+Az elemzéshez vezető következő lépés a szövegelőkészítés, amit a szöveg tisztításával kell kezdenünk. A szövegtisztításnál mindig járjunk el körültekintően és az egyes lépéseket a kutatási kérdésünknek megfelelően tervezzük meg, a folyamat során pedig időnként végezzünk ellenőrzést, ezzel elkerülhetjük a kutatásunkhoz szükséges információk elvesztését.
 
-Miután az elemezni kívánt szövegeinket beszereztük, majd a
-**KERESZTHIVATKOZÁS** *„Az adatok importálása és exportálása"*
-alfejezetben leírtak szerint importáltuk, következhetnek az alapvető
-előfeldolgozási lépések, ezek közé tartozik például a scrapelés során a
-kopuszba került html címkék, számok és egyéb zajok (például a speciális
-karakterek, írásjelek) eltávolítása a korpuszból, valamint a
-kisbetűsítés, a tokenizálás, a szótövezés és a stopszavazás.
+Miután az elemezni kívánt szövegeinket beszereztük, majd a **KERESZTHIVATKOZÁS** *„Az adatok importálása"* alfejezetben leírtak szerint importáltuk, következhetnek az alapvető előfeldolgozási lépések, ezek közé tartozik például a scrapelés során a kopuszba került html címkék, számok és egyéb zajok (például a speciális karakterek, írásjelek) eltávolítása a korpuszból, valamint a kisbetűsítés, a tokenizálás, a szótövezés és a stopszavazás.
 
 ### Műveletek karakterláncokkal (*stringekkel*)
 
-A `stringr` csomag segítségével először eltávolíthatjuk a felesleges
-`html` címkéket a korpuszból. Ehhez először létrehozzuk a `text1` nevű
-objektumot ami egy karaktervektorból áll.
+A `stringr` csomag segítségével először eltávolíthatjuk a felesleges `html` címkéket a korpuszból. Ehhez először létrehozzuk a `text1` nevű objektumot ami egy karaktervektorból áll.
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 text1 <- c("MTA TK", "<font size='6'> Political and Legal Text Mining and Artificial Intelligence Laboratory (poltextLAB)")
@@ -121,12 +74,7 @@ text1 <- c("MTA TK", "<font size='6'> Political and Legal Text Mining and Artifi
 text1
 ```
 
-Majd a `str_replace_all()`függvény segítségével eltávolítjuk két html
-címke közötti szövegrészt. Ehhez a függvény argumentumában létrehozunk
-egy regex kifejezést, aminek segítségével a függvény minden `< >` közötti
-szövegrészt üres karakterekre cserél. Ezután a `str_to_lower()`mindent
-kisbetűvé konvertál, majd a `str_trim()`eltávolítja a szóközöket a
-karakterláncok elejéről és végéről.
+Majd a `str_replace_all()`függvény segítségével eltávolítjuk két html címke közötti szövegrészt. Ehhez a függvény argumentumában létrehozunk egy regex kifejezést, aminek segítségével a függvény minden `< >` közötti szövegrészt üres karakterekre cserél. Ezután a `str_to_lower()`mindent kisbetűvé konvertál, majd a `str_trim()`eltávolítja a szóközöket a karakterláncok elejéről és végéről.
 
 ```{r}
 text1 %>%
@@ -137,22 +85,9 @@ text1 %>%
 
 ### Tokenizálás, szótövezés, kisbetűsítés és a tiltólistás szavak eltávolítása
 
-Az előkészítés következő lépésében tokenizáljuk, azaz egységeire bontjuk
-az elemezni kívánt szöveget, így a tokenek az egyes szavakat vagy
-kifejezéseket fogják jelölni. Ennek eredményeként kapjuk meg az
-n-gramokat, amik a vizsgált egységek (számok, betűk, szavak,
-kifejezések) n-elemű sorozatát alkotják.
+Az előkészítés következő lépésében tokenizáljuk, azaz egységeire bontjuk az elemezni kívánt szöveget, így a tokenek az egyes szavakat vagy kifejezéseket fogják jelölni. Ennek eredményeként kapjuk meg az *n-gramokat*, amik a vizsgált egységek (számok, betűk, szavak, kifejezések) n-elemű sorozatát alkotják.
 
-A következőkben a „Példa az előkészítésre" mondatot bontjuk először
-tokenekre a `tokens()` függvénnyel, majd a tokeneket a
-`tokens_tolower()` segítségével kisbetűsítjük, a `tokens_wordstem()`
-függvénnyel pedig szótövezzük. Végezetül a `quanteda` csomagban
-található magyar nyelvű stopszótár segítségével, elvégezzük a stopszavak
-eltávolítását.Ehhez először létrehozzuk az `sw` elnevezésű
-karaktervektort a magyar stopszavakból. A `head()` függvény segítségével
-belenézhetünk a szótárba, és a console-ra kiírathatjuk a szótár első hat
-szavát. Végül a `tokens_remove()`segítségével eltávolítjuk a
-stopszavakat.
+A következőkben a „Példa az előkészítésre" mondatot bontjuk először tokenekre a `tokens()` függvénnyel, majd a tokeneket a `tokens_tolower()` segítségével kisbetűsítjük, a `tokens_wordstem()` függvénnyel pedig szótövezzük. Végezetül a `quanteda` csomagban található magyar nyelvű stopszótár segítségével, elvégezzük a stopszavak eltávolítását.Ehhez először létrehozzuk az `sw` elnevezésű karaktervektort a magyar stopszavakból. A `head()` függvény segítségével belenézhetünk a szótárba, és a *console*-ra kiírathatjuk a szótár első hat szavát. Végül a `tokens_remove()`segítségével eltávolítjuk a stopszavakat.
 
 ```{r}
 text <- "Példa az elokészítésre"
@@ -172,33 +107,11 @@ head(sw)
 tokens_remove(toks, sw)
 ```
 
-Ezt követi a szótövezés (*stemmelés*) lépése, melynek során az
-alkalmazott szótövező algoritmus egyszerűen levágja a szavak összes
-toldalékát, a képzőket, a jelzőket és a ragokat. Szótövezés helyett
-helyett alkalmazhatunk szótári alakra hozást is (*lemmatizálás*). A két
-eljárás közötti különbség abban rejlik, hogy a szótövezés során csupán
-eltávolítjuk a szavak toldalékként azonosított végződéseit, hogy
-ugyanannak a szónak különböző megjelenési formáit közös törzsre
-redukáljuk, míg a lemmatizálás esetében rögtön az értelmes, szótári
-formát kapjuk vissza. A két módszer közötti választás a kutatási kérdés
-alapján meghozott kutatói döntésen alapul [@grimmer2013text].
+Ezt követi a szótövezés (*stemmelés*) lépése, melynek során az alkalmazott szótövező algoritmus egyszerűen levágja a szavak összes toldalékát, a képzőket, a jelzőket és a ragokat. Szótövezés helyett helyett alkalmazhatunk szótári alakra hozást is (*lemmatizálás*). A két eljárás közötti különbség abban rejlik, hogy a szótövezés során csupán eltávolítjuk a szavak toldalékként azonosított végződéseit, hogy ugyanannak a szónak különböző megjelenési formáit közös törzsre redukáljuk, míg a lemmatizálás esetében rögtön az értelmes, szótári formát kapjuk vissza. A két módszer közötti választás a kutatási kérdés alapján meghozott kutatói döntésen alapul [@grimmer2013text].
 
-Az alábbi példában egyetlen szó különböző alakjainak szótári alakra
-hozásával szemléltetjük a lemmatizáslás működését.
+Az alábbi példában egyetlen szó különböző alakjainak szótári alakra hozásával szemléltetjük a lemmatizáslás működését.
 
-Ehhez először a `text1` nevű objektumban tároljuk a szótári alakra hozni
-kívánt szöveget, majd tokenizáljuk és eltávolítjuk a központozást.
-Ezután definiáljuk azt a megfelelő szótövet és azt, hogy mely szavak
-alakjait szeretnénk erre a szótőre egységesíteni majd a `rep()` függvény
-segítségével elvégezzük a lemmatizálást, amely a korábban definiált
-szólaakokat az általunk megadott szótári alakkal helyettesíti. Hosszabb
-szövegek lemmatizálásához előre létrehozott szótárakat használhatunk,
-ilyen például a `WordNet`, ami magyar nyelven is elérhető:
-[https://github.com/mmihaltz/huwn](https://github.com/mmihaltz/huwn). A magyar nyelvű szövegek
-lemmatizálását elvégezhetjük a szövegek R-be való beolvasása előtt is a
-`magyarlanc`nyelvi elemző segítségével, melyről a 
-["Természetes-nyelv feldolgozás (NLP) és névelemfelismerés"](#nlp_ch) című
-fejezetben szólunk részletesebben.
+Ehhez először a `text1` nevű objektumban tároljuk a szótári alakra hozni kívánt szöveget, majd tokenizáljuk és eltávolítjuk a központozást. Ezután definiáljuk azt a megfelelő szótövet és azt, hogy mely szavak alakjait szeretnénk erre a szótőre egységesíteni majd a `rep()` függvény segítségével elvégezzük a lemmatizálást, amely a korábban definiált szólaakokat az általunk megadott szótári alakkal helyettesíti. Hosszabb szövegek lemmatizálásához előre létrehozott szótárakat használhatunk, ilyen például a `WordNet`, ami magyar nyelven is elérhető: <https://github.com/mmihaltz/huwn>. A magyar nyelvű szövegek lemmatizálását elvégezhetjük a szövegek R-be való beolvasása előtt is a `magyarlanc`nyelvi elemző segítségével, melyről a ["Természetes-nyelv feldolgozás (NLP) és névelemfelismerés"](#nlp_ch) című fejezetben szólunk részletesebben.
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 text1 <- "Példa az előkészítésre. Az előkészítést a szövetisztítással kell megkezdenünk. Az előkészített korpuszon elemzést végzünk"
@@ -214,10 +127,7 @@ toks1 <- tokens_replace(toks1, elokeszites, lemma, valuetype = "fixed")
 toks1
 ```
 
-A fenti `text1` objektumban tárolt szöveg szótövezését az alábbiak
-szerint tudjuk elvégezni. Megvizsgálva az előkészítés különböző
-alakjainak lemmatizált és stemmelt változatát jól láthatjuk a két
-módszer közötti különbséget.
+A fenti `text1` objektumban tárolt szöveg szótövezését az alábbiak szerint tudjuk elvégezni. Megvizsgálva az előkészítés különböző alakjainak lemmatizált és stemmelt változatát jól láthatjuk a két módszer közötti különbséget.
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 text1 <- "Példa az előkészítésre. Az előkészítést a szövetisztítással kell megkezdenünk. Az előkészített korpuszon elemzést végzünk"
@@ -231,23 +141,11 @@ toks2
 
 ### Dokumentum kifejezés mátrix (DTM)
 
-A szövegbányászati elemzések nagy részéhez szükségünk van arra, hogy a
-szövegeinkből dokumentum kifejezés mátrix-ot (*Document Term Matrix -
-DTM* vagy *Document Feature Matris - DFM*) hozzunk létre. Ezzel a
-lépéssel alakítjuk a szövegeinket számokká, ami lehetővé teszi, hogy
-utána különböző statisztikai műveleteket végezzünk velük.
+A szövegbányászati elemzések nagy részéhez szükségünk van arra, hogy a szövegeinkből dokumentum kifejezés mátrix-ot (*Document Term Matrix - DTM* vagy *Document Feature Matris - DFM*) hozzunk létre. Ezzel a lépéssel alakítjuk a szövegeinket számokká, ami lehetővé teszi, hogy utána különböző statisztikai műveleteket végezzünk velük.
 
-A dokumentum kifejezés mátrix minden sora egy dokumentum, minden oszlopa
-egy kifejezés, az oszlopokban szereplő változók pedig az egyes
-kifejezések számát mutatják meg az egyes dokumentumokban. A legtöbb
-dokumentum kifejezés mátrix ritka mátrix, mivel a legtöbb dokumentum és
-kifejezés párosítása nem történik meg, mivel a kifejezések nagy része
-csak néhány dokumentumban szerepel, ezek értéke nulla lesz.
+A dokumentum kifejezés mátrix minden sora egy dokumentum, minden oszlopa egy kifejezés, az oszlopokban szereplő változók pedig az egyes kifejezések számát mutatják meg az egyes dokumentumokban. A legtöbb dokumentum kifejezés mátrix ritka mátrix, mivel a legtöbb dokumentum és kifejezés párosítása nem történik meg, mivel a kifejezések nagy része csak néhány dokumentumban szerepel, ezek értéke nulla lesz.
 
-Az alábbi példában három egy-egy mondatos dokumentumon szemléltetjük a
-fentieket. A korábban megismert módon előkészítjük, azaz kisbetűsítjük,
-szótövezzük a dokumentumokat,eltávolítjuk a tiltólistás szavakat, majd
-létrehozzuk belőlük a dokumentum kifejezés mátrixot.
+Az alábbi példában három egy-egy mondatos dokumentumon szemléltetjük a fentieket. A korábban megismert módon előkészítjük, azaz kisbetűsítjük, szótövezzük a dokumentumokat,eltávolítjuk a tiltólistás szavakat, majd létrehozzuk belőlük a dokumentum kifejezés mátrixot.
 
 ```{r}
 text <- c(
@@ -265,9 +163,7 @@ dtm <- dfm(
 dtm
 ```
 
-Egy másik szövegbányászati megközelítés a mátrixot nem DTM-nek, hanem
-DFM-nek nevezi, például a `quanteda` csomag használata során nem DTM-et,
-hanem DFM-et kell létrehoznunk.
+Egy másik szövegbányászati megközelítés a mátrixot nem DTM-nek, hanem DFM-nek nevezi, például a `quanteda` csomag használata során nem DTM-et, hanem DFM-et kell létrehoznunk.
 
 ```{r}
 text <- c(
@@ -287,44 +183,11 @@ dfm
 
 ### Súlyozás
 
-A dokumentum kifejezés mátrix lehet egy egyszerű bináris mátrix, ami
-csak azt az információt tartalmazza, hogy egy adott szó előfordul-e egy
-adott dokumentumban. Míg az egyszerű bináris mátrixban ugyanakkora súlya
-van egy szónak ha egyszer és ha tízszer szerepel, készíthetünk olyan
-mátrixot is, ahol egy szónak annál nagyobb a súlya egy dokumentumban,
-minél többször fordul elő. A szógyakoriság (*term frequency - TM*)
-szerint súlyozott TD mátrixnál azt is figyelembe vesszük, hogy az adott
-szó hány dokumentumban szerepel. Minél több dokumentumban szerepel egy
-szó, annál kisebb a jelentősége. Ilyen szavak például a névelők, amelyek
-sok dokumentumban előfordulnak ugyan, de nem sok tartalmi jelentőséggel
-bírnak. Két szó közül általában az a fontosabb, amelyik koncentráltan,
-kevés dokumentumban, de azokon belül nagy gyakorisággal fordul elő. A
-dokumentum gyakorisági érték (*document frequency - DF*) egy szó
-ritkaságát jellemzi egy korpuszon belül, azaz megadja, hogy mekkora
-megkülönböztető ereje van egy szónak a dokumentum tartalmára
-vonatkozóan. A súlyozási sémákban általában a dokumentum gyakorisági
-érték inverzével számolnak (*inverse document frequency - IDF*) ez a
-leggyakrabban használt TD-IDF súlyozás (*term frequency & inverse
-document frequency - TD-IDF*). Az így súlyozott TD mátrix egy-egy
-cellájában található érték azt mutatja, hogy egy adott szónak mekkora a
-jelentősége egy adott dokumentumban. A TF-IDF súlyozás értéke tehát
-magas azon szavak esetén, amelyek az adott dokumentumban gyakran
-fordulnak elő, míg a teljes korpuszban ritkán; alacsonyabb azon szavak
-esetén, amelyek az adott dokumentumban ritkábban, vagy a korpuszban
-gyakrabban fordulnak elő; és kicsi azon szavaknál, amelyek a korpusz
-lényegében összes dokumentumában előfordulnak [@tikkSzovegbanyaszat2007,
-33-37 o.]
+A dokumentum kifejezés mátrix lehet egy egyszerű bináris mátrix, ami csak azt az információt tartalmazza, hogy egy adott szó előfordul-e egy adott dokumentumban. Míg az egyszerű bináris mátrixban ugyanakkora súlya van egy szónak ha egyszer és ha tízszer szerepel, készíthetünk olyan mátrixot is, ahol egy szónak annál nagyobb a súlya egy dokumentumban, minél többször fordul elő. A szógyakoriság (*term frequency - TF*) szerint súlyozott mátrixnál azt is figyelembe vesszük, hogy az adott szó hány dokumentumban szerepel. Minél több dokumentumban szerepel egy szó, annál kisebb a jelentősége. Ilyen szavak például a névelők, amelyek sok dokumentumban előfordulnak ugyan, de nem sok tartalmi jelentőséggel bírnak. Két szó közül általában az a fontosabb, amelyik koncentráltan, kevés dokumentumban, de azokon belül nagy gyakorisággal fordul elő. A dokumentum gyakorisági érték (*document frequency - DF*) egy szó gyakoriságát jellemzi egy korpuszon belül. A súlyozási sémákban általában a dokumentum gyakorisági érték inverzével számolnak (*inverse document frequency - IDF*) ez a leggyakrabban használt TF-IDF súlyozás (*term frequency & inverse document frequency - TF-IDF*). Az így súlyozott TF mátrix egy-egy cellájában található érték azt mutatja, hogy egy adott szónak mekkora a jelentősége egy adott dokumentumban. A TF-IDF súlyozás értéke tehát magas azon szavak esetén, amelyek az adott dokumentumban gyakran fordulnak elő, míg a teljes korpuszban ritkán; alacsonyabb azon szavak esetén, amelyek az adott dokumentumban ritkábban, vagy a korpuszban gyakrabban fordulnak elő; és kicsi azon szavaknál, amelyek a korpusz lényegében összes dokumentumában előfordulnak [@tikkSzovegbanyaszat2007, 33-37 o.]
 
-Az alábbiakban az 1999-es törvényszövegeken szemléltetjük, hogy egy 125
-dokumentumból létrehozott mátrix segítségével milyen alapvető
-statisztikai műveleteket végezhetünk.[^1]
+Az alábbiakban az 1999-es törvényszövegeken szemléltetjük, hogy egy 125 dokumentumból létrehozott mátrix segítségével milyen alapvető statisztikai műveleteket végezhetünk.[^korpusz-2]
 
-[^1]: Az itt használt kódok az alábbiakon alapulnak:
-    <https://rdrr.io/cran/quanteda/man/dfm_weight.html>,
-    <https://rdrr.io/cran/quanteda/man/dfm_tfidf.html>. A példaként
-    használt korpusz a Hungarian Comparative Agendas Project keretében
-    készült adatbázis része: <https://cap.tk.hu/torveny>
-
+[^korpusz-2]: Az itt használt kódok az alábbiakon alapulnak: <https://rdrr.io/cran/quanteda/man/dfm_weight.html>, <https://rdrr.io/cran/quanteda/man/dfm_tfidf.html>. A példaként használt korpusz a Hungarian Comparative Agendas Project keretében készült adatbázis része: <https://cap.tk.hu/torveny>
 
 A `HunMineR` csomagból tudjuk importálni a törvényeket.
 
@@ -332,10 +195,7 @@ A `HunMineR` csomagból tudjuk importálni a törvényeket.
 lawtext_df <- data_lawtext_1999
 ```
 
-Majd az importált adatokból létrehozzuk a korpuszt `lawtext_corpus`
-néven. Ezt követi a dokumentum kifejezés mátrix kialakítása (mivel a
-`quanteda` csomaggal dolgozunk, `dfm` mátrixot hozunk létre), és ezzel
-egy lépésben elvégezzük az alapvető szövegtisztító lépéseket is.
+Majd az importált adatokból létrehozzuk a korpuszt `lawtext_corpus` néven. Ezt követi a dokumentum kifejezés mátrix kialakítása (mivel a `quanteda` csomaggal dolgozunk, `dfm` mátrixot hozunk létre), és ezzel egy lépésben elvégezzük az alapvető szövegtisztító lépéseket is.
 
 ```{r}
 lawtext_corpus <- corpus(lawtext_df)
@@ -351,16 +211,13 @@ lawtext_dfm <- dfm(
 )
 ```
 
-A `topfeatures` függvény segítségével megnézhetjük a mátrix leggyakoribb
-szavait a függvény argumentumában megadva a dokumentum kifejezés mátrix nevét és
-a kívánt kifejezésszámot.
+A `topfeatures` függvény segítségével megnézhetjük a mátrix leggyakoribb szavait a függvény argumentumában megadva a dokumentum kifejezés mátrix nevét és a kívánt kifejezésszámot.
 
 ```{r}
 topfeatures(lawtext_dfm, 15)
 ```
 
-Mivel látható, hogy a szövegekben sok angol kifejezés is volt egy
-következő lépcsőben az angol stopszavakat is eltávolítjuk.
+Mivel látható, hogy a szövegekben sok angol kifejezés is volt egy következő lépcsőben az angol stopszavakat is eltávolítjuk.
 
 ```{r}
 lawtext_dfm_2 <- dfm(lawtext_dfm, remove = stopwords("english"))
@@ -372,10 +229,7 @@ Ezután megnézzük a leggyakoribb 15 kifejezést.
 topfeatures(lawtext_dfm_2, 15)
 ```
 
-A következő lépés, hogy TF-IDF súlyozású statisztikát készítünk, a dokumentum kifejezés
-mátrix alapján. Ehhez először létrehozzuk a `lawtext_tfidf` nevű
-objektumot, majd a `textstat_frequency` függvény segítségével
-kilistázzuk annak első 10 elemét.
+A következő lépés, hogy TF-IDF súlyozású statisztikát készítünk, a dokumentum kifejezés mátrix alapján. Ehhez először létrehozzuk a `lawtext_tfidf` nevű objektumot, majd a `textstat_frequency` függvény segítségével kilistázzuk annak első 10 elemét.
 
 ```{r}
 lawtext_tfidf <- dfm_tfidf(lawtext_dfm_2)

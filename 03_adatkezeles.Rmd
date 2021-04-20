@@ -1,8 +1,8 @@
-# Az adatkezelés R-ben {#adatkezeles}
+# Az adatkezelés R-ben
 
 ## Adatok importálása és exportálása
 
-```{r, include=FALSE}
+```{r include=FALSE}
 
 source("_common.R")
 
@@ -15,7 +15,7 @@ library(gapminder)
 library(stringr)
 ```
 
-Az adatok importálására az R alapfüggvénye mellett több csomag is megoldást kínál. Ezek közül a könyv írásakor a legnépszerűbbek a `readr` és a `rio` csomagok. A szövegek különböző karakterkódolásának problémáját tapasztalataink szerint a legjobban a `readr` csomag `read_csv()` függvénye kezeli, ezért legtöbbször ezt fogjuk használni a `.csv` állományok beolvasására. Amennyiben kihasználjuk az RStudio projekt opcióját (lásd a [Függelékben](#projektmunka)) akkor elegendő csak az elérni kívánt adatok relativ elérési útját megadni (*relative path*). Ideális esetben az adataink egy csv fájlban vannak (*comma separated values*), ahol az egyes értékeket vesszők (vagy egyéb speciális karakterek) választják el. Ez esetben a `read_delim()` függvényt használjuk. A beolvasásnál egyből el is tároljuk az adatokat egy objektumban. A `sep =` opcióval tudjuk a szeparátor karaktert beállítani, mert előfordulhat hogy vessző helyett pontosvessző tagolja az adatainkat.
+Az adatok importálására az R alapfüggvénye mellett több csomag is megoldást kínál. Ezek közül a könyv írásakor a legnépszerűbbek a `readr` és a `rio` csomagok. A szövegek különböző karakterkódolásának problémáját tapasztalataink szerint a legjobban a `readr` csomag `read_csv()` függvénye kezeli, ezért legtöbbször ezt fogjuk használni a `.csv` állományok beolvasására. Amennyiben kihasználjuk az RStudio projekt opcióját **KERESZTHIVATKOZÁS**(lásd a [Függelékben](#projektmunka)) akkor elegendő csak az elérni kívánt adatok relativ elérési útját megadni (*relative path*). Ideális esetben az adataink egy csv fájlban vannak (*comma separated values*), ahol az egyes értékeket vesszők (vagy egyéb speciális karakterek) választják el. Ez esetben a `read_delim()` függvényt használjuk. A beolvasásnál egyből el is tároljuk az adatokat egy objektumban. A `sep =` opcióval tudjuk a szeparátor karaktert beállítani, mert előfordulhat hogy vessző helyett pontosvessző tagolja az adatainkat.
 
 ```{r, eval=FALSE}
 df <- read_csv("data/adatfile.csv")
@@ -27,7 +27,7 @@ Az R képes linkről letölteni fájlokat, elég megadnunk egy működő eléré
 df_online <- read.csv("https://www.qta.tk.mta.hu/adatok/adatfile.csv")
 ```
 
-Az R csomag ökoszisztémája kellően változatos ahhoz, hogy gyakorlatilag bármilyen inputtal meg tudjon birkózni. Az Excel fájlokat a readxl csomagot használva tudjuk betölteni [Függeléket](#packages), a `read_excel()`-t használva. A leggyakoribb statisztikai programok formátumait pedig a haven csomag tudja kezelni (például Stata, Spss, SAS). A szintaxis itt is hasonló: `read_stata`, `read_spss`, `read_sas`.
+Az R csomag ökoszisztémája kellően változatos ahhoz, hogy gyakorlatilag bármilyen inputtal meg tudjon birkózni. Az Excel fájlokat a readxl csomagot használva tudjuk betölteni **KERESZTHIVATKOZÁS** [Függeléket](#packages), a `read_excel()`-t használva. A leggyakoribb statisztikai programok formátumait pedig a haven csomag tudja kezelni (például Stata, Spss, SAS). A szintaxis itt is hasonló: `read_stata`, `read_spss`, `read_sas`.
 
 ### Szöveges dokumentumok importálása
 
@@ -48,7 +48,7 @@ Az adatainkat R-ből a `write.csv()`-vel exportálhatjuk a kívánt helyre, `.cs
 
 ## A pipe operátor
 
-Az úgynevezett `pipe` operátor alapjaiban határozta meg a modern R fejlődését és a népszerű csomag ökoszisztéma, a `tidyverse`, egyik alapköve. Úgy gondoljuk, hogy a `tidyverse` és a `pipe` egyszerűbbé teszi elsajátítani az R használatát, ezért mi is erre helyezzük a hangsúlyt.[^1] Vizuálisan a pipe operátor így néz ki: `%>%`, és arra szolgál, hogy a kódban több egymáshoz kapcsolódó műveletet egybefűzzünk.[^2] Technikailag a `pipe` a bal oldali elemet adja meg a jobb oldali függvény első argumentumának. A lenti példa ugyanazt a folyamatot írja le az alap R (*base R*), illetve a `pipe` használatával. [^3] Miközben a kódot olvassuk, érdemes a `pipe`-ot "*és aztán*"-nak fordítani.
+Az úgynevezett `pipe` operátor alapjaiban határozta meg a modern R fejlődését és a népszerű csomag ökoszisztéma, a `tidyverse`, egyik alapköve. Úgy gondoljuk, hogy a `tidyverse` és a `pipe` egyszerűbbé teszi elsajátítani az R használatát, ezért mi is erre helyezzük a hangsúlyt.[^1] Vizuálisan a pipe operátor így néz ki: %\>%, és arra szolgál, hogy a kódban több egymáshoz kapcsolódó műveletet egybefűzzünk.[^2] Technikailag a `pipe` a bal oldali elemet adja meg a jobb oldali függvény első argumentumának. A lenti példa ugyanazt a folyamatot írja le az alap R (*base R*), illetve a `pipe` használatával. [^3] Miközben a kódot olvassuk, érdemes a `pipe`-ot "*és aztán*"-nak fordítani.
 
 [^1]: A *tidyverse* megközelítés miatt a kötetben szereplő R kód követi a "The tidyverse style guide" dokumentációt (<https://style.tidyverse.org/>)
 
@@ -56,7 +56,7 @@ Az úgynevezett `pipe` operátor alapjaiban határozta meg a modern R fejlődés
 
 [^3]: Köszönjük Andrew Heissnek a kitűnő példát.
 
-```{r, eval=FALSE}
+```{r, eval=FALSE,  tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 reggeli(oltozkodes(felkeles(ebredes(en, idopont = "8:00"), oldal = "jobb"), nadrag = TRUE, ing = TRUE))
 
 en %>%
@@ -70,7 +70,7 @@ A fenti példa is jól mutatja, hogy a `pipe` a bal oldali elemet fogja a jobb o
 
 ## Műveletek adattáblákkal (*data frame-ekkel*)
 
-Az adattábla az egyik leghasznosabb és leggyakrabban használt adattárolási mód az R-ben (a részletesebb leírás a [Függelékben](#data-frame) található). Ebben az alfejezetben azt mutatjuk be a `dplyr` és `gapminder` csomagok segítségével, hogyan lehet vele hatékonyan dolgozni. A `dplyr` az egyik legnépszerűbb R csomag, a `tidyverse` része. A `gapminder` csomag pedig a példa adatbázisunkat tartalmazza, amiben a világ országainak különböző gazdasági és társadalmi mutatói vannak.
+Az adattábla az egyik leghasznosabb és leggyakrabban használt adattárolási mód az R-ben **KERESZTHIVATKOZÁS** (a részletesebb leírás a [Függelékben](#data-frame) található). Ebben az alfejezetben azt mutatjuk be a `dplyr` és `gapminder` csomagok segítségével, hogyan lehet vele hatékonyan dolgozni. A `dplyr` az egyik legnépszerűbb R csomag, a `tidyverse` része. A `gapminder` csomag pedig a példa adatbázisunkat tartalmazza, amiben a világ országainak különböző gazdasági és társadalmi mutatói vannak.
 
 ### Megfigyelések szűrése: `filter()`
 
@@ -142,11 +142,11 @@ gapminder %>%
 
 ## Munka karakter vektorokkal[^4]
 
-[^4]: A könyv terjedelme miatt ezt a témát itt csak bemutatni tudjuk, de minden részletre kiterjedően nem tudunk elmélyülni benne. A témában nagyon jól használható online anyagok találhatóak az RStudio GitHub tárhelyén ([https://github.com/rstudio/cheatsheets/raw/master/strings.pdf](https://github.com/rstudio/cheatsheets/raw/master/strings.pdf)), illetve @wickham2016r 14. fejezetében.
+[^4]: A könyv terjedelme miatt ezt a témát itt csak bemutatni tudjuk, de minden részletre kiterjedően nem tudunk elmélyülni benne. A témában nagyon jól használható online anyagok találhatóak az RStudio GitHub tárhelyén (<https://github.com/rstudio/cheatsheets/raw/master/strings.pdf>), illetve @wickham2016r 14. fejezetében.
 
 A szöveges adatokkal (karakter stringekkel) való munka elkerülhetetlen velejárója hogy a felesleges szövegelemeket, karaktereket el kell távolítanunk ahhoz, hogy az elemzésünk hatásfoka javuljon (erről részletesebben a 3. fejezetben lesz szó). Erre a célra a `stringr` csomagot fogjuk használni, kombinálva a korábban bemutatott `mutate()`-el. A `stringr` függvények az `str_` előtaggal kezdődnek és eléggé beszédes nevekkel rendelkeznek. Egy gyakran előforduló probléma, hogy extra szóközök maradnak a szövegben, vagy bizonyos szavakról, karakterkombinációkról tudjuk, hogy nem kellenek az elemzésünkhöz. Ebben az esetben egy vagy több reguláris kifejezés (*regular expression, regex*) használatával tudjuk pontosan kijelölni, hogy a karakter sornak melyik részét akarjuk módosítani.[^5] A legegyszerűbb formája a regexeknek, ha pontosan tudjuk milyen szöveget akarunk megtalálni. A kísérletezésre az `str_view()`-t használjuk, ami megjeleníti hogy a megadott regex mintánk pontosan mit jelöl.
 
-[^5]: A reguláris kifejezés egy olyan, meghatározott szintaktikai szabályok szerint leírt karakterlánc (*string)*, amivel meghatározható stringek egy adott halmaza. Az ilyen kifejezés valamilyen minta szerinti szöveg keresésére, cseréjére, illetve a szöveges adatok ellenőrzésére használható. További információ: [http://www.regular-expressions.info/](http://www.regular-expressions.info/)
+[^5]: A reguláris kifejezés egy olyan, meghatározott szintaktikai szabályok szerint leírt karakterlánc (*string)*, amivel meghatározható stringek egy adott halmaza. Az ilyen kifejezés valamilyen minta szerinti szöveg keresésére, cseréjére, illetve a szöveges adatok ellenőrzésére használható. <http://www.regular-expressions.info/>
 
 ```{r}
 szoveg <- c("gitar", "ukulele", "nagybogo")
@@ -158,9 +158,7 @@ Az ún. „horgonyokkal“, (*anchor*) azt lehet megadni, hogy a karakter string
 
 ```{r}
 str_view("Dr. Doktor Dr.", pattern = "^Dr.")
-```
 
-```{r}
 str_view("Dr. Doktor Dr.", pattern = "Dr.$")
 ```
 

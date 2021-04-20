@@ -1,4 +1,4 @@
-# Szóbeágyazások {#embedding}
+# Szóbeágyazások
 
 ```{r include=FALSE}
 
@@ -18,7 +18,7 @@ A szóbeágyazásra társadalomtudományokban a két legnépszerűbb algoritmus 
 
 [^szobeagyazas-1]: Egy kiváló tanulmányban @spirlingword (könyvünk írásakor még nem jelent meg) összehasonlítják a Word2Vec és GloVe módszereket, különböző paraméterekkel, adatbázisokkal. Azoknak, akiket komolyabban érdekelnek a szóbeágyazás gyakorlati alkalmazásának a részletei, mindenképp ajánljuk elolvasásra.
 
-A szóvektor modellek között érdemes megemlíteni a fastText-et is, mely 157 nyelvre kínál (köztük a magyarra is) kínál a szóbeágyazás módszeren alapuló, előre tanított szóvektorokat, melyet tovább lehet tanítani speciális szövegkorpuszokra, ezzel jelentősen lerövidítve a modell tanításához szükséges idő- és kapacitásszükségletet (@mikolov2018advances). Habár a GloVe és Word2Vec skip-gram módszerek hasonlóságát a szakirodalom adottnak veszi, a tényleges kép ennél árnyaltabb. A GloVe esetében a ritkán előforduló szavak kisebb súlyt kapnak a szóvektorok számításánál, míg a Word2Vec alulsúlyozza a nagy frekvenciájú szavakat. Ennek a következménye, hogy a Word2Vec esetében gyakori, hogy a szemantikailag legközelebbi szó az egy elütés, nem pedig valid találat. Ennek ellenére a két módszer (amennyiben a Word2Vec algoritmusnál a kisfrekvenciájú tokeneket kiszűrjük) az emberi validálás során nagyon hasonló eredményeket hozott [@spirlingword].
+A szóvektor modellek között érdemes megemlíteni a fastText-et is, mely 157 nyelvre kínál (köztük a magyarra is) kínál a szóbeágyazás módszeren alapuló, előre tanított szóvektorokat, melyet tovább lehet tanítani speciális szövegkorpuszokra, ezzel jelentősen lerövidítve a modell tanításához szükséges idő- és kapacitásszükségletet (@mikolov2018advances). Habár a GloVe és Word2Vec skip-gram módszerek hasonlóságát a szakirodalom adottnak veszi, a tényleges kép ennél árnyaltabb. A GloVe esetében a ritkán előforduló szavak kisebb súlyt kapnak a szóvektorok számításánál, míg a Word2Vec alulsúlyozza a nagy frekvenciájú szavakat. Ennek a következménye, hogy a Word2Vec esetében gyakori, hogy a szemantikailag legközelebbi szó az egy elütés, nem pedig valid találat. Ennek ellenére a két módszer (amennyiben a Word2Vec algoritmusnál a kisfrekvenciájú tokeneket kiszűrjük) az emberi validálás során nagyon hasonló eredményeket hozott **(lásd [@spirlingword] megjelenés alatt álló tanulmányát**.
 
 A fejezetben a gyakorlati példa során a GloVe algoritmust használjuk majd, mivel véleményünk szerint jobb és könnyebben követhető a dokumentációja az implementációt tartalmazó R csomagnak, mint a többi alternatívának.
 
@@ -26,7 +26,7 @@ A fejezetben a gyakorlati példa során a GloVe algoritmust használjuk majd, mi
 
 Az elemzéshez a `text2vec` csomagot használjuk, ami a GloVe implementációt tartalmazza. A lenti kód a csomag dokumentáción alapul és a Társadalomtudományi Kutatóközpont által a *Hungarian Comparative Agendas Project (CAP)* adatbázisában tárolt *Magyar Nemzet* korpuszt használja.[^cap-link]
 
-[^cap-link]: A Magyar CAP Project által kezelt adatbázisok itt megtalálhatóak: [https://cap.tk.hu/adatbazisok](https://cap.tk.hu/adatbazisok).
+[^cap-link]: A Magyar CAP Projekt által kezelt adatbázisok itt megtalálhatóak: [https://cap.tk.hu/adatbazisok](https://cap.tk.hu/adatbazisok).
 
 
 ```{r}
@@ -38,13 +38,12 @@ library(dplyr)
 library(tibble)
 library(stringr)
 library(ggplot2)
-library(HunMineR)
 ```
 
 A lenti kód blokk azt mutatja be, hogyan kell a betöltött korpuszt tokenizálni és mátrix formátumba alakítani. A korpusz a *Magyar Nemzet* 2004 és 2014 közötti címlapos cikkeit tartalmazza. Az eddigi előkészítő lépéseket most is megtesszük: kitöröljük a központozást, a számokat, a magyar töltelékszavakat, illetve kisbetűsítünk és eltávolítjuk a felesleges szóközöket és töréseket.
 
 ```{r}
-mn <- data_magyar_nemzet_large
+mn <- read_csv("data/mn_large.csv")
 
 mn_clean <- mn %>%
   mutate(

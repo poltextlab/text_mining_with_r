@@ -2,9 +2,9 @@
 
 ## 12.1. Fogalmi alapok
 
-A mesterséges intelligencia két fontos társadalomtudományi alkalmazási területe a felügyelet nélküli és a felügyelt tanulás. Míg az előző esetben – ahogy azt a *[Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken](#lda_ch)* fejezetben bemutattuk – az emberi beavatkozás néhány kulcsparaméter megadására (így pl. a kívánt topikok számának meghatározására) szorítkozik, addig a felügyelt tanulás esetében a kutatónak nagyobb mozgástere van "tanítani" a gépet. Ennyiben a felügyelt tanulás alkalmasabb hipotézisek tesztelésére, mint az adatok rejtett mintázatait felfedező felügyelet nélküli tanulás. 
+A mesterséges intelligencia két fontos társadalomtudományi alkalmazási területe a felügyelet nélküli és a felügyelt tanulás. Míg az előző esetben – **KERESZTHIVATKOZÁS** ahogy azt a *Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken* fejezetben bemutattuk – az emberi beavatkozás néhány kulcsparaméter megadására (így pl. a kívánt topikok számának meghatározására) szorítkozik, addig a felügyelt tanulás esetében a kutatónak nagyobb mozgástere van "tanítani" a gépet. Ennyiben a felügyelt tanulás alkalmasabb hipotézisek tesztelésére, mint az adatok rejtett mintázatait felfedező felügyelet nélküli tanulás. 
 A felügyelt tanulási feladat megoldása egy úgynevezett tanító halmaz (*training set*) meghatározásával kezdődik, melynek során a kutatók saját maguk végzik el kézzel azt a feladatot melyet a továbbiakban gépi közreműködéssel szeretnének nagyobb nagyságrendben, de egyben érvényesen (*validity*) és megbízhatóan (*reliability*) kivitelezni. Eredményeinket az ugyanúgy eredetileg kézzel lekódolt, de a modell-építés során félretett teszthalmazunkon (test set) értékelhetjük. Ennek során négy kategóriába rendezzük modellünk előrejelzéseit. Egy, a politikusi beszédeket a pozitív hangulatuk alapján osztályozó példát véve ezek a következők: azok a beszédek amelyeket a modell helyesen sorolt be pozitívba (valódi pozitív), vagy negatívba (valódi negatív), illetve azok, amelyek hibásan szerepelnek a pozitív (ál-pozitív), vagy a negatív kategóriában (ál-negatív). Mindezek együttesen egy ún. tévesztési táblát (confusion matrix) adnak, melynek további elemzésével ítéletet alkothatunk modellépítésünk eredményességéről.
-A felügyelt tanulás számos kutatási feladat megoldására alkalmazhatjuk, melyek közül a leggyakoribbak a különböző osztályozási (classification) feladatok. Miközben ezek – így pl. a véleményelemzés – szótáralapú módszertannal is megoldhatóak (lásd a *[Szótáralapú elemzések, érzelem-elemzés](#sentiment)* fejezetet), a felügyelt tanulás a nagyobb élőmunkaigényt rendszerint jobb eredményekkel és rugalmasabb felhasználhatósággal hálálja meg (gondoljunk csak a szótárak domain-függőségére). A felügyelt tanulás egyben a mesterséges intelligencia kutatásának gyorsan fejlődő területe, mely az e fejezetben tárgyalt algoritmus-központú gépi tanuláson túl az ún. mélytanulás (*deep learning*) és a neurális hálók területén is zajlik egyre látványosabb sikerekkel.
+A felügyelt tanulás számos kutatási feladat megoldására alkalmazhatjuk, melyek közül a leggyakoribbak a különböző osztályozási (classification) feladatok. Miközben ezek – így pl. a véleményelemzés – szótáralapú módszertannal is megoldhatóak **KERESZTHIVATKOZÁS** (lásd a *Szótáralapú elemzések, érzelem-elemzés* fejezetet), a felügyelt tanulás a nagyobb élőmunkaigényt rendszerint jobb eredményekkel és rugalmasabb felhasználhatósággal hálálja meg (gondoljunk csak a szótárak domain-függőségére). A felügyelt tanulás egyben a mesterséges intelligencia kutatásának gyorsan fejlődő területe, mely az e fejezetben tárgyalt algoritmus-központú gépi tanuláson túl az ún. mélytanulás (*deep learning*) és a neurális hálók területén is zajlik egyre látványosabb sikerekkel.
 
 
 ## 12.2. Osztályozás felügyelt tanulással
@@ -25,9 +25,7 @@ library(e1071)
 library(ggplot2)
 library(dplyr)
 library(SparseM)
-library(HunMineR)
 
-set.seed(1234)
 ```
 
 Ezt követően meg adjuk azt a kódkategóriát, melynek kapcsán szeretnénk elvégezni a bináris osztályozást (beletartozik-e az adott cikk az adott kategóriába vagy nem). A kódban ez az egyes, azaz a makrogazdaság (adózás, költségvetés, monetáris politika stb.) lesz.
@@ -39,7 +37,7 @@ CAPcode <- 1
 Ezt követi a szövegelőkészítésen és tisztításon már átesett adatok betöltése. Ahogyan arról korábban már volt szó, `read.csv` függvény használatakor megadhatjuk a beolvasás paramétereit, így például, hogy milyen karakterkódolást szeretnénk használni (esetünkben ez az utf-8 lesz).
 
 ```{r include = TRUE}
-Data_NOL_MNO <- Data_NOL_MNO <- data_nol_mno_clean
+Data_NOL_MNO <- read.csv(paste(getwd(), "Data_NOL_and_MNO_clean_stem_small.csv", sep="/"), head=TRUE, sep=";", encoding="utf-8", stringsAsFactors = FALSE)
 ```
 
 A következő lépésben eltávolítjuk a szöveges adatot nem tartalmazó (a text változóra semmilyen értéket nem adó) sorokat az adatbázisból.
@@ -50,7 +48,7 @@ Data_NOL_MNO <- Data_NOL_MNO[!(Data_NOL_MNO$filename %in% Data_NOL_MNO_ures$file
 ```
 
 ```{r include = TRUE}
-nrow(Data_NOL_MNO_ures)
+View(Data_NOL_MNO_ures)
 ```
 
 Látható, hogy összesen 13 ilyen elemet találtunk.
@@ -61,7 +59,7 @@ Majd szétválasztjuk a két újsághoz tartozó cikkeket is (esetünkben a *Né
 Data_NOL <- Data_NOL_MNO[Data_NOL_MNO$corpus == "NOL",]
 ```
 
-Mint az *Environment* ablakban is látható, ez a lépés 37 135 cikkes halmazt adott. Ezen a ponton megkezdhetjük a felügyelt gépi tanulásra épülő lépéseket! Először egy 4500-as mintát veszünk az adatbázisból, hogy rövidítsük a futásidőt.
+Mint az **Environment** ablakban is látható, ez a lépés 37 135 cikkes halmazt adott. Ezen a ponton megkezdhetjük a felügyelt gépi tanulásra épülő lépéseket! Először egy 4500-as mintát veszünk az adatbázisból, hogy rövidítsük a futásidőt.
 
 ```{r include = TRUE}
 Data_NOL <- Data_NOL[sample(nrow(Data_NOL), 4500), ]
@@ -100,20 +98,8 @@ dtm_NOL <- dfm_trim(dtm_NOL, min_docfreq = 5, verbose=TRUE)
 
 Ezen a ponton megkezdhetjük a modellünk tanítását! Erre a fent említett SVM algoritmust használjuk. E lépés futási ideje akár 1-2 percig is eltarthat!
 
-```{r eval=FALSE}
-SVMmodel <- svm(
-  x=dtm_NOL[dtm_NOL@docvars$training == 1,], 
-  y	=dtm_NOL[dtm_NOL@docvars$training == 1,]@docvars$label,
-  kernel="linear", 
-  cost	=0.1, 
-  probability=TRUE
-  )
-```
-
-```{r echo=FALSE}
-#saveRDS(SVMmodel, file = "data/temp/svm_model.rds")
-
-SVMmodel <- readRDS("data/temp/svm_model.rds")
+```{r include = TRUE}
+SVMmodel <- svm(x=dtm_NOL[dtm_NOL@docvars$training == 1,], y	=dtm_NOL[dtm_NOL@docvars$training == 1,]@docvars$label, kernel="linear", cost	=0.1, probability=TRUE)
 ```
 
 A létrejövő *predictions* objektum tartalmazza majd az előrejelzési eredményeket.
@@ -212,13 +198,10 @@ ggplot_data$predictions_label <- factor(ggplot_data$predictions_label)
 ```{r include = TRUE}
 df <- ggplot_data %>%
   group_by(majortopic_code, predictions_label) %>%
-  summarise(n = n()) %>% 
-  filter(majortopic_code < 30)
+  summarise(n = n())
 ```
 
-```{r include = TRUE, fig.cap="Az SVM modell klasszifikációs eredményei"}
-ggplot(df, aes(majortopic_code, n, fill = predictions_label)) + 
-  geom_bar(, stat = "identity") +
-  labs(fill = NULL) +
-  theme(legend.position = "bottom")
+```{r include = TRUE}
+ggplot(data = df) + 
+  geom_bar(aes(x = majortopic_code, y = n, fill = predictions_label), stat = "identity")
 ```
