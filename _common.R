@@ -7,7 +7,8 @@ knitr::opts_chunk$set(
   echo = TRUE,
   dpi = 300,
   out.width = "90%",
-  fig.align = "center"
+  fig.align = "center",
+  fig.topcaption=TRUE
 )
 
 suppressPackageStartupMessages(library(tidyverse))

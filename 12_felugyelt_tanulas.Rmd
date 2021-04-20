@@ -1,23 +1,25 @@
 # Osztályozás és felügyelt tanulás
 
-## 12.1. Fogalmi alapok
+## Fogalmi alapok
 
-A mesterséges intelligencia két fontos társadalomtudományi alkalmazási területe a felügyelet nélküli és a felügyelt tanulás. Míg az előző esetben – ahogy azt a *[Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken](#lda_ch)* fejezetben bemutattuk – az emberi beavatkozás néhány kulcsparaméter megadására (így pl. a kívánt topikok számának meghatározására) szorítkozik, addig a felügyelt tanulás esetében a kutatónak nagyobb mozgástere van "tanítani" a gépet. Ennyiben a felügyelt tanulás alkalmasabb hipotézisek tesztelésére, mint az adatok rejtett mintázatait felfedező felügyelet nélküli tanulás. 
-A felügyelt tanulási feladat megoldása egy úgynevezett tanító halmaz (*training set*) meghatározásával kezdődik, melynek során a kutatók saját maguk végzik el kézzel azt a feladatot melyet a továbbiakban gépi közreműködéssel szeretnének nagyobb nagyságrendben, de egyben érvényesen (*validity*) és megbízhatóan (*reliability*) kivitelezni. Eredményeinket az ugyanúgy eredetileg kézzel lekódolt, de a modell-építés során félretett teszthalmazunkon (test set) értékelhetjük. Ennek során négy kategóriába rendezzük modellünk előrejelzéseit. Egy, a politikusi beszédeket a pozitív hangulatuk alapján osztályozó példát véve ezek a következők: azok a beszédek amelyeket a modell helyesen sorolt be pozitívba (valódi pozitív), vagy negatívba (valódi negatív), illetve azok, amelyek hibásan szerepelnek a pozitív (ál-pozitív), vagy a negatív kategóriában (ál-negatív). Mindezek együttesen egy ún. tévesztési táblát (confusion matrix) adnak, melynek további elemzésével ítéletet alkothatunk modellépítésünk eredményességéről.
+A mesterséges intelligencia két fontos társadalomtudományi alkalmazási területe a felügyelet nélküli és a felügyelt tanulás. Míg az előző esetben -- ahogy azt a *[Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken](#lda_ch)* fejezetben bemutattuk -- az emberi beavatkozás néhány kulcsparaméter megadására (így pl. a kívánt topikok számának meghatározására) szorítkozik, addig a felügyelt tanulás esetében a kutatónak nagyobb mozgástere van "tanítani" a gépet. Ennyiben a felügyelt tanulás alkalmasabb hipotézisek tesztelésére, mint az adatok rejtett mintázatait felfedező felügyelet nélküli tanulás. 
+
+A felügyelt tanulási feladat megoldása egy úgynevezett tanító halmaz (*training set*) meghatározásával kezdődik, melynek során a kutatók saját maguk végzik el kézzel azt a feladatot melyet a továbbiakban gépi közreműködéssel szeretnének nagyobb nagyságrendben, de egyben érvényesen (*validity*) és megbízhatóan (*reliability*) kivitelezni. Eredményeinket az ugyanúgy eredetileg kézzel lekódolt, de a modell-építés során félretett teszthalmazunkon (*test set*) értékelhetjük. Ennek során négy kategóriába rendezzük modellünk előrejelzéseit. Egy, a politikusi beszédeket a pozitív hangulatuk alapján osztályozó példát véve ezek a következők: azok a beszédek amelyeket a modell helyesen sorolt be pozitívba (valódi pozitív), vagy negatívba (valódi negatív), illetve azok, amelyek hibásan szerepelnek a pozitív (ál-pozitív), vagy a negatív kategóriában (ál-negatív). Mindezek együttesen egy ún. tévesztési táblát (*confusion matrix*) adnak, melynek további elemzésével ítéletet alkothatunk modellépítésünk eredményességéről.
+
 A felügyelt tanulás számos kutatási feladat megoldására alkalmazhatjuk, melyek közül a leggyakoribbak a különböző osztályozási (classification) feladatok. Miközben ezek – így pl. a véleményelemzés – szótáralapú módszertannal is megoldhatóak (lásd a *[Szótáralapú elemzések, érzelem-elemzés](#sentiment)* fejezetet), a felügyelt tanulás a nagyobb élőmunkaigényt rendszerint jobb eredményekkel és rugalmasabb felhasználhatósággal hálálja meg (gondoljunk csak a szótárak domain-függőségére). A felügyelt tanulás egyben a mesterséges intelligencia kutatásának gyorsan fejlődő területe, mely az e fejezetben tárgyalt algoritmus-központú gépi tanuláson túl az ún. mélytanulás (*deep learning*) és a neurális hálók területén is zajlik egyre látványosabb sikerekkel.
 
 
-## 12.2. Osztályozás felügyelt tanulással
+## Osztályozás felügyelt tanulással
 
-Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapokat tartalmazó modult használjuk.[^1] Az induló adatbázis 61 835 cikk szövegét és metaadatait (összesen öt változót: sorszám, fájlnév, a közpolitikai osztály kódja, szöveg, illetve a korpusz forrása -- *Magyar Nemzet* vagy *Népszabadság*) tartalmazza. Az a célunk, hogy az egyes cikkekhez kézzel, jó minőségben (két, egymástól függetlenül dolgozó kódoló által) kiosztott és egyeztetett közpolitikai kódokat -- ez a tanítóhalmaz -- arra használjuk, hogy meghatározzuk egy kiválasztott cikkcsoport hasonló kódjait. Az osztályozási feladathoz a CAP közpolitikai kódrendszerét használjuk, mely 21 közpolitikai kategóriát határoz meg az oktatástól az egészségügyön át a honvédelemig [^2]
+Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapokat tartalmazó modult használjuk.[^sml-1] Az induló adatbázis 61 835 cikk szövegét és metaadatait (összesen öt változót: sorszám, fájlnév, a közpolitikai osztály kódja, szöveg, illetve a korpusz forrása -- *Magyar Nemzet* vagy *Népszabadság*) tartalmazza. Az a célunk, hogy az egyes cikkekhez kézzel, jó minőségben (két, egymástól függetlenül dolgozó kódoló által) kiosztott és egyeztetett közpolitikai kódokat -- ez a tanítóhalmaz -- arra használjuk, hogy meghatározzuk egy kiválasztott cikkcsoport hasonló kódjait. Az osztályozási feladathoz a CAP közpolitikai kódrendszerét használjuk, mely 21 közpolitikai kategóriát határoz meg az oktatástól az egészségügyön át a honvédelemig [^sml-2]
 
-[^1]: <https://cap.tk.hu/a-media-es-a-kozvelemeny-napirendje>
+[^sml-1]: A korpusz regisztációt követően elérhető az alábbi linken: <https://cap.tk.hu/a-media-es-a-kozvelemeny-napirendje>
 
-[^2]: [Közpolitikai témakörök kódkönyve](Comparative%20Agendas%20Project)[<https://cap.tk.hu/kozpolitikai-cap>]
+[^sml-2]: A kódkönyv regisztrációt követően elérhető az alábbi linken: [https://cap.tk.hu/kozpolitikai-cap](https://cap.tk.hu/kozpolitikai-cap)
 
 Annak érdekében, hogy egyértelműen értékelhessük a gépi tanulás hatékonyságát, a kiválasztott cikkcsoport (azaz a teszthalmaz) esetében is ismerjük a kézi kódolás eredményét („éles“ kutatási helyzetben, ismeretlen kódok esetében ugyanakkor ezt gyakran szintén csak egy kisebb mintán tudjuk kézzel validálni). További fontos lépés, hogy az ésszerű futási idő érdekében a gyakorlat során a teljes adatbázisból -- és ezen belül is csak a Népszabadság részhalmazból -- fogunk venni egy 4500 darabos mintát. E mintán fogjuk vizsgálni, hogy milyen hatékonysággal képes a modellünk egy megadott közpolitikai kódba besorolni egy adott cikket, illetve, hogy ezt képes-e a hús-vér kutatókkal azonos színvonalon megtenni. Nézzük mindezek után a kutatás lépéseit!
 
-A munkakönyvtár megfelelő beállítása után (`setwd()`) először behívjuk a szükséges csomagokat, melyek közül a `quanteda` a szokásos szövegbányászati alapcsomagunk, az `e1071` az SVM algoritmus használatát teszi a lehetővé, a `ggplot2` a vizualizációt segíti, a `dplyr` a korpuszon végzett műveletekhez kell, a `SparseM` pedig a mátrixtranszformációkhoz.
+A először behívjuk a szükséges csomagokat, melyek közül a `quanteda` a szokásos szövegbányászati alapcsomagunk, az `e1071` az SVM algoritmus használatát teszi a lehetővé, a `ggplot2` a vizualizációt segíti, a `dplyr` a korpuszon végzett műveletekhez kell, a `SparseM` pedig a mátrixtranszformációkhoz.
 
 ```{r include = TRUE}
 library(quanteda)
@@ -36,10 +38,10 @@ Ezt követően meg adjuk azt a kódkategóriát, melynek kapcsán szeretnénk el
 CAPcode <- 1
 ```
 
-Ezt követi a szövegelőkészítésen és tisztításon már átesett adatok betöltése. Ahogyan arról korábban már volt szó, `read.csv` függvény használatakor megadhatjuk a beolvasás paramétereit, így például, hogy milyen karakterkódolást szeretnénk használni (esetünkben ez az utf-8 lesz).
+Ezt követi a szövegelőkészítésen és tisztításon már átesett adatok betöltése. Az egyszerűség kedvéért a `HunMineR` csomagból töltjük be az előkészített adatokat.
 
 ```{r include = TRUE}
-Data_NOL_MNO <- Data_NOL_MNO <- data_nol_mno_clean
+Data_NOL_MNO <- HunMineR::data_nol_mno_clean
 ```
 
 A következő lépésben eltávolítjuk a szöveges adatot nem tartalmazó (a text változóra semmilyen értéket nem adó) sorokat az adatbázisból.
@@ -142,9 +144,9 @@ predictions_label <- ifelse(predictions > 0.5, 1, 0)
 Data_NOL_predictions <- cbind(Data_NOL_predictions, predictions_label)
 ```
 
-Miután eredményeink elkészültek, kiszámoljuk a felügyelt gépi tanulás szokásos eredményességi mutatóit (ettől a résztől kódunkban Pablo Barbera munkájára támaszkodunk)[^3]. Mindezek alapjául a tévesztési mátrix szolgál, vizsgáljuk először meg ennek adatait!
+Miután eredményeink elkészültek, kiszámoljuk a felügyelt gépi tanulás szokásos eredményességi mutatóit (ettől a résztől kódunkban Pablo Barbera munkájára támaszkodunk)[^sml3]. Mindezek alapjául a tévesztési mátrix szolgál, vizsgáljuk először meg ennek adatait!
 
-[^3]: [SVM, Random Forests, and beyond](http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html).
+[^sml3]: [http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html](http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html).
 
 ```{r include = TRUE}
 table(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)

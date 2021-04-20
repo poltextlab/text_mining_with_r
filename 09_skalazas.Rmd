@@ -1,10 +1,12 @@
-# Szövegskálázás: felügyelet nélküli és felügyelt megoldások {#scaling}
+# Szövegskálázás {#scaling}
 
 ```{r include=FALSE}
 
 source("_common.R")
 
 ```
+
+## Áttekintés
 
 A szövegskálázás célja a politikai szereplők elhelyezése az ideológiai térben. Ennek felügyelt típusa a wordscores, amely a szótári módszerekhez hasonlóan a szereplőket szavaik alapján helyezi el a politikai térben oly módon, hogy az ún. referencia dokumentumok szövegét használja tanító halmazként. A wordscores kiindulópontja, hogy pozíció pontszámokat kell rendelni referencia szövegekhez. A modell számításba veszi szövegek szavainak súlyozott gyakoriságát és a pozíciópontszám, valamint a szógyakoriság alapján becsülni meg a korpuszban lévő többi dokumentum pozícióját [@laver2003extracting]. A felügyelet nélküli `wordfish` módszer a skálázás során nem a referencia dokumentumokra támaszkodik, hanem olyan kifejezéseket keres a szövegben, amelyek megkülönböztetik egymástól a politikai spektrum különböző pontjain elhelyezkedő beszélőket. Az IRT-n (*item response theory*) alapuló módszer azt feltételezi, hogy a politikusok egy kevés dimenziós politikai térben mozognak, amely tér leírható az *i* politikus $\theta_1$ paraméterével. Egy politikus (vagy párt) ezen a téren elfoglalt helyzete pedig befolyásolja a szavak szövegekben történő használatát. A módszer erőssége, hogy kevés erőforrás-befektetéssel megbízható becsléseket ad, ha a szövegek valóban az ideológiák mentén különböznek, tehát ha a szereplők erősen ideológiai tartalamú diskurzust folytatnak. Alkalmazásakor azonban tudnunk kell: a módszer nem képes kezelni, hogy a szövegek között nem csak ideológiai különbség lehet. Mivel a modell nem felügyelt, ezért nehéz garantálni, hogy valóban megbízhatóan azonosítja a szereplők elhelyezkedését a politikai térben, így az eredményeket mindenképpen körültekintően kell validálni [@slapinScalingModelEstimating2008;@hjorthComputersCodersVoters2015;@grimmer2013text].
 
@@ -19,10 +21,12 @@ library(quanteda.textmodels)
 library(HunMineR)
 ```
 
-A skálázási algoritmusokat egy kis korpuszon mutatjuk be. A minta dokumentumok a 2014–2018-as parlamenti ciklusban az Országgyűlésben frakcióvezető politikusok egy-egy véletlenszerűen kiválasztott napirend előtti felszólalásai. Ebben a ciklusban összesen 11 frakcióvezetője volt a két kormánypárti és öt ellenzéki frakciónak [^skala-1]. A dokumentumokon először elvégeztük a szokásos előkészítési lépéseket. [^skala-1]: a mintába nem került be Rogán Antal, akinek csak egy darab napirend előtti felszólalása volt.
+A skálázási algoritmusokat egy kis korpuszon mutatjuk be. A minta dokumentumok a 2014–2018-as parlamenti ciklusban az Országgyűlésben frakcióvezető politikusok egy-egy véletlenszerűen kiválasztott napirend előtti felszólalásai. Ebben a ciklusban összesen 11 frakcióvezetője volt a két kormánypárti és öt ellenzéki frakciónak [^skala-1]. A dokumentumokon először elvégeztük a szokásos előkészítési lépéseket. 
+
+[^skala-1]: a mintába nem került be Rogán Antal, akinek csak egy darab napirend előtti felszólalása volt.
 
 ```{r}
-parl_beszedek <- data_parlspeakers_small
+parl_beszedek <- HunMineR::data_parlspeakers_small
 
 beszedek_tiszta <- parl_beszedek %>% 
     mutate(
@@ -84,9 +88,9 @@ szavak_wf %>%
   head(n = 15)
 ```
 
-Az eredményeinket mind a szavak, mind a dokumentumok szintjén tudjuk vizualizálni. Elsőként a klasszikus „Eiffel-torony” ábrát reprodukáljuk, ami a szavak gyakoriságának és a skálára gyakorolt befolyásának az illusztrálására szolgál. Ehhez a már elkészült `szavak_wf` data framet-et és a `ggplot2` csomagot fogjuk használni. Mivel a korpuszunk nagyon kicsi, ezért csak `r nrow(szavak_wf)` kifejezést fogunk ábrázolni. Ennek ellenére a lényeg kirajzolódik a lenti ábrán is.[^2]
+Az eredményeinket mind a szavak, mind a dokumentumok szintjén tudjuk vizualizálni. Elsőként a klasszikus „Eiffel-torony” ábrát reprodukáljuk, ami a szavak gyakoriságának és a skálára gyakorolt befolyásának az illusztrálására szolgál. Ehhez a már elkészült `szavak_wf` data framet-et és a `ggplot2` csomagot fogjuk használni. Mivel a korpuszunk nagyon kicsi, ezért csak `r nrow(szavak_wf)` kifejezést fogunk ábrázolni. Ennek ellenére a lényeg kirajzolódik a lenti ábrán is.[^skala-2]
 
-[^2]: A `quanteda.textplots` csomag több megoldást is kínál az ábrák elkészítésére. Mivel ezek a megoldások kifejezetten a quanteda elemzések ábrázolására készültek, ezért rövid egysoros függvényekkel tudunk gyorsan ábrákat készíteni. A hátrányuk, hogy kevésbé tudjuk „személyre szabni” az ábráinkat, mint a `ggplot2` példák esetében. A `quanteda.textplots` megoldásokat ezen a linken demonstrálják a csomag készítői: [https://quanteda.io/articles/pkgdown/examples/plotting.html](https://quanteda.io/articles/pkgdown/examples/plotting.html).
+[^skala-2]: A `quanteda.textplots` csomag több megoldást is kínál az ábrák elkészítésére. Mivel ezek a megoldások kifejezetten a quanteda elemzések ábrázolására készültek, ezért rövid egysoros függvényekkel tudunk gyorsan ábrákat készíteni. A hátrányuk, hogy kevésbé tudjuk „személyre szabni” az ábráinkat, mint a `ggplot2` példák esetében. A `quanteda.textplots` megoldásokat ezen a linken demonstrálják a csomag készítői: [https://quanteda.io/articles/pkgdown/examples/plotting.html](https://quanteda.io/articles/pkgdown/examples/plotting.html).
 
 Kihasználhatjuk, hogy a `ggplot` ábra definiálása közben a felhasznált bemeneti data frame-et különböző szempontok alapján lehet szűrni. Így ábrázolni tudjuk a gyakran használt ám semleges szavakat (magas $\psi$, alacsony $\beta$), illetve a ritkább, de meghatározóbb szavakat (magas $\beta$, alacsony $\psi$).
 
@@ -144,9 +148,9 @@ ggplot(dokumentumok_wf, aes(theta, reorder(speaker, theta))) +
 
 A modell illesztést a wordfish-hz hasonlóan a `quanteda.textmodels` csomagban található `textmodel_wordscores()` függvény végzi. A kiinduló dfm ugyanaz, mint amit a fejezet elején elkészítettünk, a `beszedek_dfm`.
 
-A referencia pontokat dokumentumváltozóként hozzáadjuk a dfm-hez (a `refrencia_pont` oszlopot, ami `NA` értéket kap alapértelmezetten). A kiválasztott referencia dokumentumoknál pedig egyenként hozzáadjuk az értékeket. Erre több megoldás is van, az egyszerűbb út, hogy az egyik és a másik végletet a `-1; 1` intervallummal jelöljük. Ennek a lehetséges alternatívája, hogy egy külső, már validált forrást használunk. Pártok esetén ilyen lehet a Chapel Hill szakértői kérdőívének a pontszámai, a Manifesto projekt által kódolt jobb-bal (*rile*) dimenzió. A lenti példánál mi maradunk az egyszerűbb bináris kódolásnál. A wordfish eredményt alapul véve a két referencia pont a Gulyás Gergely és Szél Bernadett beszédei lesznek.[^3] Ezek a 3. és a 10. dokumentumok.
+A referencia pontokat dokumentumváltozóként hozzáadjuk a dfm-hez (a `refrencia_pont` oszlopot, ami `NA` értéket kap alapértelmezetten). A kiválasztott referencia dokumentumoknál pedig egyenként hozzáadjuk az értékeket. Erre több megoldás is van, az egyszerűbb út, hogy az egyik és a másik végletet a `-1; 1` intervallummal jelöljük. Ennek a lehetséges alternatívája, hogy egy külső, már validált forrást használunk. Pártok esetén ilyen lehet a Chapel Hill szakértői kérdőívének a pontszámai, a Manifesto projekt által kódolt jobb-bal (*rile*) dimenzió. A lenti példánál mi maradunk az egyszerűbb bináris kódolásnál. A wordfish eredményt alapul véve a két referencia pont a Gulyás Gergely és Szél Bernadett beszédei lesznek.[^skala-3] Ezek a 3. és a 10. dokumentumok.
 
-[^3]: Azért nem Vona Gábor beszédét választottuk, mert az gyaníthatóan egy kiugró érték, ami nem reprezentálja megfelelően a sokaságot.
+[^skala-3]: Azért nem Vona Gábor beszédét választottuk, mert az gyaníthatóan egy kiugró érték, ami nem reprezentálja megfelelően a sokaságot.
 
 ```{r}
 docvars(beszedek_dfm, "referencia_pont") <- NA
@@ -169,7 +173,7 @@ beszedek_ws <- textmodel_wordscores(
 summary(beszedek_ws, 10)
 ```
 
-Az illesztett wordscores modellünkkel ezek után már meg tudjuk becsülni a korpuszban lévő többi dokumentum pozícióját. Ehhez az R beépített `predict()` megoldását használjuk. A kiegészítő opciókkal a konfidencia intervallum alsó és felső határát is meg tudjuk becsülni, ami jól jön akkor, ha szeretnénk ábrázolni az eredményt.
+Az illesztett wordscores modellünkkel ezek után már meg tudjuk becsülni a korpuszban lévő többi dokumentum pozícióját. Ehhez a `predict()` függvény megoldását használjuk. A kiegészítő opciókkal a konfidencia intervallum alsó és felső határát is meg tudjuk becsülni, ami jól jön akkor, ha szeretnénk ábrázolni az eredményt.
 
 ```{r}
 beszedek_ws_pred <- predict(
@@ -182,7 +186,7 @@ beszedek_ws_pred <- as.data.frame(beszedek_ws_pred$fit)
 beszedek_ws_pred
 ```
 
-A kapott modellünket a wordfish-hez hasonlóan tudjuk ábrázolni, miután a `beszedek_ws_pred` objektumból egy data frame-et csinálunk és a `ggplot2`-vel elkészítjük a vizualizációt. A `dokumentumok_ws` két részből áll össze. Először a wordscores modell objektumunkból a frakcióvezetők neveit és pártjaikat emeljük ki (kicsit körülményes a dolog, mert egy komplexebb objektumban tárolja őket a `quanteda`, de az `str()` függvény tud segíteni ilyen esetekben). A dokumentumok becsült pontszámait pedig a `beszedek_ws_pred` objektumból készített data frame hozzácsatolásával adjuk hozzá a már elkészült data frame-hez. Ehhez a `dplyr` csomag `bind_cols` függvényét használjuk. Fontos, hogy itt teljesen biztosnak kell lennünk abban, hogy a sorok a két data frame esetében ugyanarra a dokumentumra vonatkoznak.
+A kapott modellünket a wordfish-hez hasonlóan tudjuk ábrázolni, miután a `beszedek_ws_pred` objektumból adattáblát csinálunk és a `ggplot2`-vel elkészítjük a vizualizációt. A `dokumentumok_ws` két részből áll össze. Először a wordscores modell objektumunkból a frakcióvezetők neveit és pártjaikat emeljük ki (kicsit körülményes a dolog, mert egy komplexebb objektumban tárolja őket a `quanteda`, de az `str()` függvény tud segíteni ilyen esetekben). A dokumentumok becsült pontszámait pedig a `beszedek_ws_pred` objektumból készített data frame hozzácsatolásával adjuk hozzá a már elkészült data frame-hez. Ehhez a `dplyr` csomag `bind_cols` függvényét használjuk. Fontos, hogy itt teljesen biztosnak kell lennünk abban, hogy a sorok a két data frame esetében ugyanarra a dokumentumra vonatkoznak.
 
 ```{r}
 dokumentumok_ws <- data.frame(

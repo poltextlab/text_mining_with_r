@@ -6,13 +6,15 @@ source("_common.R")
 
 ```
 
+## A szóbeágyazás célja
+
 Az eddigi fejezetekben elsősorban a szózsák (*bag of words*) alapú módszerek voltak előtérben. A szózsák alapú módszerekkel szemben, amelyek alkalmazása során elveszik a kontextuális tartalom, a szóbeágyazáson (*word embedding*) alapuló modellek kimondottan a kontextuális információt ragadják meg. A szóbeágyazás a topikmodellekhez hasonlóan a felügyelet nélküli tanulás módszerére épül, azonban itt a dokumentum domináns kifejezéseinek és témáinak feltárása helyett a szavak közötti szemantikai kapcsolat megértése a cél. Vagyis a modellnek képesnek kell lennie az egyes szavak esetén szinonimáik és ellentétpárjaik megtalálására.
 
 A hagyományos topikmodellezés esetén a modell a szavak dokumentumokon belüli együttes megjelenési statisztikái alapján becsül dokumentum-topik, illetve topik-szó eloszlásokat, azzal a céllal, hogy koherens téma-csoportokat képezzen. Ezzel szemben a szóbeágyazás legújabb iskolája már neurális halókon alapul. A neurális háló a tanítási folyamata során az egyes szavak vektorreprezentációját állítja elő. A vektorok jellemzően 100–300 dimenzióból állnak, a távolságuk alapján pedig megállapítható, hogy az egyes kifejezések milyen szemantikai kapcsolatban állnak egymással.
 
 A szóbeágyazás célja tehát a szemantikai relációk feltárása. A szavak vektorizálásának köszönhetően bármely (a korpuszunkban szereplő) tetszőleges számú szóról eldönthetjük, hogy azok milyen szemantikai kapcsolatban állnak egymással, azaz szinonimaként vagy ellentétes fogalompárként szerepelnek. A szóvektorokon dimenziócsökkentő eljárást alkalmazva, s a multidimenzionális (100–300 dimenziós) teret 2 dimenziósra szűkítve könnyen vizualizálhatjuk is a korpuszunk kifejezései között fennálló szemantikai távolságot, és ahogy a lenti ábrákon láthatjuk, azt, hogy az egyes kifejezések milyen relációban állnak egymással – a szemantikailag hasanló tartalmú kifejezések egymáshoz közel, míg a távolabbi jelentéstartalmú kifejezések egymástól távolabb foglalnak helyet. A klasszikus példa, amivel jól lehet szemléltetni a szóvektorok közötti összefüggést:  `king - man + woman = queen`
 
-## Word2Vec, GloVe és fastText
+## Word2Vec és GloVe
 
 A szóbeágyazásra társadalomtudományokban a két legnépszerűbb algoritmus -- a Word2Vec és a GloVe -- a kontextuális szövegeloszláson (*distributional similarity based representations*) alapul, vagyis abból a feltevésből indul ki, hogy a hasonló kifejezések hasonló kontextusban fordulnak elő, emellett mindkettő sekély neurális hálón (2 rejtett réteg) alapuló modell.[^szobeagyazas-1] A Word2Vec-nek két verziója van: *Continuous Bag-of-words* (CBOW) és *SkipGram* (SG). Előbbi a kontextuális szavakból jelzi előre (*predicting*) a kontextushoz legszorosabban kapcsolódó kifejezést, míg utóbbi adott kifejezésből jelzi előre a kontextust @mikolov2013efficient. A GloVe (*Global Vectors for Word Representation*) a Word2Vec-hez hasonlóan neurális hálón alapuló, szóvektorok előállítását célzó modell, a Word2Vec-kel szemben azonban nem a meghatározott kontextus-ablakban (*context window*) megjelenő kifejezések közti kapcsolatokat tárja fel, hanem a szöveg globális jellemzőit igyekszik megragadni az egész szöveget jellemző együttes előfordulási gyakoriságok (*co-occurrance*) meghatározásával @pennington2014glove. Míg a Word2Vec modell prediktív jellegű, addig a GloVe egy statisztikai alapú (*count-based*) modell, melyek gyakorlati hasznosításukat tekintve nagyon hasonlóak.
 
@@ -26,7 +28,7 @@ A fejezetben a gyakorlati példa során a GloVe algoritmust használjuk majd, mi
 
 Az elemzéshez a `text2vec` csomagot használjuk, ami a GloVe implementációt tartalmazza. A lenti kód a csomag dokumentáción alapul és a Társadalomtudományi Kutatóközpont által a *Hungarian Comparative Agendas Project (CAP)* adatbázisában tárolt *Magyar Nemzet* korpuszt használja.[^cap-link]
 
-[^cap-link]: A Magyar CAP Project által kezelt adatbázisok itt megtalálhatóak: [https://cap.tk.hu/adatbazisok](https://cap.tk.hu/adatbazisok).
+[^cap-link]: A Magyar CAP Project által kezelt adatbázisok regisztrációt követően elérhetőek az elábbi linken: [https://cap.tk.hu/adatbazisok](https://cap.tk.hu/adatbazisok).
 
 
 ```{r}
@@ -44,7 +46,7 @@ library(HunMineR)
 A lenti kód blokk azt mutatja be, hogyan kell a betöltött korpuszt tokenizálni és mátrix formátumba alakítani. A korpusz a *Magyar Nemzet* 2004 és 2014 közötti címlapos cikkeit tartalmazza. Az eddigi előkészítő lépéseket most is megtesszük: kitöröljük a központozást, a számokat, a magyar töltelékszavakat, illetve kisbetűsítünk és eltávolítjuk a felesleges szóközöket és töréseket.
 
 ```{r}
-mn <- data_magyar_nemzet_large
+mn <- HunMineR::data_magyar_nemzet_large
 
 mn_clean <- mn %>%
   mutate(
@@ -130,7 +132,7 @@ show_vector <- function(vectors, pattern, n = 5) {
 ```
 
 
-Példaként a „barack” nem gyümölcsöt fog adni, hanem az Egyesült Államok elnökét és a hozzá kapcsolódó szavakat.
+Példánkban láthatjuk, hogy a „barack” szó beágyazásának eredménye nem gyümölcsöt fog adni, hanem az Egyesült Államok elnökét és a hozzá kapcsolódó szavakat.
 
 ```{r}
 show_vector(mn_word_vectors, "barack", 10)

@@ -1,6 +1,6 @@
 # Az adatkezelés R-ben {#adatkezeles}
 
-## Adatok importálása és exportálása
+## Adatok importálása
 
 ```{r, include=FALSE}
 
@@ -29,8 +29,6 @@ df_online <- read.csv("https://www.qta.tk.mta.hu/adatok/adatfile.csv")
 
 Az R csomag ökoszisztémája kellően változatos ahhoz, hogy gyakorlatilag bármilyen inputtal meg tudjon birkózni. Az Excel fájlokat a readxl csomagot használva tudjuk betölteni [Függeléket](#packages), a `read_excel()`-t használva. A leggyakoribb statisztikai programok formátumait pedig a haven csomag tudja kezelni (például Stata, Spss, SAS). A szintaxis itt is hasonló: `read_stata`, `read_spss`, `read_sas`.
 
-### Szöveges dokumentumok importálása
-
 A nagy mennyiségű szöveges dokumentum (a legyakrabban előforduló kiterjesztések: `.txt`, `.doc`, `.pdf`, `.json`, `.csv`, `.xml`, `.rtf`, `.odt`) betöltésére a legalkalmasabb a `readtext` csomag. Az alábbi példa azt mutatja be, hogyan tudjuk beolvasni egy adott mappából az összes `.txt` kiterjesztésű fájlt anélkül, hogy egyenként kellene megadnunk a fájlok neveit. A kódsorban szereplő `*` karakter ebben a környezetben azt jelenti, hogy bármilyen fájl, ami `.txt`-re végződik. Amennyiben a fájlok nevei tartalmaznak valamilyen metaadatot, akkor ezt is be tudjuk olvasni a betöltés során. Ilyen metaadat lehet például egy parlamenti felszólalásnál a felszólaló neve, a beszéd ideje, a felszólaló párttagsága (például: `kovacsjanos_1994_fkgp.txt`).
 
 ```{r, eval=FALSE}
@@ -48,13 +46,13 @@ Az adatainkat R-ből a `write.csv()`-vel exportálhatjuk a kívánt helyre, `.cs
 
 ## A pipe operátor
 
-Az úgynevezett `pipe` operátor alapjaiban határozta meg a modern R fejlődését és a népszerű csomag ökoszisztéma, a `tidyverse`, egyik alapköve. Úgy gondoljuk, hogy a `tidyverse` és a `pipe` egyszerűbbé teszi elsajátítani az R használatát, ezért mi is erre helyezzük a hangsúlyt.[^1] Vizuálisan a pipe operátor így néz ki: `%>%`, és arra szolgál, hogy a kódban több egymáshoz kapcsolódó műveletet egybefűzzünk.[^2] Technikailag a `pipe` a bal oldali elemet adja meg a jobb oldali függvény első argumentumának. A lenti példa ugyanazt a folyamatot írja le az alap R (*base R*), illetve a `pipe` használatával. [^3] Miközben a kódot olvassuk, érdemes a `pipe`-ot "*és aztán*"-nak fordítani.
+Az úgynevezett `pipe` operátor alapjaiban határozta meg a modern R fejlődését és a népszerű csomag ökoszisztéma, a `tidyverse`, egyik alapköve. Úgy gondoljuk, hogy a `tidyverse` és a `pipe` egyszerűbbé teszi elsajátítani az R használatát, ezért mi is erre helyezzük a hangsúlyt.[^data1] Vizuálisan a pipe operátor így néz ki: `%>%`, és arra szolgál, hogy a kódban több egymáshoz kapcsolódó műveletet egybefűzzünk.[^data2] Technikailag a `pipe` a bal oldali elemet adja meg a jobb oldali függvény első argumentumának. A lenti példa ugyanazt a folyamatot írja le az alap R (*base R*), illetve a `pipe` használatával. [^data3] Miközben a kódot olvassuk, érdemes a `pipe`-ot "*és aztán*"-nak fordítani.
 
-[^1]: A *tidyverse* megközelítés miatt a kötetben szereplő R kód követi a "The tidyverse style guide" dokumentációt (<https://style.tidyverse.org/>)
+[^data1]: A *tidyverse* megközelítés miatt a kötetben szereplő R kód követi a "The tidyverse style guide" dokumentációt (<https://style.tidyverse.org/>)
 
-[^2]: Az RStudio-ban a pipe operátor billentyű kombinációja a `Ctrl + Shift + M`
+[^data2]: Az RStudio-ban a pipe operátor billentyű kombinációja a `Ctrl + Shift + M`
 
-[^3]: Köszönjük Andrew Heissnek a kitűnő példát.
+[^data3]: Köszönjük Andrew Heissnek a kitűnő példát.
 
 ```{r, eval=FALSE}
 reggeli(oltozkodes(felkeles(ebredes(en, idopont = "8:00"), oldal = "jobb"), nadrag = TRUE, ing = TRUE))
@@ -68,11 +66,9 @@ en %>%
 
 A fenti példa is jól mutatja, hogy a `pipe` a bal oldali elemet fogja a jobb oldali függvény első elemének berakni. A fejezet további részeiben még bőven fogunk gyakorlati példát találni a `pipe` használatára. Mivel az itt bemutatott példák az alkalmazásoknak csak egy relatíve szűk körét mutatják be, érdemes átolvasni a csomagokhoz tartozó dokumentációt, illetve ha van, akkor tanulmányozni a működést demonstráló bemutató oldalakat is.
 
-## Műveletek adattáblákkal (*data frame-ekkel*)
+## Műveletek adattáblákkal
 
-Az adattábla az egyik leghasznosabb és leggyakrabban használt adattárolási mód az R-ben (a részletesebb leírás a [Függelékben](#data-frame) található). Ebben az alfejezetben azt mutatjuk be a `dplyr` és `gapminder` csomagok segítségével, hogyan lehet vele hatékonyan dolgozni. A `dplyr` az egyik legnépszerűbb R csomag, a `tidyverse` része. A `gapminder` csomag pedig a példa adatbázisunkat tartalmazza, amiben a világ országainak különböző gazdasági és társadalmi mutatói vannak.
-
-### Megfigyelések szűrése: `filter()`
+Az adattábla (*data frame*) az egyik leghasznosabb és leggyakrabban használt adattárolási mód az R-ben (a részletesebb leírás a [Függelékben](#data-frame) található). Ebben az alfejezetben azt mutatjuk be a `dplyr` és `gapminder` csomagok segítségével, hogyan lehet vele hatékonyan dolgozni. A `dplyr` az egyik legnépszerűbb R csomag, a `tidyverse` része. A `gapminder` csomag pedig a példa adatbázisunkat tartalmazza, amiben a világ országainak különböző gazdasági és társadalmi mutatói vannak.
 
 A sorok (megfigyelések) szűréséhez a `dplyr` csomag `filter()` parancsát használva lehetőségünk van arra, hogy egy vagy több kritérium alapján szűkítsük az adatbázisunkat. A lenti példában azokat a megfigyeléseket tartjuk meg, ahol az év 1962 és a várható élettartam nagyobb mint 72 év.
 
@@ -89,8 +85,6 @@ gapminder %>%
 ```
 
 Itt tehát az adattábla azon sorait szeretnénk látni, ahol az ország megegyezik a „Sweden" karakterlánccal, az év pedig 1990 utáni.
-
-### Változók kiválogatása: `select()`
 
 A `select()` függvény segítségével válogathatunk oszlopokat a data frame-ből. A változók kiválasztására több megoldás is van. A `dplyr` csomag tartalmaz apróbb kisegítő függvényeket, amik megkönnyítik a nagy adatbázisok esetén a változók kiválogatását a nevük alapján. Ezek a függvények a `contains()`, `starts_with()`, `ends_with()`, `matches()`, és beszédesen arra szolgálnak, hogy bizonyos nevű változókat ne kelljen egyenként felsorolni. A `select()`-en belüli változó sorrend egyben az eredmény data frame változó sorrendjét is megadja. A negatív kiválasztás is lehetséges, ebben az esetben egy `-` jelet kell tennünk a nem kívánt változó(k) elé (pl.: `select(df, year, country, -continent`).
 
@@ -120,8 +114,6 @@ A `saveRDS` segítségével elmentett fájlt később a `readRDS()` függvénnye
 readRDS("gapminder_select.Rds") 
 ```
 
-### Új változók létrehozása: `mutate()`
-
 Az elemzési munkafolyamat elkerülhetetlen része, hogy új változókat hozzunk létre, vagy a meglévőket módosítsuk. Ezt a `mutate()`-el tehetjük meg, ahol a szintaxis a következő: `mutate(data frame, uj valtozo = ertekek)`. Példaként kiszámoljuk a svéd GDP-t (milliárd dollárban) 1992-től kezdve. A `mutate()` alkalmazását részletesebben is bemutatjuk a szövegek előkészítésével foglalkozó fejezetben.
 
 ```{r}
@@ -129,8 +121,6 @@ gapminder %>%
   filter(country == "Sweden", year >= 1992) %>%
   mutate(gdp = (gdpPercap * pop) / 10^9)
 ```
-
-### Csoportonkénti statisztikák: `group_by()` és `summarize()`
 
 Az adataink részletesebb és alaposabb megismerésében segítenek a különböző szintű leíró statisztikai adatok. A szintek megadására a `group_by()` használható, a csoportokon belüli számításokhoz pedig a `summarize()`. A lenti példa azt illusztrálja, hogy ha kontinensenként csoportosítjuk a `gapminder` adattáblát, akkor a `summarise()` használatával megkaphatjuk a megfigyelések számát, illetve az átlagos per capita GDP-t. A `summarise()` a `mutate()` közeli rokona, hasonló szintaxissal és logikával használható. Ezt a függvénypárost fogjuk majd használni a szöveges adataink leíró statisztikáinál is a 4. fejezetben.
 
@@ -140,13 +130,13 @@ gapminder %>%
   summarise(megfigyelesek = n(), atlag_gdp = mean(gdpPercap))
 ```
 
-## Munka karakter vektorokkal[^4]
+## Munka karakter vektorokkal[^adatkezel-4]
 
-[^4]: A könyv terjedelme miatt ezt a témát itt csak bemutatni tudjuk, de minden részletre kiterjedően nem tudunk elmélyülni benne. A témában nagyon jól használható online anyagok találhatóak az RStudio GitHub tárhelyén ([https://github.com/rstudio/cheatsheets/raw/master/strings.pdf](https://github.com/rstudio/cheatsheets/raw/master/strings.pdf)), illetve @wickham2016r 14. fejezetében.
+[^adatkezel-4]: A könyv terjedelme miatt ezt a témát itt csak bemutatni tudjuk, de minden részletre kiterjedően nem tudunk elmélyülni benne. A témában nagyon jól használható online anyagok találhatóak az RStudio GitHub tárhelyén ([https://github.com/rstudio/cheatsheets/raw/master/strings.pdf](https://github.com/rstudio/cheatsheets/raw/master/strings.pdf)), illetve @wickham2016r 14. fejezetében.
 
-A szöveges adatokkal (karakter stringekkel) való munka elkerülhetetlen velejárója hogy a felesleges szövegelemeket, karaktereket el kell távolítanunk ahhoz, hogy az elemzésünk hatásfoka javuljon (erről részletesebben a 3. fejezetben lesz szó). Erre a célra a `stringr` csomagot fogjuk használni, kombinálva a korábban bemutatott `mutate()`-el. A `stringr` függvények az `str_` előtaggal kezdődnek és eléggé beszédes nevekkel rendelkeznek. Egy gyakran előforduló probléma, hogy extra szóközök maradnak a szövegben, vagy bizonyos szavakról, karakterkombinációkról tudjuk, hogy nem kellenek az elemzésünkhöz. Ebben az esetben egy vagy több reguláris kifejezés (*regular expression, regex*) használatával tudjuk pontosan kijelölni, hogy a karakter sornak melyik részét akarjuk módosítani.[^5] A legegyszerűbb formája a regexeknek, ha pontosan tudjuk milyen szöveget akarunk megtalálni. A kísérletezésre az `str_view()`-t használjuk, ami megjeleníti hogy a megadott regex mintánk pontosan mit jelöl.
+A szöveges adatokkal (karakter stringekkel) való munka elkerülhetetlen velejárója hogy a felesleges szövegelemeket, karaktereket el kell távolítanunk ahhoz, hogy az elemzésünk hatásfoka javuljon (erről részletesebben a 3. fejezetben lesz szó). Erre a célra a `stringr` csomagot fogjuk használni, kombinálva a korábban bemutatott `mutate()`-el. A `stringr` függvények az `str_` előtaggal kezdődnek és eléggé beszédes nevekkel rendelkeznek. Egy gyakran előforduló probléma, hogy extra szóközök maradnak a szövegben, vagy bizonyos szavakról, karakterkombinációkról tudjuk, hogy nem kellenek az elemzésünkhöz. Ebben az esetben egy vagy több reguláris kifejezés (*regular expression, regex*) használatával tudjuk pontosan kijelölni, hogy a karakter sornak melyik részét akarjuk módosítani.[^adatkezel-5] A legegyszerűbb formája a regexeknek, ha pontosan tudjuk milyen szöveget akarunk megtalálni. A kísérletezésre az `str_view()`-t használjuk, ami megjeleníti hogy a megadott regex mintánk pontosan mit jelöl.
 
-[^5]: A reguláris kifejezés egy olyan, meghatározott szintaktikai szabályok szerint leírt karakterlánc (*string)*, amivel meghatározható stringek egy adott halmaza. Az ilyen kifejezés valamilyen minta szerinti szöveg keresésére, cseréjére, illetve a szöveges adatok ellenőrzésére használható. További információ: [http://www.regular-expressions.info/](http://www.regular-expressions.info/)
+[^adatkezel-5]: A reguláris kifejezés egy olyan, meghatározott szintaktikai szabályok szerint leírt karakterlánc (*string)*, amivel meghatározható stringek egy adott halmaza. Az ilyen kifejezés valamilyen minta szerinti szöveg keresésére, cseréjére, illetve a szöveges adatok ellenőrzésére használható. További információ: [http://www.regular-expressions.info/](http://www.regular-expressions.info/)
 
 ```{r}
 szoveg <- c("gitar", "ukulele", "nagybogo")
