@@ -15,7 +15,7 @@ Az alábbi fejezetben a CAP magyar média gyűjteményéből a napilap címlapok
 
 [^sml-1]: A korpusz regisztációt követően elérhető az alábbi linken: <https://cap.tk.hu/a-media-es-a-kozvelemeny-napirendje>
 
-[^sml-2]: A kódkönyv regisztrációt követően elérhető az alábbi linken: [Közpolitikai témakörök kódkönyve](https://cap.tk.hu/kozpolitikai-cap)
+[^sml-2]: A kódkönyv regisztrációt követően elérhető az alábbi linken: [https://cap.tk.hu/kozpolitikai-cap](https://cap.tk.hu/kozpolitikai-cap)
 
 Annak érdekében, hogy egyértelműen értékelhessük a gépi tanulás hatékonyságát, a kiválasztott cikkcsoport (azaz a teszthalmaz) esetében is ismerjük a kézi kódolás eredményét („éles“ kutatási helyzetben, ismeretlen kódok esetében ugyanakkor ezt gyakran szintén csak egy kisebb mintán tudjuk kézzel validálni). További fontos lépés, hogy az ésszerű futási idő érdekében a gyakorlat során a teljes adatbázisból -- és ezen belül is csak a Népszabadság részhalmazból -- fogunk venni egy 4500 darabos mintát. E mintán fogjuk vizsgálni, hogy milyen hatékonysággal képes a modellünk egy megadott közpolitikai kódba besorolni egy adott cikket, illetve, hogy ezt képes-e a hús-vér kutatókkal azonos színvonalon megtenni. Nézzük mindezek után a kutatás lépéseit!
 
@@ -38,10 +38,10 @@ Ezt követően meg adjuk azt a kódkategóriát, melynek kapcsán szeretnénk el
 CAPcode <- 1
 ```
 
-Ezt követi a szövegelőkészítésen és tisztításon már átesett adatok betöltése. Ahogyan arról korábban már volt szó, `read.csv` függvény használatakor megadhatjuk a beolvasás paramétereit, így például, hogy milyen karakterkódolást szeretnénk használni (esetünkben ez az utf-8 lesz).
+Ezt követi a szövegelőkészítésen és tisztításon már átesett adatok betöltése. Az egyszerűség kedvéért a `HunMineR` csomagból töltjük be az előkészített adatokat.
 
 ```{r include = TRUE}
-Data_NOL_MNO <- Data_NOL_MNO <- data_nol_mno_clean
+Data_NOL_MNO <- HunMineR::data_nol_mno_clean
 ```
 
 A következő lépésben eltávolítjuk a szöveges adatot nem tartalmazó (a text változóra semmilyen értéket nem adó) sorokat az adatbázisból.
@@ -144,9 +144,9 @@ predictions_label <- ifelse(predictions > 0.5, 1, 0)
 Data_NOL_predictions <- cbind(Data_NOL_predictions, predictions_label)
 ```
 
-Miután eredményeink elkészültek, kiszámoljuk a felügyelt gépi tanulás szokásos eredményességi mutatóit (ettől a résztől kódunkban Pablo Barbera munkájára támaszkodunk)[^3]. Mindezek alapjául a tévesztési mátrix szolgál, vizsgáljuk először meg ennek adatait!
+Miután eredményeink elkészültek, kiszámoljuk a felügyelt gépi tanulás szokásos eredményességi mutatóit (ettől a résztől kódunkban Pablo Barbera munkájára támaszkodunk)[^sml3]. Mindezek alapjául a tévesztési mátrix szolgál, vizsgáljuk először meg ennek adatait!
 
-[^3]: [SVM, Random Forests, and beyond](http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html).
+[^sml3]: [http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html](http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html).
 
 ```{r include = TRUE}
 table(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)

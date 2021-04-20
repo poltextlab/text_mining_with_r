@@ -46,7 +46,7 @@ library(HunMineR)
 A lenti kód blokk azt mutatja be, hogyan kell a betöltött korpuszt tokenizálni és mátrix formátumba alakítani. A korpusz a *Magyar Nemzet* 2004 és 2014 közötti címlapos cikkeit tartalmazza. Az eddigi előkészítő lépéseket most is megtesszük: kitöröljük a központozást, a számokat, a magyar töltelékszavakat, illetve kisbetűsítünk és eltávolítjuk a felesleges szóközöket és töréseket.
 
 ```{r}
-mn <- data_magyar_nemzet_large
+mn <- HunMineR::data_magyar_nemzet_large
 
 mn_clean <- mn %>%
   mutate(

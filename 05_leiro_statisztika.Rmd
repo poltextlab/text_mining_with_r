@@ -131,7 +131,7 @@ A szókapcsolatok listázásánál is láthattuk, hogy a korpuszunk még minden 
 Ha ezután újra megnézzük a kollokációkat, jól látható a stopszavak eltávolításának eredménye:
 
 ```{r}
-custom_stopwords <- data_stopwords_extra
+custom_stopwords <- HunMineR::data_stopwords_extra
 
 corpus_mineln %>%
   tokens() %>%
@@ -296,9 +296,9 @@ mineln_dfm %>%
   textstat_dist(margin = "documents", method = "euclidean")
 ```
 
-Ezután vizualizálhatjuk is a dokumentumok egymástól való távolságát egy olyan dendogram[^6] segítségével, amely megmutatja nekünk a lehetséges dokumentumpárokat.
+Ezután vizualizálhatjuk is a dokumentumok egymástól való távolságát egy olyan dendogram[^leiro6] segítségével, amely megmutatja nekünk a lehetséges dokumentumpárokat.
 
-[^6]: Olyan ábra, amely hasonlóságaik vagy különbségeik alapján csoportosított objektumok összefüggéseit mutatja meg.
+[^leiro6]: Olyan ábra, amely hasonlóságaik vagy különbségeik alapján csoportosított objektumok összefüggéseit mutatja meg.
 
 ```{r}
 dist <- mineln_dfm %>%

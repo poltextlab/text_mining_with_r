@@ -46,13 +46,13 @@ Az adatainkat R-ből a `write.csv()`-vel exportálhatjuk a kívánt helyre, `.cs
 
 ## A pipe operátor
 
-Az úgynevezett `pipe` operátor alapjaiban határozta meg a modern R fejlődését és a népszerű csomag ökoszisztéma, a `tidyverse`, egyik alapköve. Úgy gondoljuk, hogy a `tidyverse` és a `pipe` egyszerűbbé teszi elsajátítani az R használatát, ezért mi is erre helyezzük a hangsúlyt.[^1] Vizuálisan a pipe operátor így néz ki: `%>%`, és arra szolgál, hogy a kódban több egymáshoz kapcsolódó műveletet egybefűzzünk.[^2] Technikailag a `pipe` a bal oldali elemet adja meg a jobb oldali függvény első argumentumának. A lenti példa ugyanazt a folyamatot írja le az alap R (*base R*), illetve a `pipe` használatával. [^3] Miközben a kódot olvassuk, érdemes a `pipe`-ot "*és aztán*"-nak fordítani.
+Az úgynevezett `pipe` operátor alapjaiban határozta meg a modern R fejlődését és a népszerű csomag ökoszisztéma, a `tidyverse`, egyik alapköve. Úgy gondoljuk, hogy a `tidyverse` és a `pipe` egyszerűbbé teszi elsajátítani az R használatát, ezért mi is erre helyezzük a hangsúlyt.[^data1] Vizuálisan a pipe operátor így néz ki: `%>%`, és arra szolgál, hogy a kódban több egymáshoz kapcsolódó műveletet egybefűzzünk.[^data2] Technikailag a `pipe` a bal oldali elemet adja meg a jobb oldali függvény első argumentumának. A lenti példa ugyanazt a folyamatot írja le az alap R (*base R*), illetve a `pipe` használatával. [^data3] Miközben a kódot olvassuk, érdemes a `pipe`-ot "*és aztán*"-nak fordítani.
 
-[^1]: A *tidyverse* megközelítés miatt a kötetben szereplő R kód követi a "The tidyverse style guide" dokumentációt (<https://style.tidyverse.org/>)
+[^data1]: A *tidyverse* megközelítés miatt a kötetben szereplő R kód követi a "The tidyverse style guide" dokumentációt (<https://style.tidyverse.org/>)
 
-[^2]: Az RStudio-ban a pipe operátor billentyű kombinációja a `Ctrl + Shift + M`
+[^data2]: Az RStudio-ban a pipe operátor billentyű kombinációja a `Ctrl + Shift + M`
 
-[^3]: Köszönjük Andrew Heissnek a kitűnő példát.
+[^data3]: Köszönjük Andrew Heissnek a kitűnő példát.
 
 ```{r, eval=FALSE}
 reggeli(oltozkodes(felkeles(ebredes(en, idopont = "8:00"), oldal = "jobb"), nadrag = TRUE, ing = TRUE))

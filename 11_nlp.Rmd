@@ -1,16 +1,16 @@
 # NLP és névelemfelismerés {#nlp_ch}
 
-A természetes-nyelv feldolgozása (*Natural Language Processing - NLP*) a nyelvészet és a mesterséges intelligencia közös területe, amely a számítógépes módszerek segítségével elemzi az emberek által használt (természetes) nyelveket. Azaz képes feldolgozni különböző szöveges dokumentumok tartalmát, kinyerni a bennük található információkat, kategorizálni és rendszerezni azokat. Angol nyelvű szövegek NLP elemzésére több R csomag is rendelkezésünre áll, ezek közül kettőt mutatunk be röviden. Mivel magyar nyelvű szövegek NLP elemzésére ezek a csomagok jelenleg nem alkalmasak, azt mutatjuk be, hogyan végezhetjük el a magyar nyelvű szövegek mondatra és szavakra bontását, szófaji egyértelműsítését, morfológiai és szintaktikai elemzését az R program használata nélkül és azután a kapott fájlokkal hogyan végezhetünk az R program segítségével további elemzéseket.[^1]
+A természetes-nyelv feldolgozása (*Natural Language Processing - NLP*) a nyelvészet és a mesterséges intelligencia közös területe, amely a számítógépes módszerek segítségével elemzi az emberek által használt (természetes) nyelveket. Azaz képes feldolgozni különböző szöveges dokumentumok tartalmát, kinyerni a bennük található információkat, kategorizálni és rendszerezni azokat. Angol nyelvű szövegek NLP elemzésére több R csomag is rendelkezésünre áll, ezek közül kettőt mutatunk be röviden. Mivel magyar nyelvű szövegek NLP elemzésére ezek a csomagok jelenleg nem alkalmasak, azt mutatjuk be, hogyan végezhetjük el a magyar nyelvű szövegek mondatra és szavakra bontását, szófaji egyértelműsítését, morfológiai és szintaktikai elemzését az R program használata nélkül és azután a kapott fájlokkal hogyan végezhetünk az R program segítségével további elemzéseket.[^nlp-1]
 
 [^nlp-1]: Magyar nyelvű szövegek NLP elemzésére használható eszközök részletes listája: <https://github.com/oroszgy/awesome-hungarian-nlp>
 
 A fejezeben részletesen foglalkozunk a névelem-felismeréssel (*Named Entity Recognition, NER*). Névelemnek azokat a tokensorozatokat nevezzük, amelyek valamely entitást egyedi módon jelölnek. A névelem-felismerés az infomációkinyerés részterülete, melynek lényege, hogy automatikusan felismerjük a struktúrálátlan szövegben szereplő tulajdonneveket, majd azokat kigyűjtsük, és típusonként (pl. személynév, földrajzi név, márkanév, stb.) csoportosítsuk. Bár a tulajdonnevek mellett névelemnek tekinthetők még például a telefonszámok vagy az e-mail címek is, a névelem-felismerés leginkább mégis a tulajdonnevek felismerésére irányul. A névelem-felismerés a számítógépes nyelvészetben a korai 1990-es évektől kezdve fontos feladatnak és megoldandó problémának számít.A névelem-felismerés többféle módon is megoldható, így péládul felügyelt tanulással, szótár alapú módszerekkel vagy kollokációk elemzésével. A névelem-felismerés körében két alapvető módszer alkalmazására van lehetőség. A szabályalapú módszer alkalmazása során előre megadott adatok alapján kerül kinyerésre az információ (ilyen szabály például a mondatközi nagybetű mint a tulajdonnév kezdete). A másik módszer a statisztikai tanulás, amikor a gép alkot szabályokat a kutató előzetes mintakódolása alapján. A névelemfelismerés során nehézséget okozhat a különböző névelemosztályok közötti gyakori átfedés, így például ha egy adott szó településnév és vezetéknév is lehet. A magyar nyelvű szövegekben a tulajdonnevek automatikus annotációjára jelenleg három módon van lehetőség: tulajdonnév-felismerő algoritmussal, szófaji címke szintjén történő megkülönböztetéssel, valamint szintaktikai szintű címkézéssel. Utóbbi kettőre példa a fejezetben is bemutatásra kerülő `magyarlanc` elemző, ami szófaji szinten megkülönbözteti a tulajdonneveket, a szintaxis szintjén pedig jelöli a többtagúakat.[@zsibritaMagyarlancToolMorphological2013] A tulajdonnév-felismerő algoritmusok megkeresik az adott szövegben a tulajdonneveket, majd azokat valamilyen kategóriába sorolják, ilyen magyar nyelvű algoritmus a `a szeged ner`, melynek alkalmazását szintén bemutatjuk.[@szarvasMultilingualNamedEntity2006] Fontos különbséget tenni a névelem-felismerés és a tulajdonnév-felismerés között. A névelem-felismerésbe beletartozik minden olyan kifejezés amely a világ valamely entitására egyedi módon (unikálisan) referál. Ezzel szemben a tulajdonnév-felismerés, kizárólag a tulajdonnevekre koncentrál.[@uvegesNamedEntityRecognition2019; @vinczeBeszedesNyelvelemzoSzoftverek2019]
 
-A `magyarlanc`nyelvi előfeldolgozó eszköz a Szegedi Tudományegyetem fejlesztése,[@zsibritaMagyarlancToolMorphological2013] ami magyar nyelvű `txt` formátumú fájlokat feldolgozva képes egy szöveg mondatokra és szavakra bontására, a szavak morfológiai elemzésére, szófaji egyértelműsítésére, emellett kétféle szintaktikai elemzést is képes hozzárendelni a mondatokhoz.[^2]
+A `magyarlanc`nyelvi előfeldolgozó eszköz a Szegedi Tudományegyetem fejlesztése,[@zsibritaMagyarlancToolMorphological2013] ami magyar nyelvű `txt` formátumú fájlokat feldolgozva képes egy szöveg mondatokra és szavakra bontására, a szavak morfológiai elemzésére, szófaji egyértelműsítésére, emellett kétféle szintaktikai elemzést is képes hozzárendelni a mondatokhoz.[^nlp-2]
 
 [^nlp-2]: A magyarlanc elérhető a [\<https://rgai.inf.u-szeged.hu/magyarlanc\>](https://rgai.inf.u-szeged.hu/magyarlanc){.uri} oldalon, az innen letölthető `jar` fájl segítségével a `txt` formátumú szövegfájlok elemzése parancssorból lehetséges.
 
-A magyarlanchoz hasonlóan az UDPipe nevű elemző szintén képes magyar nyelvű nyers szövegek mondatra és szavakra bontására és szófaji elemzésére, azaz POS-taggelésére (*Part of Speech-tagging*) továbbá a mondatok függőségi elemzésére. Ez az elemző a nemzetközileg elismert Universal Dependencies annotációs sémán alapul. [@strakaTokenizingPosTagging2017] A két nyelvi elemző hasonló funkcionalitásokkal rendelkezik, ugyanakkor az UDPipe technikailag könnyebben kezelhető, azonban kevésbé pontos elemzési eredményt ad, mivel jóval kisebb tanító anyagon lett betanítva mint a `magyarlanc`.[^3]
+A magyarlanchoz hasonlóan az UDPipe nevű elemző szintén képes magyar nyelvű nyers szövegek mondatra és szavakra bontására és szófaji elemzésére, azaz POS-taggelésére (*Part of Speech-tagging*) továbbá a mondatok függőségi elemzésére. Ez az elemző a nemzetközileg elismert Universal Dependencies annotációs sémán alapul. [@strakaTokenizingPosTagging2017] A két nyelvi elemző hasonló funkcionalitásokkal rendelkezik, ugyanakkor az UDPipe technikailag könnyebben kezelhető, azonban kevésbé pontos elemzési eredményt ad, mivel jóval kisebb tanító anyagon lett betanítva mint a `magyarlanc`.[^nlp-3]
 
 [^nlp-3]: Az UDPipe elérhetősége: <http://lindat.mff.cuni.cz/services/udpipe>
 
@@ -20,9 +20,9 @@ Az alábbiakban a `magyarlanc` és a `szeged ner` működését és az általuk 
 
 Az elemző használatának részletes leírás megtalálható a már jelzett honlapon, itt most csak vázlatosan ismeretjük. Fontos kiemelni, hogy a `magyarlanc` JAVA modulokból áll, így használatához szükséges, hogy a számítógépen megfelelő JAVA környezet legyen telepítve. Először fenti oldalról le kell töltenünk a `magyarlanc-3.0.jar` fájlt, majd bemásolni azt abba a mappába, ahol az elemezni kívánt `txt` található. A parancssort Windows operációs rendszer alatt a számítógép kereső mezőjébe a `cmd` parancs beírásával tudjuk megnyitni. Ezután a parancsorban belépve abba a könyvtárba, ahol az elemezni kíván txt és a `magyarlanc-3.0.jar` elemző van, az alábbi parancs segítségével végezhetjük el az elemzést: `java -Xmx1G -jar magyarlanc-3.0.jar -mode morphparse -input in.txt -output out.txt`. Ahol az `in.txt` helyébe az elemezni kívánt `txt` nevét, az `out.txt` helyébe, pedig az elemzés eredményeként létrejövő fájl nevét kell megadni.
 
-Példánkban az Országgyűlésben 2014 és 2018 között elhangzott véletlenszerűen kiválasztott 25 napirend előtti felszólalás korpuszán szemléltetjük az elemző működését.[^4] A 25 fájlt elemezhetjük egyesével, de ha ez a későbbi elemzéshez nem szükséges, a parancsorban a `copy *.txt eredmeny.txt` paranccsal egyesíthetjük azokat egy fájlba. Majd ezen az eredmeny.txt-n végezzük el az elemzést az alábbi paranccsal: `java -Xmx1G -jar magyarlanc-3.0.jar -mode morphparse -input eredmeny.txt -output eredmeny_out.txt`
+Példánkban az Országgyűlésben 2014 és 2018 között elhangzott véletlenszerűen kiválasztott 25 napirend előtti felszólalás korpuszán szemléltetjük az elemző működését.[^nlp4] A 25 fájlt elemezhetjük egyesével, de ha ez a későbbi elemzéshez nem szükséges, a parancsorban a `copy *.txt eredmeny.txt` paranccsal egyesíthetjük azokat egy fájlba. Majd ezen az eredmeny.txt-n végezzük el az elemzést az alábbi paranccsal: `java -Xmx1G -jar magyarlanc-3.0.jar -mode morphparse -input eredmeny.txt -output eredmeny_out.txt`
 
-[^4]: A napirend előtti felszólalásokat tartalmazó korpusz a Hungarian Comparative Agendas Project keretében készült: <https://cap.tk.hu/hu>
+[^nlp4]: A napirend előtti felszólalásokat tartalmazó korpusz a Hungarian Comparative Agendas Project keretében készült: <https://cap.tk.hu/hu>
 
 Az elemzés eredményéül kapott `txt` fájlban láthatjuk, hogy az elemző elvégezte a szövegek mondatokrabontását, tokenizálását, lemmatizálását és POS-taggelését, azaz meghatározta a szavak szófaját.
 
@@ -89,13 +89,13 @@ Az így kiválogatott különböző névelemekkel azután további elemzéseket 
 
 ## Angol nyelvű szövegek névelemfelismerése
 
-Amennyiben angol nyelvű korpusszal dolgozunk több lehetőség is a rendelkezésünkre áll a névelemfelsimerés elvégzésére.[^5] Ezek közül most röviden a `spacyr` használatát mutatjuk be.[^6] A `spaCy` nem egy `R`, hanem egy `Phyton` csomag[^7], amely azonban az R `reticulate` csomag segítségével nagyon jól együttműködik a kötetben rendszeresen használt `quanteda` csomaggal. Használatához a már megszokott módon installálnunk kell a spacyr csomagot, majd beolvasnunk és telepítenünk az angol nyelvi modellt. A Pythonban készült `spacy`-t a `spacyr::spacy_install()` paranccsal kell telepíteni (ezt elég egyszer megtenni, amikor először használjuk a csomagot).
+Amennyiben angol nyelvű korpusszal dolgozunk több lehetőség is a rendelkezésünkre áll a névelemfelsimerés elvégzésére.[^nlp5] Ezek közül most röviden a `spacyr` használatát mutatjuk be.[^nlp6] A `spaCy` nem egy `R`, hanem egy `Phyton` csomag[^nlp7], amely azonban az R `reticulate` csomag segítségével nagyon jól együttműködik a kötetben rendszeresen használt `quanteda` csomaggal. Használatához a már megszokott módon installálnunk kell a spacyr csomagot, majd beolvasnunk és telepítenünk az angol nyelvi modellt. A Pythonban készült `spacy`-t a `spacyr::spacy_install()` paranccsal kell telepíteni (ezt elég egyszer megtenni, amikor először használjuk a csomagot).
 
-[^5]: További lehetőségekhez lásd például: <https://analyticsindiamag.com/top-10-r-packages-for-natural-language-processing-nlp/>
+[^nlp5]: További lehetőségekhez lásd például: <https://analyticsindiamag.com/top-10-r-packages-for-natural-language-processing-nlp/>
 
-[^6]: Részletes leírása: <https://spacyr.quanteda.io/articles/using_spacyr.html>
+[^nlp6]: Részletes leírása: <https://spacyr.quanteda.io/articles/using_spacyr.html>
 
-[^7]: Részletes leírása: <https://spacy.io/usage/linguistic-features#named-entities>
+[^nlp7]: Részletes leírása: <https://spacy.io/usage/linguistic-features#named-entities>
 
 ```{r}
 library(spacyr)
@@ -167,14 +167,14 @@ A következőkben a [Szótáralapú elemzések, érzelem-elemzés fejezetben](#s
 Első lépésként beolvassuk a szövegeket, majd a már megismert `quanteda` csomag segítségévek korpuszt készítünk belőlük.
 
 ```{r}
-mnb_df <- data_mnb_pr
+mnb_df <- HunMineR::data_mnb_pr
 
 corpus_mnb <-corpus(mnb_df)
 ```
 
-Ezután a `spacy_extract_entity()` függvénye segítségévek elvégezzük a névelemfelismerést, a függvény argumentumában megadva, hogy milyen tipusú névelemeket szeretnénk kigyűjteni a korpuszból. A lehetséges típusok a **named**, **extended**, vagy **all**.[^8] Az elemzés eredménye pedig készülhet listában, vagy készülhet belőle data frame. Példánkban mi kimenetként listát állítottunk be.
+Ezután a `spacy_extract_entity()` függvénye segítségévek elvégezzük a névelemfelismerést, a függvény argumentumában megadva, hogy milyen tipusú névelemeket szeretnénk kigyűjteni a korpuszból. A lehetséges típusok a **named**, **extended**, vagy **all**.[^nlp8] Az elemzés eredménye pedig készülhet listában, vagy készülhet belőle data frame. Példánkban mi kimenetként listát állítottunk be.
 
-[^8]: Részletes leírását lásd: <https://towardsdatascience.com/extend-named-entity-recogniser-ner-to-label-new-entities-with-spacy-339ee5979044>
+[^nlp8]: Részletes leírását lásd: <https://towardsdatascience.com/extend-named-entity-recogniser-ner-to-label-new-entities-with-spacy-339ee5979044>
 
 A névelemek tokenjeit ezután megritkítottuk, és csak azokat hagytuk meg, amelyek legalább nyolc alkalommal szerepeltek a korpuszban.
 
@@ -206,9 +206,9 @@ lemma <- rep("Monetary Council", length(mc))
 mnb_tokens <- tokens_replace(mnb_tokens, mc, lemma, valuetype = "fixed")
 ```
 
-Majd elkészítettük a szóbeágyazás fejezetben már megismert fcm-et, végezetül pedig egy együttes előfordulási mátrixot készítettünk a kinyert entitásokból és a ggplot segítségével ábrázoltuk.[^9]
+Majd elkészítettük a szóbeágyazás fejezetben már megismert fcm-et, végezetül pedig egy együttes előfordulási mátrixot készítettünk a kinyert entitásokból és a ggplot segítségével ábrázoltuk.[^nlp9]
 
-[^9]: Részletes leírását lásd: <https://tutorials.quanteda.io/basic-operations/fcm/fcm/>
+[^nlp9]: Részletes leírását lásd: <https://tutorials.quanteda.io/basic-operations/fcm/fcm/>
 
 ```{r fig.cap="A Magyar Nemzeti Bank korpusz névelemeinek együttelőfordulási mátrixa"}
 mnb_fcm <- fcm(mnb_tokens, context = "window", count = "weighted", weights = 1 / (1:5), tri = TRUE)

@@ -65,7 +65,7 @@ library(HunMineR)
 Ezt követően betöltjük azokat az adatbázisokat, amelyeken a szövegösszehasonlítást fogjuk végezni: az elfogadott törvények szövegét tartalmazó korpuszt, a törvényjavaslatok szövegét tartalmazó korpuszt, valamint az ezek összekapcsolását segítő adatbázist, melyben az összetartozó törvényjavaslatok és törvények azonosítóját (id-ját) tároltuk el. Ahogy behívjuk a három CSV-t, érdemes rögtön lekérni az oszlopneveket `colnames()` és a táblázat dimenzióit `dim()`, hogy lássuk, milyen adatok állnak a rendelkezésünkre, és mekkora táblákkal fogunk dolgozni. A `dim()` függvény első értéke a sorok száma, a második pedig az oszlopok száma lesz az adott táblázatban.
 
 ```{r }
-torvenyek <- data_lawtext_sample
+torvenyek <- HunMineR::data_lawtext_sample
 
 colnames(torvenyek)
 
@@ -74,7 +74,7 @@ dim(torvenyek)
 
 
 ```{r }
-tv_javaslatok <- data_lawprop_sample
+tv_javaslatok <- HunMineR::data_lawprop_sample
 
 colnames(tv_javaslatok)
 
@@ -82,7 +82,7 @@ dim(tv_javaslatok)
 ```
 
 ```{r }
-parok <- data_lawsample_match
+parok <- HunMineR::data_lawsample_match
 
 colnames(parok)
 
@@ -177,7 +177,7 @@ tv_tvjav_minta[, szovegek] <- mapply(tv_tvjav_minta[, szovegek], FUN = szovegtis
 A szövegtisztítás következő lépése a stopszavak meghatározása és kiszűrése a szövegből. Itt a `quanteda` csomagban elérhető magyar nyelvű stopszavakat, valamint a [7. fejezetben](#lda_ch) meghatározott speciális jogi stopszavak listáját használjuk.
 
 ```{r }
-legal_stopwords <- data_legal_stopwords
+legal_stopwords <- HunMineR::data_legal_stopwords
 ```
 
 A stopszavak beimportálását követően korpusszá alakítjuk a szövegeinket és tokenizáljuk azokat. Ezt már külön-külön végezzük el a törvények és a törvényjavaslatok szövegeire, azonos lépésekben haladva. A létrehozott objektumokat itt is ellenőrizhetjük, például a `summary(torvenyek_coprus)` paranccsal, vagy a `torvenyek_tokens[1:3]` paranccsal, mely az első 3 dokumentum tokenjeit fogja megmutatni. 

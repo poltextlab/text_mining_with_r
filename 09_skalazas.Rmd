@@ -21,10 +21,12 @@ library(quanteda.textmodels)
 library(HunMineR)
 ```
 
-A skálázási algoritmusokat egy kis korpuszon mutatjuk be. A minta dokumentumok a 2014–2018-as parlamenti ciklusban az Országgyűlésben frakcióvezető politikusok egy-egy véletlenszerűen kiválasztott napirend előtti felszólalásai. Ebben a ciklusban összesen 11 frakcióvezetője volt a két kormánypárti és öt ellenzéki frakciónak [^skala-1]. A dokumentumokon először elvégeztük a szokásos előkészítési lépéseket. [^skala-1]: a mintába nem került be Rogán Antal, akinek csak egy darab napirend előtti felszólalása volt.
+A skálázási algoritmusokat egy kis korpuszon mutatjuk be. A minta dokumentumok a 2014–2018-as parlamenti ciklusban az Országgyűlésben frakcióvezető politikusok egy-egy véletlenszerűen kiválasztott napirend előtti felszólalásai. Ebben a ciklusban összesen 11 frakcióvezetője volt a két kormánypárti és öt ellenzéki frakciónak [^skala-1]. A dokumentumokon először elvégeztük a szokásos előkészítési lépéseket. 
+
+[^skala-1]: a mintába nem került be Rogán Antal, akinek csak egy darab napirend előtti felszólalása volt.
 
 ```{r}
-parl_beszedek <- data_parlspeakers_small
+parl_beszedek <- HunMineR::data_parlspeakers_small
 
 beszedek_tiszta <- parl_beszedek %>% 
     mutate(

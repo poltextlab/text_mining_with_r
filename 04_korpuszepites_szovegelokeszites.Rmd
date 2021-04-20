@@ -192,7 +192,7 @@ Az alábbiakban az 1999-es törvényszövegeken szemléltetjük, hogy egy 125 do
 A `HunMineR` csomagból tudjuk importálni a törvényeket.
 
 ```{r}
-lawtext_df <- data_lawtext_1999
+lawtext_df <- HunMineR::data_lawtext_1999
 ```
 
 Majd az importált adatokból létrehozzuk a korpuszt `lawtext_corpus` néven. Ezt követi a dokumentum kifejezés mátrix kialakítása (mivel a `quanteda` csomaggal dolgozunk, `dfm` mátrixot hozunk létre), és ezzel egy lépésben elvégezzük az alapvető szövegtisztító lépéseket is.

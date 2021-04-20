@@ -1,9 +1,7 @@
 # Szótárak és érzelemelemzés {#sentiment}
 
 ```{r include=FALSE}
-
 source("_common.R")
-
 ```
 
 ```{r echo=FALSE}
@@ -23,7 +21,7 @@ A tágabb kvantitatív szövegelemzési kontextusban az osztályozáson (classif
 -	Tökéletesen megbízható: a számításoknak nincsen probabilisztikus (azaz valószínűségre épülő) eleme, mint például a Support Vector alapú osztályozásnak, illetve az emberi szövegkódolásnál előforduló problémákat is elkerüljük így (például, hogy két kódoló, vagy ugyanazon kódoló két különböző időpontban nem azonosan értékeli ugyanazt a kifejezést).
 -	Általa képesek vagyunk mérni a szöveg látens dimenzióit.
 -	Széles körben alkalmazható, egyszerűen számolható. A politikatudományon és a számítógépes nyelvészeten belül nagyon sok kész szótár elérhető, amelyek különböző módszerekkel készültek és különböző területet fednek le (pl. populizmus, pártprogramok policy tartalma, érzelmek, gazdasági tartalom). 
--	Relatíve könnyen adaptálható egyik nyelvi környezetből másikba, bár szótárfordítások esetén külön hangsúlyt kell fektetni a validálásra.
+-	Relatíve könnyen adaptálható egyik nyelvi környezetből másikba, bár szótárfordítások esetén külön hangsúlyt kell fektetni a validálásra.[^szent-2]
 
 [^szent-2]: A lehetséges, területspecifikus szótáralkotási módszerekről részletesebben ezekben a tanulmányokban lehet olvasni: @laver2000estimating; @young2012affective; @loughranWhenLiabilityNot2011; @mateEffectCentralBank2021
 
@@ -95,7 +93,7 @@ A fejezetben két különböző korpuszt fogunk elemezni: a 2006-os *Magyar Nemz
 ## *Magyar Nemzet* cikkek elemzése
 
 ```{r message=FALSE}
-mn_minta <- data_magyar_nemzet_small
+mn_minta <- HunMineR::data_magyar_nemzet_small
 
 summary(mn_minta)
 ```
@@ -150,7 +148,7 @@ A cikkek szentimentjét egy magyar szótárral fogjuk becsülni, amit a Társada
 [^szent-11]: ELKH TK MILAB: [https://milab.tk.hu/hu](https://milab.tk.hu/hu) A szótár és a hozzátartozó dokumentáció elérhető az alábbi github oldalon: <https://github.com/poltextlab/sentiment_hun>
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
-poltext_szotar <- dictionary_poltext
+poltext_szotar <- HunMineR::dictionary_poltext
 
 poltext_szotar
 ```
@@ -215,7 +213,7 @@ A második esettanulmányban a kontextuális szótár elemzést mutatjuk be egy 
 [^szent-13]: A témával részletesen foglalkozó tanulmányban egy saját monetáris szentimentszótárat mutatunk be: Az implementáció és a hozzá tartozó R forráskód nyilvános:  <https://doi.org/10.6084/m9.figshare.13526156.v1>
 
 ```{r}
-penzugy_szentiment <- dictionary_LoughranMcDonald
+penzugy_szentiment <- HunMineR::dictionary_LoughranMcDonald
 ```
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
@@ -235,7 +233,7 @@ A munkamenet hasonló a *Magyar Nemzet*-es példához:
 7.  az eredmény vizualizálása, további felhasználása.
 
 ```{r}
-mnb_pr <- data_mnb_pr
+mnb_pr <- HunMineR::data_mnb_pr
 
 summary(mnb_pr)
 ```

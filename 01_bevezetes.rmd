@@ -24,9 +24,9 @@ A könyv célja, hogy keresztmetszeti képet adjon a szövegbányászat R progra
 1 + 1
 ```
 
-Az egyes fejezetekben szereplő kódrészleteket egymás utáni sorrendben bemásolva és lefuttatva a saját R környezetünkben tudjuk reprodukálni a könyvben szereplő technikákat. A [Függelékben](#fuggelek) részletesebben is foglalkozunk az R és RStudio beállításaival, használatával. Az ajánlott R minimum verzió a 4.0.0, illetve az ajánlott minimum RStudio verzió az 1.4.0000.[^1]
+Az egyes fejezetekben szereplő kódrészleteket egymás utáni sorrendben bemásolva és lefuttatva a saját R környezetünkben tudjuk reprodukálni a könyvben szereplő technikákat. A [Függelékben](#fuggelek) részletesebben is foglalkozunk az R és RStudio beállításaival, használatával. Az ajánlott R minimum verzió a 4.0.0, illetve az ajánlott minimum RStudio verzió az 1.4.0000.[^bev1]
 
-[^1]: Az R Windows, OS X és Linux változatai itt érhetőek el: <https://cloud.r-project.org/>. Az RStudio pedig innen érhető el: <https://www.rstudio.com/products/rstudio/download/>.
+[^bev1]: Az R Windows, OS X és Linux változatai itt érhetőek el: <https://cloud.r-project.org/>. Az RStudio pedig innen érhető el: <https://www.rstudio.com/products/rstudio/download/>.
 
 A könyvhöz tartozik egy `HunMineR` R csomag is, amely tartalmazza az egyes fejezetekben használt összes adatbázist, így az adatbeviteli problémákat elkerülve lehet gyakorolni a szövegbányászatot. A könyv megjelenésekor a csomag még nem került be a központi R CRAN csomag repozitóriumba, hanem a poltextLAB GitHub repozitóriumából tölthető le.
 
@@ -54,9 +54,9 @@ install.packages("devtools")
 devtools::install_github("poltextlab/HunMineR")
 ```
 
-Ebben a fázisban a `data` függvénnyel tudjuk megnézni, hogy pontosan milyen adatbazisok szerepelnek a csomagban, illetve ugyanitt megtalálható az egyes adatbázisok részletes leírása. Ha egy adatbázisról szeretnénk többet megtudni, akkor a kiegészítő információkat `?adatbazis_neve` megoldással tudjuk megnézni.[^2]
+Ebben a fázisban a `data` függvénnyel tudjuk megnézni, hogy pontosan milyen adatbazisok szerepelnek a csomagban, illetve ugyanitt megtalálható az egyes adatbázisok részletes leírása. Ha egy adatbázisról szeretnénk többet megtudni, akkor a kiegészítő információkat `?adatbazis_neve` megoldással tudjuk megnézni.[^bev2]
 
-[^2]: Többek között az adat forrása, a változók részletes leírása, illetve az adatbázis mérete is megtalálható így.
+[^bev2]: Többek között az adat forrása, a változók részletes leírása, illetve az adatbázis mérete is megtalálható így.
 
 ```{r eval=FALSE}
 # A HunMineR csomag betöltése
