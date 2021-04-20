@@ -16,7 +16,7 @@ A lexikális hasonlóság a gépi szövegfeldolgozás egy egyszerűbb megközel�
 
 Két dokumentum közötti lexikális hasonlóságot a szöveg számos szintjén mérhetjük: karakterláncok (sztringek), szóalakok (tokenek), n-grammok (n egységből álló karakterláncok), szózsákok (bag of words) között, de akár a dokumentum nagyobb egységei, így szövegrészletek és dokumentumok között is. Bevett megközelítés továbbá a szókészlet összehasonlítása, melyet lexikális és szemantikai hasonlóság feltárására egyaránt használhatunk.
 
-A hasonlóság számítására számos metrika létezik (lásd @wangMeasurementTextSimilarity2020). Ezek jelentős része valamilyen távolságszámításon alapul, mint például a koszinusz vagy a manhattan távolságon alapuló szöveghasonlóság. A koszinusz távolság a két szövegvektor (azaz szöveg vektorizált formája) által bezárt szögben határozza meg a dokumentumok távolságát [@wangMeasurementTextSimilarity2020], míg a manhattan távolság a horizontális és a vertikális távolságok összegeként számítja azt [@laddUnderstandingUsingCommon2020]. Széles körben alkalmazott dokumentumhasonlósági metrika továbbá a Jaccard hasonlóság, melynek számítása egy egyszerű eljáráson alapul: a két dokumentumban egyező szavak számát elosztja a két dokumentumban szereplő szavak számának uniójával (vagyis az két dokumentum szavainak számának összegével, melyből kivonja az egyező szavak számának összegét). A Jaccard hasonlóság tehát azt képes megmutatni, hogy a két dokumentum teljes szószámához képest mekkora az azonos kifejezések aránya [@wangMeasurementTextSimilarity2020 pp. 6.].
+A hasonlóság számítására számos metrika létezik. Ezek jelentős része valamilyen távolságszámításon alapul, mint például a koszinusz vagy a manhattan távolságon alapuló szöveghasonlóság. A koszinusz távolság a két szövegvektor (azaz szöveg vektorizált formája) által bezárt szögben határozza meg a dokumentumok távolságát [@wangMeasurementTextSimilarity2020], míg a manhattan távolság a horizontális és a vertikális távolságok összegeként számítja azt [@laddUnderstandingUsingCommon2020]. Széles körben alkalmazott dokumentumhasonlósági metrika továbbá a Jaccard hasonlóság, melynek számítása egy egyszerű eljáráson alapul: a két dokumentumban egyező szavak számát elosztja a két dokumentumban szereplő szavak számának uniójával (vagyis az két dokumentum szavainak számának összegével, melyből kivonja az egyező szavak számának összegét). A Jaccard hasonlóság tehát azt képes megmutatni, hogy a két dokumentum teljes szószámához képest mekkora az azonos kifejezések aránya [@wangMeasurementTextSimilarity2020 pp. 6.].
 
 
 $$
@@ -37,7 +37,7 @@ A szemantikai hasonlóság a lexikai hasonlósággal szemben egy komplexebb szá
 
 A jelentésbeli hasonlóság kimutatására számos megközelítés létezik. Többek között alkalmazható a témamodellezés (topicmodellezés), melyet a [Felügyelet nélküli tanulás](#lda_ch) fejezetben tárgyaltunk bővebben, ezen belül pedig az LDA látens dirillecht allokáció (Latent Dirillecht Allocation), valamint az LSA látens érzelem elemzés (Latent Sentiment Analysis) is nagyszerű lehetőséget kínál arra, hogy az egyes dokumentumainkat tartalmi hasonlóságok alapján csoportosítsuk.
 
-Az LSA-nél és az LDA-nél azonban egy fokkal komplexebb megközelítés a szóbeágyazás, melyet a [Szóbeágyazások](#embedding) című fejezetben mutattunk be. Ez a módszertan a témamodellezéshez képest a szöveg mélyebb szemantikai tartalmait is képes feltárni, hiszen a beágyazásnak köszönhetően képes formailag különböző, de jelentésükben azonos kifejezések azonosságát megmutatni. A jelentésbeli hasonlóság megállapítható a beágyazás során létrehozott vektorreprezentációkból (emlékezzünk: a hasonló vektorreprezentáció hasonló szemantikai tartalomra utal). Kimutathatjuk a szemantikai közelséget például a király – férfi – lovag kifejezések között, de olyan mesterségesen létrehozott jelentésbeli azonosságokat is feltárhatunk, mint az irányítószámok és az általuk jelölt városnevek kapcsolata. Abban az esetben, ha a szóbeágyazást kimondottan a szöveghasonlóság megállapítására szeretnénk használni, a WMD (Word Mover’s Distance) metrikát érdemes használni, mely a vektortérben elhelyezkedő szóvektorok közötti távolság által számszerűsíti a szövegek hasonlóságát  [@kusnerWordEmbeddingsDocument2015setwd].
+Az LSA-nél és az LDA-nél azonban egy fokkal komplexebb megközelítés a szóbeágyazás, melyet a [Szóbeágyazások](#embedding) című fejezetben mutattunk be. Ez a módszertan a témamodellezéshez képest a szöveg mélyebb szemantikai tartalmait is képes feltárni, hiszen a beágyazásnak köszönhetően képes formailag különböző, de jelentésükben azonos kifejezések azonosságát megmutatni. A jelentésbeli hasonlóság megállapítható a beágyazás során létrehozott vektorreprezentációkból (emlékezzünk: a hasonló vektorreprezentáció hasonló szemantikai tartalomra utal). Kimutathatjuk a szemantikai közelséget például a király – férfi – lovag kifejezések között, de olyan mesterségesen létrehozott jelentésbeli azonosságokat is feltárhatunk, mint az irányítószámok és az általuk jelölt városnevek kapcsolata. Abban az esetben, ha a szóbeágyazást kimondottan a szöveghasonlóság megállapítására szeretnénk használni, a WMD (Word Mover’s Distance) metrikát érdemes használni, mely a vektortérben elhelyezkedő szóvektorok közötti távolság által számszerűsíti a szövegek hasonlóságát  [@kusnerWordEmbeddingsDocument2015].
  
 
 ```{r include=FALSE}
@@ -316,16 +316,61 @@ colnames(tv_tvjav_minta)
 
 ## Az eredmények vizualizációja
 
-A hasonlóság metrikák vizulizációjára gyakran alkalmazott megoldás a hőtérkép ( __heatmap__), mellyel korrelációs mátrixokat ábrázolhatunk. Ebben az esetben a mátrix értékeit egy színskálán vizualizáljuk, ahol a világosabb színek a magasabb, a sötétebb színek az alacsonyabb értékeket jelölik. A Jaccard hasonlóság számítás és a koszinusz hasonlóság számításakor kapott mátrixok esetén is ábrázoljhatjuk az értékeinket ilyen módon. Mivel azonban mindkét mátrix 600x600-as, nem érdemes a teljes mátrixot megjeleníteni, mert ilyen nagy mennyiségű adatnál már értelmezhetetlenné válik az ábra, így csak az utolsó 100 elemet, vagyis a 2014–2018-as időszakra vonatkozó értékeket jelenítjük meg. Ezt a `kosziunsz_hasonlóság` nevű objektumunk feldarabolásával tesszük meg, szögletes zárójelben jelölve, hogy a mátrix mely sorait, és mely oszlopait szeretnénk használni: `koszinusz_hasonlosag[501:600, 501:600`. Mivel az R még nem mátrixként értelmezi ezt az objektumot (lásd `typeof()`) át kell alakítanunk mátrixszá az `as.matrix()` függvény segítségével. Ezt követően a `nandb` csomagból a `matrix_raster_plot()` függvényt használjuk az ábra vizualizációjához.
+A hasonlóság metrikák vizulizációjára gyakran alkalmazott megoldás a hőtérkép ( __heatmap__), mellyel korrelációs mátrixokat ábrázolhatunk. Ebben az esetben a mátrix értékeit egy színskálán vizualizáljuk, ahol a világosabb színek a magasabb, a sötétebb színek az alacsonyabb értékeket jelölik. A Jaccard hasonlóság számítás és a koszinusz hasonlóság számításakor kapott mátrixok esetén is ábrázoljhatjuk az értékeinket ilyen módon. Mivel azonban mindkét mátrix 600x600-as, nem érdemes a teljes mátrixot megjeleníteni, mert ilyen nagy mennyiségű adatnál már értelmezhetetlenné válik az ábra, így csak az utolsó 100 elemet, vagyis a 2014–2018-as időszakra vonatkozó értékeket jelenítjük meg. Ezt a `kosziunsz_hasonlóság` nevű objektumunk feldarabolásával tesszük meg, szögletes zárójelben jelölve, hogy a mátrix mely sorait, és mely oszlopait szeretnénk használni: `koszinusz_hasonlosag[501:600, 501:600`. A `koszinusz_hasonlosag` objektumból egy data frame-t készítünk, ahol a dokumentumok közötti hasonlóság szerepel. A mátrix formátumból a `tidyr` csomag `pivot_longer()` függvényét használva tudjuk a kívánt formátumot elérni.
 
 
 ```{r, fig.cap="A koszinusz hasonlósági hőtérkép"}
-matrix_raster_plot(as.matrix(koszinusz_hasonlosag[501:600, 501:600]), scale_name = "Koszinusz hasonlóság")
+koszinusz_df <- as.matrix(koszinusz_hasonlosag[501:600, 501:600]) %>% 
+  as.data.frame() %>% 
+  rownames_to_column("docs1") %>% 
+  pivot_longer("text501":"text600", names_to = "docs2", values_to = "similarity")
+
+glimpse(koszinusz_df)
+
+```
+Ezt követően pedig a `ggplot` függvényt használva a `geom_tile` segítségével tudjuk elkészíteni a hőtérképet ami a hasonlósági mátrixot ábrázolja. 
+
+```{r fig.cap="A koszinusz hasonlósági hőtérkép"}
+ggplot(koszinusz_df, aes(docs1, docs2, fill = similarity)) +
+  geom_tile() +
+  scale_fill_gradient(high = "#2c3e50", low = "#bdc3c7") +
+  labs(
+    x = NULL,
+    y = NULL,
+    fill = "Koszinusz hasonlóság"
+  ) +
+  theme(
+    axis.text.x=element_blank(),
+    axis.ticks.x=element_blank(),
+    axis.text.y=element_blank(),
+    axis.ticks.y=element_blank()
+  )
 ```
 
+A Jaccard hasonlósági hőtérképet ugyanezzel a módszerrel tudjuk elkészíteni.
 
 ```{r fig.cap="A Jaccard hasonlósági hőtérkép"}
-matrix_raster_plot(as.matrix(jaccard_hasonlosag[501:600, 501:600]), scale_name = "Jaccard hasonlóság")
+# adatok átalakítása
+jaccard_df <- as.matrix(jaccard_hasonlosag[501:600, 501:600]) %>% 
+  as.data.frame() %>% 
+  rownames_to_column("docs1") %>% 
+  pivot_longer("text501":"text600", names_to = "docs2", values_to = "similarity")
+
+# a ggplot ábra
+ggplot(jaccard_df, aes(docs1, docs2, fill = similarity)) +
+  geom_tile() +
+  scale_fill_gradient(high = "#2c3e50", low = "#bdc3c7") +
+  labs(
+    x = NULL,
+    y = NULL,
+    fill = "Jaccard hasonlóság"
+  ) +
+  theme(
+    axis.text.x=element_blank(),
+    axis.ticks.x=element_blank(),
+    axis.text.y=element_blank(),
+    axis.ticks.y=element_blank()
+  )
 ```
 
 A két plot összehasonlításanál láthatjuk, hogy a koszinusz hasonlóság általában magasabb hasonlósági értékeket mutat. A mátrix főátlójában kiugró világos csík azt mutatja meg, hogy a legnagyobb hasonlóság az összetartozó törvény-törvényjavaslat szövegek között mutatkozik meg, eddig tehát az adataink az elvárásaink szerinti képet mutatják. Amennyiben a világos csíkot nem látnánk, az egyértelmű visszajelzés volna arról, hogy elrontottunk valamit a szövegelőkészítés eddigi lépéseinek folyamán, vagy a várakozásásaink voltak teljesen rosszak.
@@ -383,32 +428,30 @@ labs(y = "Átlagos Jaccard és koszinusz hasonlóság",
 
 ```
 
-Ahhoz, hogy valamivel pontosabb képet kapjunk a Jaccard index értékének alakulásáról, érdemes vizualizálni őket a ggplot segítségével. Elsőként évenkénti bontásban ábrázoljuk a Jaccard index értékének alakulását. A színek kormányzati ciklusok szerinti bontását a `color = komr_ciklus` változóval tudjuk megadni. A tengelyfeliratokat az `xlab()` és `ylab()` paramétereiként adjuk meg, a jelmagyarázat címét pedig a `labs()` értékeként. A `ggplot` magától csak néhány értéket rendelne az x tengelyhez feliratként, amit átállíthatunk a `scale_x_continuous()` fügvénnyel és ezek `breaks` és `labels` paramétereivel -- előbbi az adatfeliratok helyét, utóbbi az adatfeliratok szövegét specifikálja. Értékeiket megadhatjuk manuálisan is egy karaktervektorként, még egyszerűbben pedig úgy specifikálhatjuk, hogy az év oszlopunk egyedi értékeire hivatkozunk: `unique(tv_tvjav_minta$ev)`. Végezetül pedig beállítjuk, hogy az x tengelyen legyenek elforgatva a tengelyfeliratok, hogy ne takarják ki egymást. A forgatás mértékét itt szögben adhatjuk meg: `angle = 45`. 
+Ahhoz, hogy valamivel pontosabb képet kapjunk a Jaccard index értékének alakulásáról, érdemes vizualizálni őket a `ggplot2` segítségével. Elsőként évenkénti bontásban ábrázoljuk a Jaccard index értékének alakulását. A `ggplot` magától csak néhány értéket rendelne az x tengelyhez feliratként, amit átállíthatunk a `scale_x_continuous()` fügvénnyel és a `breaks`  paraméterrel tudjukaz adatfeliratok helyét specifikálni.
 
 ```{r, fig.cap="Évenkénti Jaccard hasonlóság"}
-ggplot(tv_tvjav_minta, aes((ev), jaccard_index, color = korm_ciklus)) +
-  geom_jitter(width = 0.1) +
-  xlab("Év") +
-  ylab("Jaccard hasonlóság")+
-  labs(color = "Kormányzati ciklus")+
-  scale_x_continuous(breaks=c(unique(tv_tvjav_minta$év)), labels=c(unique(tv_tvjav_minta$év)))+
-  theme(
-    axis.text.x = element_text(angle = 45),
-    legend.position = "bottom"
-    )
+ggplot(tv_tvjav_minta, aes(ev, jaccard_index)) +
+  geom_jitter(width = 0.1, alpha = 0.5) +
+  scale_x_continuous(breaks = seq(1994, 2018, by = 2)) +
+  labs(
+    x = NULL,
+    y = "Jaccard hasonlóság"
+  )
 ```
 
 A pontdiagram látványos, de esetünkben kevés érdemi információ derül ki róla. A második ábránkon boxplotokkal fogjuk ábrázolni a jaccard hasonlóság alakulását.
 
 ```{r, fig.cap="Évenkénti Jaccard hasonlóság, boxplotokkal" }
-ggplot(tv_tvjav_minta, aes(factor(ev), jaccard_index, color = korm_ciklus)) +
+ggplot(tv_tvjav_minta, aes(as.factor(ev), jaccard_index)) +
   geom_boxplot() +
-  xlab("Év") +
-  ylab("Jaccard hasonlóság")+ 
-  labs(color = "Kormányzati ciklus")+
+  labs(
+    x = NULL,
+    y = "Jaccard hasonlóság"
+  ) +
   theme(
     axis.text.x = element_text(angle = 45),
-    legend.position = "bottom"
+    legend.position = "none"
     )
 ```
 
@@ -436,41 +479,36 @@ Mivel nincs túl sok adatpontunk, és ezek többsége a 900-as adatpont alá esi
 
 ```{r }
 tv_tvjav_minta <- tv_tvjav_minta %>%
-  mutate(korm_ell2 = case_when(korm_ell == 0 | korm_ell == 3 ~ 0,
-                               korm_ell == 1 | korm_ell == 4 ~ 1,
-                               korm_ell == 2 ~ 2,
-                               korm_ell == 900 ~ 900,
-                               korm_ell == 901 ~ 901,
-                               korm_ell == 902 ~ 902))
+  mutate(
+    korm_ell2 = case_when(korm_ell == 0 | korm_ell == 3 ~ "Ellenzéki képviselő",
+                          korm_ell == 1 | korm_ell == 4 ~ "Kormánypárti képviselő",
+                          korm_ell == 2 ~ "Kormányzati és ellenzéki képviselők közösen",
+                          korm_ell == 900 ~ "Kabinet tagja",
+                          korm_ell == 901 ~ "Parlamenti bizottság",
+                          korm_ell == 902 ~ "Egyik sem"),
+    korm_ell2 = as.factor(korm_ell2)
+  )
 ```   
 
 
-Miután létrehoztuk az új oszlopot, létrehozhatjuk a vizualizációt is annak alapján. Itt egy speciális pontdiagramot fogunk használni: `geom_jitter()`. Ez annyiban különbözik a pontdiagramtól, hogy kicsit szórtabban ábrázolja a diszkrét értékekre (évekre) eső pontokat, hogy az egy helyen sűrűsödő értékek ne takarják ki egymást.
+Miután létrehoztuk az új oszlopot, létrehozhatjuk a vizualizációt is annak alapján. Itt egy speciális pontdiagramot fogunk használni: `geom_jitter()`. Ez annyiban különbözik a pontdiagramtól, hogy kicsit szórtabban ábrázolja a diszkrét értékekre (évekre) eső pontokat, hogy az egy helyen sűrűsödő értékek ne takarják ki egymást. A `facet_wrap` segítségével tudjuk kategóriánként ábrázolni az évenkénti hasonlóságot.
 
-A pontok színeit manuálisan is definiálhatjuk, ha szeretnénk kontrollálni, hogy melyik érték milyen színben tűnjön fel. Ezt a `scale_color_manual()` függvény hozzárendelésével tehetjük meg. Ebben az esetben a `breaks`, a `values` és  a `labels` paramétereket adjuk meg. Mivel a `labels()` értékei ebben az esetben hosszabb feliratok, érdemes külön objektumba (`korm_ell_labels`) elmenteni őket, hogy az ábra kódjában már csak az objektum nevére kelljen hivatkozni, ezzel átláthatóbbá téve a kódot. A `values` változóban definiálhatjuk a felhasználni kívánt színeket, amit akár hexadecimális RGB kódok, akár a színek nevének megadásával is megtehetünk. Emellett az R számos előre definiált palettátt is felkínál, melyek alapján automatikusan hozzárendeli a színeket az értékekhez. (Bővebben a színekről: [Colors ggplot2](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/)).
-
-Ahhoz, hogy a színeket hozzárendelhessük az értékeinkhez, a `korm_ell2` változót faktorrá, vagyis kategorikus értékeket tartalmazó változóvá kell alakítanunk: `color = as.factor(korm_ell2)`.  <span style="color:red">[Itt picit bizonytalan vagyok, hogy tényleg ez okozz-e a hibát, ami miatt factorrá kell alakítani.] Az előzőekhez képest módosítjuk a jelmagyarázat pozícióját és elrendezését is. A `legend.position`-t „bottom” értékre állítva az ábra aljára helyezhetjük azt, valamint azt is megadhatjuk, hogy hány oszlopba legyenek tagolva a jelmagyarázat értékei a `guides(color=guide_legend(ncol=3))` sor segítségével. </span>
 
 ```{r, fig.cap="Beterjesztő szerinti Jaccard hasonlóság"}
-korm_ell_labels = c("Ellenzéki képviselő(k)",
-                    "Kormánypárti képviselő(k)",
-                    "Kormányzati és ellenzéki képviselők közösen",
-                    "Kabinet tagja", 
-                    "Bizottság tagja", 
-                    "Egyik sem")
 
-ggplot(tv_tvjav_minta, aes(ev, jaccard_index, color = as.factor(korm_ell2))) +
-  geom_jitter(size = 1.2, width = 0.1, alpha = 0.7)+
-  scale_color_manual(
-      breaks = c("0", "1", "2", "900", "901", "902"), 
-      values = c("#66c2a5", "#fc8d62", "#8da0cb", "#e78ac3", "#a6d854", "#ffd92f"), 
-      labels =  korm_ell_labels) +
-  xlab("Év") +
-  ylab("Jaccard hasonlóság") +
-  scale_x_continuous(breaks=c(unique(tv_tvjav_minta$ev)), labels=c(unique(tv_tvjav_minta$ev))) +
-  guides(color=guide_legend(ncol=3))+
-  theme(axis.text.x = element_text(angle = 45), legend.position = "bottom") +
-  labs(color = "Beterjesztő")
+
+ggplot(tv_tvjav_minta, aes(ev, jaccard_index)) + 
+  geom_jitter(width = 0.1, alpha = 0.5) +
+  scale_x_continuous(breaks = seq(1994, 2018, by = 2)) +
+  facet_wrap(~ korm_ell2, ncol = 1) +
+  labs(
+    y = "Jaccard hasonlóság",
+    x = NULL
+    )
+
+
+
+  
 ```
 
 Mivel a törvényjavaslatok túlnyomó többségét a kabinet tagjai nyújtják be, nem igazán tudunk érdemi következtetéseket levonni arra vonatkozóan, hogy az ellenzéki vagy a kormánypárti képviselők által benyújtott javaslatok módosulnak-e többet a vita folyamán. Amennyiben ezzel a kérdéssel alaposabban is szeretnénk foglalkozni, érdemes csak azokat a sorokat kiválasztani a hasonlóság-számításhoz, amelyekben a számunkra releváns megfigyelések szerepelnek. Ha azonban ezt az eljárást választjuk, mindenképpen fontos odafigyelni arra is, hogy az elemzésben használandó megfigyelések kiválogatása nehogy szelektív legyen valamely nem megfigyelt változó szempontjából, ezzel befolyásolva a kutatás eredményeit.
