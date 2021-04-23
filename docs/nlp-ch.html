@@ -275,14 +275,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Az elemző használatának részletes leírás megtalálható a már jelzett honlapon, itt most csak vázlatosan ismeretetjük. Fontos kiemelni, hogy a <code>magyarlanc</code> JAVA modulokból áll, így használatához szükséges, hogy a számítógépen megfelelő JAVA környezet legyen telepítve. Először fenti oldalról le kell töltenünk a <code>magyarlanc-3.0.jar</code> fájlt, majd bemásolni azt abba a mappába, ahol az elemezni kívánt <code>txt</code> található. A parancssort Windows operációs rendszer alatt a számítógép kereső mezőjébe a <code>cmd</code> parancs beírásával tudjuk megnyitni. Ezután a parancsorban belépve abba a könyvtárba, ahol az elemezni kíván txt és a <code>magyarlanc-3.0.jar</code> elemző van, az alábbi parancs segítségével végezhetjük el az elemzést: <code>java -Xmx1G -jar magyarlanc-3.0.jar -mode morphparse -input in.txt -output out.txt</code>, ahol az <code>in.txt</code> helyébe az elemezni kívánt <code>txt</code> nevét, az <code>out.txt</code> helyébe, pedig az elemzés eredményeként létrejövő fájl nevét kell megadni.</p>
 <p>Példánkban az Országgyűlésben 2014 és 2018 között elhangzott véletlenszerűen kiválasztott 25 napirend előtti felszólalás korpuszán szemléltetjük az elemző működését.<a href="#fn48" class="footnote-ref" id="fnref48"><sup>48</sup></a> A 25 fájlt elemezhetjük egyesével, de ha ez a későbbi elemzéshez nem szükséges, a parancsorban a <code>copy *.txt eredmeny.txt</code> paranccsal egyesíthetjük azokat egy fájlba. Majd ezen az eredmeny.txt-n végezzük el az elemzést az alábbi paranccsal: <code>java -Xmx1G -jar magyarlanc-3.0.jar -mode morphparse -input eredmeny.txt -output eredmeny_out.txt</code></p>
 <p>Az elemzés eredményéül kapott <code>txt</code> fájlban láthatjuk, hogy az elemző elvégezte a szövegek mondatokra bontását, tokenizálását, szótári alakra hozását és POS-taggelését, azaz meghatározta a szavak szófaját.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-222"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-217"></span>
 <p class="caption">
 Figure 11.1: A magyarlánc elemzo nyers eredménye
 </p>
 <img src="figures/11-01_magyarlanc_kimenet.png" alt="A magyarlánc elemzo nyers eredménye" width="90%" />
 </div>
 <p>Ezt követően célszerű a <code>txt</code> fájlt excelbe beolvasva oszlopokra tagolni, az oszlopokat fejléccel ellátni, majd <code>csv</code> fájlként elmenteni.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-223"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-218"></span>
 <p class="caption">
 Figure 11.2: Az Excelben megnyitott magyarlánc eredmény
 </p>
@@ -299,7 +299,7 @@ Figure 11.2: Az Excelben megnyitott magyarlánc eredmény
 <div id="a-szeged-ner" class="section level2" number="11.2">
 <h2><span class="header-section-number">11.2</span> A <code>szeged ner</code></h2>
 <p>A <code>magyarlanc</code> nyelvi elemzőhöz hasonlóan használhatjuk a <code>szeged ner</code> elemzőt is, melynek részletes leírása és maga a <code>ner.jar</code> elemző is megtalálható az alábbi oldalon: <a href="https://rgai.inf.u-szeged.hu/node/109" class="uri">https://rgai.inf.u-szeged.hu/node/109</a>. Az elemző a fent bemutatott módon szintén parancssorból indítható az alábbi parancs használatával: <code>java -Xmx3G -jar ner.jar -mode predicate -input input.txt -output output.txt</code>. Az elemző PER (személynév), LOC (hely(szín)), ORG (szervezet) és MISC (vegyes) címkét ad az egyes névelemeknek.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-227"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-222"></span>
 <p class="caption">
 Figure 11.3: A szeged ner elemzo eredménye
 </p>
@@ -467,11 +467,11 @@ Figure 11.3: A szeged ner elemzo eredménye
 <span id="cb219-10"><a href="nlp-ch.html#cb219-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">144</span>)</span>
 <span id="cb219-11"><a href="nlp-ch.html#cb219-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb219-12"><a href="nlp-ch.html#cb219-12" aria-hidden="true" tabindex="-1"></a><span class="fu">textplot_network</span>(mnb_fcm_select, <span class="at">min_freq =</span> <span class="fl">0.7</span>, <span class="at">vertex_size =</span> size <span class="sc">/</span> <span class="fu">max</span>(size) <span class="sc">*</span> <span class="dv">3</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-243"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-238"></span>
 <p class="caption">
 Figure 11.4: A Magyar Nemzeti Bank korpusz névelemeinek együttelofordulási mátrixa
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-243-1.png" alt="A Magyar Nemzeti Bank korpusz névelemeinek együttelofordulási mátrixa" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-238-1.png" alt="A Magyar Nemzeti Bank korpusz névelemeinek együttelofordulási mátrixa" width="90%" />
 </div>
 <p>A spacyr alapvetően az angol nyelvi modellel működik, de arra is van lehetőség, hogy a spaCy egyéb beépített nyelvi modelljeit (német, spanyol, portugál) használjuk. Létezik magyar nyelvi modell is, ez azonban jelenleg még nincs integrálva a spaCy-be, hanem egy GitHub repozitoriumból tölthető le. Ennek R-ben történő megvalósításához azonban haladó R ismeretek szükségesek, azért ennek leírásától jelen kötetben eltekintünk. A magyar nyelvi modell és leírása elérhető az alábbi linken: <a href="https://github.com/oroszgy/spacy-hungarian-models" class="uri">https://github.com/oroszgy/spacy-hungarian-models</a></p>
 
