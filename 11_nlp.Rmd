@@ -48,13 +48,12 @@ knitr::include_graphics("figures/11-02_napirend_elotti_magyarlanc.png")
 Az így létrehozott `.csv` fájllal megyegyező adattáblát be tudjuk tölteni a `HunMineR` segítségével.
 
 ```{r}
-library(readr)
 library (dplyr)
 library(HunMineR)
 ```
 
 ```{r}
-napirend_elotti <- read_delim("data/napirend_elotti_magyarlanc.csv", delim = ";")
+napirend_elotti <- HunMineR::data_parlspeech_magyarlanc
 ```
 
 Az így létrehozott objektummal, mely esetünkben 17870 megfigyelést és 4 változót tartalmaz, ezután különböző műveleteket végezhetünk, a korábban már bemutatottak szerint, például `dplyr` csomag `filter` függvénye segítségével kiválogathatjuk az igéket, és elmenthetjük azokat egy újabb 1769 megfigyelést és 4 változót tartalmazó objektumba.
@@ -76,7 +75,7 @@ knitr::include_graphics("figures/11-03_ner.png")
 A fentiekhez hasonlóan ezt a txt-t is átalakíthatjuk táblázattá, majd ezt a `csv` fájlt beolvashatjuk (a `HunMineR` csomag szintén tartalmazza ezt a data frame-et).
 
 ```{r}
-napirend_elotti_ner <- read_delim("data/ner.csv", delim = ";")
+napirend_elotti_ner <- HunMineR::data_parlspeech_szner
 ```
 
 Ezután tetszőlegesen kiválogathatjuk például a helyek neveit. A filterezés eredményeként láthatjuk, hogy az elemző korpuszunkban 175 szót azonosított és címkézett fel helynévként.
