@@ -394,20 +394,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="sentiment.html#cb83-1" aria-hidden="true" tabindex="-1"></a>mn_df <span class="ot">&lt;-</span> <span class="fu">convert</span>(mn_corpus, <span class="at">to =</span> <span class="st">&quot;data.frame&quot;</span>)</span>
 <span id="cb83-2"><a href="sentiment.html#cb83-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb83-3"><a href="sentiment.html#cb83-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mn_df)</span>
-<span id="cb83-4"><a href="sentiment.html#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     doc_id              text              doc_date         </span></span>
-<span id="cb83-5"><a href="sentiment.html#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Length:2834        Length:2834        Min.   :2006-01-02  </span></span>
-<span id="cb83-6"><a href="sentiment.html#cb83-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Class :character   Class :character   1st Qu.:2006-03-29  </span></span>
-<span id="cb83-7"><a href="sentiment.html#cb83-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mode  :character   Mode  :character   Median :2006-06-28  </span></span>
-<span id="cb83-8"><a href="sentiment.html#cb83-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                        Mean   :2006-06-28  </span></span>
-<span id="cb83-9"><a href="sentiment.html#cb83-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                        3rd Qu.:2006-09-26  </span></span>
-<span id="cb83-10"><a href="sentiment.html#cb83-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                        Max.   :2006-12-29  </span></span>
-<span id="cb83-11"><a href="sentiment.html#cb83-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       pos              neg        </span></span>
-<span id="cb83-12"><a href="sentiment.html#cb83-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   : 0.000   Min.   : 0.000  </span></span>
-<span id="cb83-13"><a href="sentiment.html#cb83-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.: 0.000   1st Qu.: 0.000  </span></span>
-<span id="cb83-14"><a href="sentiment.html#cb83-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median : 2.373   Median : 2.037  </span></span>
-<span id="cb83-15"><a href="sentiment.html#cb83-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   : 4.074   Mean   : 3.528  </span></span>
-<span id="cb83-16"><a href="sentiment.html#cb83-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.: 6.280   3rd Qu.: 5.348  </span></span>
-<span id="cb83-17"><a href="sentiment.html#cb83-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :35.648   Max.   :39.096</span></span></code></pre></div>
+<span id="cb83-4"><a href="sentiment.html#cb83-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     doc_id              text              doc_date               pos        </span></span>
+<span id="cb83-5"><a href="sentiment.html#cb83-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Length:2834        Length:2834        Min.   :2006-01-02   Min.   : 0.000  </span></span>
+<span id="cb83-6"><a href="sentiment.html#cb83-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Class :character   Class :character   1st Qu.:2006-03-29   1st Qu.: 0.000  </span></span>
+<span id="cb83-7"><a href="sentiment.html#cb83-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mode  :character   Mode  :character   Median :2006-06-28   Median : 2.373  </span></span>
+<span id="cb83-8"><a href="sentiment.html#cb83-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                        Mean   :2006-06-28   Mean   : 4.074  </span></span>
+<span id="cb83-9"><a href="sentiment.html#cb83-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                        3rd Qu.:2006-09-26   3rd Qu.: 6.280  </span></span>
+<span id="cb83-10"><a href="sentiment.html#cb83-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                                        Max.   :2006-12-29   Max.   :35.648  </span></span>
+<span id="cb83-11"><a href="sentiment.html#cb83-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       neg        </span></span>
+<span id="cb83-12"><a href="sentiment.html#cb83-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   : 0.000  </span></span>
+<span id="cb83-13"><a href="sentiment.html#cb83-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.: 0.000  </span></span>
+<span id="cb83-14"><a href="sentiment.html#cb83-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median : 2.037  </span></span>
+<span id="cb83-15"><a href="sentiment.html#cb83-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   : 3.528  </span></span>
+<span id="cb83-16"><a href="sentiment.html#cb83-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.: 5.348  </span></span>
+<span id="cb83-17"><a href="sentiment.html#cb83-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :39.096</span></span></code></pre></div>
 <p>Mielőtt vizualizálnánk az eredményt érdemes a napi szintre aggregálni a szentimentértéket és egy nettó értéket kalkulálni.<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a></p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="sentiment.html#cb84-1" aria-hidden="true" tabindex="-1"></a>mn_df <span class="ot">&lt;-</span> mn_df <span class="sc">%&gt;%</span></span>
 <span id="cb84-2"><a href="sentiment.html#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_date) <span class="sc">%&gt;%</span></span>
@@ -419,11 +419,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A plot alapján a cikkek érzelemelemzése során több kiugrást is tapasztalhatunk. Természetesen messzemenő következtetéseket egy ilyen kis korpusz alapján nem vonhatunk le, de a kiugrásokhoz tartozó cikkek kvalitatív vizsgálatával megállapíthatjuk, hogy az áprilisi kiugrást a választásokhoz kötődő cikkek pozitív hangulata, míg az októberi negatív kilengést az öszödi beszéd nyilvánosságra kerüléséhez köthető cikkek negatív szentimentje okozza.</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="sentiment.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mn_df, <span class="fu">aes</span>(doc_date, net_daily)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Szentiment&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, </span>
 <span id="cb85-2"><a href="sentiment.html#cb85-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Adatforrás: https://cap.tk.hu/&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-94"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-99"></span>
 <p class="caption">
 Figure 6.1: Magyar Nemzet címlap szentimentje
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-94-1.png" alt="Magyar Nemzet címlap szentimentje" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-99-1.png" alt="Magyar Nemzet címlap szentimentje" width="90%" />
 </div>
 </div>
 <div id="mnb-sajtóközlemények" class="section level2" number="6.3">
@@ -459,20 +459,13 @@ Figure 6.1: Magyar Nemzet címlap szentimentje
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="sentiment.html#cb88-1" aria-hidden="true" tabindex="-1"></a>mnb_pr <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_mnb_pr</span>
 <span id="cb88-2"><a href="sentiment.html#cb88-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb88-3"><a href="sentiment.html#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mnb_pr)</span>
-<span id="cb88-4"><a href="sentiment.html#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       date                text                 id        </span></span>
-<span id="cb88-5"><a href="sentiment.html#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   :2005-01-24   Length:180         Min.   :  1.00  </span></span>
-<span id="cb88-6"><a href="sentiment.html#cb88-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:2008-10-14   Class :character   1st Qu.: 45.75  </span></span>
-<span id="cb88-7"><a href="sentiment.html#cb88-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :2012-07-10   Mode  :character   Median : 90.50  </span></span>
-<span id="cb88-8"><a href="sentiment.html#cb88-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :2012-07-08                      Mean   : 90.50  </span></span>
-<span id="cb88-9"><a href="sentiment.html#cb88-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:2016-03-30                      3rd Qu.:135.25  </span></span>
-<span id="cb88-10"><a href="sentiment.html#cb88-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :2019-12-17                      Max.   :180.00  </span></span>
-<span id="cb88-11"><a href="sentiment.html#cb88-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       year     </span></span>
-<span id="cb88-12"><a href="sentiment.html#cb88-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   :2005  </span></span>
-<span id="cb88-13"><a href="sentiment.html#cb88-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:2008  </span></span>
-<span id="cb88-14"><a href="sentiment.html#cb88-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :2012  </span></span>
-<span id="cb88-15"><a href="sentiment.html#cb88-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :2012  </span></span>
-<span id="cb88-16"><a href="sentiment.html#cb88-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:2016  </span></span>
-<span id="cb88-17"><a href="sentiment.html#cb88-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :2019</span></span></code></pre></div>
+<span id="cb88-4"><a href="sentiment.html#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       date                text                 id              year     </span></span>
+<span id="cb88-5"><a href="sentiment.html#cb88-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   :2005-01-24   Length:180         Min.   :  1.00   Min.   :2005  </span></span>
+<span id="cb88-6"><a href="sentiment.html#cb88-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:2008-10-14   Class :character   1st Qu.: 45.75   1st Qu.:2008  </span></span>
+<span id="cb88-7"><a href="sentiment.html#cb88-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :2012-07-10   Mode  :character   Median : 90.50   Median :2012  </span></span>
+<span id="cb88-8"><a href="sentiment.html#cb88-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :2012-07-08                      Mean   : 90.50   Mean   :2012  </span></span>
+<span id="cb88-9"><a href="sentiment.html#cb88-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:2016-03-30                      3rd Qu.:135.25   3rd Qu.:2016  </span></span>
+<span id="cb88-10"><a href="sentiment.html#cb88-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :2019-12-17                      Max.   :180.00   Max.   :2019</span></span></code></pre></div>
 <p>Adatbázisunk 180 megfigyelésből és 4 változóból áll. Az egyetlen lényeges dokumentum metaadat itt is a szövegek megjelenési ideje.</p>
 <p>A szövegeket ugyanazokkal a standard eszközökkel kezeljük, mint a <em>Magyar Nemzet</em> esetében. Érdemes minden esetben ellenőrizni, hogy az R-kód, amit használunk, tényleg azt csinálja-e, amit szeretnénk. Ez hatványozottan igaz abban az esetben, amikor szövegekkel és reguláris kifejezésekkel dolgozunk.</p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="sentiment.html#cb89-1" aria-hidden="true" tabindex="-1"></a>mnb_tiszta <span class="ot">&lt;-</span> mnb_pr <span class="sc">%&gt;%</span></span>
@@ -519,11 +512,11 @@ Figure 6.1: Magyar Nemzet címlap szentimentje
 <span id="cb93-5"><a href="sentiment.html#cb93-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span></span>
 <span id="cb93-6"><a href="sentiment.html#cb93-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb93-7"><a href="sentiment.html#cb93-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>sent_type, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-102"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-107"></span>
 <p class="caption">
 Figure 6.2: Magyar Nemzeti Bank közleményeinek szentimentje
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-102-1.png" alt="Magyar Nemzeti Bank közleményeinek szentimentje" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-107-1.png" alt="Magyar Nemzeti Bank közleményeinek szentimentje" width="90%" />
 </div>
 
 </div>

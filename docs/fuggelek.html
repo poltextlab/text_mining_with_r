@@ -271,7 +271,7 @@ Az RStudio az alábbi oldalról tölthető le: <a href="https://rstudio.com/prod
 <div id="az-rstudio-kezdőfelülete" class="section level2" number="13.2">
 <h2><span class="header-section-number">13.2</span> Az RStudio kezdőfelülete</h2>
 <p>Az RStudio kezdőfelülete négy panelből, eszközsorból és menüsorból áll:</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-270"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-275"></span>
 <p class="caption">
 Figure 13.1: RStudio felhasználói felület
 </p>
@@ -292,7 +292,7 @@ A <code>Tools -&gt; Global Options</code> menüpont alatt végezhetjük el az RS
 <p>Bár nem kötelező, de javasolt, hogy az RStudio-ban projekt alapon dolgozzunk, mivel így az összes – az adott projekttel kapcsolatos fájlt – egy mappában tárolhatjuk.
 Új projekt beállítását a <code>File-&gt;New Project</code> menüben tehetjük meg, ahol a saját gépünk egy könyvtárát kell kiválasztani, ahová az R a scripteket, az adat- és előzményfájlokat menti.
 Ezenkívül a <code>Tools-&gt;Global Options-&gt;General</code> menüpont alatt le kell tiltani a <em>„Restore most recently opened project at startup"</em> és a <em>„Restore .RData ino workspace at startup"</em> beállítást, valamint <em>„Save workspace to .RData on exit"</em> legördülő menüjében be kell állítani a <em>„Never"</em> értéket.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-271"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-276"></span>
 <p class="caption">
 Figure 13.2: RStudio projekt beállítások
 </p>
@@ -318,7 +318,7 @@ Ha a korábbiaktól eltérő munkakönyvtárat akarunk megadni, azt a <code>setw
 Az elérési útban a meghajtó azonosítóját, majd a mappák, almappák nevét vagy egy normál irányú perjel (<code>/</code>), vagy két fordított perjel (<code>\\</code>) választja el, mivel az elérési út karakterlánc, ezért azt idézőjelek vagy aposztrófok közé kell tennünk.
 Az aktuális munkakönyvtárba beléphetünk a jobb alsó ablak file lapján a <code>More -&gt; Go To Working Directory</code> segítségével.
 Ugyanitt a <code>Set Working Directory</code>-val munkakönyvtárnak állíthatjuk be az a mappát, amelyben épp benne vagyunk.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-272"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-277"></span>
 <p class="caption">
 Figure 13.3: Working directory beállítások
 </p>
@@ -352,7 +352,7 @@ Egy adott függvényre vonatkozó súgórészlet a függvények neve elé kérd�
 <p>Az <code>R</code>-ben telepíthetők kiegészítő csomagok (<em>packages</em>), amelyek alapértelmezetten el nem érhető algoritmusokat, függvényeket tartalmaznak.
 A csomagok saját dokumentációval rendelkeznek, amelyeket fel kell tüntetni a használatukkal készült publikációink hivatkozáslistájában.
 A csomagok telepítésére több lehetőségünk is van: használhatjuk a menüsor <code>Tools -&gt; Install Packages</code> menüpontját, vagy a jobb alsó ablak <strong>packages</strong> fül <code>Install</code> menüpontját, illetve az <strong>editor</strong> ablakban az <code>install.packages()</code> parancsot futtatva, ahol a <code>()</code>-be a telepíteni kívánt csomag nevét kell beírnunk (pl. <code>install.packages(dplyr)</code>).</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-273"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-278"></span>
 <p class="caption">
 Figure 13.4: Packages fül
 </p>
@@ -446,8 +446,8 @@ Egy másik megoldás a <code>$</code> haszálata: <code>data_frame$oszlop</code>
 <span id="cb255-3"><a href="fuggelek.html#cb255-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Levels: Asia Europe North America South America</span></span>
 <span id="cb255-4"><a href="fuggelek.html#cb255-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb255-5"><a href="fuggelek.html#cb255-5" aria-hidden="true" tabindex="-1"></a>orszag_adatok<span class="sc">$</span>orszag</span>
-<span id="cb255-6"><a href="fuggelek.html#cb255-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thailand&quot;    &quot;Norway&quot;      &quot;North Korea&quot; &quot;Canada&quot;     </span></span>
-<span id="cb255-7"><a href="fuggelek.html#cb255-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;Slovenia&quot;    &quot;France&quot;      &quot;Venezuela&quot;</span></span></code></pre></div>
+<span id="cb255-6"><a href="fuggelek.html#cb255-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thailand&quot;    &quot;Norway&quot;      &quot;North Korea&quot; &quot;Canada&quot;      &quot;Slovenia&quot;   </span></span>
+<span id="cb255-7"><a href="fuggelek.html#cb255-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6] &quot;France&quot;      &quot;Venezuela&quot;</span></span></code></pre></div>
 </div>
 <div id="vizualizáció" class="section level2" number="13.10">
 <h2><span class="header-section-number">13.10</span> Vizualizáció</h2>
