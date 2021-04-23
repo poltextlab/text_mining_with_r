@@ -280,8 +280,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb26-3"><a href="corpus-ch.html#cb26-3" aria-hidden="true" tabindex="-1"></a>r</span>
 <span id="cb26-4"><a href="corpus-ch.html#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; {html_document}</span></span>
 <span id="cb26-5"><a href="corpus-ch.html#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;html lang=&quot;hu&quot; class=&quot;no-js&quot;&gt;</span></span>
-<span id="cb26-6"><a href="corpus-ch.html#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/htm ...</span></span>
-<span id="cb26-7"><a href="corpus-ch.html#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &lt;body class=&quot;index&quot;&gt;\n\n\t&lt;script&gt;\n\t  (function(i,s,o,g ...</span></span></code></pre></div>
+<span id="cb26-6"><a href="corpus-ch.html#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; ...</span></span>
+<span id="cb26-7"><a href="corpus-ch.html#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &lt;body class=&quot;index&quot;&gt;\n\n\t&lt;script&gt;\n\t  (function(i,s,o,g,r,a,m){i[&#39;Google ...</span></span></code></pre></div>
 <p>Ezután a <code>html_nodes()</code> függvény argumentumaként meg kell adnunk azt a HTML címkét vagy CSS azonosítót, ami a legyűjteni kívánt elemeket azonosítja a weboldalon. Ezeket az azonosítókat az adott weboldal forráskódjának megtekintésével tudhatjuk meg, amire a különböző böngészők különböző lehetőségeket kínálnak. Majd a <code>html_text()</code> függvény segítségével megkapjuk azokat a szövegeket, amelyek az adott weblapon az adott azonosítóval rendelkeznek.</p>
 <p>Példánkban a <a href="https://poltextlab.tk.hu/hu" class="uri">https://poltextlab.tk.hu/hu</a> weboldalról azokat az információkat szeretnénk kigyűjteni, amelyek az <code>&lt;title&gt;</code> címke alatt szerepelnek.</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="corpus-ch.html#cb27-1" aria-hidden="true" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://poltextlab.tk.hu/hu&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">&quot;title&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_text</span>()</span>
@@ -367,11 +367,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb33-7"><a href="corpus-ch.html#cb33-7" aria-hidden="true" tabindex="-1"></a>toks2</span>
 <span id="cb33-8"><a href="corpus-ch.html#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Tokens consisting of 1 document.</span></span>
 <span id="cb33-9"><a href="corpus-ch.html#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1 :</span></span>
-<span id="cb33-10"><a href="corpus-ch.html#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;Példa&quot;           &quot;az&quot;              &quot;elokészítésr&quot;   </span></span>
-<span id="cb33-11"><a href="corpus-ch.html#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [4] &quot;Az&quot;              &quot;elokészítést&quot;    &quot;a&quot;              </span></span>
-<span id="cb33-12"><a href="corpus-ch.html#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;szövetisztításs&quot; &quot;kell&quot;            &quot;megkezdenünk&quot;   </span></span>
-<span id="cb33-13"><a href="corpus-ch.html#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [10] &quot;Az&quot;              &quot;elokészített&quot;    &quot;korpuszon&quot;      </span></span>
-<span id="cb33-14"><a href="corpus-ch.html#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [ ... and 2 more ]</span></span></code></pre></div>
+<span id="cb33-10"><a href="corpus-ch.html#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;Példa&quot;           &quot;az&quot;              &quot;elokészítésr&quot;    &quot;Az&quot;             </span></span>
+<span id="cb33-11"><a href="corpus-ch.html#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;elokészítést&quot;    &quot;a&quot;               &quot;szövetisztításs&quot; &quot;kell&quot;           </span></span>
+<span id="cb33-12"><a href="corpus-ch.html#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;megkezdenünk&quot;    &quot;Az&quot;              &quot;elokészített&quot;    &quot;korpuszon&quot;      </span></span>
+<span id="cb33-13"><a href="corpus-ch.html#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [ ... and 2 more ]</span></span></code></pre></div>
 </div>
 <div id="dokumentum-kifejezés-mátrix-dtm" class="section level3" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> Dokumentum kifejezés mátrix (DTM)</h3>
@@ -438,24 +437,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb37-11"><a href="corpus-ch.html#cb37-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>A <code>topfeatures</code> függvény segítségével megnézhetjük a mátrix leggyakoribb szavait, a függvény argumentumában megadva a dokumentum kifejezés mátrix nevét és a kívánt kifejezésszámot.</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="corpus-ch.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">topfeatures</span>(lawtext_dfm, <span class="dv">15</span>)</span>
-<span id="cb38-2"><a href="corpus-ch.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       the        of  szerzodo        to         b        ha </span></span>
-<span id="cb38-3"><a href="corpus-ch.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      7902      5665      3619      3290      2831      2794 </span></span>
-<span id="cb38-4"><a href="corpus-ch.html#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       and  kiadások   törvéni        in következo  muködési </span></span>
-<span id="cb38-5"><a href="corpus-ch.html#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2712      2447      2385      2253      2178      2038 </span></span>
-<span id="cb38-6"><a href="corpus-ch.html#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        or       évi        is </span></span>
-<span id="cb38-7"><a href="corpus-ch.html#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2034      1908      1864</span></span></code></pre></div>
+<span id="cb38-2"><a href="corpus-ch.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       the        of  szerzodo        to         b        ha       and  kiadások </span></span>
+<span id="cb38-3"><a href="corpus-ch.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      7902      5665      3619      3290      2831      2794      2712      2447 </span></span>
+<span id="cb38-4"><a href="corpus-ch.html#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   törvéni        in következo  muködési        or       évi        is </span></span>
+<span id="cb38-5"><a href="corpus-ch.html#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2385      2253      2178      2038      2034      1908      1864</span></span></code></pre></div>
 <p>Mivel látható, hogy a szövegekben sok angol kifejezés is volt egy következő lépcsőben az angol stopszavakat is eltávolítjuk.</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="corpus-ch.html#cb39-1" aria-hidden="true" tabindex="-1"></a>lawtext_dfm_2 <span class="ot">&lt;-</span> <span class="fu">dfm</span>(lawtext_dfm, <span class="at">remove =</span> <span class="fu">stopwords</span>(<span class="st">&quot;english&quot;</span>))</span></code></pre></div>
 <p>Ezután megnézzük a leggyakoribb 15 kifejezést.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="corpus-ch.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">topfeatures</span>(lawtext_dfm_2, <span class="dv">15</span>)</span>
-<span id="cb40-2"><a href="corpus-ch.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      szerzodo             b            ha      kiadások </span></span>
-<span id="cb40-3"><a href="corpus-ch.html#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          3619          2831          2794          2447 </span></span>
-<span id="cb40-4"><a href="corpus-ch.html#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       törvéni     következo      muködési           évi </span></span>
-<span id="cb40-5"><a href="corpus-ch.html#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          2385          2178          2038          1908 </span></span>
-<span id="cb40-6"><a href="corpus-ch.html#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         állam             c meghatározott   költségveté </span></span>
-<span id="cb40-7"><a href="corpus-ch.html#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          1718          1713          1654          1637 </span></span>
-<span id="cb40-8"><a href="corpus-ch.html#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      államban           lép           fél </span></span>
-<span id="cb40-9"><a href="corpus-ch.html#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          1622          1616          1533</span></span></code></pre></div>
+<span id="cb40-2"><a href="corpus-ch.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      szerzodo             b            ha      kiadások       törvéni </span></span>
+<span id="cb40-3"><a href="corpus-ch.html#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          3619          2831          2794          2447          2385 </span></span>
+<span id="cb40-4"><a href="corpus-ch.html#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     következo      muködési           évi         állam             c </span></span>
+<span id="cb40-5"><a href="corpus-ch.html#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          2178          2038          1908          1718          1713 </span></span>
+<span id="cb40-6"><a href="corpus-ch.html#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; meghatározott   költségveté      államban           lép           fél </span></span>
+<span id="cb40-7"><a href="corpus-ch.html#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          1654          1637          1622          1616          1533</span></span></code></pre></div>
 <p>A következő lépés, hogy TF-IDF súlyozású statisztikát készítünk, a dokumentum kifejezés mátrix alapján. Ehhez először létrehozzuk a <code>lawtext_tfidf</code> nevű objektumot, majd a <code>textstat_frequency</code> függvény segítségével kilistázzuk annak első 10 elemét.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="corpus-ch.html#cb41-1" aria-hidden="true" tabindex="-1"></a>lawtext_tfidf <span class="ot">&lt;-</span> <span class="fu">dfm_tfidf</span>(lawtext_dfm_2)</span>
 <span id="cb41-2"><a href="corpus-ch.html#cb41-2" aria-hidden="true" tabindex="-1"></a></span>

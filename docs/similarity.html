@@ -308,8 +308,8 @@ Jaccard(doc_{1}, doc_{2}) = \frac{doc_{1}\,\cap \, doc_{2}}{doc1 \, \cup \, doc2
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="similarity.html#cb163-1" aria-hidden="true" tabindex="-1"></a>torvenyek <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_lawtext_sample</span>
 <span id="cb163-2"><a href="similarity.html#cb163-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb163-3"><a href="similarity.html#cb163-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(torvenyek)</span>
-<span id="cb163-4"><a href="similarity.html#cb163-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;tv_id&quot;          &quot;torveny_szoveg&quot; &quot;korm_ciklus&quot;   </span></span>
-<span id="cb163-5"><a href="similarity.html#cb163-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;ev&quot;             &quot;korm_ell&quot;</span></span>
+<span id="cb163-4"><a href="similarity.html#cb163-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;tv_id&quot;          &quot;torveny_szoveg&quot; &quot;korm_ciklus&quot;    &quot;ev&quot;            </span></span>
+<span id="cb163-5"><a href="similarity.html#cb163-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;korm_ell&quot;</span></span>
 <span id="cb163-6"><a href="similarity.html#cb163-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb163-7"><a href="similarity.html#cb163-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(torvenyek)</span>
 <span id="cb163-8"><a href="similarity.html#cb163-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 600   5</span></span></code></pre></div>
@@ -331,8 +331,8 @@ Jaccard(doc_{1}, doc_{2}) = \frac{doc_{1}\,\cap \, doc_{2}}{doc1 \, \cup \, doc2
 <div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="similarity.html#cb166-1" aria-hidden="true" tabindex="-1"></a>tv_tvjavid_osszekapcs <span class="ot">&lt;-</span> <span class="fu">left_join</span>(torvenyek, parok, <span class="at">by =</span> <span class="st">&quot;tv_id&quot;</span>)</span>
 <span id="cb166-2"><a href="similarity.html#cb166-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb166-3"><a href="similarity.html#cb166-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tv_tvjavid_osszekapcs)</span>
-<span id="cb166-4"><a href="similarity.html#cb166-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;tv_id&quot;          &quot;torveny_szoveg&quot; &quot;korm_ciklus&quot;   </span></span>
-<span id="cb166-5"><a href="similarity.html#cb166-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;ev&quot;             &quot;korm_ell&quot;       &quot;tvjav_id&quot;</span></span>
+<span id="cb166-4"><a href="similarity.html#cb166-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;tv_id&quot;          &quot;torveny_szoveg&quot; &quot;korm_ciklus&quot;    &quot;ev&quot;            </span></span>
+<span id="cb166-5"><a href="similarity.html#cb166-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;korm_ell&quot;       &quot;tvjav_id&quot;</span></span>
 <span id="cb166-6"><a href="similarity.html#cb166-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb166-7"><a href="similarity.html#cb166-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(tv_tvjavid_osszekapcs)</span>
 <span id="cb166-8"><a href="similarity.html#cb166-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 600   6</span></span></code></pre></div>
@@ -340,41 +340,40 @@ Jaccard(doc_{1}, doc_{2}) = \frac{doc_{1}\,\cap \, doc_{2}}{doc1 \, \cup \, doc2
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="similarity.html#cb167-1" aria-hidden="true" tabindex="-1"></a>tv_tvjav_minta <span class="ot">&lt;-</span> <span class="fu">left_join</span>(tv_tvjavid_osszekapcs, tv_javaslatok, <span class="at">by =</span> <span class="st">&quot;tvjav_id&quot;</span>)</span>
 <span id="cb167-2"><a href="similarity.html#cb167-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb167-3"><a href="similarity.html#cb167-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tv_tvjav_minta)</span>
-<span id="cb167-4"><a href="similarity.html#cb167-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;tv_id&quot;          &quot;torveny_szoveg&quot; &quot;korm_ciklus&quot;   </span></span>
-<span id="cb167-5"><a href="similarity.html#cb167-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;ev&quot;             &quot;korm_ell&quot;       &quot;tvjav_id&quot;      </span></span>
-<span id="cb167-6"><a href="similarity.html#cb167-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7] &quot;tvjav_szoveg&quot;</span></span>
-<span id="cb167-7"><a href="similarity.html#cb167-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb167-8"><a href="similarity.html#cb167-8" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(tv_tvjav_minta)</span>
-<span id="cb167-9"><a href="similarity.html#cb167-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 600   7</span></span></code></pre></div>
+<span id="cb167-4"><a href="similarity.html#cb167-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;tv_id&quot;          &quot;torveny_szoveg&quot; &quot;korm_ciklus&quot;    &quot;ev&quot;            </span></span>
+<span id="cb167-5"><a href="similarity.html#cb167-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;korm_ell&quot;       &quot;tvjav_id&quot;       &quot;tvjav_szoveg&quot;</span></span>
+<span id="cb167-6"><a href="similarity.html#cb167-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb167-7"><a href="similarity.html#cb167-7" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(tv_tvjav_minta)</span>
+<span id="cb167-8"><a href="similarity.html#cb167-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 600   7</span></span></code></pre></div>
 <p>Ha jól végeztük a dolgunkat az adatbázisok összekapcsolása során, az eljárás végére 7 oszlopunk és 600 sorunk van, vagyis az újonnan létrehozott adatbázisba bekerült az összes változó (oszlop). A korpuszaink egy adattáblában való kezelése azért hasznos, mert így nem kell párhuzamosan elvégezni az azonos műveleteket a két korpusz, a törvények és a törvényjavaslatok tisztításához, hanem párhuzamosan tudunk dolgozni a kettővel. Kicsit közelebbről megvizsgálva az adatbázist, azt láthatjuk, hogy minden adatbázisunkban szereplő kormányzati ciklusra 100 megfigyelés áll rendelkezésünkre: <code>tv_tvjav_minta %&gt;% count(korm_ciklus)</code>.</p>
 <div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="similarity.html#cb168-1" aria-hidden="true" tabindex="-1"></a>tv_tvjav_minta <span class="sc">%&gt;%</span> </span>
 <span id="cb168-2"><a href="similarity.html#cb168-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(korm_ciklus)</span>
-<span id="cb168-3"><a href="similarity.html#cb168-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 2</span></span>
+<span id="cb168-3"><a href="similarity.html#cb168-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;246m# A tibble: 6 x 2[39m</span></span>
 <span id="cb168-4"><a href="similarity.html#cb168-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   korm_ciklus     n</span></span>
-<span id="cb168-5"><a href="similarity.html#cb168-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;int&gt;</span></span>
-<span id="cb168-6"><a href="similarity.html#cb168-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1994-1998     100</span></span>
-<span id="cb168-7"><a href="similarity.html#cb168-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 1998-2002     100</span></span>
-<span id="cb168-8"><a href="similarity.html#cb168-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 2002-2006     100</span></span>
-<span id="cb168-9"><a href="similarity.html#cb168-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 2006-2010     100</span></span>
-<span id="cb168-10"><a href="similarity.html#cb168-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 2010-2014     100</span></span>
-<span id="cb168-11"><a href="similarity.html#cb168-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 2014-2018     100</span></span></code></pre></div>
+<span id="cb168-5"><a href="similarity.html#cb168-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m       [3m[38;5;246m&lt;int&gt;[39m[23m</span></span>
+<span id="cb168-6"><a href="similarity.html#cb168-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m1[39m 1994-1998     100</span></span>
+<span id="cb168-7"><a href="similarity.html#cb168-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m2[39m 1998-2002     100</span></span>
+<span id="cb168-8"><a href="similarity.html#cb168-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m3[39m 2002-2006     100</span></span>
+<span id="cb168-9"><a href="similarity.html#cb168-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m4[39m 2006-2010     100</span></span>
+<span id="cb168-10"><a href="similarity.html#cb168-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m5[39m 2010-2014     100</span></span>
+<span id="cb168-11"><a href="similarity.html#cb168-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m6[39m 2014-2018     100</span></span></code></pre></div>
 <p>Hasonlóan ellenőrizhetjük az egyes évekre eső megfigyelések számát is.</p>
 <div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="similarity.html#cb169-1" aria-hidden="true" tabindex="-1"></a>tv_tvjav_minta <span class="sc">%&gt;%</span> </span>
 <span id="cb169-2"><a href="similarity.html#cb169-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(ev)</span>
-<span id="cb169-3"><a href="similarity.html#cb169-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 24 x 2</span></span>
+<span id="cb169-3"><a href="similarity.html#cb169-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;246m# A tibble: 24 x 2[39m</span></span>
 <span id="cb169-4"><a href="similarity.html#cb169-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       ev     n</span></span>
-<span id="cb169-5"><a href="similarity.html#cb169-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;dbl&gt; &lt;int&gt;</span></span>
-<span id="cb169-6"><a href="similarity.html#cb169-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1  1994    11</span></span>
-<span id="cb169-7"><a href="similarity.html#cb169-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2  1995    31</span></span>
-<span id="cb169-8"><a href="similarity.html#cb169-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3  1996    23</span></span>
-<span id="cb169-9"><a href="similarity.html#cb169-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4  1997    31</span></span>
-<span id="cb169-10"><a href="similarity.html#cb169-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5  1998    17</span></span>
-<span id="cb169-11"><a href="similarity.html#cb169-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6  1999    20</span></span>
-<span id="cb169-12"><a href="similarity.html#cb169-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7  2000    34</span></span>
-<span id="cb169-13"><a href="similarity.html#cb169-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8  2001    30</span></span>
-<span id="cb169-14"><a href="similarity.html#cb169-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9  2002     3</span></span>
-<span id="cb169-15"><a href="similarity.html#cb169-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  2004    35</span></span>
-<span id="cb169-16"><a href="similarity.html#cb169-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 14 more rows</span></span></code></pre></div>
+<span id="cb169-5"><a href="similarity.html#cb169-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;int&gt;[39m[23m</span></span>
+<span id="cb169-6"><a href="similarity.html#cb169-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 1[39m  [4m1[24m994    11</span></span>
+<span id="cb169-7"><a href="similarity.html#cb169-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 2[39m  [4m1[24m995    31</span></span>
+<span id="cb169-8"><a href="similarity.html#cb169-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 3[39m  [4m1[24m996    23</span></span>
+<span id="cb169-9"><a href="similarity.html#cb169-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 4[39m  [4m1[24m997    31</span></span>
+<span id="cb169-10"><a href="similarity.html#cb169-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 5[39m  [4m1[24m998    17</span></span>
+<span id="cb169-11"><a href="similarity.html#cb169-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 6[39m  [4m1[24m999    20</span></span>
+<span id="cb169-12"><a href="similarity.html#cb169-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 7[39m  [4m2[24m000    34</span></span>
+<span id="cb169-13"><a href="similarity.html#cb169-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 8[39m  [4m2[24m001    30</span></span>
+<span id="cb169-14"><a href="similarity.html#cb169-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 9[39m  [4m2[24m002     3</span></span>
+<span id="cb169-15"><a href="similarity.html#cb169-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m10[39m  [4m2[24m004    35</span></span>
+<span id="cb169-16"><a href="similarity.html#cb169-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;246m# ... with 14 more rows[39m</span></span></code></pre></div>
 </div>
 </div>
 <div id="szövegtisztítás" class="section level2" number="10.5">
@@ -489,24 +488,24 @@ Jaccard(doc_{1}, doc_{2}) = \frac{doc_{1}\,\cap \, doc_{2}}{doc1 \, \cup \, doc2
 <p>Érdemes megnézni a végeredményt, ellenőrizni a Jaccard hasonlóság legmagasabb és legalacsonyabb értékeit. A <code>top_n()</code> függvény használatával ki tudjuk válogatni a legmagasabb és a legalacsonyabb értékeket. A <code>top_n()</code> függvény első argumentuma a változó lesz, ami alapján a legalacsonyabb és a legmagasabb értékeket keressük, a második argumentum pedig azt specifikálja, hogy a legmagasabb és a legalacsonyabb értékek közül hányat szeretnénk látni. Az <code>n=5</code> értékkel a legmagasabb, az <code>n=-5</code> értékkel a legalacsonyabb 5 Jaccard indexszel rendelkező sort tudjuk kiszűrni. Emellett érdemes arra is odafigyelni, hogy a szövegeket tartalmazó oszlopainkat ne próbáljuk meg kiíratni, hiszen ez jelentősen lelassítja az RStudio működését és csökkenti a kiírt eredmények áttekinthetőségét.</p>
 <div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="similarity.html#cb183-1" aria-hidden="true" tabindex="-1"></a>tv_tvjav_minta[, <span class="fu">c</span>(<span class="st">&quot;tv_id&quot;</span>, <span class="st">&quot;korm_ciklus&quot;</span>, <span class="st">&quot;tvjav_id&quot;</span>, <span class="st">&quot;jaccard_index&quot;</span>)] <span class="sc">%&gt;%</span></span>
 <span id="cb183-2"><a href="similarity.html#cb183-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(jaccard_index, <span class="at">n =</span> <span class="dv">5</span>)</span>
-<span id="cb183-3"><a href="similarity.html#cb183-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 4</span></span>
+<span id="cb183-3"><a href="similarity.html#cb183-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;246m# A tibble: 5 x 4[39m</span></span>
 <span id="cb183-4"><a href="similarity.html#cb183-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   tv_id     korm_ciklus tvjav_id         jaccard_index</span></span>
-<span id="cb183-5"><a href="similarity.html#cb183-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;       &lt;chr&gt;                    &lt;dbl&gt;</span></span>
-<span id="cb183-6"><a href="similarity.html#cb183-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1994XCV   1994-1998   1994-1998_T0276          0.991</span></span>
-<span id="cb183-7"><a href="similarity.html#cb183-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 1995LXXXI 1994-1998   1994-1998_T1296          0.987</span></span>
-<span id="cb183-8"><a href="similarity.html#cb183-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 1999XXXV  1998-2002   1998-2002_T0807          0.985</span></span>
-<span id="cb183-9"><a href="similarity.html#cb183-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 2013XLII  2010-2014   2010-2014_T10219         0.981</span></span>
-<span id="cb183-10"><a href="similarity.html#cb183-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 2014VIII  2010-2014   2010-2014_T13631         0.980</span></span></code></pre></div>
+<span id="cb183-5"><a href="similarity.html#cb183-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m     [3m[38;5;246m&lt;chr&gt;[39m[23m       [3m[38;5;246m&lt;chr&gt;[39m[23m                    [3m[38;5;246m&lt;dbl&gt;[39m[23m</span></span>
+<span id="cb183-6"><a href="similarity.html#cb183-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m1[39m 1994XCV   1994-1998   1994-1998_T0276          0.991</span></span>
+<span id="cb183-7"><a href="similarity.html#cb183-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m2[39m 1995LXXXI 1994-1998   1994-1998_T1296          0.987</span></span>
+<span id="cb183-8"><a href="similarity.html#cb183-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m3[39m 1999XXXV  1998-2002   1998-2002_T0807          0.985</span></span>
+<span id="cb183-9"><a href="similarity.html#cb183-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m4[39m 2013XLII  2010-2014   2010-2014_T10219         0.981</span></span>
+<span id="cb183-10"><a href="similarity.html#cb183-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m5[39m 2014VIII  2010-2014   2010-2014_T13631         0.980</span></span></code></pre></div>
 <div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="similarity.html#cb184-1" aria-hidden="true" tabindex="-1"></a>tv_tvjav_minta[, <span class="fu">c</span>(<span class="st">&quot;tv_id&quot;</span>, <span class="st">&quot;korm_ciklus&quot;</span>, <span class="st">&quot;tvjav_id&quot;</span>, <span class="st">&quot;jaccard_index&quot;</span>)] <span class="sc">%&gt;%</span> </span>
 <span id="cb184-2"><a href="similarity.html#cb184-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(jaccard_index, <span class="at">n=</span><span class="sc">-</span><span class="dv">5</span>) </span>
-<span id="cb184-3"><a href="similarity.html#cb184-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 4</span></span>
+<span id="cb184-3"><a href="similarity.html#cb184-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;246m# A tibble: 5 x 4[39m</span></span>
 <span id="cb184-4"><a href="similarity.html#cb184-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   tv_id       korm_ciklus tvjav_id         jaccard_index</span></span>
-<span id="cb184-5"><a href="similarity.html#cb184-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;       &lt;chr&gt;       &lt;chr&gt;                    &lt;dbl&gt;</span></span>
-<span id="cb184-6"><a href="similarity.html#cb184-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1998I       1994-1998   1994-1998_T4328        0.0513 </span></span>
-<span id="cb184-7"><a href="similarity.html#cb184-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 2005LII     2002-2006   2002-2006_T16291       0.0532 </span></span>
-<span id="cb184-8"><a href="similarity.html#cb184-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 2007CLXVIII 2006-2010   2006-2010_T04678       0.0270 </span></span>
-<span id="cb184-9"><a href="similarity.html#cb184-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 2010CLV     2010-2014   2010-2014_T01809       0.0273 </span></span>
-<span id="cb184-10"><a href="similarity.html#cb184-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 2012CXCV    2010-2014   2010-2014_T09103       0.00895</span></span></code></pre></div>
+<span id="cb184-5"><a href="similarity.html#cb184-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m       [3m[38;5;246m&lt;chr&gt;[39m[23m       [3m[38;5;246m&lt;chr&gt;[39m[23m                    [3m[38;5;246m&lt;dbl&gt;[39m[23m</span></span>
+<span id="cb184-6"><a href="similarity.html#cb184-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m1[39m 1998I       1994-1998   1994-1998_T4328        0.051[4m3[24m </span></span>
+<span id="cb184-7"><a href="similarity.html#cb184-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m2[39m 2005LII     2002-2006   2002-2006_T16291       0.053[4m2[24m </span></span>
+<span id="cb184-8"><a href="similarity.html#cb184-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m3[39m 2007CLXVIII 2006-2010   2006-2010_T04678       0.027[4m0[24m </span></span>
+<span id="cb184-9"><a href="similarity.html#cb184-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m4[39m 2010CLV     2010-2014   2010-2014_T01809       0.027[4m3[24m </span></span>
+<span id="cb184-10"><a href="similarity.html#cb184-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m5[39m 2012CXCV    2010-2014   2010-2014_T09103       0.008[4m9[24m[4m5[24m</span></span></code></pre></div>
 <p>Láthatjuk, hogy az öt leghasonlóbb törvény–törvényjavaslat pár esetén 0.98 felett van a Jaccard hasonlóság értéke, míg a leginkább különböző ötnél 0.03 alatt.</p>
 </div>
 <div id="a-koszinusz-hasonlóság-számítás" class="section level2" number="10.7">
@@ -516,18 +515,12 @@ Jaccard(doc_{1}, doc_{2}) = \frac{doc_{1}\,\cap \, doc_{2}}{doc1 \, \cup \, doc2
 <p>Érdmes itt is megtekinteni a mátrix első néhány sorába és oszlopába eső értékeket.</p>
 <div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="similarity.html#cb186-1" aria-hidden="true" tabindex="-1"></a>koszinusz_hasonlosag[<span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span>]</span>
 <span id="cb186-2"><a href="similarity.html#cb186-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 x 5 Matrix of class &quot;dgeMatrix&quot;</span></span>
-<span id="cb186-3"><a href="similarity.html#cb186-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            text1       text2       text3       text4</span></span>
-<span id="cb186-4"><a href="similarity.html#cb186-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1 0.61881872 0.015832786 0.016163982 0.014361259</span></span>
-<span id="cb186-5"><a href="similarity.html#cb186-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text2 0.01051437 0.928929092 0.006185991 0.045378617</span></span>
-<span id="cb186-6"><a href="similarity.html#cb186-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text3 0.01484353 0.007634593 0.984988124 0.005659447</span></span>
-<span id="cb186-7"><a href="similarity.html#cb186-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text4 0.01845665 0.050139950 0.005569874 0.960631668</span></span>
-<span id="cb186-8"><a href="similarity.html#cb186-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text5 0.07399905 0.006867184 0.002846785 0.017476290</span></span>
-<span id="cb186-9"><a href="similarity.html#cb186-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             text5</span></span>
-<span id="cb186-10"><a href="similarity.html#cb186-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1 0.055145416</span></span>
-<span id="cb186-11"><a href="similarity.html#cb186-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text2 0.007042933</span></span>
-<span id="cb186-12"><a href="similarity.html#cb186-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text3 0.001826568</span></span>
-<span id="cb186-13"><a href="similarity.html#cb186-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text4 0.018335364</span></span>
-<span id="cb186-14"><a href="similarity.html#cb186-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text5 0.753752459</span></span></code></pre></div>
+<span id="cb186-3"><a href="similarity.html#cb186-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            text1       text2       text3       text4       text5</span></span>
+<span id="cb186-4"><a href="similarity.html#cb186-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1 0.61881872 0.015832786 0.016163982 0.014361259 0.055145416</span></span>
+<span id="cb186-5"><a href="similarity.html#cb186-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text2 0.01051437 0.928929092 0.006185991 0.045378617 0.007042933</span></span>
+<span id="cb186-6"><a href="similarity.html#cb186-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text3 0.01484353 0.007634593 0.984988124 0.005659447 0.001826568</span></span>
+<span id="cb186-7"><a href="similarity.html#cb186-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text4 0.01845665 0.050139950 0.005569874 0.960631668 0.018335364</span></span>
+<span id="cb186-8"><a href="similarity.html#cb186-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text5 0.07399905 0.006867184 0.002846785 0.017476290 0.753752459</span></span></code></pre></div>
 <p>Ebben az esetben is csak a mátrix diagonáljára van szükségünk, melyet a fent ismertetett módon nyerünk ki a mátrixból.</p>
 <div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="similarity.html#cb187-1" aria-hidden="true" tabindex="-1"></a>koszinusz_diag <span class="ot">&lt;-</span> <span class="fu">diag</span>(<span class="fu">as.matrix</span>(koszinusz_hasonlosag))</span>
 <span id="cb187-2"><a href="similarity.html#cb187-2" aria-hidden="true" tabindex="-1"></a>koszinusz_diag[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
@@ -536,9 +529,9 @@ Jaccard(doc_{1}, doc_{2}) = \frac{doc_{1}\,\cap \, doc_{2}}{doc1 \, \cup \, doc2
 <p>Végezetül pedig a diagonálból kinyert koszinusz értékeket is hozzárendeljük az adatbázisunkhoz.</p>
 <div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="similarity.html#cb188-1" aria-hidden="true" tabindex="-1"></a>tv_tvjav_minta<span class="sc">$</span>koszinusz <span class="ot">&lt;-</span> koszinusz_diag</span></code></pre></div>
 <div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="similarity.html#cb189-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(tv_tvjav_minta)</span>
-<span id="cb189-2"><a href="similarity.html#cb189-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;tv_id&quot;          &quot;torveny_szoveg&quot; &quot;korm_ciklus&quot;   </span></span>
-<span id="cb189-3"><a href="similarity.html#cb189-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;ev&quot;             &quot;korm_ell&quot;       &quot;tvjav_id&quot;      </span></span>
-<span id="cb189-4"><a href="similarity.html#cb189-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [7] &quot;tvjav_szoveg&quot;   &quot;jaccard_index&quot;  &quot;koszinusz&quot;</span></span></code></pre></div>
+<span id="cb189-2"><a href="similarity.html#cb189-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;tv_id&quot;          &quot;torveny_szoveg&quot; &quot;korm_ciklus&quot;    &quot;ev&quot;            </span></span>
+<span id="cb189-3"><a href="similarity.html#cb189-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;korm_ell&quot;       &quot;tvjav_id&quot;       &quot;tvjav_szoveg&quot;   &quot;jaccard_index&quot; </span></span>
+<span id="cb189-4"><a href="similarity.html#cb189-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [9] &quot;koszinusz&quot;</span></span></code></pre></div>
 </div>
 <div id="az-eredmények-vizualizációja" class="section level2" number="10.8">
 <h2><span class="header-section-number">10.8</span> Az eredmények vizualizációja</h2>
@@ -551,9 +544,9 @@ Jaccard(doc_{1}, doc_{2}) = \frac{doc_{1}\,\cap \, doc_{2}}{doc1 \, \cup \, doc2
 <span id="cb190-6"><a href="similarity.html#cb190-6" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(koszinusz_df)</span>
 <span id="cb190-7"><a href="similarity.html#cb190-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 10,000</span></span>
 <span id="cb190-8"><a href="similarity.html#cb190-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 3</span></span>
-<span id="cb190-9"><a href="similarity.html#cb190-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ docs1      &lt;chr&gt; &quot;text501&quot;, &quot;text501&quot;, &quot;text501&quot;, &quot;text50...</span></span>
-<span id="cb190-10"><a href="similarity.html#cb190-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ docs2      &lt;chr&gt; &quot;text501&quot;, &quot;text502&quot;, &quot;text503&quot;, &quot;text50...</span></span>
-<span id="cb190-11"><a href="similarity.html#cb190-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ similarity &lt;dbl&gt; 0.956008320, 0.022967812, 0.042582749, 0...</span></span></code></pre></div>
+<span id="cb190-9"><a href="similarity.html#cb190-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ docs1      [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;text501&quot;, &quot;text501&quot;, &quot;text501&quot;, &quot;text501&quot;, &quot;text501&quot;, &quot;text~</span></span>
+<span id="cb190-10"><a href="similarity.html#cb190-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ docs2      [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;text501&quot;, &quot;text502&quot;, &quot;text503&quot;, &quot;text504&quot;, &quot;text505&quot;, &quot;text~</span></span>
+<span id="cb190-11"><a href="similarity.html#cb190-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ similarity [3m[38;5;246m&lt;dbl&gt;[39m[23m 0.956008320, 0.022967812, 0.042582749, 0.028090268, 0.009058~</span></span></code></pre></div>
 <p>Ezt követően pedig a <code>ggplot</code> függvényt használva a <code>geom_tile</code> segítségével tudjuk elkészíteni a hőtérképet ami a hasonlósági mátrixot ábrázolja.</p>
 <div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="similarity.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(koszinusz_df, <span class="fu">aes</span>(docs1, docs2, <span class="at">fill =</span> similarity)) <span class="sc">+</span></span>
 <span id="cb191-2"><a href="similarity.html#cb191-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
@@ -569,11 +562,11 @@ Jaccard(doc_{1}, doc_{2}) = \frac{doc_{1}\,\cap \, doc_{2}}{doc1 \, \cup \, doc2
 <span id="cb191-12"><a href="similarity.html#cb191-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb191-13"><a href="similarity.html#cb191-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.y=</span><span class="fu">element_blank</span>()</span>
 <span id="cb191-14"><a href="similarity.html#cb191-14" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-207"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-212"></span>
 <p class="caption">
 Figure 10.1: A koszinusz hasonlósági hotérkép
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-207-1.png" alt="A koszinusz hasonlósági hotérkép" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-212-1.png" alt="A koszinusz hasonlósági hotérkép" width="90%" />
 </div>
 <p>A Jaccard hasonlósági hőtérképet ugyanezzel a módszerrel tudjuk elkészíteni.</p>
 <div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="similarity.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="co"># adatok átalakítása</span></span>
@@ -597,11 +590,11 @@ Figure 10.1: A koszinusz hasonlósági hotérkép
 <span id="cb192-19"><a href="similarity.html#cb192-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y=</span><span class="fu">element_blank</span>(),</span>
 <span id="cb192-20"><a href="similarity.html#cb192-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.y=</span><span class="fu">element_blank</span>()</span>
 <span id="cb192-21"><a href="similarity.html#cb192-21" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-208"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-213"></span>
 <p class="caption">
 Figure 10.2: A Jaccard hasonlósági hotérkép
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-208-1.png" alt="A Jaccard hasonlósági hotérkép" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-213-1.png" alt="A Jaccard hasonlósági hotérkép" width="90%" />
 </div>
 <p>A két plot összehasonlításánál láthatjuk, hogy a koszinusz hasonlóság általában magasabb hasonlósági értékeket mutat. A mátrix főátlójában kiugró világos csík azt mutatja meg, hogy a legnagyobb hasonlóság az összetartozó törvény-törvényjavaslat szövegek között mutatkozik meg, eddig tehát az adataink az elvárásaink szerinti képet mutatják. Amennyiben a világos csíkot nem látnánk, az egyértelmű visszajelzés volna arról, hogy elrontottunk valamit a szövegelőkészítés eddigi lépéseinek során, vagy a várakozásásaink voltak teljesen rosszak.</p>
 <p>A koszinusz és a Jaccard hasonlóság értékét ábrázolhatjuk közös pontdiagrammon a <code>geom_jitter()</code> segítségével. Ehhez először egy kicsit átalakítjuk a data frame-t a <code>tidyr</code> csomag <code>pivot_longer()</code> függvényével, hogy a két hasonlósági érték egy oszlopban legyen. Ez azért szükséges, hogy a <code>ggplot</code> ábránkat könnyebben tudjuk létrehozni.</p>
@@ -611,15 +604,15 @@ Figure 10.2: A Jaccard hasonlósági hotérkép
 <span id="cb193-4"><a href="similarity.html#cb193-4" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(tv_tvjav_tidy)</span>
 <span id="cb193-5"><a href="similarity.html#cb193-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 1,200</span></span>
 <span id="cb193-6"><a href="similarity.html#cb193-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 9</span></span>
-<span id="cb193-7"><a href="similarity.html#cb193-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ tv_id            &lt;chr&gt; &quot;1994LXXXII&quot;, &quot;1994LXXXII&quot;, &quot;1996C...</span></span>
-<span id="cb193-8"><a href="similarity.html#cb193-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ torveny_szoveg   &lt;chr&gt; &quot;évi lxxxii törvény a magánszemély...</span></span>
-<span id="cb193-9"><a href="similarity.html#cb193-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ korm_ciklus      &lt;chr&gt; &quot;1994-1998&quot;, &quot;1994-1998&quot;, &quot;1994-19...</span></span>
-<span id="cb193-10"><a href="similarity.html#cb193-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ev               &lt;dbl&gt; 1994, 1994, 1996, 1996, 1995, 1995...</span></span>
-<span id="cb193-11"><a href="similarity.html#cb193-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ korm_ell         &lt;dbl&gt; 900, 900, 900, 900, 900, 900, 900,...</span></span>
-<span id="cb193-12"><a href="similarity.html#cb193-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ tvjav_id         &lt;chr&gt; &quot;1994-1998_T0233&quot;, &quot;1994-1998_T023...</span></span>
-<span id="cb193-13"><a href="similarity.html#cb193-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ tvjav_szoveg     &lt;chr&gt; &quot;magyar köztársaság kormánya t szá...</span></span>
-<span id="cb193-14"><a href="similarity.html#cb193-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ hasonlosag_tipus &lt;chr&gt; &quot;jaccard_index&quot;, &quot;koszinusz&quot;, &quot;jac...</span></span>
-<span id="cb193-15"><a href="similarity.html#cb193-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ hasonlosag       &lt;dbl&gt; 0.5540775, 0.6188187, 0.5718157, 0...</span></span></code></pre></div>
+<span id="cb193-7"><a href="similarity.html#cb193-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ tv_id            [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;1994LXXXII&quot;, &quot;1994LXXXII&quot;, &quot;1996CXXXI&quot;, &quot;1996CXXXI&quot;, ~</span></span>
+<span id="cb193-8"><a href="similarity.html#cb193-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ torveny_szoveg   [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;évi lxxxii törvény a magánszemélyek jövedelemadójáról~</span></span>
+<span id="cb193-9"><a href="similarity.html#cb193-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ korm_ciklus      [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;1994-1998&quot;, &quot;1994-1998&quot;, &quot;1994-1998&quot;, &quot;1994-1998&quot;, &quot;1~</span></span>
+<span id="cb193-10"><a href="similarity.html#cb193-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ ev               [3m[38;5;246m&lt;dbl&gt;[39m[23m 1994, 1994, 1996, 1996, 1995, 1995, 1995, 1995, 1996, ~</span></span>
+<span id="cb193-11"><a href="similarity.html#cb193-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ korm_ell         [3m[38;5;246m&lt;dbl&gt;[39m[23m 900, 900, 900, 900, 900, 900, 900, 900, 900, 900, 900,~</span></span>
+<span id="cb193-12"><a href="similarity.html#cb193-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ tvjav_id         [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;1994-1998_T0233&quot;, &quot;1994-1998_T0233&quot;, &quot;1994-1998_T3167~</span></span>
+<span id="cb193-13"><a href="similarity.html#cb193-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ tvjav_szoveg     [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;magyar köztársaság kormánya t számú törvényjavaslat a~</span></span>
+<span id="cb193-14"><a href="similarity.html#cb193-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ hasonlosag_tipus [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;jaccard_index&quot;, &quot;koszinusz&quot;, &quot;jaccard_index&quot;, &quot;koszin~</span></span>
+<span id="cb193-15"><a href="similarity.html#cb193-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ hasonlosag       [3m[38;5;246m&lt;dbl&gt;[39m[23m 0.5540775, 0.6188187, 0.5718157, 0.9289291, 0.7287671,~</span></span></code></pre></div>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="similarity.html#cb194-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tv_tvjav_tidy, <span class="fu">aes</span>(ev, hasonlosag))<span class="sc">+</span>                  </span>
 <span id="cb194-2"><a href="similarity.html#cb194-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">shape =</span> hasonlosag_tipus, <span class="at">color =</span> hasonlosag_tipus), <span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.45</span>) <span class="sc">+</span></span>
 <span id="cb194-3"><a href="similarity.html#cb194-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1994</span>, <span class="dv">2018</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span></span>
@@ -632,11 +625,11 @@ Figure 10.2: A Jaccard hasonlósági hotérkép
 <span id="cb194-10"><a href="similarity.html#cb194-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb194-11"><a href="similarity.html#cb194-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb194-12"><a href="similarity.html#cb194-12" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-210"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-215"></span>
 <p class="caption">
 Figure 10.3: Évenkénti hasonlóság a dokumentumok között
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-210-1.png" alt="Évenkénti hasonlóság a dokumentumok között" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-215-1.png" alt="Évenkénti hasonlóság a dokumentumok között" width="90%" />
 </div>
 <p>A hasonlósági értékek évenkénti alakulásának megértése érdekében érdemes átlagot számolni a mutatókra. Ezt a <code>group_by()</code> és a <code>summarize()</code> függvények együttes alkalmazásával tehetjük meg. Megadjuk, hogy évenkénti bontásban szeretnénk a számításainkat elvégezni <code>group_by(ev)</code>, és azt, hogy átlag számítást szeretnénk végezni <code>mean()</code>.</p>
 <div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="similarity.html#cb195-1" aria-hidden="true" tabindex="-1"></a>evenkenti_atlag <span class="ot">&lt;-</span> tv_tvjav_tidy <span class="sc">%&gt;%</span> </span>
@@ -644,16 +637,16 @@ Figure 10.3: Évenkénti hasonlóság a dokumentumok között
 <span id="cb195-3"><a href="similarity.html#cb195-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">atl_hasonlosag =</span> <span class="fu">mean</span>(hasonlosag))</span>
 <span id="cb195-4"><a href="similarity.html#cb195-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb195-5"><a href="similarity.html#cb195-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(evenkenti_atlag)</span>
-<span id="cb195-6"><a href="similarity.html#cb195-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 6 x 3</span></span>
-<span id="cb195-7"><a href="similarity.html#cb195-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Groups:   ev [3]</span></span>
+<span id="cb195-6"><a href="similarity.html#cb195-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;246m# A tibble: 6 x 3[39m</span></span>
+<span id="cb195-7"><a href="similarity.html#cb195-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;246m# Groups:   ev [3][39m</span></span>
 <span id="cb195-8"><a href="similarity.html#cb195-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      ev hasonlosag_tipus atl_hasonlosag</span></span>
-<span id="cb195-9"><a href="similarity.html#cb195-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;                     &lt;dbl&gt;</span></span>
-<span id="cb195-10"><a href="similarity.html#cb195-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1994 jaccard_index             0.556</span></span>
-<span id="cb195-11"><a href="similarity.html#cb195-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  1994 koszinusz                 0.757</span></span>
-<span id="cb195-12"><a href="similarity.html#cb195-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  1995 jaccard_index             0.499</span></span>
-<span id="cb195-13"><a href="similarity.html#cb195-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  1995 koszinusz                 0.776</span></span>
-<span id="cb195-14"><a href="similarity.html#cb195-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  1996 jaccard_index             0.675</span></span>
-<span id="cb195-15"><a href="similarity.html#cb195-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  1996 koszinusz                 0.880</span></span></code></pre></div>
+<span id="cb195-9"><a href="similarity.html#cb195-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m                     [3m[38;5;246m&lt;dbl&gt;[39m[23m</span></span>
+<span id="cb195-10"><a href="similarity.html#cb195-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m1[39m  [4m1[24m994 jaccard_index             0.556</span></span>
+<span id="cb195-11"><a href="similarity.html#cb195-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m2[39m  [4m1[24m994 koszinusz                 0.757</span></span>
+<span id="cb195-12"><a href="similarity.html#cb195-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m3[39m  [4m1[24m995 jaccard_index             0.499</span></span>
+<span id="cb195-13"><a href="similarity.html#cb195-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m4[39m  [4m1[24m995 koszinusz                 0.776</span></span>
+<span id="cb195-14"><a href="similarity.html#cb195-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m5[39m  [4m1[24m996 jaccard_index             0.675</span></span>
+<span id="cb195-15"><a href="similarity.html#cb195-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m6[39m  [4m1[24m996 koszinusz                 0.880</span></span></code></pre></div>
 <p>Az évenkénti átlagot tartalmazó adattáblánkara ezt követően vonal diagramot illesztünk.</p>
 <div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="similarity.html#cb196-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(evenkenti_atlag, <span class="fu">aes</span>(ev, atl_hasonlosag)) <span class="sc">+</span></span>
 <span id="cb196-2"><a href="similarity.html#cb196-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">linetype =</span> hasonlosag_tipus)) <span class="sc">+</span></span>
@@ -665,11 +658,11 @@ Figure 10.3: Évenkénti hasonlóság a dokumentumok között
 <span id="cb196-8"><a href="similarity.html#cb196-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
 <span id="cb196-9"><a href="similarity.html#cb196-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor.x =</span> <span class="fu">element_blank</span>()</span>
 <span id="cb196-10"><a href="similarity.html#cb196-10" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-212"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-217"></span>
 <p class="caption">
 Figure 10.4: Évenkénti átlagos hasonlóság alakulása
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-212-1.png" alt="Évenkénti átlagos hasonlóság alakulása" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-217-1.png" alt="Évenkénti átlagos hasonlóság alakulása" width="90%" />
 </div>
 <p>Ahhoz, hogy valamivel pontosabb képet kapjunk a Jaccard index értékének alakulásáról, érdemes vizualizálni a <code>ggplot2</code> segítségével. Elsőként évenkénti bontásban ábrázoljuk a Jaccard index értékének alakulását. A <code>ggplot</code> magától csak néhány értéket rendelne az x tengelyhez feliratként, amit átállíthatunk a <code>scale_x_continuous()</code> fügvénnyel és a <code>breaks</code> paraméterrel tudjukaz adatfeliratok helyét specifikálni.</p>
 <div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="similarity.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tv_tvjav_minta, <span class="fu">aes</span>(ev, jaccard_index)) <span class="sc">+</span></span>
@@ -679,11 +672,11 @@ Figure 10.4: Évenkénti átlagos hasonlóság alakulása
 <span id="cb197-5"><a href="similarity.html#cb197-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
 <span id="cb197-6"><a href="similarity.html#cb197-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Jaccard hasonlóság&quot;</span></span>
 <span id="cb197-7"><a href="similarity.html#cb197-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-213"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-218"></span>
 <p class="caption">
 Figure 10.5: Évenkénti Jaccard hasonlóság
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-213-1.png" alt="Évenkénti Jaccard hasonlóság" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-218-1.png" alt="Évenkénti Jaccard hasonlóság" width="90%" />
 </div>
 <p>A pontdiagram látványos, de esetünkben kevés érdemi információ derül ki róla. A második ábránkon boxplotokkal fogjuk ábrázolni a Jaccard hasonlóság alakulását.</p>
 <div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="similarity.html#cb198-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tv_tvjav_minta, <span class="fu">aes</span>(<span class="fu">as.factor</span>(ev), jaccard_index)) <span class="sc">+</span></span>
@@ -696,11 +689,11 @@ Figure 10.5: Évenkénti Jaccard hasonlóság
 <span id="cb198-8"><a href="similarity.html#cb198-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>),</span>
 <span id="cb198-9"><a href="similarity.html#cb198-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span></span>
 <span id="cb198-10"><a href="similarity.html#cb198-10" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-214"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-219"></span>
 <p class="caption">
 Figure 10.6: Évenkénti Jaccard hasonlóság, boxplotokkal
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-214-1.png" alt="Évenkénti Jaccard hasonlóság, boxplotokkal" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-219-1.png" alt="Évenkénti Jaccard hasonlóság, boxplotokkal" width="90%" />
 </div>
 <p>Az ábrán szembetűnő a 2003-as év kiugróan alacsony értéke, azonban itt érdemes figyelembe venni – ami a pontdiagramról is leolvasható –, hogy 2003-ra csupán 2 adatpont áll rendelkezésre. A legalacsonyabb Jaccard hasonlóság talán az 1994–1998-as időszakra jellemző, míg a 2014–2018-as iőszakra szembetűnően magas Jaccard értékeket látunk az első ábrázolt ciklushoz képest. Összességében nehéz trendet látni az ábrán, de érdemes azt is megjegyezni, hogy a negatív irányba kiugró adatpontok a 2014–2018-as ciklusban jelentősen nagyobb arányban tűnnek fel, mint a korábbi kormányzati ciklusok alatt.</p>
 <p>Végezetül pedig ábrázolhatjuk a Jaccard hasonlóságot a benyújtó személye alapján is a <code>korm_ell</code> változónk alapján. A változók értékei a következők a <a href="https://docs.google.com/document/d/11AwjQiRNbMifBaBnbgo2MpWR00-03VEjb63FgPUy6VA/edit#heading=h.cx672ghhctgs">CAP kódkönyve alapján</a>:</p>
@@ -734,11 +727,11 @@ Figure 10.6: Évenkénti Jaccard hasonlóság, boxplotokkal
 <span id="cb200-8"><a href="similarity.html#cb200-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Jaccard hasonlóság&quot;</span>,</span>
 <span id="cb200-9"><a href="similarity.html#cb200-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span></span>
 <span id="cb200-10"><a href="similarity.html#cb200-10" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-216"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-221"></span>
 <p class="caption">
 Figure 10.7: Beterjeszto szerinti Jaccard hasonlóság
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-216-1.png" alt="Beterjeszto szerinti Jaccard hasonlóság" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-221-1.png" alt="Beterjeszto szerinti Jaccard hasonlóság" width="90%" />
 </div>
 <p>Mivel a törvényjavaslatok túlnyomó többségét a kabinet tagjai nyújtják be, nem igazán tudunk érdemi következtetéseket levonni arra vonatkozóan, hogy az ellenzéki vagy a kormánypárti képviselők által benyújtott javaslatok módosulnak-e többet a vita folyamán. Amennyiben ezzel a kérdéssel alaposabban is szeretnénk foglalkozni, érdemes csak azokat a sorokat kiválasztani a hasonlóság-számításhoz, amelyekben a számunkra releváns megfigyelések szerepelnek. Ha azonban ezt az eljárást választjuk, mindenképpen fontos odafigyelni arra is, hogy az elemzésben használandó megfigyelések kiválogatása nehogy szelektív legyen valamely nem megfigyelt változó szempontjából, ezzel befolyásolva a kutatás eredményeit.</p>
 
