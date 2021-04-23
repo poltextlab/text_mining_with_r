@@ -17,27 +17,8 @@ bibliography: references.bib
 
 ```{r echo=FALSE, eval=FALSE}
 
-#latex_document: default
-
-# run this chunk in the console to build the book and clean up junk
-
 # (1)
 bookdown::render_book('index.Rmd', 'all')
-
-# (2)
-# for akos only: 
-# source('latex_export.r')
-
-# for linebreaks in code and output
- tidy = TRUE, tidy.opts=list(width.cutoff=80)
-
-# (3)
-# bookdown::clean_book(TRUE)
-
-output:
-  bookdown::gitbook: default 
-  latex_document: default
-  bookdown::word_document2: default
 
 ```
 

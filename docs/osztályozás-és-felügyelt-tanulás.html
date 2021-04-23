@@ -357,13 +357,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>De térjünk még vissza eredményeinkhez és vizsgáljuk meg őket közpolitikai kódonként is! Itt is látható, hogy 83 cikkre jeleztük előre helyesen az 1-es kódot.</p>
 <div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Data_NOL_predictions<span class="sc">$</span>predictions_label, Data_NOL_predictions<span class="sc">$</span>majortopic_code)</span>
 <span id="cb245-2"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    </span></span>
-<span id="cb245-3"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       1   2   3   4   5   6   7   8   9  10  12  13  14  15  16  17  18  19  20</span></span>
-<span id="cb245-4"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   0 114  18  49  16  21  35   7  15   5  38  48  17   7  26  27  36   4 290  80</span></span>
-<span id="cb245-5"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   1  94   4  10  12  11   7   3   9   2  12  12   5   8  10   5   1   2  25  23</span></span>
+<span id="cb245-3"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       1   2   3   4   5   6   7   8   9  10  12  13  14  15  16  17  18  19  20  21  23</span></span>
+<span id="cb245-4"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   0 114  18  49  16  21  35   7  15   5  38  48  17   7  26  27  36   4 290  80   4  14</span></span>
+<span id="cb245-5"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   1  94   4  10  12  11   7   3   9   2  12  12   5   8  10   5   1   2  25  23   0   0</span></span>
 <span id="cb245-6"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    </span></span>
-<span id="cb245-7"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      21  23  26  27  28  29  31  33  34  35  36  99</span></span>
-<span id="cb245-8"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   0   4  14  12   8  80 116  11  58   8  27   8   1</span></span>
-<span id="cb245-9"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   1   0   0   3   1  11  10   0  13   2   5   0   0</span></span></code></pre></div>
+<span id="cb245-7"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      26  27  28  29  31  33  34  35  36  99</span></span>
+<span id="cb245-8"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   0  12   8  80 116  11  58   8  27   8   1</span></span>
+<span id="cb245-9"><a href="osztályozás-és-felügyelt-tanulás.html#cb245-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   1   3   1  11  10   0  13   2   5   0   0</span></span></code></pre></div>
 <p>Végezetül előrejelzéseinket ezek kódonkénti gyakorisága szempontjából ábrázoljuk.</p>
 <div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="osztályozás-és-felügyelt-tanulás.html#cb246-1" aria-hidden="true" tabindex="-1"></a>ggplot_data <span class="ot">&lt;-</span> Data_NOL_predictions[,<span class="fu">c</span>(<span class="st">&quot;majortopic_code&quot;</span>,<span class="st">&quot;predictions_label&quot;</span>)]</span>
 <span id="cb246-2"><a href="osztályozás-és-felügyelt-tanulás.html#cb246-2" aria-hidden="true" tabindex="-1"></a>ggplot_data<span class="sc">$</span>predictions_label <span class="ot">&lt;-</span> <span class="fu">factor</span>(ggplot_data<span class="sc">$</span>predictions_label)</span></code></pre></div>
@@ -375,11 +375,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb248-2"><a href="osztályozás-és-felügyelt-tanulás.html#cb248-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(, <span class="at">stat =</span> <span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
 <span id="cb248-3"><a href="osztályozás-és-felügyelt-tanulás.html#cb248-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
 <span id="cb248-4"><a href="osztályozás-és-felügyelt-tanulás.html#cb248-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-273"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-268"></span>
 <p class="caption">
 Figure 12.1: Az SVM modell klasszifikációs eredményei
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-273-1.png" alt="Az SVM modell klasszifikációs eredményei" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-268-1.png" alt="Az SVM modell klasszifikációs eredményei" width="90%" />
 </div>
 
 </div>

@@ -302,11 +302,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb44-15"><a href="leiro-stat.html#cb44-15" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(texts)</span>
 <span id="cb44-16"><a href="leiro-stat.html#cb44-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Rows: 8</span></span>
 <span id="cb44-17"><a href="leiro-stat.html#cb44-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Columns: 5</span></span>
-<span id="cb44-18"><a href="leiro-stat.html#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ doc_id    [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;antall_jozsef_1990&quot;, &quot;bajnai_gordon_2009&quot;, &quot;boross_peter_199~</span></span>
-<span id="cb44-19"><a href="leiro-stat.html#cb44-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ text      [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;Elnök Úr! Tisztelt Országgyulés! Hölgyeim és Uraim! Honfitár~</span></span>
-<span id="cb44-20"><a href="leiro-stat.html#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ mineln    [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;antall_jozsef&quot;, &quot;bajnai_gordon&quot;, &quot;boross_peter&quot;, &quot;gyurcsany_~</span></span>
-<span id="cb44-21"><a href="leiro-stat.html#cb44-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ partoldal [3m[38;5;246m&lt;chr&gt;[39m[23m &quot;jobb&quot;, &quot;bal&quot;, &quot;jobb&quot;, &quot;bal&quot;, &quot;bal&quot;, &quot;bal&quot;, &quot;jobb&quot;, &quot;jobb&quot;</span></span>
-<span id="cb44-22"><a href="leiro-stat.html#cb44-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ year      [3m[38;5;246m&lt;dbl&gt;[39m[23m 1990, 2009, 1993, 2005, 1994, 2002, 1995, 2018</span></span></code></pre></div>
+<span id="cb44-18"><a href="leiro-stat.html#cb44-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ doc_id    &lt;chr&gt; &quot;antall_jozsef_1990&quot;, &quot;bajnai_gordon_2009&quot;, &quot;boross_peter_1993&quot;, &quot;gy~</span></span>
+<span id="cb44-19"><a href="leiro-stat.html#cb44-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ text      &lt;chr&gt; &quot;Elnök Úr! Tisztelt Országgyulés! Hölgyeim és Uraim! Honfitársaim! Ü~</span></span>
+<span id="cb44-20"><a href="leiro-stat.html#cb44-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ mineln    &lt;chr&gt; &quot;antall_jozsef&quot;, &quot;bajnai_gordon&quot;, &quot;boross_peter&quot;, &quot;gyurcsany_ferenc&quot;~</span></span>
+<span id="cb44-21"><a href="leiro-stat.html#cb44-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ partoldal &lt;chr&gt; &quot;jobb&quot;, &quot;bal&quot;, &quot;jobb&quot;, &quot;bal&quot;, &quot;bal&quot;, &quot;bal&quot;, &quot;jobb&quot;, &quot;jobb&quot;</span></span>
+<span id="cb44-22"><a href="leiro-stat.html#cb44-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $ year      &lt;dbl&gt; 1990, 2009, 1993, 2005, 1994, 2002, 1995, 2018</span></span></code></pre></div>
 <p>Ezt követően a további lépések elvégzéséhez létrehozzuk a <code>quanteda</code> korpuszt, majd a <code>summary()</code> függvény segítségével megtekinthetjük a korpusz alapvető statisztikai jellemzőit. Láthatjuk például, hogy az egyes dokumentumok hány tokenből vagy mondatból állnak.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="leiro-stat.html#cb45-1" aria-hidden="true" tabindex="-1"></a>corpus_mineln <span class="ot">&lt;-</span> <span class="fu">corpus</span>(texts)</span>
 <span id="cb45-2"><a href="leiro-stat.html#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -355,11 +355,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb47-6"><a href="leiro-stat.html#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">min_wordc =</span> <span class="fu">min</span>(Tokens), </span>
 <span id="cb47-7"><a href="leiro-stat.html#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">max_wordc =</span> <span class="fu">max</span>(Tokens)</span>
 <span id="cb47-8"><a href="leiro-stat.html#cb47-8" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<pre><code>#&gt; [38;5;246m# A tibble: 2 x 5[39m
+<pre><code>#&gt; # A tibble: 2 x 5
 #&gt;   partoldal mean_wordcount std_dev min_wordc max_wordc
-#&gt;   [3m[38;5;246m&lt;chr&gt;[39m[23m              [3m[38;5;246m&lt;dbl&gt;[39m[23m   [3m[38;5;246m&lt;dbl&gt;[39m[23m     [3m[38;5;246m&lt;int&gt;[39m[23m     [3m[38;5;246m&lt;int&gt;[39m[23m
-#&gt; [38;5;250m1[39m bal                [4m5[24m070.   [4m3[24m561.      [4m2[24m362     [4m1[24m[4m0[24m267
-#&gt; [38;5;250m2[39m jobb               [4m4[24m710.   [4m3[24m271.      [4m1[24m976      [4m9[24m408</code></pre>
+#&gt;   &lt;chr&gt;              &lt;dbl&gt;   &lt;dbl&gt;     &lt;int&gt;     &lt;int&gt;
+#&gt; 1 bal                5070.   3561.      2362     10267
+#&gt; 2 jobb               4710.   3271.      1976      9408</code></pre>
 <p>A <code>textstat_collocations()</code> függvény segítségével szókapcsolatokat kereshetünk. A függvény argumentumai közül a <code>size</code> a szókapcsolatok hossza, a <code>min_count</code> pedig a minimális előfordulásuk száma. Miután a szókapcsolatokat megkerestük, közülük a korábban már megismert <code>head()</code> függvény segítségével tetszőleges számút megnézhetünk.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="leiro-stat.html#cb49-1" aria-hidden="true" tabindex="-1"></a>corpus_mineln <span class="sc">%&gt;%</span></span>
 <span id="cb49-2"><a href="leiro-stat.html#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textstat_collocations</span>(</span>
@@ -487,39 +487,39 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb55-2"><a href="leiro-stat.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textstat_lexdiv</span>(<span class="at">measure =</span> <span class="st">&quot;all&quot;</span>)</span>
 <span id="cb55-3"><a href="leiro-stat.html#cb55-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb55-4"><a href="leiro-stat.html#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(div_df[, <span class="dv">2</span><span class="sc">:</span><span class="dv">13</span>])</span>
-<span id="cb55-5"><a href="leiro-stat.html#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             TTR          C           R        CTTR           U           S</span></span>
-<span id="cb55-6"><a href="leiro-stat.html#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TTR   1.0000000  0.9709934 -0.64927227 -0.64927227  0.75866675  0.85148414</span></span>
-<span id="cb55-7"><a href="leiro-stat.html#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C     0.9709934  1.0000000 -0.44988787 -0.44988787  0.88841537  0.95162677</span></span>
-<span id="cb55-8"><a href="leiro-stat.html#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R    -0.6492723 -0.4498879  1.00000000  1.00000000 -0.02424963 -0.16264543</span></span>
-<span id="cb55-9"><a href="leiro-stat.html#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; CTTR -0.6492723 -0.4498879  1.00000000  1.00000000 -0.02424963 -0.16264543</span></span>
-<span id="cb55-10"><a href="leiro-stat.html#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; U     0.7586668  0.8884154 -0.02424963 -0.02424963  1.00000000  0.98430655</span></span>
-<span id="cb55-11"><a href="leiro-stat.html#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; S     0.8514841  0.9516268 -0.16264543 -0.16264543  0.98430655  1.00000000</span></span>
-<span id="cb55-12"><a href="leiro-stat.html#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; K     0.5991452  0.4294223 -0.83367217 -0.83367217  0.01275208  0.16142157</span></span>
-<span id="cb55-13"><a href="leiro-stat.html#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; I     0.2327750  0.3698611  0.26241321  0.26241321  0.58486310  0.52740696</span></span>
-<span id="cb55-14"><a href="leiro-stat.html#cb55-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; D     0.4013304  0.2514823 -0.65214634 -0.65214634 -0.10697212  0.01957486</span></span>
-<span id="cb55-15"><a href="leiro-stat.html#cb55-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Vm    0.3075452  0.1968097 -0.47355632 -0.47355632 -0.07691131  0.01930842</span></span>
-<span id="cb55-16"><a href="leiro-stat.html#cb55-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Maas -0.7882881 -0.9112332  0.05759202  0.05759202 -0.99701921 -0.99354677</span></span>
-<span id="cb55-17"><a href="leiro-stat.html#cb55-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lgV0  0.3571139  0.5682834  0.45841359  0.45841359  0.87598404  0.79330142</span></span>
-<span id="cb55-18"><a href="leiro-stat.html#cb55-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                K          I           D          Vm        Maas       lgV0</span></span>
-<span id="cb55-19"><a href="leiro-stat.html#cb55-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TTR   0.59914525  0.2327750  0.40133039  0.30754517 -0.78828811  0.3571139</span></span>
-<span id="cb55-20"><a href="leiro-stat.html#cb55-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C     0.42942231  0.3698611  0.25148227  0.19680971 -0.91123321  0.5682834</span></span>
-<span id="cb55-21"><a href="leiro-stat.html#cb55-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R    -0.83367217  0.2624132 -0.65214634 -0.47355632  0.05759202  0.4584136</span></span>
-<span id="cb55-22"><a href="leiro-stat.html#cb55-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; CTTR -0.83367217  0.2624132 -0.65214634 -0.47355632  0.05759202  0.4584136</span></span>
-<span id="cb55-23"><a href="leiro-stat.html#cb55-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; U     0.01275208  0.5848631 -0.10697212 -0.07691131 -0.99701921  0.8759840</span></span>
-<span id="cb55-24"><a href="leiro-stat.html#cb55-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; S     0.16142157  0.5274070  0.01957486  0.01930842 -0.99354677  0.7933014</span></span>
-<span id="cb55-25"><a href="leiro-stat.html#cb55-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; K     1.00000000 -0.5873634  0.94208077  0.84481216 -0.06058855 -0.4082192</span></span>
-<span id="cb55-26"><a href="leiro-stat.html#cb55-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; I    -0.58736335  1.0000000 -0.77504336 -0.82248673 -0.56958764  0.6634351</span></span>
-<span id="cb55-27"><a href="leiro-stat.html#cb55-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; D     0.94208077 -0.7750434  1.00000000  0.96943443  0.06563582 -0.4269281</span></span>
-<span id="cb55-28"><a href="leiro-stat.html#cb55-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Vm    0.84481216 -0.8224867  0.96943443  1.00000000  0.04532617 -0.3156220</span></span>
-<span id="cb55-29"><a href="leiro-stat.html#cb55-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Maas -0.06058855 -0.5695876  0.06563582  0.04532617  1.00000000 -0.8557245</span></span>
-<span id="cb55-30"><a href="leiro-stat.html#cb55-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lgV0 -0.40821917  0.6634351 -0.42692805 -0.31562199 -0.85572445  1.0000000</span></span></code></pre></div>
+<span id="cb55-5"><a href="leiro-stat.html#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             TTR          C           R        CTTR           U           S           K</span></span>
+<span id="cb55-6"><a href="leiro-stat.html#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TTR   1.0000000  0.9709934 -0.64927227 -0.64927227  0.75866675  0.85148414  0.59914525</span></span>
+<span id="cb55-7"><a href="leiro-stat.html#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C     0.9709934  1.0000000 -0.44988787 -0.44988787  0.88841537  0.95162677  0.42942231</span></span>
+<span id="cb55-8"><a href="leiro-stat.html#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R    -0.6492723 -0.4498879  1.00000000  1.00000000 -0.02424963 -0.16264543 -0.83367217</span></span>
+<span id="cb55-9"><a href="leiro-stat.html#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; CTTR -0.6492723 -0.4498879  1.00000000  1.00000000 -0.02424963 -0.16264543 -0.83367217</span></span>
+<span id="cb55-10"><a href="leiro-stat.html#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; U     0.7586668  0.8884154 -0.02424963 -0.02424963  1.00000000  0.98430655  0.01275208</span></span>
+<span id="cb55-11"><a href="leiro-stat.html#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; S     0.8514841  0.9516268 -0.16264543 -0.16264543  0.98430655  1.00000000  0.16142157</span></span>
+<span id="cb55-12"><a href="leiro-stat.html#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; K     0.5991452  0.4294223 -0.83367217 -0.83367217  0.01275208  0.16142157  1.00000000</span></span>
+<span id="cb55-13"><a href="leiro-stat.html#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; I     0.2327750  0.3698611  0.26241321  0.26241321  0.58486310  0.52740696 -0.58736335</span></span>
+<span id="cb55-14"><a href="leiro-stat.html#cb55-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; D     0.4013304  0.2514823 -0.65214634 -0.65214634 -0.10697212  0.01957486  0.94208077</span></span>
+<span id="cb55-15"><a href="leiro-stat.html#cb55-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Vm    0.3075452  0.1968097 -0.47355632 -0.47355632 -0.07691131  0.01930842  0.84481216</span></span>
+<span id="cb55-16"><a href="leiro-stat.html#cb55-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Maas -0.7882881 -0.9112332  0.05759202  0.05759202 -0.99701921 -0.99354677 -0.06058855</span></span>
+<span id="cb55-17"><a href="leiro-stat.html#cb55-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lgV0  0.3571139  0.5682834  0.45841359  0.45841359  0.87598404  0.79330142 -0.40821917</span></span>
+<span id="cb55-18"><a href="leiro-stat.html#cb55-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;               I           D          Vm        Maas       lgV0</span></span>
+<span id="cb55-19"><a href="leiro-stat.html#cb55-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TTR   0.2327750  0.40133039  0.30754517 -0.78828811  0.3571139</span></span>
+<span id="cb55-20"><a href="leiro-stat.html#cb55-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C     0.3698611  0.25148227  0.19680971 -0.91123321  0.5682834</span></span>
+<span id="cb55-21"><a href="leiro-stat.html#cb55-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R     0.2624132 -0.65214634 -0.47355632  0.05759202  0.4584136</span></span>
+<span id="cb55-22"><a href="leiro-stat.html#cb55-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; CTTR  0.2624132 -0.65214634 -0.47355632  0.05759202  0.4584136</span></span>
+<span id="cb55-23"><a href="leiro-stat.html#cb55-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; U     0.5848631 -0.10697212 -0.07691131 -0.99701921  0.8759840</span></span>
+<span id="cb55-24"><a href="leiro-stat.html#cb55-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; S     0.5274070  0.01957486  0.01930842 -0.99354677  0.7933014</span></span>
+<span id="cb55-25"><a href="leiro-stat.html#cb55-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; K    -0.5873634  0.94208077  0.84481216 -0.06058855 -0.4082192</span></span>
+<span id="cb55-26"><a href="leiro-stat.html#cb55-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; I     1.0000000 -0.77504336 -0.82248673 -0.56958764  0.6634351</span></span>
+<span id="cb55-27"><a href="leiro-stat.html#cb55-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; D    -0.7750434  1.00000000  0.96943443  0.06563582 -0.4269281</span></span>
+<span id="cb55-28"><a href="leiro-stat.html#cb55-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Vm   -0.8224867  0.96943443  1.00000000  0.04532617 -0.3156220</span></span>
+<span id="cb55-29"><a href="leiro-stat.html#cb55-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Maas -0.5695876  0.06563582  0.04532617  1.00000000 -0.8557245</span></span>
+<span id="cb55-30"><a href="leiro-stat.html#cb55-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lgV0  0.6634351 -0.42692805 -0.31562199 -0.85572445  1.0000000</span></span></code></pre></div>
 <p>A kapott értékeket a <code>ggcorr()</code> függvény segítségével ábrázolhatjuk is. Ha a függvény argumentumában a <code>label = TRUE</code> szerepel, a kapott ábrán a kiszámított értékek is láthatók.</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="leiro-stat.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggcorr</span>(div_df[, <span class="dv">2</span><span class="sc">:</span><span class="dv">13</span>], <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-67"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-62"></span>
 <p class="caption">
 Figure 5.1: Korrelációs hotérkép
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-67-1.png" alt="Korrelációs hotérkép" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-62-1.png" alt="Korrelációs hotérkép" width="90%" />
 </div>
 <p>Ezt követően azt is megvizsgálhatjuk, hogy a korpusz szövegei mennyire könnyen olvashatóak. Ehhez a <code>Flesch.Kincaid</code> pontszámot használjuk, ami a szavak és a mondatok hossza alapján határozza meg a szöveg olvashatóságát. Ehhez a <code>textstat_readability()</code> függvényt használjuk, mely a korpuszunkat elemzi.</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="leiro-stat.html#cb57-1" aria-hidden="true" tabindex="-1"></a>corpus_mineln <span class="sc">%&gt;%</span></span>
@@ -575,11 +575,11 @@ Figure 5.1: Korrelációs hotérkép
 <span id="cb61-11"><a href="leiro-stat.html#cb61-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb61-12"><a href="leiro-stat.html#cb61-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb61-13"><a href="leiro-stat.html#cb61-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-73"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-68"></span>
 <p class="caption">
 Figure 5.2: Az olvashatósági index alakulása
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-73-1.png" alt="Az olvashatósági index alakulása" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-68-1.png" alt="Az olvashatósági index alakulása" width="90%" />
 </div>
 </div>
 <div id="összehasonlításleiro-5" class="section level2" number="5.4">
@@ -652,11 +652,11 @@ Figure 5.2: Az olvashatósági index alakulása
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="leiro-stat.html#cb65-1" aria-hidden="true" tabindex="-1"></a>hierarchikus_klaszter <span class="ot">&lt;-</span> <span class="fu">hclust</span>(<span class="fu">as.dist</span>(dist))</span>
 <span id="cb65-2"><a href="leiro-stat.html#cb65-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb65-3"><a href="leiro-stat.html#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdendrogram</span>(hierarchikus_klaszter)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-77"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-72"></span>
 <p class="caption">
 Figure 5.3: A dokumentumok csoportosítása a távolságuk alapján
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-77-1.png" alt="A dokumentumok csoportosítása a távolságuk alapján" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-72-1.png" alt="A dokumentumok csoportosítása a távolságuk alapján" width="90%" />
 </div>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="leiro-stat.html#cb66-1" aria-hidden="true" tabindex="-1"></a>mineln_dfm <span class="sc">%&gt;%</span></span>
 <span id="cb66-2"><a href="leiro-stat.html#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textstat_simil</span>(<span class="at">y =</span> mineln_dfm[, <span class="fu">c</span>(<span class="st">&quot;kormány&quot;</span>)], <span class="at">margin =</span> <span class="st">&quot;features&quot;</span>, <span class="at">method =</span> <span class="st">&quot;correlation&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -684,11 +684,11 @@ Figure 5.3: A dokumentumok csoportosítása a távolságuk alapján
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="leiro-stat.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">textplot_keyness</span>(result_keyness, <span class="at">color =</span> <span class="fu">c</span>(<span class="st">&quot;#484848&quot;</span>, <span class="st">&quot;#D0D0D0&quot;</span>)) <span class="sc">+</span></span>
 <span id="cb68-2"><a href="leiro-stat.html#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">65</span>, <span class="dv">65</span>)) <span class="sc">+</span></span>
 <span id="cb68-3"><a href="leiro-stat.html#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.9</span>,<span class="fl">0.1</span>))</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-80"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-75"></span>
 <p class="caption">
 Figure 5.4: A korpuszok legfontosabb kifejezései
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-80-1.png" alt="A korpuszok legfontosabb kifejezései" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-75-1.png" alt="A korpuszok legfontosabb kifejezései" width="90%" />
 </div>
 <p>Ha az egyes miniszterelnökök beszédeinek leggyakoribb kifejezéseit szeretnénk összehasonlítani, azt a <code>textstat_frequency()</code> függvény segítségével tehetjük meg, melynek bemenete a megtisztított és súlyozott <code>dfm</code>. Az összehasonlítás eredményét pedig a <code>ggplot2</code> segítségével ábrázolhatjuk is.</p>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="leiro-stat.html#cb69-1" aria-hidden="true" tabindex="-1"></a>dfm_weighted <span class="ot">&lt;-</span> corpus_mineln <span class="sc">%&gt;%</span></span>
@@ -715,11 +715,11 @@ Figure 5.4: A korpuszok legfontosabb kifejezései
 <span id="cb70-10"><a href="leiro-stat.html#cb70-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>, </span>
 <span id="cb70-11"><a href="leiro-stat.html#cb70-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Relatív szófrekvencia&quot;</span></span>
 <span id="cb70-12"><a href="leiro-stat.html#cb70-12" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-82"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-77"></span>
 <p class="caption">
 Figure 5.5: Leggyakoribb kifejezések a miniszterelnöki beszédekben
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-82-1.png" alt="Leggyakoribb kifejezések a miniszterelnöki beszédekben" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-77-1.png" alt="Leggyakoribb kifejezések a miniszterelnöki beszédekben" width="90%" />
 </div>
 <p>Mivel a szövegösszehasonlítás egy komplex kutatási feladat, a témával bőbben is foglalkozunk a <em><a href="similarity.html#similarity">Szövegösszhasonlítás</a></em> fejezetben.</p>
 </div>

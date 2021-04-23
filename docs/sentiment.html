@@ -419,11 +419,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A plot alapján a cikkek érzelemelemzése során több kiugrást is tapasztalhatunk. Természetesen messzemenő következtetéseket egy ilyen kis korpusz alapján nem vonhatunk le, de a kiugrásokhoz tartozó cikkek kvalitatív vizsgálatával megállapíthatjuk, hogy az áprilisi kiugrást a választásokhoz kötődő cikkek pozitív hangulata, míg az októberi negatív kilengést az öszödi beszéd nyilvánosságra kerüléséhez köthető cikkek negatív szentimentje okozza.</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="sentiment.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mn_df, <span class="fu">aes</span>(doc_date, net_daily)) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;Szentiment&quot;</span>, <span class="at">x =</span> <span class="cn">NULL</span>, </span>
 <span id="cb85-2"><a href="sentiment.html#cb85-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">caption =</span> <span class="st">&quot;Adatforrás: https://cap.tk.hu/&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-99"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-94"></span>
 <p class="caption">
 Figure 6.1: Magyar Nemzet címlap szentimentje
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-99-1.png" alt="Magyar Nemzet címlap szentimentje" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-94-1.png" alt="Magyar Nemzet címlap szentimentje" width="90%" />
 </div>
 </div>
 <div id="mnb-sajtóközlemények" class="section level2" number="6.3">
@@ -512,11 +512,11 @@ Figure 6.1: Magyar Nemzet címlap szentimentje
 <span id="cb93-5"><a href="sentiment.html#cb93-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span></span>
 <span id="cb93-6"><a href="sentiment.html#cb93-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb93-7"><a href="sentiment.html#cb93-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>sent_type, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-107"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-102"></span>
 <p class="caption">
 Figure 6.2: Magyar Nemzeti Bank közleményeinek szentimentje
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-107-1.png" alt="Magyar Nemzeti Bank közleményeinek szentimentje" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-102-1.png" alt="Magyar Nemzeti Bank közleményeinek szentimentje" width="90%" />
 </div>
 
 </div>

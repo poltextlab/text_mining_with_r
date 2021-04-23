@@ -300,11 +300,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb97-3"><a href="lda-ch.html#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="cn">NULL</span>,</span>
 <span id="cb97-4"><a href="lda-ch.html#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">&quot;Klaszterek száma&quot;</span>,</span>
 <span id="cb97-5"><a href="lda-ch.html#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">y =</span> <span class="st">&quot;Klasztereken belüli négyzetösszeg&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-112"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-107"></span>
 <p class="caption">
 Figure 7.1: Optimális klaszterek száma
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-112-1.png" alt="Optimális klaszterek száma" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-107-1.png" alt="Optimális klaszterek száma" width="90%" />
 </div>
 <p>A kialakított csoportokat vizuálisan is megjeleníthetjük.</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="lda-ch.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
@@ -320,11 +320,11 @@ Figure 7.1: Optimális klaszterek száma
 <span id="cb98-11"><a href="lda-ch.html#cb98-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Második dimenzió&quot;</span></span>
 <span id="cb98-12"><a href="lda-ch.html#cb98-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb98-13"><a href="lda-ch.html#cb98-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-113"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-108"></span>
 <p class="caption">
 Figure 7.2: A miniszterelnöki beszédek klaszterei
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-113-1.png" alt="A miniszterelnöki beszédek klaszterei" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-108-1.png" alt="A miniszterelnöki beszédek klaszterei" width="90%" />
 </div>
 </div>
 <div id="lda-topik-modelleklda1" class="section level2" number="7.2">
@@ -365,14 +365,14 @@ Figure 7.2: A miniszterelnöki beszédek klaszterei
 <span id="cb101-5"><a href="lda-ch.html#cb101-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>txt_filename)</span>
 <span id="cb101-6"><a href="lda-ch.html#cb101-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb101-7"><a href="lda-ch.html#cb101-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(torveny_meta, <span class="dv">5</span>)</span>
-<span id="cb101-8"><a href="lda-ch.html#cb101-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;246m# A tibble: 5 x 4[39m</span></span>
+<span id="cb101-8"><a href="lda-ch.html#cb101-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 4</span></span>
 <span id="cb101-9"><a href="lda-ch.html#cb101-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    year electoral_cycle majortopic doc_id     </span></span>
-<span id="cb101-10"><a href="lda-ch.html#cb101-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m                [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m      </span></span>
-<span id="cb101-11"><a href="lda-ch.html#cb101-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m1[39m  [4m1[24m998 1998-2002               13 1998XXXV   </span></span>
-<span id="cb101-12"><a href="lda-ch.html#cb101-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m2[39m  [4m1[24m998 1998-2002               20 1998XXXVI  </span></span>
-<span id="cb101-13"><a href="lda-ch.html#cb101-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m3[39m  [4m1[24m998 1998-2002                3 1998XXXVII </span></span>
-<span id="cb101-14"><a href="lda-ch.html#cb101-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m4[39m  [4m1[24m998 1998-2002                6 1998XXXVIII</span></span>
-<span id="cb101-15"><a href="lda-ch.html#cb101-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m5[39m  [4m1[24m998 1998-2002               13 1998XXXIX</span></span></code></pre></div>
+<span id="cb101-10"><a href="lda-ch.html#cb101-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;      </span></span>
+<span id="cb101-11"><a href="lda-ch.html#cb101-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1998 1998-2002               13 1998XXXV   </span></span>
+<span id="cb101-12"><a href="lda-ch.html#cb101-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  1998 1998-2002               20 1998XXXVI  </span></span>
+<span id="cb101-13"><a href="lda-ch.html#cb101-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  1998 1998-2002                3 1998XXXVII </span></span>
+<span id="cb101-14"><a href="lda-ch.html#cb101-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  1998 1998-2002                6 1998XXXVIII</span></span>
+<span id="cb101-15"><a href="lda-ch.html#cb101-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  1998 1998-2002               13 1998XXXIX</span></span></code></pre></div>
 <p>Végül összefűzzük a dokumentumokat és a metaadatokat tartalmazó data frame-eket.</p>
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="lda-ch.html#cb102-1" aria-hidden="true" tabindex="-1"></a>torveny_final <span class="ot">&lt;-</span> <span class="fu">left_join</span>(torvenyek_tiszta, torveny_meta, <span class="at">by =</span> <span class="st">&quot;doc_id&quot;</span>)</span></code></pre></div>
 <p>Majd létrehozzuk a korpuszt és ellenőrizzük azt.</p>
@@ -403,11 +403,11 @@ Figure 7.2: A miniszterelnöki beszédek klaszterei
 <span id="cb108-4"><a href="lda-ch.html#cb108-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_tokens, <span class="fu">aes</span>(<span class="fu">reorder_within</span>(feature, frequency, group), frequency)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> group), </span>
 <span id="cb108-5"><a href="lda-ch.html#cb108-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">&quot;szófrekvencia&quot;</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>group, </span>
 <span id="cb108-6"><a href="lda-ch.html#cb108-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span> tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-124"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-119"></span>
 <p class="caption">
 Figure 7.3: A 15 leggyakoribb token a korpuszban
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-124-1.png" alt="A 15 leggyakoribb token a korpuszban" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-119-1.png" alt="A 15 leggyakoribb token a korpuszban" width="90%" />
 </div>
 <p>A szövegtisztító lépéseket később újabbakkal is kiegészíthetjük, ha észrevesszük, hogy az elemzést zavaró tisztítási lépés maradt ki. Ilyen esetben tovább tisztíthatjuk a korpuszt, majd újra lefuttathatjuk az elemzést. Például, ha szükséges, további stopszavak eltávolítását is elvégezhetjük egy újabb stopszólista hozzáadásával. Ilyenkor ugyanúgy járunk el, mint az előző stopszólista esetén, vagyis beolvassuk a munkakönyvtárban elhelyezett <code>.csv</code> fájlt, a beolvasott stopszólistából karaktervektort, majd objektumot hozunk létre, végezetül pedig ezeket a szavakat is eltávolítjuk a kopuszból.</p>
 <div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="lda-ch.html#cb109-1" aria-hidden="true" tabindex="-1"></a>custom_stopwords2 <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_legal_stopwords2</span>
@@ -431,11 +431,11 @@ Figure 7.3: A 15 leggyakoribb token a korpuszban
 <span id="cb111-8"><a href="lda-ch.html#cb111-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
 <span id="cb111-9"><a href="lda-ch.html#cb111-9" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
 <span id="cb111-10"><a href="lda-ch.html#cb111-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-127"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-122"></span>
 <p class="caption">
 Figure 7.4: A 15 leggyakoribb token a korpuszban, a bovített stop szó listával
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-127-1.png" alt="A 15 leggyakoribb token a korpuszban, a bovített stop szó listával" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-122-1.png" alt="A 15 leggyakoribb token a korpuszban, a bovített stop szó listával" width="90%" />
 </div>
 <p>A szövegtisztító és a korpusz előkészítő műveletek után következhet az LDA illesztése. Az alábbiakban az LDA illesztés két módszerét, a <code>VEM</code>-et és a <code>Gibbs</code>-et mutatjuk be. A modell mindkét módszer esetén ugyanaz, a különbség a következtetés módjában van. A <code>VEM</code> módszer variációs következtetés, míg a <code>Gibbs</code> mintavételen alapuló következtetés. <span class="citation">(<a href="fuggelek.html#ref-bleiLatentDirichletAllocation2003" role="doc-biblioref">Blei, Ng, and Jordan 2003</a>; <a href="fuggelek.html#ref-griffithsFindingScientificTopics2004" role="doc-biblioref">Griffiths and Steyvers 2004</a>; <a href="fuggelek.html#ref-phanLearningClassifyShort2008" role="doc-biblioref">Phan, Nguyen, and Horiguchi 2008</a>)</span>.</p>
 <p>A két modell illesztése nagyon hasonló, meg kell adnunk az elemezni kívánt <code>dfm</code> nevét, majd a <em>„k"</em> értékét, ami egyenlő az általunk létrehozni kívánt topikok számával, ezt követően meg kell jelölnünk, hogy a <code>VEM</code> vagy a <code>Gibbs</code> módszert alkalmazzuk. A <code>set.seed()</code> funkció az R véletlen szám generátor magjának beállítására szolgál, ami ahhoz kell, hogy a kapott eredmények, ábrák stb. pontosan reprodukálhatóak legyenek. A <code>set.seed()</code> bármilyen tetszőleges egész szám lehet. Mivel az elemzésünk célja a két ciklus jogalkotásának összehasonlítása, a korpuszunkat két alkorpuszra bontjuk, ehhez a dokumentumok kormányzati ciklus azonosítóját használjuk fel. A dokumentum változók alapján a <code>dfm_subset()</code> parancs segítségével választjuk szét a már elkészült és a tisztított mátrixunkat.</p>
@@ -462,11 +462,11 @@ Figure 7.4: A 15 leggyakoribb token a korpuszban, a bovített stop szó listáva
 <span id="cb114-5"><a href="lda-ch.html#cb114-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Klaszterek száma&quot;</span>,</span>
 <span id="cb114-6"><a href="lda-ch.html#cb114-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Zavarosság&quot;</span></span>
 <span id="cb114-7"><a href="lda-ch.html#cb114-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-130"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-125"></span>
 <p class="caption">
 Figure 7.5: Zavarosság változása a k függvényében
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-130-1.png" alt="Zavarosság változása a k függvényében" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-125-1.png" alt="Zavarosság változása a k függvényében" width="90%" />
 </div>
 <p>A zavarossági mutató alapján a 20 topikos modell szerepel a legjobban, de a megfelelő <em>k</em> kiválasztása a kutató kvalitatív döntésén múlik. A zavarossági pontszám ehhez ad kvantitatív szempontokat.<a href="#fn32" class="footnote-ref" id="fnref32"><sup>32</sup></a></p>
 <p>A reprodukálhatóság és futási sebesség érdekében a fejezet további részeiben a <em>k</em> paraméternek 10-es értéket adunk. Ezzel lefuttatunk egy-egy modellt a két ciklusra.</p>
@@ -500,11 +500,11 @@ Figure 7.5: Zavarosság változása a k függvényében
 <span id="cb118-9"><a href="lda-ch.html#cb118-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta)</span>
 <span id="cb118-10"><a href="lda-ch.html#cb118-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb118-11"><a href="lda-ch.html#cb118-11" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>()</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-134"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-129"></span>
 <p class="caption">
 Figure 7.6: 1998–2002-es ciklus topikok és kifejezések (VEM mintavételezéssel)
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-134-1.png" alt="1998–2002-es ciklus topikok és kifejezések (VEM mintavételezéssel)" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-129-1.png" alt="1998–2002-es ciklus topikok és kifejezések (VEM mintavételezéssel)" width="90%" />
 </div>
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="lda-ch.html#cb119-1" aria-hidden="true" tabindex="-1"></a>top_terms <span class="sc">%&gt;%</span></span>
 <span id="cb119-2"><a href="lda-ch.html#cb119-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(electoral_cycle <span class="sc">==</span> <span class="st">&quot;2002-2006&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -517,11 +517,11 @@ Figure 7.6: 1998–2002-es ciklus topikok és kifejezések (VEM mintavételezés
 <span id="cb119-9"><a href="lda-ch.html#cb119-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta)</span>
 <span id="cb119-10"><a href="lda-ch.html#cb119-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb119-11"><a href="lda-ch.html#cb119-11" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>()</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-135"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-130"></span>
 <p class="caption">
 Figure 7.7: 2002–2006-os ciklus topikok és kifejezések (VEM mintavételezéssel)
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-135-1.png" alt="2002–2006-os ciklus topikok és kifejezések (VEM mintavételezéssel)" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-130-1.png" alt="2002–2006-os ciklus topikok és kifejezések (VEM mintavételezéssel)" width="90%" />
 </div>
 </div>
 <div id="az-lda-gibbs-módszer-alkalmazása-a-magyar-törvények-korpuszán" class="section level3" number="7.2.2">
@@ -558,11 +558,11 @@ Figure 7.7: 2002–2006-os ciklus topikok és kifejezések (VEM mintavételezés
 <span id="cb123-10"><a href="lda-ch.html#cb123-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta)</span>
 <span id="cb123-11"><a href="lda-ch.html#cb123-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb123-12"><a href="lda-ch.html#cb123-12" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>()</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-139"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-134"></span>
 <p class="caption">
 Figure 7.8: 1998–2002-es ciklus topikok és kifejezések (Gibbs mintavétellel)
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-139-1.png" alt="1998–2002-es ciklus topikok és kifejezések (Gibbs mintavétellel)" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-134-1.png" alt="1998–2002-es ciklus topikok és kifejezések (Gibbs mintavétellel)" width="90%" />
 </div>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="lda-ch.html#cb124-1" aria-hidden="true" tabindex="-1"></a>top_terms_gibbs <span class="sc">%&gt;%</span></span>
 <span id="cb124-2"><a href="lda-ch.html#cb124-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(electoral_cycle <span class="sc">==</span> <span class="st">&quot;2002-2006&quot;</span>) <span class="sc">%&gt;%</span></span>
@@ -575,11 +575,11 @@ Figure 7.8: 1998–2002-es ciklus topikok és kifejezések (Gibbs mintavétellel
 <span id="cb124-9"><a href="lda-ch.html#cb124-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta)</span>
 <span id="cb124-10"><a href="lda-ch.html#cb124-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb124-11"><a href="lda-ch.html#cb124-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_reordered</span>()</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-140"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-135"></span>
 <p class="caption">
 Figure 7.9: 2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel)
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-140-1.png" alt="2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel)" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-135-1.png" alt="2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel)" width="90%" />
 </div>
 </div>
 </div>
@@ -678,11 +678,11 @@ Figure 7.9: 2002–2006-os ciklus topikok és kifejezések (Gibbs mintavétellel
 <span id="cb129-15"><a href="lda-ch.html#cb129-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
 <span id="cb129-16"><a href="lda-ch.html#cb129-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">expression</span>(beta)</span>
 <span id="cb129-17"><a href="lda-ch.html#cb129-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-145"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-140"></span>
 <p class="caption">
 Figure 7.10: Topikonkénti legmagasabb valószínuségu szavak
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-145-1.png" alt="Topikonkénti legmagasabb valószínuségu szavak" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-140-1.png" alt="Topikonkénti legmagasabb valószínuségu szavak" width="90%" />
 </div>
 <p>Egy-egy topichoz tartozó meghatározó szavak annak függvényében változhatnak, hogy milyen algoritmust használunk. A <code>labelTopics()</code> függvény a már becsült stm modellünket alapul véve kínál négyféle alternatív opciót. Az egyes algoritmusok részletes magyarázatáért érdemes elolvasni a csomag részletes leírását.<a href="#fn36" class="footnote-ref" id="fnref36"><sup>36</sup></a></p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="lda-ch.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">labelTopics</span>(stm_fit, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>))</span>
@@ -704,19 +704,19 @@ Figure 7.10: Topikonkénti legmagasabb valószínuségu szavak
 <span id="cb131-5"><a href="lda-ch.html#cb131-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlab =</span> <span class="st">&quot;Várható topic arányok&quot;</span>,</span>
 <span id="cb131-6"><a href="lda-ch.html#cb131-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span>
 <span id="cb131-7"><a href="lda-ch.html#cb131-7" aria-hidden="true" tabindex="-1"></a>         )</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-147"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-142"></span>
 <p class="caption">
 Figure 7.11: Leggyakoribb témák és kifejezések
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-147-1.png" alt="Leggyakoribb témák és kifejezések" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-142-1.png" alt="Leggyakoribb témák és kifejezések" width="90%" />
 </div>
 <p>Végezetül a témák közötti korrelációt a <code>topicCorr</code> függvénnyel becsülhetjük és az <code>igraph</code> csomagot betöltve a <code>plot()</code> paranccsal tudjuk vizualizálni. Az eredmény egy hálózat lesz, amit gráfként ábrázolunk. A gráfok élei a témák közötti összefüggést (korrelációt) jelölik.</p>
 <div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="lda-ch.html#cb132-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">topicCorr</span>(stm_fit))</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-148"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-143"></span>
 <p class="caption">
 Figure 7.12: Témák közötti korreláció hálózat
 </p>
-<img src="_main_files/figure-html/unnamed-chunk-148-1.png" alt="Témák közötti korreláció hálózat" width="90%" />
+<img src="_main_files/figure-html/unnamed-chunk-143-1.png" alt="Témák közötti korreláció hálózat" width="90%" />
 </div>
 
 </div>

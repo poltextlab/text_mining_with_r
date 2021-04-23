@@ -337,34 +337,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb140-7"><a href="embedding.html#cb140-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>Példánkban láthatjuk, hogy a „barack” szó beágyazásának eredménye nem gyümölcsöt fog adni, hanem az Egyesült Államok elnökét és a hozzá kapcsolódó szavakat.</p>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="embedding.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_vector</span>(mn_word_vectors, <span class="st">&quot;barack&quot;</span>, <span class="dv">10</span>)</span>
-<span id="cb141-2"><a href="embedding.html#cb141-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;246m# A tibble: 10 x 2[39m</span></span>
+<span id="cb141-2"><a href="embedding.html#cb141-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 2</span></span>
 <span id="cb141-3"><a href="embedding.html#cb141-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    term              dist</span></span>
-<span id="cb141-4"><a href="embedding.html#cb141-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    [3m[38;5;246m&lt;chr&gt;[39m[23m            [3m[38;5;246m&lt;dbl&gt;[39m[23m</span></span>
-<span id="cb141-5"><a href="embedding.html#cb141-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 1[39m barack           1    </span></span>
-<span id="cb141-6"><a href="embedding.html#cb141-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 2[39m obama            0.691</span></span>
-<span id="cb141-7"><a href="embedding.html#cb141-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 3[39m elnök            0.372</span></span>
-<span id="cb141-8"><a href="embedding.html#cb141-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 4[39m amerikai         0.349</span></span>
-<span id="cb141-9"><a href="embedding.html#cb141-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 5[39m demokrata        0.339</span></span>
-<span id="cb141-10"><a href="embedding.html#cb141-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 6[39m republikánus     0.294</span></span>
-<span id="cb141-11"><a href="embedding.html#cb141-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 7[39m részesülhessenek 0.256</span></span>
-<span id="cb141-12"><a href="embedding.html#cb141-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 8[39m egyesült         0.253</span></span>
-<span id="cb141-13"><a href="embedding.html#cb141-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 9[39m elnököt          0.251</span></span>
-<span id="cb141-14"><a href="embedding.html#cb141-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m10[39m bush             0.239</span></span></code></pre></div>
+<span id="cb141-4"><a href="embedding.html#cb141-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;            &lt;dbl&gt;</span></span>
+<span id="cb141-5"><a href="embedding.html#cb141-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 barack           1    </span></span>
+<span id="cb141-6"><a href="embedding.html#cb141-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 obama            0.691</span></span>
+<span id="cb141-7"><a href="embedding.html#cb141-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 elnök            0.372</span></span>
+<span id="cb141-8"><a href="embedding.html#cb141-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 amerikai         0.349</span></span>
+<span id="cb141-9"><a href="embedding.html#cb141-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 demokrata        0.339</span></span>
+<span id="cb141-10"><a href="embedding.html#cb141-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 republikánus     0.294</span></span>
+<span id="cb141-11"><a href="embedding.html#cb141-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 részesülhessenek 0.256</span></span>
+<span id="cb141-12"><a href="embedding.html#cb141-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 egyesült         0.253</span></span>
+<span id="cb141-13"><a href="embedding.html#cb141-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 elnököt          0.251</span></span>
+<span id="cb141-14"><a href="embedding.html#cb141-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 bush             0.239</span></span></code></pre></div>
 <p>Ugyanez működik magyar vezetőkkel is.</p>
 <div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="embedding.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_vector</span>(mn_word_vectors, <span class="st">&quot;orbán&quot;</span>, <span class="dv">10</span>)</span>
-<span id="cb142-2"><a href="embedding.html#cb142-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;246m# A tibble: 10 x 2[39m</span></span>
+<span id="cb142-2"><a href="embedding.html#cb142-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 2</span></span>
 <span id="cb142-3"><a href="embedding.html#cb142-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    term            dist</span></span>
-<span id="cb142-4"><a href="embedding.html#cb142-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    [3m[38;5;246m&lt;chr&gt;[39m[23m          [3m[38;5;246m&lt;dbl&gt;[39m[23m</span></span>
-<span id="cb142-5"><a href="embedding.html#cb142-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 1[39m orbán          1    </span></span>
-<span id="cb142-6"><a href="embedding.html#cb142-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 2[39m viktor         0.937</span></span>
-<span id="cb142-7"><a href="embedding.html#cb142-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 3[39m miniszterelnök 0.743</span></span>
-<span id="cb142-8"><a href="embedding.html#cb142-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 4[39m mondta         0.701</span></span>
-<span id="cb142-9"><a href="embedding.html#cb142-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 5[39m jelentette     0.673</span></span>
-<span id="cb142-10"><a href="embedding.html#cb142-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 6[39m kormányfo      0.667</span></span>
-<span id="cb142-11"><a href="embedding.html#cb142-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 7[39m fogalmazott    0.661</span></span>
-<span id="cb142-12"><a href="embedding.html#cb142-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 8[39m fidesz         0.656</span></span>
-<span id="cb142-13"><a href="embedding.html#cb142-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m 9[39m hangsúlyozta   0.655</span></span>
-<span id="cb142-14"><a href="embedding.html#cb142-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m10[39m beszélt        0.624</span></span></code></pre></div>
+<span id="cb142-4"><a href="embedding.html#cb142-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb142-5"><a href="embedding.html#cb142-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 orbán          1    </span></span>
+<span id="cb142-6"><a href="embedding.html#cb142-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 viktor         0.937</span></span>
+<span id="cb142-7"><a href="embedding.html#cb142-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 miniszterelnök 0.743</span></span>
+<span id="cb142-8"><a href="embedding.html#cb142-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 mondta         0.701</span></span>
+<span id="cb142-9"><a href="embedding.html#cb142-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 jelentette     0.673</span></span>
+<span id="cb142-10"><a href="embedding.html#cb142-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 kormányfo      0.667</span></span>
+<span id="cb142-11"><a href="embedding.html#cb142-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 fogalmazott    0.661</span></span>
+<span id="cb142-12"><a href="embedding.html#cb142-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 fidesz         0.656</span></span>
+<span id="cb142-13"><a href="embedding.html#cb142-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 hangsúlyozta   0.655</span></span>
+<span id="cb142-14"><a href="embedding.html#cb142-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 beszélt        0.624</span></span></code></pre></div>
 <p>A szakirodalomban klasszikus vektorműveletes példákat is reprokuálni tudjuk a <em>Magyar Nemzet</em> korpuszon készített szóbeágyazásainkkal. A <code>budapest - magyarország + német + németország</code> eredményét úgy kapjuk meg, hogy az egyes szavakhoz tartozó vektorokat kivonjuk egymásból, illetve hozzáadjuk őket, ezután pedig a kapott mátrixon a <code>quanteda</code> csomag <code>textstat_simil</code> függvényével kiszámítjuk az új hasonlósági értékeket.</p>
 <div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="embedding.html#cb143-1" aria-hidden="true" tabindex="-1"></a>budapest <span class="ot">&lt;-</span> mn_word_vectors[<span class="st">&quot;budapest&quot;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>] <span class="sc">-</span> mn_word_vectors[<span class="st">&quot;magyarország&quot;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>] <span class="sc">+</span> mn_word_vectors[<span class="st">&quot;német&quot;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>] <span class="sc">+</span></span>
 <span id="cb143-2"><a href="embedding.html#cb143-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">+</span> mn_word_vectors[<span class="st">&quot;németország&quot;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
@@ -394,7 +394,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="embedding.html#cb146-1" aria-hidden="true" tabindex="-1"></a>words_selected <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;moszkva&quot;</span>, <span class="st">&quot;debrecen&quot;</span>, <span class="st">&quot;budapest&quot;</span>, <span class="st">&quot;washington&quot;</span>)</span>
 <span id="cb146-2"><a href="embedding.html#cb146-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb146-3"><a href="embedding.html#cb146-3" aria-hidden="true" tabindex="-1"></a><span class="fu">embedding_plot</span>(<span class="at">data =</span> mn_embedding_df, <span class="at">keywords =</span> words_selected)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-163-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p><img src="_main_files/figure-html/unnamed-chunk-158-1.png" width="90%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>
