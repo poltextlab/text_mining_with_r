@@ -148,7 +148,7 @@ torveny_final <- left_join(torvenyek_tiszta, torveny_meta, by = "doc_id")
 
 Majd létrehozzuk a korpuszt és ellenőrizzük azt.
 
-```{r, echo=FALSE}
+```{r}
 torvenyek_corpus <- corpus(torveny_final)
 
 head(summary(torvenyek_corpus), 5)
