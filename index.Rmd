@@ -1,28 +1,19 @@
 ---
 title: "Szövegbányászat és mesterséges intelligencia R-ben"
 author: "Sebők Miklós, Ring Orsolya, Máté Ákos"
-date: "`r Sys.time()`"
+date: "2021"
 site: bookdown::bookdown_site
+output: bookdown::gitbook
 documentclass: book
+biblio-style: apalike
 link-citations: true
-always_allow_html: true
-description: > 
-  Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L'Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést.
-output:
-  bookdown::gitbook: default
-bibliography: references.bib
+links-as-notes: true
+colorlinks: true
+bibliography: [references.bib]
+description: "Szövegbányászat és mesterséges intelligencia R-ben"
 ---
 
 # Üdvözöljük! {-}
-
-```{r echo=FALSE, eval=FALSE}
-
-# (1)
-bookdown::render_book('index.Rmd', 'all')
-
-```
-
-
 <img src="figures/konyv_borito_final.png" width="250" height="328" align="right" alt="Cover image"/>
 
 Könyvünk bevezeti az érdeklődőket a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának speciális problémáiba. Támaszkodva a Sebők Miklós által szerkesztett [*Kvantitatív szövegelemzés és szövegbányászat a politikatudományban*](https://poltextlab.tk.hu/uploads/files/Kvantitativ_szovegelemzes_keszpdf.pdf) (L’Harmattan, 2016) című kötet elméleti bevezetésére, ezúttal a társadalomtudományi elemzések során használható kvantitatív szövegelemzés legfontosabb gyakorlati feladatait vesszük sorra.
@@ -32,3 +23,16 @@ A szövegek adatként való értelmezése (text as data) és kvantitatív elemz�
 A magyar tankönyvpiacon elsőként ismertetünk lépésről-lépésre a nemzetközi társadalomtudományban használatos olyan kvantitatív szövegelemzési eljárásokat, mint a névelemfelismerés, a véleményelemzés, a topikmodellezés, illetve a szövegek felügyelt tanulásra épülő osztályozása. A módszereink bemutatására szolgáló elemzéseket az egyik leggyakrabban használt programnyelv, az R segítségével végeztük el. A kötet anyaga akár minimális programozási ismerettel is elsajátítható, így teljesen kezdők számára is ajánlott. A hazai olvasók érdeklődését szem előtt tartva példáink döntő többsége új, magyar nyelvű korpuszokra épül, melyek alapján megismerhetők a magyar nyelvű kvantitatív szövegelemzés módozatai.
 
 A könyv megrendelhető a [Typotex kiadó honlapján](https://www.typotex.hu/book/11810/sebok_szovegbanyaszat_es_mesterseges_intelligencia_r_ben)
+
+
+<br>
+<br>
+ 
+*A kötet alapjául szolgáló kutatást, amelyet a Társadalomtudományi Kutatóközpont valósított meg, az Innovációs és Technológiai Minisztérium és a Nemzeti Kutatási, Fejlesztési és Innovációs Hivatal támogatta a Mesterséges Intelligencia Nemzeti Laboratórium keretében.*
+
+*A kötet megjelenését az MTA Könyvkiadási Alapja, a Társadalomtudományi Kutatóközpont Könyvtámogatási Alapja, a Nemzeti Kutatási, Fejlesztési és Innovációs Hivatal (NKFIH FK 123907, NKFIH FK 129018), valamint az MTA Bolyai János Kutatási Ösztöndíja támogatta.*
+
+```{r, echo=FALSE}
+knitr::include_graphics("figures/logo_band.png")
+```
+

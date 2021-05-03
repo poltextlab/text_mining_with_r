@@ -1,1 +1,5 @@
 output_dir: "docs"
+language:
+  label:
+    fig: 'Ábra '
+    tab: 'Táblázat '

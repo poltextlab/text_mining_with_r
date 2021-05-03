@@ -95,7 +95,6 @@ A fejezetben két különböző korpuszt fogunk elemezni: a 2006-os *Magyar Nemz
 ```{r message=FALSE}
 mn_minta <- HunMineR::data_magyar_nemzet_small
 
-summary(mn_minta)
 ```
 
 A `HunMineR` csomag segítségével beolvassuk a *Magyar Nemzet* adatbázis egy kisebb részét, ami az esetünkben a 2006-os címlapokon szereplő híreket jelenti. A `summary()` parancs, ahogy a neve is mutatja, gyors áttekintést nyújt a betöltött adatbázisról. Látjuk, hogy `r nrow(mn_minta)` sorból (megfigyelés) és `r ncol(mn_minta)` oszlopból (változó) áll. Első ránézésre látszik, hogy a text változónk tartalmazza a szövegeket, és hogy azok tisztításra szorulnak.
@@ -177,7 +176,6 @@ Végül a kapott korpuszt a kiszámolt szentimentértékekkel a `quanteda`-ban l
 ```{r}
 mn_df <- convert(mn_corpus, to = "data.frame")
 
-summary(mn_df)
 ```
 
 Mielőtt vizualizálnánk az eredményt érdemes a napi szintre aggregálni a szentimentértéket és egy nettó értéket kalkulálni.[^szent-12]
@@ -235,7 +233,6 @@ A munkamenet hasonló a *Magyar Nemzet*-es példához:
 ```{r}
 mnb_pr <- HunMineR::data_mnb_pr
 
-summary(mnb_pr)
 ```
 
 Adatbázisunk `r nrow(mnb_pr)` megfigyelésből és `r ncol(mnb_pr)` változóból áll. Az egyetlen lényeges dokumentum metaadat itt is a szövegek megjelenési ideje.

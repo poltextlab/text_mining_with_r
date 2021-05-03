@@ -5,25 +5,26 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2 Alapfogalmak | Szövegbányászat és mesterséges intelligencia R-ben</title>
-  <meta name="description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
+  <meta name="description" content="2 Alapfogalmak | Szövegbányászat és mesterséges intelligencia R-ben" />
   <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2 Alapfogalmak | Szövegbányászat és mesterséges intelligencia R-ben" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
+  <meta property="og:description" content="2 Alapfogalmak | Szövegbányászat és mesterséges intelligencia R-ben" />
   
 
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="2 Alapfogalmak | Szövegbányászat és mesterséges intelligencia R-ben" />
   
-  <meta name="twitter:description" content="Jelen kötet a Kvantitatív szövegelemzés és szövegbányászat a politikatudományban (L’Harmattan, 2016) című könyv folytatásaként és egyben kiegészítéseként a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának gyakorlatába nyújt bevezetést." />
+  <meta name="twitter:description" content="2 Alapfogalmak | Szövegbányászat és mesterséges intelligencia R-ben" />
   
 
 <meta name="author" content="Sebők Miklós, Ring Orsolya, Máté Ákos" />
 
 
+<meta name="date" content="2021-01-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,6 +53,8 @@
 
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.4.0/str_view.js"></script>
@@ -121,6 +124,7 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<link rel="stylesheet" href="konyv_style.css" type="text/css" />
 </head>
 
 <body>
@@ -133,14 +137,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
+<li><a href="./">Szövegbányászat R-ben</a></li>
+
+<li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Üdvözöljük!</a></li>
 <li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Bevezetés</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#a-kötet-témái"><i class="fa fa-check"></i><b>1.1</b> A kötet témái</a></li>
-<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#a-kötet-témái-1"><i class="fa fa-check"></i><b>1.2</b> A kötet témái</a></li>
-<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#használati-utasítás"><i class="fa fa-check"></i><b>1.3</b> Használati utasítás</a></li>
-<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#a-hunminer-használata"><i class="fa fa-check"></i><b>1.4</b> A HunMineR használata</a></li>
-<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#köszönetnyilvánítás"><i class="fa fa-check"></i><b>1.5</b> Köszönetnyilvánítás</a></li>
+<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#használati-utasítás"><i class="fa fa-check"></i><b>1.2</b> Használati utasítás</a></li>
+<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#a-hunminer-használata"><i class="fa fa-check"></i><b>1.3</b> A HunMineR használata</a></li>
+<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#köszönetnyilvánítás"><i class="fa fa-check"></i><b>1.4</b> Köszönetnyilvánítás</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="alapfogalmak.html"><a href="alapfogalmak.html"><i class="fa fa-check"></i><b>2</b> Alapfogalmak</a>
 <ul>
@@ -229,19 +235,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="12.1" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html#fogalmi-alapok-1"><i class="fa fa-check"></i><b>12.1</b> Fogalmi alapok</a></li>
 <li class="chapter" data-level="12.2" data-path="osztályozás-és-felügyelt-tanulás.html"><a href="osztályozás-és-felügyelt-tanulás.html#osztályozás-felügyelt-tanulással"><i class="fa fa-check"></i><b>12.2</b> Osztályozás felügyelt tanulással</a></li>
 </ul></li>
-<li class="chapter" data-level="13" data-path="fuggelek.html"><a href="fuggelek.html"><i class="fa fa-check"></i><b>13</b> Függelék</a>
+<li class="chapter" data-level="13" data-path="függelék.html"><a href="függelék.html"><i class="fa fa-check"></i><b>13</b> Függelék</a>
 <ul>
-<li class="chapter" data-level="13.1" data-path="fuggelek.html"><a href="fuggelek.html#az-r-és-az-rstudio-használata"><i class="fa fa-check"></i><b>13.1</b> Az R és az RStudio használata</a></li>
-<li class="chapter" data-level="13.2" data-path="fuggelek.html"><a href="fuggelek.html#az-rstudio-kezdőfelülete"><i class="fa fa-check"></i><b>13.2</b> Az RStudio kezdőfelülete</a></li>
-<li class="chapter" data-level="13.3" data-path="fuggelek.html"><a href="fuggelek.html#projektmunka"><i class="fa fa-check"></i><b>13.3</b> Projekt alapú munka</a></li>
-<li class="chapter" data-level="13.4" data-path="fuggelek.html"><a href="fuggelek.html#scriptek-szerkesztése-függvények-használata"><i class="fa fa-check"></i><b>13.4</b> Scriptek szerkesztése, függvények használata</a></li>
-<li class="chapter" data-level="13.5" data-path="fuggelek.html"><a href="fuggelek.html#packages"><i class="fa fa-check"></i><b>13.5</b> R csomagok</a></li>
-<li class="chapter" data-level="13.6" data-path="fuggelek.html"><a href="fuggelek.html#objektumok-tárolása-értékadás"><i class="fa fa-check"></i><b>13.6</b> Objektumok tárolása, értékadás</a></li>
-<li class="chapter" data-level="13.7" data-path="fuggelek.html"><a href="fuggelek.html#vektorok"><i class="fa fa-check"></i><b>13.7</b> Vektorok</a></li>
-<li class="chapter" data-level="13.8" data-path="fuggelek.html"><a href="fuggelek.html#faktorok"><i class="fa fa-check"></i><b>13.8</b> Faktorok</a></li>
-<li class="chapter" data-level="13.9" data-path="fuggelek.html"><a href="fuggelek.html#data-frame"><i class="fa fa-check"></i><b>13.9</b> Az adattáblák</a></li>
-<li class="chapter" data-level="13.10" data-path="fuggelek.html"><a href="fuggelek.html#vizualizáció"><i class="fa fa-check"></i><b>13.10</b> Vizualizáció</a></li>
+<li class="chapter" data-level="13.1" data-path="függelék.html"><a href="függelék.html#az-r-és-az-rstudio-használata"><i class="fa fa-check"></i><b>13.1</b> Az R és az RStudio használata</a>
+<ul>
+<li class="chapter" data-level="13.1.1" data-path="függelék.html"><a href="függelék.html#az-rstudio-kezdőfelülete"><i class="fa fa-check"></i><b>13.1.1</b> Az RStudio kezdőfelülete</a></li>
+<li class="chapter" data-level="13.1.2" data-path="függelék.html"><a href="függelék.html#projektmunka"><i class="fa fa-check"></i><b>13.1.2</b> Projekt alapú munka</a></li>
+<li class="chapter" data-level="13.1.3" data-path="függelék.html"><a href="függelék.html#scriptek-szerkesztése-függvények-használata"><i class="fa fa-check"></i><b>13.1.3</b> Scriptek szerkesztése, függvények használata</a></li>
+<li class="chapter" data-level="13.1.4" data-path="függelék.html"><a href="függelék.html#packages"><i class="fa fa-check"></i><b>13.1.4</b> R csomagok</a></li>
+<li class="chapter" data-level="13.1.5" data-path="függelék.html"><a href="függelék.html#objektumok-tárolása-értékadás"><i class="fa fa-check"></i><b>13.1.5</b> Objektumok tárolása, értékadás</a></li>
+<li class="chapter" data-level="13.1.6" data-path="függelék.html"><a href="függelék.html#vektorok"><i class="fa fa-check"></i><b>13.1.6</b> Vektorok</a></li>
+<li class="chapter" data-level="13.1.7" data-path="függelék.html"><a href="függelék.html#faktorok"><i class="fa fa-check"></i><b>13.1.7</b> Faktorok</a></li>
+<li class="chapter" data-level="13.1.8" data-path="függelék.html"><a href="függelék.html#data-frame"><i class="fa fa-check"></i><b>13.1.8</b> Data frame</a></li>
 </ul></li>
+<li class="chapter" data-level="13.2" data-path="függelék.html"><a href="függelék.html#vizualizáció"><i class="fa fa-check"></i><b>13.2</b> Vizualizáció</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="irodalomjegyzék.html"><a href="irodalomjegyzék.html"><i class="fa fa-check"></i>Irodalomjegyzék</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/poltextlab/text_mining_with_r" target="blank">Forráskód a könyvhöz</a></li>
 </ul>
 
       </nav>
@@ -266,12 +277,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A szövegek géppel való feldolgozása és elemzése módszertanának számos megnevezése létezik. A szövegelemzés, kvantitatív szövegelemzés, szövegbányászat, természetes nyelvfeldolgozás, automatizált szövegelemzés, automatizált tartalomelemzés és hasonló fogalmak között nincs éles tartalami különbség. Ezek a kifejezések jellemzően ugyanarra az általánosabb kutatási irányra reflektálnak, csupán hangsúlybeli eltolódások vannak köztük, így gyakran szinonimaként is használják őket.</p>
 <p>A szövegek gépi feldolgozásával foglalkozó tudományág a Big Data forradalom részeként kezdett kialakulni, melyet az adatok egyre nagyobb és diverzebb tömegének elérhető és összegyűjthető jellege hívott életre. Ennek megfelelően az adattudomány számos különböző adatforrás, így képek, videók, hanganyagok, internetes keresési adatok, telefonok lokációs adatai és megannyi különböző információ feldolgozásával foglalkozik. A szöveg is egy az adatbányászat érdeklődési körébe tartozó számos adattípus közül, melynek elemzésére külön kutatási irány alakult ki.</p>
 <p>Mivel napjainkban minden másodpercben óriási mennyiségű szöveg keletkezik és válik hozzáférhetővé az interneten, egyre nagyobb az igény az ilyen jellegű források és az emberi nyelv automatizált feldolgozására. Ebből adódóan az elemzési eszköztár is egyre szélesebb körű és egyre szofisztikáltabb, így a tartalomelemzési és szövegbányászati ismeretekkel bíró elemzők számára rengeteg értékes információ kinyerhető. Ezért a szövegbányászat nemcsak a társadalomtudósok számára izgalmas kutatási irány, hanem gyakran hasznosítják üzleti célokra is. Gondoljunk például az online sajtótermékekre, az ezekhez kapcsolódó kommentekre vagy a politikusok beszédéire. Ezek mind-mind hatalmas mennyiségben rendelkezésre állnak, hasznosításukhoz azonban képesnek kell lenni ezeket a szövegeket összegyűjteni, megfelelő módon feldolgozni és kiértékelni. A könyv ebben is segítséget nyújt az Olvasónak. Mielőtt azonban az adatkezelés és az elemzés részleteire rátérnénk, érdemes végigvenni néhány elvi megfontolást, melyek nélkülözhetetlenek a leendő elemző számára az etikus, érvényes és eredményes szövegbányászati kutatások kivitelezéséhez.</p>
-<p>A nagy mennyiségben rendelkezésre álló szöveges források kiváló kutatási terepet kínálnak a társadalomtudósok számára megannyi vizsgálati kérdéshez, azonban fontos tisztában lenni azzal, hogy a mindenki által elérhető adatokat is meglehetősen körültekintően, etikai szempontok figyelembevételével kell használni. Egy másik szempont, amelyet érdemes szem előtt tartani, mielőtt az ember fejest ugrana az adatok végtelenjébe, a 3V elve: <em>volume, velocity, variety</em> vagyis az adatok mérete, a keletkezésük sebessége és azok változatossága <span class="citation">(<a href="fuggelek.html#ref-bradyChallengeBigData2019" role="doc-biblioref">Brady 2019</a>)</span>. Ezek mind olyan tulajdonságok, amelyek az adatelemzőt munkája során más (és sok esetben több vagy nagyobb) kihívások elé állítják, mint egy hagyományos statisztikai elemzés esetében. A szövegbányászati módszerek abban is eltérnek a hagyományos társadalomtudományi elemzésektől, hogy – az adattudományokba visszanyúló gyökerei miatt – jelentős teret nyit az induktív (empiricista) kutatások számára a deduktív szemlélettel szemben. A deduktív kutatásmódszertani megközelítés esetén a kutató előre meghatározza az alkalmazandó fogalomrendszert, és azokat az elvárásokat, amelyek teljesülése esetén sikeresnek tekinti az elemzést. Az adattudományban az ilyen megközelítés a felügyelt tanulási feladatokat jellemzi, vagyis azokat a feladatokat, ahol ismert az elvárt eredmény. Ilyen például egy osztályozási feladat, amikor újságcikkeket szeretnénk különböző témakörökbe besorolni. Ebben az esetben az adatok egy részét általában kézzel kategorizáljuk, és a gépi eljárás sikerességét ehhez viszonyítjuk. Mivel az ideális eredmény (osztálycímke) ismert, a gépi teljesítmény könnyen mérhető (például a pontosság, a gép által sikeresen kategorizált cikkek százalékában kifejezve).</p>
+<p>A nagy mennyiségben rendelkezésre álló szöveges források kiváló kutatási terepet kínálnak a társadalomtudósok számára megannyi vizsgálati kérdéshez, azonban fontos tisztában lenni azzal, hogy a mindenki által elérhető adatokat is meglehetősen körültekintően, etikai szempontok figyelembevételével kell használni. Egy másik szempont, amelyet érdemes szem előtt tartani, mielőtt az ember fejest ugrana az adatok végtelenjébe, a 3V elve: <em>volume, velocity, variety</em> vagyis az adatok mérete, a keletkezésük sebessége és azok változatossága <span class="citation">(<a href="irodalomjegyzék.html#ref-bradyChallengeBigData2019" role="doc-biblioref">Brady 2019</a>)</span>. Ezek mind olyan tulajdonságok, amelyek az adatelemzőt munkája során más (és sok esetben több vagy nagyobb) kihívások elé állítják, mint egy hagyományos statisztikai elemzés esetében. A szövegbányászati módszerek abban is eltérnek a hagyományos társadalomtudományi elemzésektől, hogy – az adattudományokba visszanyúló gyökerei miatt – jelentős teret nyit az induktív (empiricista) kutatások számára a deduktív szemlélettel szemben. A deduktív kutatásmódszertani megközelítés esetén a kutató előre meghatározza az alkalmazandó fogalomrendszert, és azokat az elvárásokat, amelyek teljesülése esetén sikeresnek tekinti az elemzést. Az adattudományban az ilyen megközelítés a felügyelt tanulási feladatokat jellemzi, vagyis azokat a feladatokat, ahol ismert az elvárt eredmény. Ilyen például egy osztályozási feladat, amikor újságcikkeket szeretnénk különböző témakörökbe besorolni. Ebben az esetben az adatok egy részét általában kézzel kategorizáljuk, és a gépi eljárás sikerességét ehhez viszonyítjuk. Mivel az ideális eredmény (osztálycímke) ismert, a gépi teljesítmény könnyen mérhető (például a pontosság, a gép által sikeresen kategorizált cikkek százalékában kifejezve).</p>
 <p>Az induktív megoldás esetében kevésbé egyértelmű a gépi eljárás teljesítményének mérése, hiszen a rejtett mintázatok feltárását várjuk az algoritmustól, emiatt nincsenek előre meghatározott eredmények sem, amelyekhez viszonyíthatjuk a teljesítményt. Az adattudományban az ilyen feladatokat hívják felügyelet nélküli tanulásnak. Ide tartozik a klaszterelemzés, vagy a topic modellezés, melynek esetén a kutató csak azt határozza meg, hány klasztert, hány témát szeretne kinyerni, a gép pedig létrehozza az egymáshoz leghasonlóbb csoportokat. Értelemszerűen itt a kutatói validálás jóval nagyobb hangsúlyt kap, mint a deduktív megközelítés esetében. Egy harmadik, középutas megoldás a megalapozott elmélet megközelítése, mely ötvözi az induktív és a deduktív módszer előnyeit. Ennek során a kutató kidolgoz egy laza elméleti keretet, melynek alapján elvégzi az elemzést, majd az eredményeket figyelembe véve finomít a fogalmi keretén, és újabb elemzést futtat, addig folytatva ezt az iterációt, amíg a kutatás eredményeit kielégítőnek nem találja. A szövegbányászati elemzéseket kategorizálhatjuk továbbá a gépi hozzájárulás mértéke szerint. Ennek megfelelően megkülönböztethetünk kézi, géppel támogatott és gépi eljárásokat. Mindhárom megközelítésnek megvan a maga előnye. A kézi megoldások esetén valószínűbb, hogy azt mérjük a szövegünkben, amit mérni szeretnénk (például bizonyos szakpolitikai tartalmat), ugyanakkor ez idő- és költségigényes. A gépi eljárások ezzel szemben költséghatékonyak és gyorsak, de fennáll a veszélye, hogy nem azt mérjük, amit eredetileg mérni szerettünk volna (ennek megállapításában ismét a validálás kap kulcsszerepet). Továbbá lehetséges kézzel támogatott gépi megoldások alkalmazása, ahol a humán és a gépi elemzés ideális arányának megtalálása jelenti a fő kihívást.</p>
 </div>
 <div id="fogalmi-alapok" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Fogalmi alapok</h2>
-<p>Miután áttekintettük a szövegbányászatban használatos elméleti megközelítéseket, érdemes tisztázni a fogalmi alapokat is. A szövegbányászat szempontjából a szöveg is egy adat. Az elemzéshez használatos strukturált adathalmazt korpusznak nevezzük. A korpusz az összes szövegünket jelöli, ennek részegységei a dokumentumok. Ha például a <em>Magyar Nemzet</em> cikkeit kívánjuk elemezni, a kiválasztott időszak összes cikke lesz a teljes korpuszunk, az egyes cikkek pedig a dokumentumaink. Az elemzés mindig egy meghatározott tématerületre (<em>domain</em>-re) koncentrál. E tématerület utalhat a nyelvre, amelyen a szövegek íródtak, vagy a specifikus tartalomra, amelyet vizsgálunk, de mindenképpen meghatározza a szöveg szókészletével kapcsolatos várakozásainkat. Más lesz tehát a szóhasználat egy bulvárlap cikkeiben, mint egy tudományos szaklap cikkeiben, aminek elsősorban akkor van jelentősége, ha szótár alapú elemzéseket készítünk. A szótár alapú elemzések során olyan szószedeteket hozunk létre, amelyek segíthetnek a kutatásunk szempontjából érdekes témák vagy tartalmak azonosításában. Így például létrehozhatunk pozitív és negatív szótárakat, vagy a gazdasági és a külpolitikai témákhoz kapcsolódó szótárakat, melyek segíthetnek azonosítani, hogy adott dokumentum inkább gazdasági vagy inkább külpolitikai témákat tárgyal. Léteznek előre elkészített szótárak – angol nyelven például a Bing Liu által fejlesztett szótár egy jól ismert és széles körben alkalmazható példa <span class="citation">(<a href="fuggelek.html#ref-liuSentimentAnalysisSubjectivity2010" role="doc-biblioref">Liu 2010</a>)</span> –, azonban fontos fejben tartani, hogy a vizsgált téma specifikus nyelvezete jellemzően meghatározza azt, hogy egy-egy szótárba milyen kifejezéseknek kellene kerülniük.</p>
+<p>Miután áttekintettük a szövegbányászatban használatos elméleti megközelítéseket, érdemes tisztázni a fogalmi alapokat is. A szövegbányászat szempontjából a szöveg is egy adat. Az elemzéshez használatos strukturált adathalmazt korpusznak nevezzük. A korpusz az összes szövegünket jelöli, ennek részegységei a dokumentumok. Ha például a <em>Magyar Nemzet</em> cikkeit kívánjuk elemezni, a kiválasztott időszak összes cikke lesz a teljes korpuszunk, az egyes cikkek pedig a dokumentumaink. Az elemzés mindig egy meghatározott tématerületre (<em>domain</em>-re) koncentrál. E tématerület utalhat a nyelvre, amelyen a szövegek íródtak, vagy a specifikus tartalomra, amelyet vizsgálunk, de mindenképpen meghatározza a szöveg szókészletével kapcsolatos várakozásainkat. Más lesz tehát a szóhasználat egy bulvárlap cikkeiben, mint egy tudományos szaklap cikkeiben, aminek elsősorban akkor van jelentősége, ha szótár alapú elemzéseket készítünk. A szótár alapú elemzések során olyan szószedeteket hozunk létre, amelyek segíthetnek a kutatásunk szempontjából érdekes témák vagy tartalmak azonosításában. Így például létrehozhatunk pozitív és negatív szótárakat, vagy a gazdasági és a külpolitikai témákhoz kapcsolódó szótárakat, melyek segíthetnek azonosítani, hogy adott dokumentum inkább gazdasági vagy inkább külpolitikai témákat tárgyal. Léteznek előre elkészített szótárak – angol nyelven például a Bing Liu által fejlesztett szótár egy jól ismert és széles körben alkalmazható példa <span class="citation">(<a href="irodalomjegyzék.html#ref-liuSentimentAnalysisSubjectivity2010" role="doc-biblioref">Liu 2010</a>)</span> –, azonban fontos fejben tartani, hogy a vizsgált téma specifikus nyelvezete jellemzően meghatározza azt, hogy egy-egy szótárba milyen kifejezéseknek kellene kerülniük.</p>
 <p>Már említettük, hogy egy szövegbányászati elemzés során a szöveg is adatként kezelendő. Tehát hasonló módon gondolhatunk az elemzendő szövegeinkre, mint egy statisztikai elemzésre szánt adatbázisra, annak csupán, reprezentációja tér el az utóbbitól. Tehát míg egy statisztikai elemzésre szánt táblázatban elsősorban számokat és adott esetben kategorikus változókat reprezentáló karakterláncokat (stringeket) – például „férfi“/„nő,” „falu“/„város” – találunk, addig a szöveges adatokban első ránézésre nem tűnik ki gépileg értelmezhető struktúra. Ahhoz, hogy a szövegeink a gépi elemzés számára feldolgozhatóvá váljanak, annak reprezentációját kell megváltoztatni, vagyis strukturálatlan adathalmazból strukturált adathalmazt kell létrehozni, melyet jellemzően a szövegek mátrixszá alakításával teszünk meg. A mátrixszá alakítás első hallásra bonyolult eljárás benyomását keltheti, azonban a gyakorlatban egy meglehetősen egyszerű transzformációról van szó, melynek eredményeként a szavakat számokkal reprezentáljuk. A könnyebb megértés érdekében vegyük az alábbi példát: tekintsük a három példamondatot a három elemzendő dokumentumnak, ezek összességét pedig a korpuszunknak.</p>
 <p><em>1. Az Európai Unió 27 tagországának egyike Magyarország.</em></p>
 <p><em>2. Magyarország 2004-ben csatlakozott az Európai Unóhoz.</em></p>
@@ -279,7 +290,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A példamondatok dokumentum-kifejezés mátrixsza az alábbi táblázat szerint fog kinézni. Vegyük észre azt is, hogy több olyan kifejezés van, melyek csak ragozásukban térnek el: Unió, Unióhoz; tagja, tagjának. Ezeket a kifejezéseket a kutatói szándék függvényében azonos alakúra hozhatjuk, hogy egy egységként jelenjenek meg. Az elemzések többségében a szövegelőkészítés egyik kiinduló lépése a szótövesítés vagy a lemmatizálás, előbbi a szavak toldalékainak levágását jelöli, utóbbi a szavak szótári alakra való visszaalakítását. A ragozás eltávolítását illetően elöljáróban annyit érdemes megjegyezni, hogy az agglutináló, vagyis ragasztó nyelvek esetén, mint amilyen a magyar is, a toldalékok eltávolítása gyakran igen komoly kihívást jelent. Nem csak a toldalékok formája lehet igen sokféle, de az is előfordulhat, hogy a tőszó nem egyezik meg a toldalék levágásával keletkező szótővel. Ilyen például a vödröt kifejezés, melynek szótöve a „vödr“, de a nyelvtanilag helyes tőszó a „vödör.” Hasonlóan a majmok kifejezés esetén a szótő a „majm” lesz, míg a nyelvtanilag helyes tőszó a „majom”. Emiatt a toldalékok levágását a magyar nyelvű szövegek esetén megfelelő körültekintéssel kell végezni.</p>
 <table class="table table-striped table-hover table-condensed" style="font-size: 10px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-8">Table 2.1: </span>Dokumentum-kifejezés mátrix három példamondattal
+<span id="tab:unnamed-chunk-9">Táblázat 2.1: </span>Dokumentum-kifejezés mátrix három példamondattal
 </caption>
 <thead>
 <tr>
@@ -478,7 +489,7 @@ Unióhoz
 </div>
 <div id="a-szövegbányászat-alapelvei" class="section level2" number="2.3">
 <h2><span class="header-section-number">2.3</span> A szövegbányászat alapelvei</h2>
-<p>A módszertani fogalmak tisztázásást követően néhány elméleti megfontolást osztanánk meg a Grimmer és Steward <span class="citation">(<a href="fuggelek.html#ref-grimmer2013text" role="doc-biblioref">2013</a>)</span> által megfogalmazott alapelvek nyomán, melyek hasznos útravalóul szolgálhatnak a szövegbányászattal ismerkedő kutatók számára.</p>
+<p>A módszertani fogalmak tisztázásást követően néhány elméleti megfontolást osztanánk meg a Grimmer és Steward <span class="citation">(<a href="irodalomjegyzék.html#ref-grimmer2013text" role="doc-biblioref">2013</a>)</span> által megfogalmazott alapelvek nyomán, melyek hasznos útravalóul szolgálhatnak a szövegbányászattal ismerkedő kutatók számára.</p>
 <p><em>1. A szövegbányászat rossz, de hasznos</em></p>
 <p>Az emberi nyelv egy meglehetősen bonyolult rendszer, így egy szöveg jelentésének, érzelmi telítettségének különböző olvasók általi értelmezése meglehetősen eltérő lehet, így nem meglepő, hogy egy gép sok esetben csak korlátozott eredményeket képes felmutatni ezen feladatok teljesítésében. Ettől függetlenül nem elvitatható a szövegbányászati modellek hasznossága, hiszen olyan mennyiségű szöveg válik feldolgozhatóvá, ami gépi támogatás nélkül elképzelhetetlen lenne, mindemellett azonban nem lehet megfeledkezni a módszertan korlátairól sem.</p>
 <p><em>2. A kvantitatív modellek kiegészítik az embert, nem helyettesítik azt</em></p>
@@ -540,7 +551,7 @@ gitbook.start({
 },
 "download": null,
 "toc": {
-"collapse": "subsection"
+"collapse": "section"
 }
 });
 });

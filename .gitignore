@@ -35,3 +35,4 @@ data/data_ner/
 *.docx
 *.doc
 data/
+build_the_book.R
