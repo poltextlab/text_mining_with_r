@@ -1,5 +1,11 @@
 # Bevezetés {#intro}
 
+```{r include=FALSE}
+
+source("_common.R")
+
+```
+
 ## A kötet témái
 
 A szövegek adatként való értelmezése (*text as data*) és kvantitatív elemzése (*quantitative text analysis*), avagy a szövegbányászat (*text mining*) a nemzetközi társadalomtudományi kutatások egyik leggyorsabban fejlődő irányzata. A szövegek és más kvalitatív adatok (filmek, képek) elemzése annyiban különbözik a mennyiségi (kvantitatív) adatokétól, hogy nyers formájukban még nem alkalmasak statisztikai, illetve ökonometriai elemzésre. Ezért van szükség az ezzel összefüggő módszertani problémák speciális tárgyalására. 
