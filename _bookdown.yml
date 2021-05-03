@@ -1,1 +1,17 @@
 output_dir: "docs"
+rmd_files: [
+  "index.Rmd", 
+  "02_alapfogalmak.Rmd",
+  "03_adatkezeles.Rmd",
+  "04_korpuszepites_szovegelokeszites.Rmd",
+  "05_leiro_statisztika.Rmd",
+  "06_szentiment_elemzes.Rmd",
+  "07_klasztering_topicmodellek.Rmd",
+  "08_szobeagyazas.Rmd",
+  "09_skalazas.Rmd",
+  "10_szovegosszehasonlitas.Rmd",
+  "11_nlp.Rmd",
+  "12_felugyelt_tanulas.Rmd",
+  "13_fuggelek.Rmd",
+  "14_references.Rmd"
+]
