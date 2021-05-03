@@ -14,15 +14,6 @@ bibliography: references.bib
 ---
 
 # Üdvözöljük! {-}
-
-```{r echo=FALSE, eval=FALSE}
-
-# (1)
-bookdown::render_book('index.Rmd', 'all')
-
-```
-
-
 <img src="figures/konyv_borito_final.png" width="250" height="328" align="right" alt="Cover image"/>
 
 Könyvünk bevezeti az érdeklődőket a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának speciális problémáiba. Támaszkodva a Sebők Miklós által szerkesztett [*Kvantitatív szövegelemzés és szövegbányászat a politikatudományban*](https://poltextlab.tk.hu/uploads/files/Kvantitativ_szovegelemzes_keszpdf.pdf) (L’Harmattan, 2016) című kötet elméleti bevezetésére, ezúttal a társadalomtudományi elemzések során használható kvantitatív szövegelemzés legfontosabb gyakorlati feladatait vesszük sorra.
