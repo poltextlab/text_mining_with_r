@@ -1,0 +1,9 @@
+bookdown::gitbook:
+  css: konyv_style.css
+  config:
+    toc:
+      collapse: section
+      before: |
+        <li><a href="./">Szövegbányászat R-ben</a></li>
+      after: |
+        <li><a href="https://github.com/poltextlab/text_mining_with_r" target="blank">Forráskód a könyvhöz</a></li>
