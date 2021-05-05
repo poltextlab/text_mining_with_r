@@ -35,6 +35,17 @@ A könyvhöz tartozik egy `HunMineR` R csomag is, amely tartalmazza az egyes fej
 
 A könyvben szereplő ábrák nagy része a `ggplot2` csomaggal készült a `theme_set(theme_light())` opció beállításával a háttérben. Ez azt jelenti, hogy az ábrákat előállító kódok a `theme_light()` sort nem tartalmazzák, de a tényleges ábrán már megjelennek a tematikus elemek.
 
+Az egyes fejezetekben használt R csomagok listája és verziószáma a lenti táblázatban található. Fontos tudni, hogy a használt R csomagokat folyamatosan fejlesztik, ezért elképzelhető hogy eltérő verziószámú változatok esetén változhat a kód szintaxis.
+
+```{r echo=FALSE}
+library(xtable)
+
+book_packages <- readRDS("data/temp/package_table.RDS")
+
+print(xtable(book_packages, align="llr", caption="A könyvben használt R csomagok", ), include.rownames=FALSE)
+```
+
+
 ## A HunMineR használata
 
 A Windows rendszert használóknak először az `installr` csomagot kell telepíteni, majd annak segítségével letölteni az Rtools nevű programot (az OS X és Linux rendszerek esetében erre a lépésre nincs szükség). A lenti kód futtatásával ezek a lépések automatikusan megtörténnek.
