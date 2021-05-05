@@ -60,7 +60,6 @@ library(tidyr)
 library(quanteda)
 library(readtext)
 library(ggplot2)
-library(nandb)
 library(HunMineR)
 ```
 
@@ -115,7 +114,7 @@ Ha jól végeztük a dolgunkat az adatbázisok összekapcsolása során, az elj�
 
 ```{r }
 tv_tvjav_minta %>% 
-  count(korm_ciklus)
+  dplyr::count(korm_ciklus)
 ```
 
 Hasonlóan ellenőrizhetjük az egyes évekre eső megfigyelések számát is.

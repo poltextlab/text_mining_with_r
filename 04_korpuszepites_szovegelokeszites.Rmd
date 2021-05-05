@@ -20,6 +20,7 @@ library(lubridate)
 library(stringr)
 library(quanteda)
 library(quanteda.textmodels)
+library(quanteda.textstats)
 library(HunMineR)
 ```
 
@@ -28,7 +29,7 @@ A szükséges csomagok beolvasása után a `read_html()` függvény segítségé
 Ha például a `poltextLAB` projekt honlapjáról szeretnénk adatokat gyűjteni, azt az alábbi módon tehetjük meg:
 
 ```{r}
-r <- read_html("https://poltextlab.tk.hu/hu")
+r <- rvest::read_html("https://poltextlab.tk.hu/hu")
 
 r
 ```
@@ -39,8 +40,8 @@ Példánkban a <https://poltextlab.tk.hu/hu> weboldalról azokat az információ
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
 title <- read_html("https://poltextlab.tk.hu/hu") %>%
-  html_nodes("title") %>%
-  html_text()
+  rvest::html_nodes("title") %>%
+  rvest::html_text()
 
 title
 ```
@@ -76,9 +77,9 @@ Majd a `str_replace_all()`függvény segítségével eltávolítjuk két html c�
 
 ```{r}
 text1 %>%
-  str_replace_all(pattern = "<.*?>", replacement = "") %>%
-  str_to_lower() %>%
-  str_trim()
+  stringr::str_replace_all(pattern = "<.*?>", replacement = "") %>%
+  stringr::str_to_lower() %>%
+  stringr::str_trim()
 ```
 
 ### Tokenizálás, szótövezés, kisbetűsítés és a tiltólistás szavak eltávolítása
@@ -90,19 +91,19 @@ A következőkben a „Példa az előkészítésre” mondatot bontjuk először
 ```{r}
 text <- "Példa az elokészítésre"
 
-toks <- tokens(text)
+toks <- quanteda::tokens(text)
 
-toks <- tokens_tolower(toks)
+toks <- quanteda::tokens_tolower(toks)
 
-toks <- tokens_wordstem(toks)
+toks <- quanteda::tokens_wordstem(toks)
 
 toks
 
-sw <- stopwords("hungarian")
+sw <- quanteda::stopwords("hungarian")
 
 head(sw)
 
-tokens_remove(toks, sw)
+quanteda::tokens_remove(toks, sw)
 ```
 
 Ezt követi a szótövezés (*stemmelés*) lépése, melynek során az alkalmazott szótövező algoritmus egyszerűen levágja a szavak összes toldalékát, a képzőket, a jelzőket és a ragokat. Szótövezés helyett alkalmazhatunk szótári alakra hozást is (*lemmatizálás*). A két eljárás közötti különbség abban rejlik, hogy a szótövezés során csupán eltávolítjuk a szavak toldalékként azonosított végződéseit, hogy ugyanannak a szónak különböző megjelenési formáit közös törzsre redukáljuk, míg a lemmatizálás esetében rögtön az értelmes, szótári formát kapjuk vissza. A két módszer közötti választás a kutatási kérdés alapján meghozott kutatói döntésen alapul [@grimmer2013text].
@@ -120,7 +121,7 @@ elokeszites <- c("előkészítésre", "előkészítést", "előkészített")
 
 lemma <- rep("előkészítés", length(elokeszites))
 
-toks1 <- tokens_replace(toks1, elokeszites, lemma, valuetype = "fixed")
+toks1 <- quanteda::tokens_replace(toks1, elokeszites, lemma, valuetype = "fixed")
 
 toks1
 ```
@@ -145,21 +146,6 @@ A dokumentum kifejezés mátrix minden sora egy dokumentum, minden oszlopa egy k
 
 Az alábbi példában három egy-egy mondatos dokumentumon szemléltetjük a fentieket. A korábban megismert módon előkészítjük, azaz kisbetűsítjük, szótövezzük a dokumentumokat, eltávolítjuk a tiltólistás szavakat, majd létrehozzuk belőlük a dokumentum kifejezés mátrixot.
 
-```{r}
-text <- c(
-  d1 = "Ez egy példa az előfeldolgozásra",
-  d2 = "Egy másik lehetséges példa",
-  d3 = "Ez pedig egy harmadik példa"
-)
-
-dtm <- dfm(
-  text,
-  tolower = TRUE, stem = TRUE,
-  remove = stopwords("hungarian")
-)
-
-dtm
-```
 
 Egy másik szövegbányászati megközelítés a mátrixot nem DTM-nek, hanem DFM-nek nevezi, például a `quanteda` csomag használata során nem DTM-et, hanem DFM-et kell létrehoznunk.
 
@@ -170,11 +156,12 @@ text <- c(
   d3 = "Ez pedig egy harmadik példa"
 )
 
-dfm <- dfm(
-  text,
-  tolower = TRUE, stem = TRUE,
-  remove = stopwords("hungarian")
-)
+dfm <- text %>% 
+  tokens %>% 
+  tokens_remove(pattern = stopwords("hungarian")) %>% 
+  tokens_tolower() %>% 
+  tokens_wordstem(language = "hungarian") %>% 
+  dfm()
 
 dfm
 ```
@@ -196,29 +183,30 @@ lawtext_df <- HunMineR::data_lawtext_1999
 Majd az importált adatokból létrehozzuk a korpuszt `lawtext_corpus` néven. Ezt követi a dokumentum kifejezés mátrix kialakítása (mivel a `quanteda` csomaggal dolgozunk, `dfm` mátrixot hozunk létre), és ezzel egy lépésben elvégezzük az alapvető szövegtisztító lépéseket is.
 
 ```{r}
-lawtext_corpus <- corpus(lawtext_df)
+lawtext_corpus <- quanteda::corpus(lawtext_df)
 
-lawtext_dfm <- dfm(
-  lawtext_corpus,
-  tolower = TRUE,
-  remove = stopwords("hungarian"),
-  stem = TRUE,
-  remove_punct = TRUE,
-  remove_symbols = TRUE,
-  remove_numbers = TRUE
-)
+lawtext_dfm <- lawtext_corpus %>% 
+  tokens(
+    remove_punct = TRUE,
+    remove_symbols = TRUE,
+    remove_numbers = TRUE
+  ) %>% 
+  tokens_tolower() %>% 
+  tokens_remove(pattern = stopwords("hungarian")) %>% 
+  tokens_wordstem(language = "hungarian") %>% 
+  dfm()
 ```
 
 A `topfeatures` függvény segítségével megnézhetjük a mátrix leggyakoribb szavait, a függvény argumentumában megadva a dokumentum kifejezés mátrix nevét és a kívánt kifejezésszámot.
 
 ```{r}
-topfeatures(lawtext_dfm, 15)
+quanteda::topfeatures(lawtext_dfm, 15)
 ```
 
 Mivel látható, hogy a szövegekben sok angol kifejezés is volt egy következő lépcsőben az angol stopszavakat is eltávolítjuk.
 
 ```{r}
-lawtext_dfm_2 <- dfm(lawtext_dfm, remove = stopwords("english"))
+lawtext_dfm_2 <- quanteda::dfm_remove(lawtext_dfm, pattern = stopwords("english"))
 ```
 
 Ezután megnézzük a leggyakoribb 15 kifejezést.
@@ -230,7 +218,7 @@ topfeatures(lawtext_dfm_2, 15)
 A következő lépés, hogy TF-IDF súlyozású statisztikát készítünk, a dokumentum kifejezés mátrix alapján. Ehhez először létrehozzuk a `lawtext_tfidf` nevű objektumot, majd a `textstat_frequency` függvény segítségével kilistázzuk annak első 10 elemét.
 
 ```{r}
-lawtext_tfidf <- dfm_tfidf(lawtext_dfm_2)
+lawtext_tfidf <- quanteda::dfm_tfidf(lawtext_dfm_2)
 
-textstat_frequency(lawtext_tfidf, force = TRUE, n = 10)
+quanteda.textstats::textstat_frequency(lawtext_tfidf, force = TRUE, n = 10)
 ```

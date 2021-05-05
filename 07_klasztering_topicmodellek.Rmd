@@ -25,6 +25,7 @@ library(purrr)
 library(stringr)
 library(readtext)
 library(quanteda)
+library(quanteda.textstats)
 library(tidytext)
 library(ggplot2)
 library(topicmodels)
@@ -41,7 +42,9 @@ beszedek <- HunMineR::data_miniszterelnokok
 
 beszedek_corpus <- corpus(beszedek)
 
-beszedek_dfm <- dfm(beszedek_corpus)
+beszedek_dfm <- beszedek_corpus %>% 
+  tokens() %>% 
+  dfm()
 ```
 
 A beszédek klaszterekbe rendezését az R egyik alapfüggvénye, a `kmeans` végzi. Első lépésben 3 klasztert készítünk. A `table()` függvénnyel megnézhetjük, hogy egy-egy csoportba hány dokumentum került.
@@ -55,7 +58,7 @@ table(beszedek_klaszter$cluster)
 A felügyelet nélküli klasszifikáció nagy kérdése, hány klasztert alakítsunk ki, hogy megközelítsük a valóságot, és ne csak mesterségesen kreáljunk csoportokat. Ez ugyanis azzal a kockázattal jár, hogy ténylegesen nem létező csoportok is létrejönnek. A klaszterek optimális számának meghatározására kvalitatív és kvantitatív lehetőségeink is vannak. A következőkben az utóbbira mutatunk példát, amihez a `factoextra` csomagot használjuk A lenti ábra azt mutatja, hogy a klasztereken belüli négyzetösszegek hogyan változnak a *k* paraméter változásának függvényében. Minél kisebb a klasztereken belüli négyzetösszegek értéke, annál közelebbi pontok tartoznak össze, így a kisebb értékekkel definiált klasztereket kapunk. Az ábra alapján tehát az ideális *k* 4 vagy 2, attól fuggően, hogy milyen feltevésekkel élünk a kutatásunk során. A 2-es érték azért lehet jó, mert a $k > 2$ értékek esetén a négyzetösszegek értéke nem csökken drasztikusan és a korpuszunk alapján a két („jobb-bal") klaszter kvalitativ alapon is jól definiálható. A $k = 4$ pedig azért lehet jó, mert utánna gyakorlatilag nem változik a kapott négyzetösszeg, ami azt jelzi, hogy a további klaszterek hozzáadásával nem lesz pontosabb a csoportosítás.
 
 ```{r, fig.cap="Optimális klaszterek száma"}
-fviz_nbclust(as.matrix(beszedek_dfm), kmeans, method = "wss", k.max = 5, linecolor = "black") +
+factoextra::fviz_nbclust(as.matrix(beszedek_dfm), kmeans, method = "wss", k.max = 5, linecolor = "black") +
 labs(
   title = NULL,
   x = "Klaszterek száma",
@@ -65,7 +68,7 @@ labs(
 A kialakított csoportokat vizuálisan is megjeleníthetjük.
 
 ```{r, fig.cap="A miniszterelnöki beszédek klaszterei"}
-fviz_cluster(
+factoextra::fviz_cluster(
   beszedek_klaszter, 
   data = beszedek_dfm, 
   pointsize = 2,
@@ -143,7 +146,7 @@ head(torveny_meta, 5)
 Végül összefűzzük a dokumentumokat és a metaadatokat tartalmazó data frame-eket.
 
 ```{r}
-torveny_final <- left_join(torvenyek_tiszta, torveny_meta, by = "doc_id")
+torveny_final <- dplyr::left_join(torvenyek_tiszta, torveny_meta, by = "doc_id")
 ```
 
 Majd létrehozzuk a korpuszt és ellenőrizzük azt.
@@ -182,7 +185,7 @@ Végül eltávolítjuk a dokumentum-kifejezés mátrixból a túl gyakori kifeje
 
 ```{r}
 torvenyek_dfm <- dfm(torvenyek_tokens) %>%
-  dfm_trim(min_termfreq = 0.001, termfreq_type = "prop")
+  quanteda::dfm_trim(min_termfreq = 0.001, termfreq_type = "prop")
 ```
 
 A szövegtisztító lépesek eredményét úgy ellenőrizhetjük, hogy a 2. fejezetben bemutatottak szerint szógyakorisági listát készítünk a korpuszban maradt kifejezésekről. Itt kihasználhatjuk a korpuszunkban lévő metaadatokat és megnézhetjük ciklus szerinti bontásban a szófrekvencia ábrát. Az ábránál figyeljünk arra, hogy a tidytext `reorder_within` függvényét használjuk, ami egy nagyon hasznos megoldás a csoportosított sorrendbe rendezésre a `ggplot2` ábránál.
@@ -198,8 +201,8 @@ ggplot(top_tokens, aes(reorder_within(feature, frequency, group), frequency)) +
   geom_point(aes(shape = group), size = 2) +
   coord_flip() +
   labs(
-    y = NULL,
-    x = "szófrekvencia"
+    x = NULL,
+    y = "szófrekvencia"
   ) +
   facet_wrap(~group, nrow = 2, scales = "free") +
   tidytext::scale_x_reordered() +
@@ -234,8 +237,8 @@ ggplot(top_tokens_final, aes(reorder_within(feature, frequency, group), frequenc
   geom_point(aes(shape = group), size = 2) +
   coord_flip() +
   labs(
-    y = NULL,
-    x = "szófrekvencia"
+    x = NULL,
+    y = "szófrekvencia"
   ) +
   facet_wrap(~group, nrow = 2, scales = "free") +
   tidytext::scale_x_reordered() +
@@ -262,12 +265,12 @@ Saját korpuszunkon először a `VEM` módszert alkalmazzuk, ahol `k = 10`, azaz
 k_topics <- c(5, 10, 15, 20)
 
 lda_98_02 <- k_topics %>%
-  map(LDA, x = dfm_98_02, control = list(seed = 1234))
+  purrr::map(topicmodels::LDA, x = dfm_98_02, control = list(seed = 1234))
 
 
-perp_df <- tibble(
+perp_df <- dplyr::tibble(
   k = k_topics,
-  perplexity = map_dbl(lda_98_02, perplexity)
+  perplexity = purrr::map_dbl(lda_98_02, topicmodels::perplexity)
 )
 ```
 
@@ -324,13 +327,13 @@ Ezt követően a modell által létrehozott topic-okat tidy formátumba tesszük
 [^lda5]: A tidy formátumról bővebben: <https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html>
 
 ```{r}
-topics_98_02 <- tidy(vem_98_02, matrix = "beta") %>%
+topics_98_02 <- tidytext::tidy(vem_98_02, matrix = "beta") %>%
   mutate(electoral_cycle = "1998-2002")
 
-topics_02_06 <- tidy(vem_02_06, matrix = "beta") %>%
+topics_02_06 <- tidytext::tidy(vem_02_06, matrix = "beta") %>%
   mutate(electoral_cycle = "2002-2006")
 
-lda_vem <- bind_rows(topics_98_02, topics_02_06)
+lda_vem <- dplyr::bind_rows(topics_98_02, topics_02_06)
 ```
 
 Ezután listázzuk az egyes topikokhoz tartozó leggyakoribb kifejezéseket.
@@ -464,7 +467,7 @@ Az előkészítés utolsó szakaszában az out objektumban tároljuk el a dokume
 ```{r stm_preprocess, eval=FALSE}
 data_stm <- torveny_final
 
-processed_stm <- textProcessor(
+processed_stm <- stm::textProcessor(
   torveny_final$text,
   metadata = torveny_final,
   lowercase = FALSE,
@@ -477,7 +480,7 @@ processed_stm <- textProcessor(
   verbose = FALSE
 )
 
-out <- prepDocuments(processed_stm$documents, processed_stm$vocab, processed_stm$meta)
+out <- stm::prepDocuments(processed_stm$documents, processed_stm$vocab, processed_stm$meta)
 ```
 
 ```{r echo=FALSE}
@@ -491,7 +494,7 @@ A strukturális topic modellünket az `stm` függvénnyel becsüljük és a kova
 [^lda7]: A kódkönyv elérhető az alábbi linken: [Comparative Agendas Project](https://cap.tk.hu/kozpolitikai-magyar).
 
 ```{r stm_fit, eval=FALSE}
-stm_fit <- stm(
+stm_fit <- stm::stm(
   out$documents,
   out$vocab,
   K = 10,
@@ -515,7 +518,7 @@ Amennyiben a kutatási kérdés megkívánja, akkor megvizsgálhatjuk, hogy a ka
 out$meta$electoral_cycle <- as.factor(out$meta$electoral_cycle)
 out$meta$majortopic <- as.factor(out$meta$majortopic)
 
-cov_estimate <- estimateEffect(1:10 ~ majortopic + electoral_cycle, stm_fit, meta = out$meta, uncertainty = "Global")
+cov_estimate <- stm::estimateEffect(1:10 ~ majortopic + electoral_cycle, stm_fit, meta = out$meta, uncertainty = "Global")
 
 summary(cov_estimate, topics = 1)
 ```
@@ -523,7 +526,7 @@ summary(cov_estimate, topics = 1)
 Az LDA modelleknél már bemutatott munkafolyamat az stm modellünk esetében is alkalmazható, hogy vizuálisan is megjelenítsük az eredményeinket. A `tidy()` függvény data frammé alakítja az stm objektumot, amit aztán a már ismerős `dplyr` csomagban lévő függvényekkel tudunk átalakítani és végül vizualizálni a `ggplot2` csomaggal. A lenti ábrán az egyes témákhoz tartozó 5 legvalószínűbb szót mutatjuk be.
 
 ```{r}
-tidy_stm <- tidy(stm_fit)
+tidy_stm <- tidytext::tidy(stm_fit)
 ```
 
 ```{r fig.cap="Topikonkénti legmagasabb valószínűségű szavak"}
@@ -551,13 +554,13 @@ Egy-egy topichoz tartozó meghatározó szavak annak függvényében változhatn
 [^lda8]: Az `stm` csomaghoz tartozó leírás: <https://cran.r-project.org/web/packages/stm/vignettes/stmVignette.pdf>
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
-labelTopics(stm_fit, c(1:2))
+stm::labelTopics(stm_fit, c(1:2))
 ```
 
 A korpuszunkon belüli témák megoszlását a `plot.STM()`-el tudjuk ábrázolni. Jól látszik, hogy a Topic 6-ba tartozó szavak vannak jelen a legnagyobb arányban a dokumentumaink között.
 
 ```{r, fig.cap="Leggyakoribb témák és kifejezések"}
-plot.STM(stm_fit,
+stm::plot.STM(stm_fit,
          "summary", 
          main = "", 
          labeltype = "frex", 
@@ -569,5 +572,5 @@ plot.STM(stm_fit,
 Végezetül a témák közötti korrelációt a `topicCorr` függvénnyel becsülhetjük és az `igraph` csomagot betöltve a `plot()` paranccsal tudjuk vizualizálni. Az eredmény egy hálózat lesz, amit gráfként ábrázolunk. A gráfok élei a témák közötti összefüggést (korrelációt) jelölik.
 
 ```{r fig.cap="Témák közötti korreláció hálózat"}
-plot(topicCorr(stm_fit))
+plot(stm::topicCorr(stm_fit))
 ```

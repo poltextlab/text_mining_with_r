@@ -39,13 +39,15 @@ beszedek_tiszta <- parl_beszedek %>%
   )
 ```
 
-A *Wordfish* és *Wordscores* algoritmus is ugyanazt a kiinduló corpus és dfm objektumot használja, amit a szokásos módon a `quanteda` csomag `corpus()` függvényével hozunk létre. A leíró statisztikai táblázatban látszik, hogy a beszédek hosszúsága nem egységes, a leghosszabb `r max(summary(beszedek_corpus)$Tokens)`, a legrövidebb pedig `r min(summary(beszedek_corpus)$Tokens)` szavas. Az átlagos dokumentum hossz az `r round(mean(summary(beszedek_corpus)$Tokens))` szó. A korpusz szemléltető célú, alaposabb elemzéshez hosszabb és/vagy több dokumentummal érdemes dolgoznunk. 
+A *Wordfish* és *Wordscores* algoritmus is ugyanazt a kiinduló corpus és dfm objektumot használja, amit a szokásos módon a `quanteda` csomag `corpus()` függvényével hozunk létre. 
 
 ```{r}
 beszedek_corpus <- corpus(beszedek_tiszta)
 
 summary(beszedek_corpus)
 ```
+
+A leíró statisztikai táblázatban látszik, hogy a beszédek hosszúsága nem egységes, a leghosszabb `r max(summary(beszedek_corpus)$Tokens)`, a legrövidebb pedig `r min(summary(beszedek_corpus)$Tokens)` szavas. Az átlagos dokumentum hossz az `r round(mean(summary(beszedek_corpus)$Tokens))` szó. A korpusz szemléltető célú, alaposabb elemzéshez hosszabb és/vagy több dokumentummal érdemes dolgoznunk.
 
 A korpusz létrehozása után elkészítjük a dfm mátrixot, amelyből eltávolítjuk a magyar stopszvakat a `quanteda` beépített szótárának segítségével.
 
@@ -58,10 +60,10 @@ beszedek_dfm <- beszedek_corpus %>%
 
 ## Wordfish
 
-A wordfish felügyelet nélküli skálázást a `quanteda_textmodels` csomagban implementált `textmodel_wordfish()` függvény fogja végezni. A megadott `dir = c(1, 2)` paraméterrel a két dokumentum relatív $\theta$ értékét tudjuk rögzíteni, mégpedig úgy hogy $\theta_{dir1} < \theta_{dir2}$. Alapbeállításként az algoritmus az első és az utolsó dokumentumot teszi be ide. A lenti példánál mi a pártpozíciók alapján a Jobbikos Vona Gábor és az LMP-s Schiffer András egy-egy beszédét használtuk. A `summary()` használható az illesztett modellel, és a dokumentumonkénti $\theta$ koefficienst tudjuk így megnézni.
+A wordfish felügyelet nélküli skálázást a `quanteda.textmodels` csomagban implementált `textmodel_wordfish()` függvény fogja végezni. A megadott `dir = c(1, 2)` paraméterrel a két dokumentum relatív $\theta$ értékét tudjuk rögzíteni, mégpedig úgy hogy $\theta_{dir1} < \theta_{dir2}$. Alapbeállításként az algoritmus az első és az utolsó dokumentumot teszi be ide. A lenti példánál mi a pártpozíciók alapján a Jobbikos Vona Gábor és az LMP-s Schiffer András egy-egy beszédét használtuk. A `summary()` használható az illesztett modellel, és a dokumentumonkénti $\theta$ koefficienst tudjuk így megnézni.
 
 ```{r}
-beszedek_wf <- textmodel_wordfish(beszedek_dfm, dir = c(2, 1))
+beszedek_wf <- quanteda.textmodels::textmodel_wordfish(beszedek_dfm, dir = c(2, 1))
 
 summary(beszedek_wf)
 ```

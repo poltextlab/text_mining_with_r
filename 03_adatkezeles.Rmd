@@ -13,18 +13,19 @@ library(readr)
 library(dplyr)
 library(gapminder)
 library(stringr)
+library(readtext)
 ```
 
 Az adatok importálására az R alapfüggvénye mellett több csomag is megoldást kínál. Ezek közül a könyv írásakor a legnépszerűbbek a `readr` és a `rio` csomagok. A szövegek különböző karakterkódolásának problémáját tapasztalataink szerint a legjobban a `readr` csomag `read_csv()` függvénye kezeli, ezért legtöbbször ezt fogjuk használni a `.csv` állományok beolvasására. Amennyiben kihasználjuk az RStudio projekt opcióját (lásd a [Függelékben](#projektmunka)) akkor elegendő csak az elérni kívánt adatok relatív elérési útját megadni (*relative path*). Ideális esetben az adataink egy csv fájlban vannak (*comma separated values*), ahol az egyes értékeket vesszők (vagy egyéb speciális karakterek) választják el. Ez esetben a `read_delim()` függvényt használjuk. A beolvasásnál egyből el is tároljuk az adatokat egy objektumban. A `sep =` opcióval tudjuk a szeparátor karaktert beállítani, mert előfordulhat, hogy vessző helyett pontosvessző tagolja az adatainkat.
 
 ```{r, eval=FALSE}
-df <- read_csv("data/adatfile.csv")
+df <- readr::read_csv("data/adatfile.csv")
 ```
 
 Az R képes linkről letölteni fájlokat, elég megadnunk egy működő elérési útvonalat.
 
 ```{r, eval=FALSE}
-df_online <- read.csv("https://www.qta.tk.mta.hu/adatok/adatfile.csv")
+df_online <- read_csv("https://www.qta.tk.mta.hu/adatok/adatfile.csv")
 ```
 
 Az R csomag ökoszisztémája kellően változatos ahhoz, hogy gyakorlatilag bármilyen inputtal meg tudjon birkózni. Az Excel fájlokat a readxl csomagot használva tudjuk betölteni a `read_excel()` függvény használatával.[lásd ehhez a *Függeléket*](#packages) A leggyakoribb statisztikai programok formátumait pedig a `haven` csomag tudja kezelni (például Stata, Spss, SAS). A szintaxis itt is hasonló: `read_stata`, `read_spss`, `read_sas`.
@@ -32,7 +33,7 @@ Az R csomag ökoszisztémája kellően változatos ahhoz, hogy gyakorlatilag bá
 A nagy mennyiségű szöveges dokumentum (a legyakrabban előforduló kiterjesztések: `.txt`, `.doc`, `.pdf`, `.json`, `.csv`, `.xml`, `.rtf`, `.odt`) betöltésére a legalkalmasabb a `readtext` csomag. Az alábbi példa azt mutatja be, hogyan tudjuk beolvasni egy adott mappából az összes `.txt` kiterjesztésű fájlt anélkül, hogy egyenként kellene megadnunk a fájlok neveit. A kódsorban szereplő `*` karakter ebben a környezetben azt jelenti, hogy bármilyen fájl, ami `.txt`-re végződik. Amennyiben a fájlok nevei tartalmaznak valamilyen metaadatot, akkor ezt is be tudjuk olvasni a betöltés során. Ilyen metaadat lehet például egy parlamenti felszólalásnál a felszólaló neve, a beszéd ideje, a felszólaló párttagsága (például: `kovacsjanos_1994_fkgp.txt`).
 
 ```{r, eval=FALSE}
-df_text <- readtext(
+df_text <- readtext::readtext(
   "data/*.txt",
   docvarsfrom = "filenames",
   dvsep = "_",
@@ -74,7 +75,7 @@ A sorok (megfigyelések) szűréséhez a `dplyr` csomag `filter()` parancsát ha
 
 ```{r warning=FALSE, message=FALSE}
 gapminder %>%
-  filter(year == 1962, lifeExp > 72)
+  dplyr::filter(year == 1962, lifeExp > 72)
 ```
 
 Ugyanígy leválogathatjuk az adattáblából az adatokat akkor is, ha egy karakter változó alapján szeretnénk szűrni.
@@ -90,7 +91,7 @@ A `select()` függvény segítségével válogathatunk oszlopokat a data frame-b
 
 ```{r warning=FALSE, message=FALSE}
 gapminder %>%
-  select(contains("ea"), starts_with("co"), pop)
+  dplyr::select(dplyr::contains("ea"), dplyr::starts_with("co"), pop)
 ```
 
 Az így kiválogatott változókból létrehozhatunk és objektumként eltárolhatunk egy új adattáblát, amivek azután tovább dolgozhatunk, vagy kiírathatjuk például `.csv` fájlba, vagy elmenthetjük a `saveRDS` segítségével.
@@ -101,7 +102,7 @@ gapminder_select <- gapminder %>%
 ```
 
 ```{r warning=FALSE, message=FALSE, eval=FALSE}
-write.csv(gapminder_select, "gapminder_select.csv") 
+readr::write_csv(gapminder_select, "gapminder_select.csv") 
 ```
 
 ```{r warning=FALSE, message=FALSE, eval=FALSE}
@@ -119,15 +120,15 @@ Az elemzési munkafolyamat elkerülhetetlen része, hogy új változókat hozzun
 ```{r}
 gapminder %>%
   filter(country == "Sweden", year >= 1992) %>%
-  mutate(gdp = (gdpPercap * pop) / 10^9)
+  dplyr::mutate(gdp = (gdpPercap * pop) / 10^9)
 ```
 
 Az adataink részletesebb és alaposabb megismerésében segítenek a különböző szintű leíró statisztikai adatok. A szintek megadására a `group_by()` használható, a csoportokon belüli számításokhoz pedig a `summarize()`. A lenti példa azt illusztrálja, hogy ha kontinensenként csoportosítjuk a `gapminder` adattáblát, akkor a `summarise()` használatával megkaphatjuk a megfigyelések számát, illetve az átlagos per capita GDP-t. A `summarise()` a `mutate()` közeli rokona, hasonló szintaxissal és logikával használható. Ezt a függvénypárost fogjuk majd használni a szöveges adataink leíró statisztikáinál is a 4. fejezetben.
 
 ```{r}
 gapminder %>%
-  group_by(continent) %>%
-  summarise(megfigyelesek = n(), atlag_gdp = mean(gdpPercap))
+  dplyr::group_by(continent) %>%
+  dplyr::summarise(megfigyelesek = n(), atlag_gdp = mean(gdpPercap))
 ```
 
 ## Munka karakter vektorokkal[^adatkezel-4]
@@ -141,7 +142,7 @@ A szöveges adatokkal (karakter stringekkel) való munka elkerülhetetlen velej�
 ```{r}
 szoveg <- c("gitar", "ukulele", "nagybogo")
 
-str_view(szoveg, pattern = "ar")
+stringr::str_view(szoveg, pattern = "ar")
 ```
 
 Az ún. „horgonyokkal“, (*anchor*) azt lehet megadni, hogy a karakter string elején vagy végén szeretnénk-e egyezést találni. A string eleji anchor a `^`, a string végi pedig a `$`.
