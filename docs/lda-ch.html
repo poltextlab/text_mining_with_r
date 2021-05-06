@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7 Felügyelet nélküli tanulás | Szövegbányászat és mesterséges intelligencia R-ben</title>
-  <meta name="description" content="7 Felügyelet nélküli tanulás | Szövegbányászat és mesterséges intelligencia R-ben" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <title>7 Felügyelet nélküli tanulás | R Notebook</title>
+  <meta name="description" content="Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7 Felügyelet nélküli tanulás | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta property="og:title" content="7 Felügyelet nélküli tanulás | R Notebook" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="7 Felügyelet nélküli tanulás | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta property="og:description" content="Szövegbányászat és mesterséges intelligencia R-ben" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 Felügyelet nélküli tanulás | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="twitter:title" content="7 Felügyelet nélküli tanulás | R Notebook" />
   
-  <meta name="twitter:description" content="7 Felügyelet nélküli tanulás | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="twitter:description" content="Szövegbányászat és mesterséges intelligencia R-ben" />
   
 
 <meta name="author" content="Sebők Miklós, Ring Orsolya, Máté Ákos" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="sentiment.html"/>
 <link rel="next" href="embedding.html"/>
-<script src="libs/header-attrs-2.7.10/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
@@ -64,6 +66,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -122,6 +125,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="konyv_style.css" type="text/css" />
@@ -215,13 +241,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.1" data-path="similarity.html"><a href="similarity.html#a-szövegösszehasonlítás-különböző-megközelítései"><i class="fa fa-check"></i><b>10.1</b> A szövegösszehasonlítás különböző megközelítései</a></li>
 <li class="chapter" data-level="10.2" data-path="similarity.html"><a href="similarity.html#lexikális-hasonlóság"><i class="fa fa-check"></i><b>10.2</b> Lexikális hasonlóság</a></li>
 <li class="chapter" data-level="10.3" data-path="similarity.html"><a href="similarity.html#szemantikai-hasonlóság"><i class="fa fa-check"></i><b>10.3</b> Szemantikai hasonlóság</a></li>
-<li class="chapter" data-level="10.4" data-path="similarity.html"><a href="similarity.html#hasonlóság-számítás"><i class="fa fa-check"></i><b>10.4</b> Hasonlóság-számítás</a>
+<li class="chapter" data-level="10.4" data-path="similarity.html"><a href="similarity.html#hasonlóságszámítás"><i class="fa fa-check"></i><b>10.4</b> Hasonlóságszámítás</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="similarity.html"><a href="similarity.html#adatbázis-importálás-és-előkészítés"><i class="fa fa-check"></i><b>10.4.1</b> Adatbázis importálás és előkészítés</a></li>
+<li class="chapter" data-level="10.4.1" data-path="similarity.html"><a href="similarity.html#adatbázis-importálás-és-előkészítés"><i class="fa fa-check"></i><b>10.4.1</b> Adatbázis-importálás és előkészítés</a></li>
 </ul></li>
 <li class="chapter" data-level="10.5" data-path="similarity.html"><a href="similarity.html#szövegtisztítás"><i class="fa fa-check"></i><b>10.5</b> Szövegtisztítás</a></li>
-<li class="chapter" data-level="10.6" data-path="similarity.html"><a href="similarity.html#a-jaccard-hasonlóság-számítás"><i class="fa fa-check"></i><b>10.6</b> A Jaccard hasonlóság számítás</a></li>
-<li class="chapter" data-level="10.7" data-path="similarity.html"><a href="similarity.html#a-koszinusz-hasonlóság-számítás"><i class="fa fa-check"></i><b>10.7</b> A Koszinusz hasonlóság számítás</a></li>
+<li class="chapter" data-level="10.6" data-path="similarity.html"><a href="similarity.html#a-jaccard-hasonlóság-számítása"><i class="fa fa-check"></i><b>10.6</b> A Jaccard-hasonlóság számítása</a></li>
+<li class="chapter" data-level="10.7" data-path="similarity.html"><a href="similarity.html#a-koszinusz-hasonlóság-számítása"><i class="fa fa-check"></i><b>10.7</b> A koszinusz-hasonlóság számítása</a></li>
 <li class="chapter" data-level="10.8" data-path="similarity.html"><a href="similarity.html#az-eredmények-vizualizációja"><i class="fa fa-check"></i><b>10.8</b> Az eredmények vizualizációja</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="nlp-ch.html"><a href="nlp-ch.html"><i class="fa fa-check"></i><b>11</b> NLP és névelemfelismerés</a>
@@ -262,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Szövegbányászat és mesterséges intelligencia R-ben</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Notebook</a>
           </h1>
         </div>
 
@@ -274,10 +300,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">7</span> Felügyelet nélküli tanulás</h1>
 <div id="k-közép-klaszterezés" class="section level2" number="7.1">
 <h2><span class="header-section-number">7.1</span> K-közép klaszterezés</h2>
-<p>A klaszterezés egy adathalmaz pontjainak, rekordjainak hasonlóság alapján való csoportosítása, ami szinte minden nagyméretű adathalmaz leíró modellezésére alkalmas. A klaszterezés során az adatpontokat diszjunkt halmazokba, azaz klaszterekbe soroljuk, hogy az elemeknek egy olyan partíciója jöjjön létre, amelyben a közös csoportokba kerülő elempárok lényegesen jobban hasonlítanak egymáshoz, mint azok a pontpárok, melyek két különböző csoportba sorolódtak. Klaszterezés során a megfelelő csoportok kialakítása nem egyértelmű feladat, mivel a különböző adatok eltérő jelentése és felhasználása miatt adathalmazonként más szempontokat kell figyelembe vennünk. Egy klaszterezési feladat megoldásához ismernünk kell a különböző algoritmusok alapvető tulajdonságait és mindig szükség van az eredményként kapott klaszterezés kiértékelésére. Mivel egy klaszterezés az adatpontok hasonlóságából indul ki, ezért az eljárás során az első fontos lépés az adatpontok páronkénti hasonlóságát a lehető legjobban megragadó hasonlósági függvény kiválasztása <span class="citation">(<a href="irodalomjegyzék.html#ref-tanBevezetesAzAdatbanyaszatba2011" role="doc-biblioref">Tan, Steinbach, and Kumar 2011</a>)</span>. Számos klaszterezési eljárás létezik, melyek között az egyik leggyakoribb különbségtétel, hogy a klaszterek egymásba ágyazottak vagy sem. Ez alapján beszélhetünk hierarchikus és felosztó klaszterezésről.</p>
-<p>A hierarchikus klaszterezés egymásba ágyazott klaszterek egy fába rendezett halmaza, azaz ahol a klaszterek alklaszterekkel rendelkeznek. A fa minden csúcsa (klasztere), a levélcsúcsokat kivéve, a gyermekei (alklaszterei) uniója, és a fa gyökere az összes objektumot tartalmazó klaszter. Felosztó (<em>partitional</em>) klaszterezés esetén az adathalmazt olyan, nem átfedő alcsoportokra bontjuk, ahol minden adatobjektum pontosan egy részhalmazba kerül <span class="citation">(<a href="irodalomjegyzék.html#ref-tanBevezetesAzAdatbanyaszatba2011" role="doc-biblioref">Tan, Steinbach, and Kumar 2011</a>; <a href="irodalomjegyzék.html#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007</a>)</span>. A klaszterezési eljárások között aszerint is különbséget tehetünk, hogy azok egy objektumot csak egy vagy több klaszterbe is beilleszthetnek. Ez alapján beszélhetünk kizáró (<em>exclusive</em>), illetve nem-kizáró (<em>non exclusive</em>), vagy átfedő (<em>overlapping</em>) klaszterezésről. Az előbbi minden objektumot csak egyetlen klaszterhez rendel hozzá, az utóbbi esetén egy pont több klaszterbe is beleillik. Fuzzy klaszterezés esetén minden objektum minden klaszterbe beletartozik egy tagsági súly erejéig, melynek értéke 0 (egyáltalán nem tartozik bele) és 1 (teljesen beletartozik) közé esik. A klasztereknek is különböző típusai vannak, így beszélhetünk prototípus-alapú, gráf-alapú vagy sűrűség-alapú klaszterekről.</p>
-<p>A prototípus-alapú klaszter olyan objektumokat tartalmazó halmaz, amelynek mindegyik objektuma jobban hasonlít a klasztert definiáló objektumhoz, mint bármelyik másik klasztert definiáló objektumhoz. A prototípus-alapú klaszterek közül a K-közép klaszter az egyik leggyakrabban alkalmazott. A K-közép klaszterezési módszer első lépése <em>k</em> darab kezdő középpont kijelölése, ahol <em>k</em> a klaszterek kívánt számával egyenlő. Ezután minden adatpontot a hozzá legközelebb eső középponthoz rendelünk. Az így képzett csoportok lesznek a kiinduló klaszterek. Ezután újra meghatározzuk mindegyik klaszter középpontját a klaszterhez rendelt pontok alapján. A hozzárendelési és frissítési lépéseket felváltva folytatjuk addig, amíg egyetlen pont sem vált klasztert, vagy ameddig a középpontok ugyanazok nem maradnak <span class="citation">(<a href="irodalomjegyzék.html#ref-tanBevezetesAzAdatbanyaszatba2011" role="doc-biblioref">Tan, Steinbach, and Kumar 2011</a>)</span>.</p>
-<p>A K-közép klaszterezés tehát a dokumentumokat alkotó szavak alapján keresi meg a felhasználó által megadott számú (<em>k</em>) klasztert, amelyeket a középpontjaik képviselnek, és így rendezi a dokumentumokat csoportokba. A klaszterezés vagy csoportosítás egy induktív kategorizálás, ami akkor hasznos, amikor nem állnak a kutató rendelkezésére előzetesen ismert csoportok, amelyek szerint a vizsgált dokumentumokat rendezni tudná. Hiszen ebben az esetben a korpusz elemeinek rendezéséhez nem határozunk meg előzetesen csoportokat, hanem az eljárás során olyan különálló csoportokat hozunk létre a dokumentumokból, amelynek tagjai valamilyen szempontból hasonlítanak egymásra. A csoportosítás legfőbb célja az, hogy az egy csoportba kerülő szövegek minél inkább hasonlítsanak egymásra, miközben a különböző csoportba kerülők minél inkább eltérjenek egymástól. Azaz klaszterezésnél nem egy-egy szöveg jellemzőire vagyunk kíváncsiak, hanem arra, hogy a szövegek egy-egy csoportja milyen hasonlóságokkal bír <span class="citation">(<a href="irodalomjegyzék.html#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007</a>; <a href="irodalomjegyzék.html#ref-burtejinCsoportositasKlaszterezes2016" role="doc-biblioref">Burtejin 2016</a>)</span>. A gépi kódolással végzett klaszterezés egy felügyelet nélküli tanulás, mely a szöveg tulajdonságaiból tanul, anélkül, hogy előre meghatározott csoportokat ismerne. Alkalmazása során a dokumentum tulajdonságait és a modell becsléseit felhasználva jönnek létre a különböző kategóriák, melyekhez később hozzárendeli a szöveget <span class="citation">(<a href="irodalomjegyzék.html#ref-grimmer2013text" role="doc-biblioref">Grimmer and Stewart 2013</a>)</span>. Az osztályozással ellentétben a csoportosítás esetén tehát nincs ismert „címkékkel" ellátott kategóriarendszer vagy olyan minta, mint az osztályozás esetében a tanítókörnyezet, amiből tanulva a modellt fel lehet építeni <span class="citation">(<a href="irodalomjegyzék.html#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007</a>)</span>. A gépi kódolással végzett csoportosítás (klaszterezés) esetén a kutató feladata a megfelelő csoportosító mechanizmus kiválasztása, mely alapján egy program végzi el a szövegek különböző kategóriákba sorolását. Ezt követi a hasonló szövegeket tömörítő csoportok elnevezésének lépése. A több dokumentumból álló korpuszok esetében a gépi klaszterelemzés különösen eredményes és költséghatékony lehet, mivel egy nagy korpusz vizsgálata sok erőforrást igényel <span class="citation">(<a href="irodalomjegyzék.html#ref-grimmer2013text" role="doc-biblioref">Grimmer and Stewart 2013, 1</a>.)</span>.</p>
+<p>A klaszterezés egy adathalmaz pontjainak, rekordjainak hasonlóság alapján való csoportosítása, ami szinte minden nagyméretű adathalmaz leíró modellezésére alkalmas. A klaszterezés során az adatpontokat diszjunkt halmazokba, azaz klaszterekbe soroljuk, hogy az elemeknek egy olyan partíciója jöjjön létre, amelyben a közös csoportokba kerülő elempárok lényegesen jobban hasonlítanak egymáshoz, mint azok a pontpárok, melyek két különböző csoportba sorolódtak. Klaszterezés során a megfelelő csoportok kialakítása nem egyértelmű feladat, mivel a különböző adatok eltérő jelentése és felhasználása miatt adathalmazonként más szempontokat kell figyelembe vennünk. Egy klaszterezési feladat megoldásához ismernünk kell a különböző algoritmusok alapvető tulajdonságait és mindig szükség van az eredményként kapott klaszterezés kiértékelésére. Mivel egy klaszterezés az adatpontok hasonlóságából indul ki, ezért az eljárás során az első fontos lépés az adatpontok páronkénti hasonlóságát a lehető legjobban megragadó hasonlósági függvény kiválasztása <span class="citation">(<a href="#ref-tanBevezetesAzAdatbanyaszatba2011" role="doc-biblioref">Tan, Steinbach, and Kumar 2011</a>)</span>. Számos klaszterezési eljárás létezik, melyek között az egyik leggyakoribb különbségtétel, hogy a klaszterek egymásba ágyazottak vagy sem. Ez alapján beszélhetünk hierarchikus és felosztó klaszterezésről.</p>
+<p>A hierarchikus klaszterezés egymásba ágyazott klaszterek egy fába rendezett halmaza, azaz ahol a klaszterek alklaszterekkel rendelkeznek. A fa minden csúcsa (klasztere), a levélcsúcsokat kivéve, a gyermekei (alklaszterei) uniója, és a fa gyökere az összes objektumot tartalmazó klaszter. Felosztó (<em>partitional</em>) klaszterezés esetén az adathalmazt olyan, nem átfedő alcsoportokra bontjuk, ahol minden adatobjektum pontosan egy részhalmazba kerül <span class="citation">(<a href="#ref-tanBevezetesAzAdatbanyaszatba2011" role="doc-biblioref">Tan, Steinbach, and Kumar 2011</a>; <a href="#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007</a>)</span>. A klaszterezési eljárások között aszerint is különbséget tehetünk, hogy azok egy objektumot csak egy vagy több klaszterbe is beilleszthetnek. Ez alapján beszélhetünk kizáró (<em>exclusive</em>), illetve nem-kizáró (<em>non exclusive</em>), vagy átfedő (<em>overlapping</em>) klaszterezésről. Az előbbi minden objektumot csak egyetlen klaszterhez rendel hozzá, az utóbbi esetén egy pont több klaszterbe is beleillik. Fuzzy klaszterezés esetén minden objektum minden klaszterbe beletartozik egy tagsági súly erejéig, melynek értéke 0 (egyáltalán nem tartozik bele) és 1 (teljesen beletartozik) közé esik. A klasztereknek is különböző típusai vannak, így beszélhetünk prototípus-alapú, gráf-alapú vagy sűrűség-alapú klaszterekről.</p>
+<p>A prototípus-alapú klaszter olyan objektumokat tartalmazó halmaz, amelynek mindegyik objektuma jobban hasonlít a klasztert definiáló objektumhoz, mint bármelyik másik klasztert definiáló objektumhoz. A prototípus-alapú klaszterek közül a K-közép klaszter az egyik leggyakrabban alkalmazott. A K-közép klaszterezési módszer első lépése <em>k</em> darab kezdő középpont kijelölése, ahol <em>k</em> a klaszterek kívánt számával egyenlő. Ezután minden adatpontot a hozzá legközelebb eső középponthoz rendelünk. Az így képzett csoportok lesznek a kiinduló klaszterek. Ezután újra meghatározzuk mindegyik klaszter középpontját a klaszterhez rendelt pontok alapján. A hozzárendelési és frissítési lépéseket felváltva folytatjuk addig, amíg egyetlen pont sem vált klasztert, vagy ameddig a középpontok ugyanazok nem maradnak <span class="citation">(<a href="#ref-tanBevezetesAzAdatbanyaszatba2011" role="doc-biblioref">Tan, Steinbach, and Kumar 2011</a>)</span>.</p>
+<p>A K-közép klaszterezés tehát a dokumentumokat alkotó szavak alapján keresi meg a felhasználó által megadott számú (<em>k</em>) klasztert, amelyeket a középpontjaik képviselnek, és így rendezi a dokumentumokat csoportokba. A klaszterezés vagy csoportosítás egy induktív kategorizálás, ami akkor hasznos, amikor nem állnak a kutató rendelkezésére előzetesen ismert csoportok, amelyek szerint a vizsgált dokumentumokat rendezni tudná. Hiszen ebben az esetben a korpusz elemeinek rendezéséhez nem határozunk meg előzetesen csoportokat, hanem az eljárás során olyan különálló csoportokat hozunk létre a dokumentumokból, amelynek tagjai valamilyen szempontból hasonlítanak egymásra. A csoportosítás legfőbb célja az, hogy az egy csoportba kerülő szövegek minél inkább hasonlítsanak egymásra, miközben a különböző csoportba kerülők minél inkább eltérjenek egymástól. Azaz klaszterezésnél nem egy-egy szöveg jellemzőire vagyunk kíváncsiak, hanem arra, hogy a szövegek egy-egy csoportja milyen hasonlóságokkal bír <span class="citation">(<a href="#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007</a>; <a href="#ref-burtejinCsoportositasKlaszterezes2016" role="doc-biblioref">Burtejin 2016</a>)</span>. A gépi kódolással végzett klaszterezés egy felügyelet nélküli tanulás, mely a szöveg tulajdonságaiból tanul, anélkül, hogy előre meghatározott csoportokat ismerne. Alkalmazása során a dokumentum tulajdonságait és a modell becsléseit felhasználva jönnek létre a különböző kategóriák, melyekhez később hozzárendeli a szöveget <span class="citation">(<a href="#ref-grimmer2013text" role="doc-biblioref">Grimmer and Stewart 2013</a>)</span>. Az osztályozással ellentétben a csoportosítás esetén tehát nincs ismert „címkékkel" ellátott kategóriarendszer vagy olyan minta, mint az osztályozás esetében a tanítókörnyezet, amiből tanulva a modellt fel lehet építeni <span class="citation">(<a href="#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007</a>)</span>. A gépi kódolással végzett csoportosítás (klaszterezés) esetén a kutató feladata a megfelelő csoportosító mechanizmus kiválasztása, mely alapján egy program végzi el a szövegek különböző kategóriákba sorolását. Ezt követi a hasonló szövegeket tömörítő csoportok elnevezésének lépése. A több dokumentumból álló korpuszok esetében a gépi klaszterelemzés különösen eredményes és költséghatékony lehet, mivel egy nagy korpusz vizsgálata sok erőforrást igényel <span class="citation">(<a href="#ref-grimmer2013text" role="doc-biblioref">Grimmer and Stewart 2013, 1</a>.)</span>.</p>
 <p>A klaszterezés bemutatásához a rendszerváltás utáni magyar miniszterelnökök egy-egy véletlenszerűen kiválasztott beszédét használjuk.</p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="lda-ch.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
 <span id="cb93-2"><a href="lda-ch.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -285,28 +311,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb93-4"><a href="lda-ch.html#cb93-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
 <span id="cb93-5"><a href="lda-ch.html#cb93-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readtext)</span>
 <span id="cb93-6"><a href="lda-ch.html#cb93-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
-<span id="cb93-7"><a href="lda-ch.html#cb93-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
-<span id="cb93-8"><a href="lda-ch.html#cb93-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb93-9"><a href="lda-ch.html#cb93-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(topicmodels)</span>
-<span id="cb93-10"><a href="lda-ch.html#cb93-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
-<span id="cb93-11"><a href="lda-ch.html#cb93-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stm)</span>
-<span id="cb93-12"><a href="lda-ch.html#cb93-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
-<span id="cb93-13"><a href="lda-ch.html#cb93-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span></code></pre></div>
+<span id="cb93-7"><a href="lda-ch.html#cb93-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textstats)</span>
+<span id="cb93-8"><a href="lda-ch.html#cb93-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb93-9"><a href="lda-ch.html#cb93-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb93-10"><a href="lda-ch.html#cb93-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(topicmodels)</span>
+<span id="cb93-11"><a href="lda-ch.html#cb93-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(factoextra)</span>
+<span id="cb93-12"><a href="lda-ch.html#cb93-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stm)</span>
+<span id="cb93-13"><a href="lda-ch.html#cb93-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb93-14"><a href="lda-ch.html#cb93-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span></code></pre></div>
 <p>A beszédek szövege meglehetősen tiszta, ezért az egyszerűség kedvéért most kihagyjuk a szövegtisztítás lépéseit. Az elemzés első lépéseként a <code>.csv</code> fájlból beolvasott szövegeinkből a <code>quanteda</code> csomaggal korpuszt hozunk létre, majd abból egy dokumentum-kifejezés mátrixot készítünk a <code>dfm()</code> függvénnyel. Láthatjuk, hogy márixunk 7 megfigyelést és 4 változót tartalmaz.</p>
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="lda-ch.html#cb94-1" aria-hidden="true" tabindex="-1"></a>beszedek <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_miniszterelnokok</span>
 <span id="cb94-2"><a href="lda-ch.html#cb94-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb94-3"><a href="lda-ch.html#cb94-3" aria-hidden="true" tabindex="-1"></a>beszedek_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(beszedek)</span>
 <span id="cb94-4"><a href="lda-ch.html#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-5"><a href="lda-ch.html#cb94-5" aria-hidden="true" tabindex="-1"></a>beszedek_dfm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(beszedek_corpus)</span></code></pre></div>
+<span id="cb94-5"><a href="lda-ch.html#cb94-5" aria-hidden="true" tabindex="-1"></a>beszedek_dfm <span class="ot">&lt;-</span> beszedek_corpus <span class="sc">%&gt;%</span> </span>
+<span id="cb94-6"><a href="lda-ch.html#cb94-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb94-7"><a href="lda-ch.html#cb94-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm</span>()</span></code></pre></div>
 <p>A beszédek klaszterekbe rendezését az R egyik alapfüggvénye, a <code>kmeans</code> végzi. Első lépésben 3 klasztert készítünk. A <code>table()</code> függvénnyel megnézhetjük, hogy egy-egy csoportba hány dokumentum került.</p>
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="lda-ch.html#cb95-1" aria-hidden="true" tabindex="-1"></a>beszedek_klaszter <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(beszedek_dfm, <span class="at">centers =</span> <span class="dv">2</span>)</span>
 <span id="cb95-2"><a href="lda-ch.html#cb95-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb95-3"><a href="lda-ch.html#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(beszedek_klaszter<span class="sc">$</span>cluster)</span>
 <span id="cb95-4"><a href="lda-ch.html#cb95-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb95-5"><a href="lda-ch.html#cb95-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 2 </span></span>
-<span id="cb95-6"><a href="lda-ch.html#cb95-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 5</span></span></code></pre></div>
+<span id="cb95-6"><a href="lda-ch.html#cb95-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 2</span></span></code></pre></div>
 <p>A felügyelet nélküli klasszifikáció nagy kérdése, hány klasztert alakítsunk ki, hogy megközelítsük a valóságot, és ne csak mesterségesen kreáljunk csoportokat. Ez ugyanis azzal a kockázattal jár, hogy ténylegesen nem létező csoportok is létrejönnek. A klaszterek optimális számának meghatározására kvalitatív és kvantitatív lehetőségeink is vannak. A következőkben az utóbbira mutatunk példát, amihez a <code>factoextra</code> csomagot használjuk A lenti ábra azt mutatja, hogy a klasztereken belüli négyzetösszegek hogyan változnak a <em>k</em> paraméter változásának függvényében. Minél kisebb a klasztereken belüli négyzetösszegek értéke, annál közelebbi pontok tartoznak össze, így a kisebb értékekkel definiált klasztereket kapunk. Az ábra alapján tehát az ideális <em>k</em> 4 vagy 2, attól fuggően, hogy milyen feltevésekkel élünk a kutatásunk során. A 2-es érték azért lehet jó, mert a <span class="math inline">\(k &gt; 2\)</span> értékek esetén a négyzetösszegek értéke nem csökken drasztikusan és a korpuszunk alapján a két („jobb-bal") klaszter kvalitativ alapon is jól definiálható. A <span class="math inline">\(k = 4\)</span> pedig azért lehet jó, mert utánna gyakorlatilag nem változik a kapott négyzetösszeg, ami azt jelzi, hogy a további klaszterek hozzáadásával nem lesz pontosabb a csoportosítás.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="lda-ch.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_nbclust</span>(<span class="fu">as.matrix</span>(beszedek_dfm), kmeans, <span class="at">method =</span> <span class="st">&quot;wss&quot;</span>, <span class="at">k.max =</span> <span class="dv">5</span>, <span class="at">linecolor =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="lda-ch.html#cb96-1" aria-hidden="true" tabindex="-1"></a>factoextra<span class="sc">::</span><span class="fu">fviz_nbclust</span>(<span class="fu">as.matrix</span>(beszedek_dfm), kmeans, <span class="at">method =</span> <span class="st">&quot;wss&quot;</span>, <span class="at">k.max =</span> <span class="dv">5</span>, <span class="at">linecolor =</span> <span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
 <span id="cb96-2"><a href="lda-ch.html#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(</span>
 <span id="cb96-3"><a href="lda-ch.html#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="cn">NULL</span>,</span>
 <span id="cb96-4"><a href="lda-ch.html#cb96-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="st">&quot;Klaszterek száma&quot;</span>,</span>
@@ -318,7 +347,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="_main_files/figure-html/unnamed-chunk-108-1.png" alt="Optimális klaszterek száma" width="90%" />
 </div>
 <p>A kialakított csoportokat vizuálisan is megjeleníthetjük.</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="lda-ch.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_cluster</span>(</span>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="lda-ch.html#cb97-1" aria-hidden="true" tabindex="-1"></a>factoextra<span class="sc">::</span><span class="fu">fviz_cluster</span>(</span>
 <span id="cb97-2"><a href="lda-ch.html#cb97-2" aria-hidden="true" tabindex="-1"></a>  beszedek_klaszter, </span>
 <span id="cb97-3"><a href="lda-ch.html#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> beszedek_dfm, </span>
 <span id="cb97-4"><a href="lda-ch.html#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">pointsize =</span> <span class="dv">2</span>,</span>
@@ -340,7 +369,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="lda-topik-modelleklda1" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> LDA topik modellek<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a></h2>
-<p>A topik modellezés a dokumentumok téma klasztereinek meghatározására szolgáló valószínűség alapú eljárás, amely szógyakoriságot állapít meg minden témához, és minden dokumentumhoz hozzárendeli az adott témák valószínűségét. A topik modellezés egy felügyelet nélküli tanulási módszer, amely során az alkalmazott algoritmus a dokumentum tulajdonságait és a modell becsléseit felhasználva hoz létre különböző kategóriákat, melyekhez később hozzárendeli a szöveget <span class="citation">(<a href="irodalomjegyzék.html#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007</a>; <a href="irodalomjegyzék.html#ref-grimmer2013text" role="doc-biblioref">Grimmer and Stewart 2013</a>; <a href="irodalomjegyzék.html#ref-burtejinCsoportositasKlaszterezes2016" role="doc-biblioref">Burtejin 2016</a>)</span>. Az egyik leggyakrabban alkalmazott topik modellezési eljárás, a Látens Dirichlet Allokáció (LDA) alapja az a feltételezés, hogy minden korpusz topikok/témák keverékéből áll, ezen témák pedig statisztikailag a korpusz szókészlete valószínűségi függvényeinek (eloszlásának) tekinthetőek <span class="citation">(<a href="irodalomjegyzék.html#ref-bleiLatentDirichletAllocation2003" role="doc-biblioref">Blei, Ng, and Jordan 2003</a>)</span>. Az LDA a korpusz dokumentumainak csoportosítása során az egyes dokumentumokhoz topik szavakat rendel, a topikok megbecsléséhez pedig a szavak együttes megjelenését vizsgálja a dokumentum egészében. Az LDA algoritmusnak előzetesen meg kell adni a keresett klaszterek (azaz a keresett topikok) számát, ezt követően a dokumentumhalmazban szereplő szavak eloszlása alapján az algoritmus azonosítja a kulcsszavakat, amelyek eloszlása kirajzolja a topikokat <span class="citation">(<a href="irodalomjegyzék.html#ref-bleiLatentDirichletAllocation2003" role="doc-biblioref">Blei, Ng, and Jordan 2003</a>; <a href="irodalomjegyzék.html#ref-burtejinCsoportositasKlaszterezes2016" role="doc-biblioref">Burtejin 2016</a>; <a href="irodalomjegyzék.html#ref-jacobiQuantitativeAnalysisLarge2016" role="doc-biblioref">Jacobi, Van Atteveldt, and Welbers 2016</a>)</span>.</p>
+<p>A topik modellezés a dokumentumok téma klasztereinek meghatározására szolgáló valószínűség alapú eljárás, amely szógyakoriságot állapít meg minden témához, és minden dokumentumhoz hozzárendeli az adott témák valószínűségét. A topik modellezés egy felügyelet nélküli tanulási módszer, amely során az alkalmazott algoritmus a dokumentum tulajdonságait és a modell becsléseit felhasználva hoz létre különböző kategóriákat, melyekhez később hozzárendeli a szöveget <span class="citation">(<a href="#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007</a>; <a href="#ref-grimmer2013text" role="doc-biblioref">Grimmer and Stewart 2013</a>; <a href="#ref-burtejinCsoportositasKlaszterezes2016" role="doc-biblioref">Burtejin 2016</a>)</span>. Az egyik leggyakrabban alkalmazott topik modellezési eljárás, a Látens Dirichlet Allokáció (LDA) alapja az a feltételezés, hogy minden korpusz topikok/témák keverékéből áll, ezen témák pedig statisztikailag a korpusz szókészlete valószínűségi függvényeinek (eloszlásának) tekinthetőek <span class="citation">(<a href="#ref-bleiLatentDirichletAllocation2003" role="doc-biblioref">Blei, Ng, and Jordan 2003</a>)</span>. Az LDA a korpusz dokumentumainak csoportosítása során az egyes dokumentumokhoz topik szavakat rendel, a topikok megbecsléséhez pedig a szavak együttes megjelenését vizsgálja a dokumentum egészében. Az LDA algoritmusnak előzetesen meg kell adni a keresett klaszterek (azaz a keresett topikok) számát, ezt követően a dokumentumhalmazban szereplő szavak eloszlása alapján az algoritmus azonosítja a kulcsszavakat, amelyek eloszlása kirajzolja a topikokat <span class="citation">(<a href="#ref-bleiLatentDirichletAllocation2003" role="doc-biblioref">Blei, Ng, and Jordan 2003</a>; <a href="#ref-burtejinCsoportositasKlaszterezes2016" role="doc-biblioref">Burtejin 2016</a>; <a href="#ref-jacobiQuantitativeAnalysisLarge2016" role="doc-biblioref">Jacobi, Van Atteveldt, and Welbers 2016</a>)</span>.</p>
 <p><img src="figures/08-01_topik_modell.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>A következőkben a magyar törvények korpuszán szemléltetjük a topik modellezés módszerét, hogy a mesterséges intelligencia segítségével feltárjuk a korpuszon belüli rejtett összefüggéseket. A korábban leírtak szerint tehát nincsenek előre meghatározott kategóriáink, dokumentumainkat a klaszterezés segítségével szeretnénk csoportosítani. Egy-egy dokumentumban keveredhetnek a témák és az azokat reprezentáló szavak. Mivel ugyanaz a szó több topikhoz is kapcsolódhat, így az eljárás komplex elemzési lehetőséget nyújt, az egy szövegen belüli témák és akár azok dokumentumon belüli súlyának azonosítására. Példánkban csak a korpusz egy részén szemléltetjük a topik modellezést, a teljes korpusz és az annak elemzéséhez szükséges kód elérhető az alábbi GitHub linken: <a href="https://github.com/poltextlab" class="uri">https://github.com/poltextlab</a>.</p>
 <p>Az alábbiakban a 1998–2002-es és a 2002–2006-os parlamenti ciklus 1032 törvényszövegének topik modellezését és a szükséges előkészítő, korpusztisztító lépéseket mutatjuk be. A fájlokat töltsük be az R által használt munkakönyvtárba.<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a></p>
@@ -376,26 +405,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb100-5"><a href="lda-ch.html#cb100-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>txt_filename)</span>
 <span id="cb100-6"><a href="lda-ch.html#cb100-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb100-7"><a href="lda-ch.html#cb100-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(torveny_meta, <span class="dv">5</span>)</span>
-<span id="cb100-8"><a href="lda-ch.html#cb100-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;246m# A tibble: 5 x 4[39m</span></span>
+<span id="cb100-8"><a href="lda-ch.html#cb100-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 5 x 4</span></span>
 <span id="cb100-9"><a href="lda-ch.html#cb100-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    year electoral_cycle majortopic doc_id     </span></span>
-<span id="cb100-10"><a href="lda-ch.html#cb100-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m                [3m[38;5;246m&lt;dbl&gt;[39m[23m [3m[38;5;246m&lt;chr&gt;[39m[23m      </span></span>
-<span id="cb100-11"><a href="lda-ch.html#cb100-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m1[39m  [4m1[24m998 1998-2002               13 1998XXXV   </span></span>
-<span id="cb100-12"><a href="lda-ch.html#cb100-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m2[39m  [4m1[24m998 1998-2002               20 1998XXXVI  </span></span>
-<span id="cb100-13"><a href="lda-ch.html#cb100-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m3[39m  [4m1[24m998 1998-2002                3 1998XXXVII </span></span>
-<span id="cb100-14"><a href="lda-ch.html#cb100-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m4[39m  [4m1[24m998 1998-2002                6 1998XXXVIII</span></span>
-<span id="cb100-15"><a href="lda-ch.html#cb100-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [38;5;250m5[39m  [4m1[24m998 1998-2002               13 1998XXXIX</span></span></code></pre></div>
+<span id="cb100-10"><a href="lda-ch.html#cb100-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;      </span></span>
+<span id="cb100-11"><a href="lda-ch.html#cb100-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1998 1998-2002               13 1998XXXV   </span></span>
+<span id="cb100-12"><a href="lda-ch.html#cb100-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  1998 1998-2002               20 1998XXXVI  </span></span>
+<span id="cb100-13"><a href="lda-ch.html#cb100-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  1998 1998-2002                3 1998XXXVII </span></span>
+<span id="cb100-14"><a href="lda-ch.html#cb100-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  1998 1998-2002                6 1998XXXVIII</span></span>
+<span id="cb100-15"><a href="lda-ch.html#cb100-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  1998 1998-2002               13 1998XXXIX</span></span></code></pre></div>
 <p>Végül összefűzzük a dokumentumokat és a metaadatokat tartalmazó data frame-eket.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="lda-ch.html#cb101-1" aria-hidden="true" tabindex="-1"></a>torveny_final <span class="ot">&lt;-</span> <span class="fu">left_join</span>(torvenyek_tiszta, torveny_meta, <span class="at">by =</span> <span class="st">&quot;doc_id&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="lda-ch.html#cb101-1" aria-hidden="true" tabindex="-1"></a>torveny_final <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">left_join</span>(torvenyek_tiszta, torveny_meta, <span class="at">by =</span> <span class="st">&quot;doc_id&quot;</span>)</span></code></pre></div>
 <p>Majd létrehozzuk a korpuszt és ellenőrizzük azt.</p>
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="lda-ch.html#cb102-1" aria-hidden="true" tabindex="-1"></a>torvenyek_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(torveny_final)</span>
 <span id="cb102-2"><a href="lda-ch.html#cb102-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb102-3"><a href="lda-ch.html#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">summary</span>(torvenyek_corpus), <span class="dv">5</span>)</span>
-<span id="cb102-4"><a href="lda-ch.html#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Text Types Tokens Sentences year electoral_cycle majortopic</span></span>
-<span id="cb102-5"><a href="lda-ch.html#cb102-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    1998L  2879   9628         1 1998       1998-2002          3</span></span>
-<span id="cb102-6"><a href="lda-ch.html#cb102-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   1998LI   352    680         1 1998       1998-2002         20</span></span>
-<span id="cb102-7"><a href="lda-ch.html#cb102-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  1998LII   446    992         1 1998       1998-2002          9</span></span>
-<span id="cb102-8"><a href="lda-ch.html#cb102-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 1998LIII   126    221         1 1998       1998-2002          9</span></span>
-<span id="cb102-9"><a href="lda-ch.html#cb102-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  1998LIV   835   2013         1 1998       1998-2002          9</span></span></code></pre></div>
+<span id="cb102-4"><a href="lda-ch.html#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Text Types Tokens Sentences year electoral_cycle</span></span>
+<span id="cb102-5"><a href="lda-ch.html#cb102-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    1998L  2879   9628         1 1998       1998-2002</span></span>
+<span id="cb102-6"><a href="lda-ch.html#cb102-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   1998LI   352    680         1 1998       1998-2002</span></span>
+<span id="cb102-7"><a href="lda-ch.html#cb102-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  1998LII   446    992         1 1998       1998-2002</span></span>
+<span id="cb102-8"><a href="lda-ch.html#cb102-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 1998LIII   126    221         1 1998       1998-2002</span></span>
+<span id="cb102-9"><a href="lda-ch.html#cb102-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  1998LIV   835   2013         1 1998       1998-2002</span></span>
+<span id="cb102-10"><a href="lda-ch.html#cb102-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   majortopic</span></span>
+<span id="cb102-11"><a href="lda-ch.html#cb102-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1          3</span></span>
+<span id="cb102-12"><a href="lda-ch.html#cb102-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2         20</span></span>
+<span id="cb102-13"><a href="lda-ch.html#cb102-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3          9</span></span>
+<span id="cb102-14"><a href="lda-ch.html#cb102-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4          9</span></span>
+<span id="cb102-15"><a href="lda-ch.html#cb102-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5          9</span></span></code></pre></div>
 <p>Az RStudio environments fülén láthatjuk, hogy egy 1032 elemből álló korpusz jött létre, amelynek tartalmát a <code>summary()</code> paranccsal kiíratva, a console ablakban megjelenik a dokumentumok listája és a főbb leíró statisztikai adatok (egyedi szavak – <em>types</em>; szószám – <em>tokens</em>; mondatok – <em>sentences</em>). Az előbbi fejezettől eltérően most a tokenizálás során is végzünk még egy kis tisztítást: a felesleges stop szavakat kitöröljük a <code>tokens_remove()</code> és <code>stopwords()</code> kombinálásával. A <code>quanteda</code> tartalmaz egy beépített magyar stopszó szótárat. A második lépésben szótövesítjük a tokeneket a <code>tokens_words()</code> használatával, ami szintén képes a magyar nyelvű szövegeket kezelni.</p>
 <p>Szükség esetén a beépített magyar nyelvű stopszó szótárat saját stopszavakkal is kiegészíthetjük. Példaként a <code>HunMineR</code> csomagban lévő kiegészítő stopszó data frame-t töltsük be.</p>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="lda-ch.html#cb103-1" aria-hidden="true" tabindex="-1"></a>custom_stopwords <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_legal_stopwords</span></code></pre></div>
@@ -409,13 +444,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb105-5"><a href="lda-ch.html#cb105-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_wordstem</span>(<span class="at">language =</span> <span class="st">&quot;hun&quot;</span>)</span></code></pre></div>
 <p>Végül eltávolítjuk a dokumentum-kifejezés mátrixból a túl gyakori kifejezéseket. A <code>dfm_trim()</code> függvénnyel a nagyon ritka és nagyon gyakori szavak megjelenését kontrollálhatjuk. Ha <code>termfreq_type</code> opció értéke “prop” (úgymint <em>proportional</em>) akkor 0 és 1.0 közötti értéket vehetnek fel a <code>max_termfreq/docfreq</code> és <code>min_termfreq/docfreq</code> paraméterek. A lenti példában azokat a tokeneket tartjuk meg, amelyek legalább egyszer előfordulnak ezer dokumentumonként (így kizárva a nagyon ritka kifejezéseket).</p>
 <div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="lda-ch.html#cb106-1" aria-hidden="true" tabindex="-1"></a>torvenyek_dfm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(torvenyek_tokens) <span class="sc">%&gt;%</span></span>
-<span id="cb106-2"><a href="lda-ch.html#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm_trim</span>(<span class="at">min_termfreq =</span> <span class="fl">0.001</span>, <span class="at">termfreq_type =</span> <span class="st">&quot;prop&quot;</span>)</span></code></pre></div>
+<span id="cb106-2"><a href="lda-ch.html#cb106-2" aria-hidden="true" tabindex="-1"></a>  quanteda<span class="sc">::</span><span class="fu">dfm_trim</span>(<span class="at">min_termfreq =</span> <span class="fl">0.001</span>, <span class="at">termfreq_type =</span> <span class="st">&quot;prop&quot;</span>)</span></code></pre></div>
 <p>A szövegtisztító lépesek eredményét úgy ellenőrizhetjük, hogy a 2. fejezetben bemutatottak szerint szógyakorisági listát készítünk a korpuszban maradt kifejezésekről. Itt kihasználhatjuk a korpuszunkban lévő metaadatokat és megnézhetjük ciklus szerinti bontásban a szófrekvencia ábrát. Az ábránál figyeljünk arra, hogy a tidytext <code>reorder_within</code> függvényét használjuk, ami egy nagyon hasznos megoldás a csoportosított sorrendbe rendezésre a <code>ggplot2</code> ábránál.</p>
 <div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="lda-ch.html#cb107-1" aria-hidden="true" tabindex="-1"></a>top_tokens <span class="ot">&lt;-</span> <span class="fu">textstat_frequency</span>(torvenyek_dfm, <span class="at">n =</span> <span class="dv">15</span>, <span class="at">groups =</span> <span class="fu">docvars</span>(torvenyek_dfm, </span>
 <span id="cb107-2"><a href="lda-ch.html#cb107-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">field =</span> <span class="st">&quot;electoral_cycle&quot;</span>))</span>
 <span id="cb107-3"><a href="lda-ch.html#cb107-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb107-4"><a href="lda-ch.html#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(top_tokens, <span class="fu">aes</span>(<span class="fu">reorder_within</span>(feature, frequency, group), frequency)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> group), </span>
-<span id="cb107-5"><a href="lda-ch.html#cb107-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">y =</span> <span class="cn">NULL</span>, <span class="at">x =</span> <span class="st">&quot;szófrekvencia&quot;</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>group, </span>
+<span id="cb107-5"><a href="lda-ch.html#cb107-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">&quot;szófrekvencia&quot;</span>) <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>group, </span>
 <span id="cb107-6"><a href="lda-ch.html#cb107-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span> tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-120"></span>
 <p class="caption">
@@ -429,8 +464,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb108-3"><a href="lda-ch.html#cb108-3" aria-hidden="true" tabindex="-1"></a>torvenyek_tokens_final <span class="ot">&lt;-</span> torvenyek_tokens <span class="sc">%&gt;%</span></span>
 <span id="cb108-4"><a href="lda-ch.html#cb108-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(custom_stopwords2)</span></code></pre></div>
 <p>Ezután újra ellenőrizzük az eredményt.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="lda-ch.html#cb109-1" aria-hidden="true" tabindex="-1"></a>torvenyek_dfm_final <span class="ot">&lt;-</span> <span class="fu">dfm</span>(torvenyek_tokens_final) <span class="sc">%&gt;%</span> <span class="fu">dfm_trim</span>(<span class="at">min_termfreq =</span> <span class="fl">0.001</span>, </span>
-<span id="cb109-2"><a href="lda-ch.html#cb109-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">termfreq_type =</span> <span class="st">&quot;prop&quot;</span>)</span>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="lda-ch.html#cb109-1" aria-hidden="true" tabindex="-1"></a>torvenyek_dfm_final <span class="ot">&lt;-</span> <span class="fu">dfm</span>(torvenyek_tokens_final) <span class="sc">%&gt;%</span></span>
+<span id="cb109-2"><a href="lda-ch.html#cb109-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dfm_trim</span>(<span class="at">min_termfreq =</span> <span class="fl">0.001</span>, <span class="at">termfreq_type =</span> <span class="st">&quot;prop&quot;</span>)</span>
 <span id="cb109-3"><a href="lda-ch.html#cb109-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb109-4"><a href="lda-ch.html#cb109-4" aria-hidden="true" tabindex="-1"></a>top_tokens_final <span class="ot">&lt;-</span> <span class="fu">textstat_frequency</span>(torvenyek_dfm_final, <span class="at">n =</span> <span class="dv">15</span>, <span class="at">groups =</span> <span class="fu">docvars</span>(torvenyek_dfm, </span>
 <span id="cb109-5"><a href="lda-ch.html#cb109-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">field =</span> <span class="st">&quot;electoral_cycle&quot;</span>))</span></code></pre></div>
@@ -439,8 +474,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb110-2"><a href="lda-ch.html#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> group), <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb110-3"><a href="lda-ch.html#cb110-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
 <span id="cb110-4"><a href="lda-ch.html#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb110-5"><a href="lda-ch.html#cb110-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="cn">NULL</span>,</span>
-<span id="cb110-6"><a href="lda-ch.html#cb110-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;szófrekvencia&quot;</span></span>
+<span id="cb110-5"><a href="lda-ch.html#cb110-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb110-6"><a href="lda-ch.html#cb110-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;szófrekvencia&quot;</span></span>
 <span id="cb110-7"><a href="lda-ch.html#cb110-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb110-8"><a href="lda-ch.html#cb110-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>group, <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
 <span id="cb110-9"><a href="lda-ch.html#cb110-9" aria-hidden="true" tabindex="-1"></a>  tidytext<span class="sc">::</span><span class="fu">scale_x_reordered</span>() <span class="sc">+</span></span>
@@ -451,7 +486,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </p>
 <img src="_main_files/figure-html/unnamed-chunk-123-1.png" alt="A 15 leggyakoribb token a korpuszban, a bovített stop szó listával" width="90%" />
 </div>
-<p>A szövegtisztító és a korpusz előkészítő műveletek után következhet az LDA illesztése. Az alábbiakban az LDA illesztés két módszerét, a <code>VEM</code>-et és a <code>Gibbs</code>-et mutatjuk be. A modell mindkét módszer esetén ugyanaz, a különbség a következtetés módjában van. A <code>VEM</code> módszer variációs következtetés, míg a <code>Gibbs</code> mintavételen alapuló következtetés. <span class="citation">(<a href="irodalomjegyzék.html#ref-bleiLatentDirichletAllocation2003" role="doc-biblioref">Blei, Ng, and Jordan 2003</a>; <a href="irodalomjegyzék.html#ref-griffithsFindingScientificTopics2004" role="doc-biblioref">Griffiths and Steyvers 2004</a>; <a href="irodalomjegyzék.html#ref-phanLearningClassifyShort2008" role="doc-biblioref">Phan, Nguyen, and Horiguchi 2008</a>)</span>.</p>
+<p>A szövegtisztító és a korpusz előkészítő műveletek után következhet az LDA illesztése. Az alábbiakban az LDA illesztés két módszerét, a <code>VEM</code>-et és a <code>Gibbs</code>-et mutatjuk be. A modell mindkét módszer esetén ugyanaz, a különbség a következtetés módjában van. A <code>VEM</code> módszer variációs következtetés, míg a <code>Gibbs</code> mintavételen alapuló következtetés. <span class="citation">(<a href="#ref-bleiLatentDirichletAllocation2003" role="doc-biblioref">Blei, Ng, and Jordan 2003</a>; <a href="#ref-griffithsFindingScientificTopics2004" role="doc-biblioref">Griffiths and Steyvers 2004</a>; <a href="#ref-phanLearningClassifyShort2008" role="doc-biblioref">Phan, Nguyen, and Horiguchi 2008</a>)</span>.</p>
 <p>A két modell illesztése nagyon hasonló, meg kell adnunk az elemezni kívánt <code>dfm</code> nevét, majd a <em>„k"</em> értékét, ami egyenlő az általunk létrehozni kívánt topikok számával, ezt követően meg kell jelölnünk, hogy a <code>VEM</code> vagy a <code>Gibbs</code> módszert alkalmazzuk. A <code>set.seed()</code> funkció az R véletlen szám generátor magjának beállítására szolgál, ami ahhoz kell, hogy a kapott eredmények, ábrák stb. pontosan reprodukálhatóak legyenek. A <code>set.seed()</code> bármilyen tetszőleges egész szám lehet. Mivel az elemzésünk célja a két ciklus jogalkotásának összehasonlítása, a korpuszunkat két alkorpuszra bontjuk, ehhez a dokumentumok kormányzati ciklus azonosítóját használjuk fel. A dokumentum változók alapján a <code>dfm_subset()</code> parancs segítségével választjuk szét a már elkészült és a tisztított mátrixunkat.</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="lda-ch.html#cb111-1" aria-hidden="true" tabindex="-1"></a>dfm_98_02 <span class="ot">&lt;-</span> <span class="fu">dfm_subset</span>(torvenyek_dfm_final, electoral_cycle <span class="sc">==</span> <span class="st">&quot;1998-2002&quot;</span>)</span>
 <span id="cb111-2"><a href="lda-ch.html#cb111-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -462,12 +497,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="lda-ch.html#cb112-1" aria-hidden="true" tabindex="-1"></a>k_topics <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>)</span>
 <span id="cb112-2"><a href="lda-ch.html#cb112-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb112-3"><a href="lda-ch.html#cb112-3" aria-hidden="true" tabindex="-1"></a>lda_98_02 <span class="ot">&lt;-</span> k_topics <span class="sc">%&gt;%</span></span>
-<span id="cb112-4"><a href="lda-ch.html#cb112-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(LDA, <span class="at">x =</span> dfm_98_02, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">seed =</span> <span class="dv">1234</span>))</span>
+<span id="cb112-4"><a href="lda-ch.html#cb112-4" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map</span>(topicmodels<span class="sc">::</span>LDA, <span class="at">x =</span> dfm_98_02, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">seed =</span> <span class="dv">1234</span>))</span>
 <span id="cb112-5"><a href="lda-ch.html#cb112-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb112-6"><a href="lda-ch.html#cb112-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb112-7"><a href="lda-ch.html#cb112-7" aria-hidden="true" tabindex="-1"></a>perp_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb112-7"><a href="lda-ch.html#cb112-7" aria-hidden="true" tabindex="-1"></a>perp_df <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">tibble</span>(</span>
 <span id="cb112-8"><a href="lda-ch.html#cb112-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">k =</span> k_topics,</span>
-<span id="cb112-9"><a href="lda-ch.html#cb112-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">perplexity =</span> <span class="fu">map_dbl</span>(lda_98_02, perplexity)</span>
+<span id="cb112-9"><a href="lda-ch.html#cb112-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">perplexity =</span> purrr<span class="sc">::</span><span class="fu">map_dbl</span>(lda_98_02, topicmodels<span class="sc">::</span>perplexity)</span>
 <span id="cb112-10"><a href="lda-ch.html#cb112-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="lda-ch.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(perp_df, <span class="fu">aes</span>(k, perplexity)) <span class="sc">+</span></span>
 <span id="cb113-2"><a href="lda-ch.html#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
@@ -488,13 +523,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb114-2"><a href="lda-ch.html#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb114-3"><a href="lda-ch.html#cb114-3" aria-hidden="true" tabindex="-1"></a>vem_02_06 <span class="ot">&lt;-</span> <span class="fu">LDA</span>(dfm_02_06, <span class="at">k =</span> <span class="dv">10</span>, <span class="at">method =</span> <span class="st">&quot;VEM&quot;</span>, <span class="at">control =</span> <span class="fu">list</span>(<span class="at">seed =</span> <span class="dv">1234</span>))</span></code></pre></div>
 <p>Ezt követően a modell által létrehozott topic-okat tidy formátumba tesszük és egyesítjük egy adattáblában.<a href="#fn33" class="footnote-ref" id="fnref33"><sup>33</sup></a></p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="lda-ch.html#cb115-1" aria-hidden="true" tabindex="-1"></a>topics_98_02 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(vem_98_02, <span class="at">matrix =</span> <span class="st">&quot;beta&quot;</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="lda-ch.html#cb115-1" aria-hidden="true" tabindex="-1"></a>topics_98_02 <span class="ot">&lt;-</span> tidytext<span class="sc">::</span><span class="fu">tidy</span>(vem_98_02, <span class="at">matrix =</span> <span class="st">&quot;beta&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb115-2"><a href="lda-ch.html#cb115-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">electoral_cycle =</span> <span class="st">&quot;1998-2002&quot;</span>)</span>
 <span id="cb115-3"><a href="lda-ch.html#cb115-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-4"><a href="lda-ch.html#cb115-4" aria-hidden="true" tabindex="-1"></a>topics_02_06 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(vem_02_06, <span class="at">matrix =</span> <span class="st">&quot;beta&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb115-4"><a href="lda-ch.html#cb115-4" aria-hidden="true" tabindex="-1"></a>topics_02_06 <span class="ot">&lt;-</span> tidytext<span class="sc">::</span><span class="fu">tidy</span>(vem_02_06, <span class="at">matrix =</span> <span class="st">&quot;beta&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb115-5"><a href="lda-ch.html#cb115-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">electoral_cycle =</span> <span class="st">&quot;2002-2006&quot;</span>)</span>
 <span id="cb115-6"><a href="lda-ch.html#cb115-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb115-7"><a href="lda-ch.html#cb115-7" aria-hidden="true" tabindex="-1"></a>lda_vem <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(topics_98_02, topics_02_06)</span></code></pre></div>
+<span id="cb115-7"><a href="lda-ch.html#cb115-7" aria-hidden="true" tabindex="-1"></a>lda_vem <span class="ot">&lt;-</span> dplyr<span class="sc">::</span><span class="fu">bind_rows</span>(topics_98_02, topics_02_06)</span></code></pre></div>
 <p>Ezután listázzuk az egyes topikokhoz tartozó leggyakoribb kifejezéseket.</p>
 <div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="lda-ch.html#cb116-1" aria-hidden="true" tabindex="-1"></a>top_terms <span class="ot">&lt;-</span> lda_vem <span class="sc">%&gt;%</span></span>
 <span id="cb116-2"><a href="lda-ch.html#cb116-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(electoral_cycle, topic) <span class="sc">%&gt;%</span></span>
@@ -599,14 +634,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="strukturális-topik-modellek" class="section level2" number="7.3">
 <h2><span class="header-section-number">7.3</span> Strukturális topik modellek</h2>
-<p>A kvantitatív szövegelemzés elterjedésével együtt megjelentek a módszertani innovációk is. <span class="citation"><a href="irodalomjegyzék.html#ref-roberts2014structural" role="doc-biblioref">Roberts et al.</a> (<a href="irodalomjegyzék.html#ref-roberts2014structural" role="doc-biblioref">2014</a>)</span> kiváló cikkben mutatták be a strukturális topic modelleket (<em>structural topic models – stm</em>), amelyek fő újítása, hogy a dokumentumok metaadatai kovariánsként<a href="#fn34" class="footnote-ref" id="fnref34"><sup>34</sup></a> tudják befolyásolni, hogy egy-egy kifejezés mekkora valószínűséggel lesz egy-egy téma része. A kovariánsok egyrészről megmagyarázhatják, hogy egy-egy dokumentum mennyire függ össze egy-egy témával (<em>topical prevalence</em>), illetve hogy egy-egy szó mennyire függ össze egy-egy témán belül (<em>topical content</em>).</p>
+<p>A kvantitatív szövegelemzés elterjedésével együtt megjelentek a módszertani innovációk is. <span class="citation"><a href="#ref-roberts2014structural" role="doc-biblioref">Roberts et al.</a> (<a href="#ref-roberts2014structural" role="doc-biblioref">2014</a>)</span> kiváló cikkben mutatták be a strukturális topic modelleket (<em>structural topic models – stm</em>), amelyek fő újítása, hogy a dokumentumok metaadatai kovariánsként<a href="#fn34" class="footnote-ref" id="fnref34"><sup>34</sup></a> tudják befolyásolni, hogy egy-egy kifejezés mekkora valószínűséggel lesz egy-egy téma része. A kovariánsok egyrészről megmagyarázhatják, hogy egy-egy dokumentum mennyire függ össze egy-egy témával (<em>topical prevalence</em>), illetve hogy egy-egy szó mennyire függ össze egy-egy témán belül (<em>topical content</em>).</p>
 <p>Az stm modell becslése során mindkét típusú kovariánst használhatjuk, illetve ha nem adunk meg dokumentum metaadatot, akkor az <code>stm</code> csomag <code>stm</code> függvénye a <strong>Korrelált Topic Modell</strong>-t fogja becsülni.</p>
 <p>Az stm modelleket az R-ben az <code>stm</code> csomaggal tudjuk kivitelezni. A csomag fejlesztői között van a módszer kidolgozója is, ami nem ritka az R csomagok esetében.</p>
 <p>A lenti lépésekben a csomag dokumentációjában szereplő ajánlásokat követjük, habár a könyv írásakor a <code>stm</code> már képes volt a <code>quanteda</code>-ban létrehozott dfm-ek kezelésére is. A kiinduló adatbázisunk a <code>törvény_final</code>, amit a fejezet elején hoztunk létre a dokumentumokból és a metaadatokból. A javasolt munkafolyamat a <code>textProcessor()</code> függvény használatával indul, ami szintén tartalmazza az alap szöveg előkészítési lépéseket. Az egyszerűség és a futási sebesség érdekében itt most ezek többségétől eltekintünk, mivel a fejezet korábbi részeiben részletesen tárgyaltuk őket.</p>
 <p>Az előkészítés utolsó szakaszában az out objektumban tároljuk el a dokumentumokat, az egyedi szavakat, illetve a metaadatokat (kovariánsokat).</p>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="lda-ch.html#cb124-1" aria-hidden="true" tabindex="-1"></a>data_stm <span class="ot">&lt;-</span> torveny_final</span>
 <span id="cb124-2"><a href="lda-ch.html#cb124-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb124-3"><a href="lda-ch.html#cb124-3" aria-hidden="true" tabindex="-1"></a>processed_stm <span class="ot">&lt;-</span> <span class="fu">textProcessor</span>(</span>
+<span id="cb124-3"><a href="lda-ch.html#cb124-3" aria-hidden="true" tabindex="-1"></a>processed_stm <span class="ot">&lt;-</span> stm<span class="sc">::</span><span class="fu">textProcessor</span>(</span>
 <span id="cb124-4"><a href="lda-ch.html#cb124-4" aria-hidden="true" tabindex="-1"></a>  torveny_final<span class="sc">$</span>text,</span>
 <span id="cb124-5"><a href="lda-ch.html#cb124-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">metadata =</span> torveny_final,</span>
 <span id="cb124-6"><a href="lda-ch.html#cb124-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">lowercase =</span> <span class="cn">FALSE</span>,</span>
@@ -619,9 +654,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb124-13"><a href="lda-ch.html#cb124-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
 <span id="cb124-14"><a href="lda-ch.html#cb124-14" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb124-15"><a href="lda-ch.html#cb124-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb124-16"><a href="lda-ch.html#cb124-16" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">prepDocuments</span>(processed_stm<span class="sc">$</span>documents, processed_stm<span class="sc">$</span>vocab, processed_stm<span class="sc">$</span>meta)</span></code></pre></div>
+<span id="cb124-16"><a href="lda-ch.html#cb124-16" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> stm<span class="sc">::</span><span class="fu">prepDocuments</span>(processed_stm<span class="sc">$</span>documents, processed_stm<span class="sc">$</span>vocab, processed_stm<span class="sc">$</span>meta)</span></code></pre></div>
 <p>A strukturális topic modellünket az <code>stm</code> függvénnyel becsüljük és a kovariánsokat a <code>prevalence</code> opciónál tudjuk formulaként megadni. A lenti példában a Hungarian Comparative Agendas Project<a href="#fn35" class="footnote-ref" id="fnref35"><sup>35</sup></a> kategóriáit (például gazdaság, egészségügy stb.) és a kormányciklusokat használjuk. A futási idő kicsit hosszabb mint az LDA modellek esetében.</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="lda-ch.html#cb125-1" aria-hidden="true" tabindex="-1"></a>stm_fit <span class="ot">&lt;-</span> <span class="fu">stm</span>(</span>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="lda-ch.html#cb125-1" aria-hidden="true" tabindex="-1"></a>stm_fit <span class="ot">&lt;-</span> stm<span class="sc">::</span><span class="fu">stm</span>(</span>
 <span id="cb125-2"><a href="lda-ch.html#cb125-2" aria-hidden="true" tabindex="-1"></a>  out<span class="sc">$</span>documents,</span>
 <span id="cb125-3"><a href="lda-ch.html#cb125-3" aria-hidden="true" tabindex="-1"></a>  out<span class="sc">$</span>vocab,</span>
 <span id="cb125-4"><a href="lda-ch.html#cb125-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">K =</span> <span class="dv">10</span>,</span>
@@ -635,46 +670,70 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="lda-ch.html#cb126-1" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>meta<span class="sc">$</span>electoral_cycle <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(out<span class="sc">$</span>meta<span class="sc">$</span>electoral_cycle)</span>
 <span id="cb126-2"><a href="lda-ch.html#cb126-2" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>meta<span class="sc">$</span>majortopic <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(out<span class="sc">$</span>meta<span class="sc">$</span>majortopic)</span>
 <span id="cb126-3"><a href="lda-ch.html#cb126-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb126-4"><a href="lda-ch.html#cb126-4" aria-hidden="true" tabindex="-1"></a>cov_estimate <span class="ot">&lt;-</span> <span class="fu">estimateEffect</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">~</span> majortopic <span class="sc">+</span> electoral_cycle, stm_fit, <span class="at">meta =</span> out<span class="sc">$</span>meta, </span>
-<span id="cb126-5"><a href="lda-ch.html#cb126-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">uncertainty =</span> <span class="st">&quot;Global&quot;</span>)</span>
+<span id="cb126-4"><a href="lda-ch.html#cb126-4" aria-hidden="true" tabindex="-1"></a>cov_estimate <span class="ot">&lt;-</span> stm<span class="sc">::</span><span class="fu">estimateEffect</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span> <span class="sc">~</span> majortopic <span class="sc">+</span> electoral_cycle, stm_fit, </span>
+<span id="cb126-5"><a href="lda-ch.html#cb126-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">meta =</span> out<span class="sc">$</span>meta, <span class="at">uncertainty =</span> <span class="st">&quot;Global&quot;</span>)</span>
 <span id="cb126-6"><a href="lda-ch.html#cb126-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb126-7"><a href="lda-ch.html#cb126-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cov_estimate, <span class="at">topics =</span> <span class="dv">1</span>)</span>
 <span id="cb126-8"><a href="lda-ch.html#cb126-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb126-9"><a href="lda-ch.html#cb126-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb126-10"><a href="lda-ch.html#cb126-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; estimateEffect(formula = 1:10 ~ majortopic + electoral_cycle, </span></span>
+<span id="cb126-10"><a href="lda-ch.html#cb126-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; stm::estimateEffect(formula = 1:10 ~ majortopic + electoral_cycle, </span></span>
 <span id="cb126-11"><a href="lda-ch.html#cb126-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     stmobj = stm_fit, metadata = out$meta, uncertainty = &quot;Global&quot;)</span></span>
 <span id="cb126-12"><a href="lda-ch.html#cb126-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb126-13"><a href="lda-ch.html#cb126-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb126-14"><a href="lda-ch.html#cb126-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1:</span></span>
 <span id="cb126-15"><a href="lda-ch.html#cb126-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb126-16"><a href="lda-ch.html#cb126-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb126-17"><a href="lda-ch.html#cb126-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                          Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb126-18"><a href="lda-ch.html#cb126-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)               0.30415    0.03037  10.016  &lt; 2e-16 ***</span></span>
-<span id="cb126-19"><a href="lda-ch.html#cb126-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic2              -0.21244    0.06279  -3.383 0.000744 ***</span></span>
-<span id="cb126-20"><a href="lda-ch.html#cb126-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic3              -0.21468    0.05982  -3.589 0.000348 ***</span></span>
-<span id="cb126-21"><a href="lda-ch.html#cb126-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic4              -0.22654    0.05695  -3.978 7.45e-05 ***</span></span>
-<span id="cb126-22"><a href="lda-ch.html#cb126-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic5               0.10095    0.04808   2.100 0.035996 *  </span></span>
-<span id="cb126-23"><a href="lda-ch.html#cb126-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic6              -0.22807    0.05747  -3.968 7.75e-05 ***</span></span>
-<span id="cb126-24"><a href="lda-ch.html#cb126-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic7              -0.16730    0.06390  -2.618 0.008972 ** </span></span>
-<span id="cb126-25"><a href="lda-ch.html#cb126-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic8              -0.21106    0.07374  -2.862 0.004295 ** </span></span>
-<span id="cb126-26"><a href="lda-ch.html#cb126-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic9               0.48594    0.09943   4.887 1.19e-06 ***</span></span>
-<span id="cb126-27"><a href="lda-ch.html#cb126-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic10             -0.11776    0.05220  -2.256 0.024292 *  </span></span>
-<span id="cb126-28"><a href="lda-ch.html#cb126-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic12             -0.17952    0.04137  -4.339 1.57e-05 ***</span></span>
-<span id="cb126-29"><a href="lda-ch.html#cb126-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic13             -0.13749    0.05578  -2.465 0.013867 *  </span></span>
-<span id="cb126-30"><a href="lda-ch.html#cb126-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic14             -0.21884    0.07493  -2.921 0.003571 ** </span></span>
-<span id="cb126-31"><a href="lda-ch.html#cb126-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic15             -0.14868    0.04301  -3.457 0.000568 ***</span></span>
-<span id="cb126-32"><a href="lda-ch.html#cb126-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic16             -0.10434    0.05516  -1.892 0.058829 .  </span></span>
-<span id="cb126-33"><a href="lda-ch.html#cb126-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic17             -0.22342    0.05843  -3.824 0.000139 ***</span></span>
-<span id="cb126-34"><a href="lda-ch.html#cb126-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic18              0.22371    0.05670   3.945 8.52e-05 ***</span></span>
-<span id="cb126-35"><a href="lda-ch.html#cb126-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic19              0.05846    0.05144   1.136 0.256031    </span></span>
-<span id="cb126-36"><a href="lda-ch.html#cb126-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic20             -0.21748    0.03986  -5.456 6.14e-08 ***</span></span>
-<span id="cb126-37"><a href="lda-ch.html#cb126-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic21             -0.22344    0.06910  -3.233 0.001263 ** </span></span>
-<span id="cb126-38"><a href="lda-ch.html#cb126-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic23             -0.17838    0.09359  -1.906 0.056934 .  </span></span>
-<span id="cb126-39"><a href="lda-ch.html#cb126-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; electoral_cycle2002-2006 -0.09963    0.01887  -5.279 1.59e-07 ***</span></span>
-<span id="cb126-40"><a href="lda-ch.html#cb126-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb126-41"><a href="lda-ch.html#cb126-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
+<span id="cb126-17"><a href="lda-ch.html#cb126-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                          Estimate Std. Error t value</span></span>
+<span id="cb126-18"><a href="lda-ch.html#cb126-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)               0.30415    0.03037  10.016</span></span>
+<span id="cb126-19"><a href="lda-ch.html#cb126-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic2              -0.21244    0.06279  -3.383</span></span>
+<span id="cb126-20"><a href="lda-ch.html#cb126-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic3              -0.21468    0.05982  -3.589</span></span>
+<span id="cb126-21"><a href="lda-ch.html#cb126-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic4              -0.22654    0.05695  -3.978</span></span>
+<span id="cb126-22"><a href="lda-ch.html#cb126-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic5               0.10095    0.04808   2.100</span></span>
+<span id="cb126-23"><a href="lda-ch.html#cb126-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic6              -0.22807    0.05747  -3.968</span></span>
+<span id="cb126-24"><a href="lda-ch.html#cb126-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic7              -0.16730    0.06390  -2.618</span></span>
+<span id="cb126-25"><a href="lda-ch.html#cb126-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic8              -0.21106    0.07374  -2.862</span></span>
+<span id="cb126-26"><a href="lda-ch.html#cb126-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic9               0.48594    0.09943   4.887</span></span>
+<span id="cb126-27"><a href="lda-ch.html#cb126-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic10             -0.11776    0.05220  -2.256</span></span>
+<span id="cb126-28"><a href="lda-ch.html#cb126-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic12             -0.17952    0.04137  -4.339</span></span>
+<span id="cb126-29"><a href="lda-ch.html#cb126-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic13             -0.13749    0.05578  -2.465</span></span>
+<span id="cb126-30"><a href="lda-ch.html#cb126-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic14             -0.21884    0.07493  -2.921</span></span>
+<span id="cb126-31"><a href="lda-ch.html#cb126-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic15             -0.14868    0.04301  -3.457</span></span>
+<span id="cb126-32"><a href="lda-ch.html#cb126-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic16             -0.10434    0.05516  -1.892</span></span>
+<span id="cb126-33"><a href="lda-ch.html#cb126-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic17             -0.22342    0.05843  -3.824</span></span>
+<span id="cb126-34"><a href="lda-ch.html#cb126-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic18              0.22371    0.05670   3.945</span></span>
+<span id="cb126-35"><a href="lda-ch.html#cb126-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic19              0.05846    0.05144   1.136</span></span>
+<span id="cb126-36"><a href="lda-ch.html#cb126-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic20             -0.21748    0.03986  -5.456</span></span>
+<span id="cb126-37"><a href="lda-ch.html#cb126-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic21             -0.22344    0.06910  -3.233</span></span>
+<span id="cb126-38"><a href="lda-ch.html#cb126-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic23             -0.17838    0.09359  -1.906</span></span>
+<span id="cb126-39"><a href="lda-ch.html#cb126-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; electoral_cycle2002-2006 -0.09963    0.01887  -5.279</span></span>
+<span id="cb126-40"><a href="lda-ch.html#cb126-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                          Pr(&gt;|t|)    </span></span>
+<span id="cb126-41"><a href="lda-ch.html#cb126-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)               &lt; 2e-16 ***</span></span>
+<span id="cb126-42"><a href="lda-ch.html#cb126-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic2              0.000744 ***</span></span>
+<span id="cb126-43"><a href="lda-ch.html#cb126-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic3              0.000348 ***</span></span>
+<span id="cb126-44"><a href="lda-ch.html#cb126-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic4              7.45e-05 ***</span></span>
+<span id="cb126-45"><a href="lda-ch.html#cb126-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic5              0.035996 *  </span></span>
+<span id="cb126-46"><a href="lda-ch.html#cb126-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic6              7.75e-05 ***</span></span>
+<span id="cb126-47"><a href="lda-ch.html#cb126-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic7              0.008972 ** </span></span>
+<span id="cb126-48"><a href="lda-ch.html#cb126-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic8              0.004295 ** </span></span>
+<span id="cb126-49"><a href="lda-ch.html#cb126-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic9              1.19e-06 ***</span></span>
+<span id="cb126-50"><a href="lda-ch.html#cb126-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic10             0.024292 *  </span></span>
+<span id="cb126-51"><a href="lda-ch.html#cb126-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic12             1.57e-05 ***</span></span>
+<span id="cb126-52"><a href="lda-ch.html#cb126-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic13             0.013867 *  </span></span>
+<span id="cb126-53"><a href="lda-ch.html#cb126-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic14             0.003571 ** </span></span>
+<span id="cb126-54"><a href="lda-ch.html#cb126-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic15             0.000568 ***</span></span>
+<span id="cb126-55"><a href="lda-ch.html#cb126-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic16             0.058829 .  </span></span>
+<span id="cb126-56"><a href="lda-ch.html#cb126-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic17             0.000139 ***</span></span>
+<span id="cb126-57"><a href="lda-ch.html#cb126-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic18             8.52e-05 ***</span></span>
+<span id="cb126-58"><a href="lda-ch.html#cb126-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic19             0.256031    </span></span>
+<span id="cb126-59"><a href="lda-ch.html#cb126-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic20             6.14e-08 ***</span></span>
+<span id="cb126-60"><a href="lda-ch.html#cb126-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic21             0.001263 ** </span></span>
+<span id="cb126-61"><a href="lda-ch.html#cb126-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; majortopic23             0.056934 .  </span></span>
+<span id="cb126-62"><a href="lda-ch.html#cb126-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; electoral_cycle2002-2006 1.59e-07 ***</span></span>
+<span id="cb126-63"><a href="lda-ch.html#cb126-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb126-64"><a href="lda-ch.html#cb126-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  </span></span>
+<span id="cb126-65"><a href="lda-ch.html#cb126-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span></code></pre></div>
 <p>Az LDA modelleknél már bemutatott munkafolyamat az stm modellünk esetében is alkalmazható, hogy vizuálisan is megjelenítsük az eredményeinket. A <code>tidy()</code> függvény data frammé alakítja az stm objektumot, amit aztán a már ismerős <code>dplyr</code> csomagban lévő függvényekkel tudunk átalakítani és végül vizualizálni a <code>ggplot2</code> csomaggal. A lenti ábrán az egyes témákhoz tartozó 5 legvalószínűbb szót mutatjuk be.</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="lda-ch.html#cb127-1" aria-hidden="true" tabindex="-1"></a>tidy_stm <span class="ot">&lt;-</span> <span class="fu">tidy</span>(stm_fit)</span></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="lda-ch.html#cb127-1" aria-hidden="true" tabindex="-1"></a>tidy_stm <span class="ot">&lt;-</span> tidytext<span class="sc">::</span><span class="fu">tidy</span>(stm_fit)</span></code></pre></div>
 <div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="lda-ch.html#cb128-1" aria-hidden="true" tabindex="-1"></a>tidy_stm <span class="sc">%&gt;%</span></span>
 <span id="cb128-2"><a href="lda-ch.html#cb128-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(topic) <span class="sc">%&gt;%</span></span>
 <span id="cb128-3"><a href="lda-ch.html#cb128-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">5</span>, beta) <span class="sc">%&gt;%</span></span>
@@ -699,7 +758,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="_main_files/figure-html/unnamed-chunk-141-1.png" alt="Topikonkénti legmagasabb valószínuségu szavak" width="90%" />
 </div>
 <p>Egy-egy topichoz tartozó meghatározó szavak annak függvényében változhatnak, hogy milyen algoritmust használunk. A <code>labelTopics()</code> függvény a már becsült stm modellünket alapul véve kínál négyféle alternatív opciót. Az egyes algoritmusok részletes magyarázatáért érdemes elolvasni a csomag részletes leírását.<a href="#fn36" class="footnote-ref" id="fnref36"><sup>36</sup></a></p>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="lda-ch.html#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="fu">labelTopics</span>(stm_fit, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>))</span>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="lda-ch.html#cb129-1" aria-hidden="true" tabindex="-1"></a>stm<span class="sc">::</span><span class="fu">labelTopics</span>(stm_fit, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>))</span>
 <span id="cb129-2"><a href="lda-ch.html#cb129-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Topic 1 Top Words:</span></span>
 <span id="cb129-3"><a href="lda-ch.html#cb129-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Highest Prob: szerzodo, vagi, egyezméni, fél, államban, nem, másik </span></span>
 <span id="cb129-4"><a href="lda-ch.html#cb129-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       FREX: megadóztatható, haszonhúzója, beruházóinak, segélycsapatok, adóztatást, jövedelemadók, kijelölések </span></span>
@@ -711,7 +770,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb129-10"><a href="lda-ch.html#cb129-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Lift: a+b+c, a+b+c+d, adago, adódóa, adósságállományából, adósságrendezésr, adótartozásának </span></span>
 <span id="cb129-11"><a href="lda-ch.html#cb129-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       Score: költségvetésegyéb, költségvetésszemélyi, kiadásokfelhalmozási, járulékokdolog, költségvetésintézményi, kiadásokegyéb, juttatásokmunkaadókat</span></span></code></pre></div>
 <p>A korpuszunkon belüli témák megoszlását a <code>plot.STM()</code>-el tudjuk ábrázolni. Jól látszik, hogy a Topic 6-ba tartozó szavak vannak jelen a legnagyobb arányban a dokumentumaink között.</p>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="lda-ch.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot.STM</span>(stm_fit,</span>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="lda-ch.html#cb130-1" aria-hidden="true" tabindex="-1"></a>stm<span class="sc">::</span><span class="fu">plot.STM</span>(stm_fit,</span>
 <span id="cb130-2"><a href="lda-ch.html#cb130-2" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;summary&quot;</span>, </span>
 <span id="cb130-3"><a href="lda-ch.html#cb130-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">main =</span> <span class="st">&quot;&quot;</span>, </span>
 <span id="cb130-4"><a href="lda-ch.html#cb130-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">labeltype =</span> <span class="st">&quot;frex&quot;</span>, </span>
@@ -725,7 +784,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="_main_files/figure-html/unnamed-chunk-143-1.png" alt="Leggyakoribb témák és kifejezések" width="90%" />
 </div>
 <p>Végezetül a témák közötti korrelációt a <code>topicCorr</code> függvénnyel becsülhetjük és az <code>igraph</code> csomagot betöltve a <code>plot()</code> paranccsal tudjuk vizualizálni. Az eredmény egy hálózat lesz, amit gráfként ábrázolunk. A gráfok élei a témák közötti összefüggést (korrelációt) jelölik.</p>
-<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="lda-ch.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">topicCorr</span>(stm_fit))</span></code></pre></div>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="lda-ch.html#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(stm<span class="sc">::</span><span class="fu">topicCorr</span>(stm_fit))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-144"></span>
 <p class="caption">
 Ábra 7.12: Témák közötti korreláció hálózat
@@ -735,13 +794,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-arun2010finding" class="csl-entry">
+Arun, Rajkumar, Venkatasubramaniyan Suresh, CE Veni Madhavan, and MN Narasimha Murthy. 2010. <span>“On Finding the Natural Number of Topics with Latent Dirichlet Allocation: <span>Some</span> Observations.”</span> In <em>Pacific-<span>Asia</span> Conference on Knowledge Discovery and Data Mining</em>, 391–402.
+</div>
+<div id="ref-bleiLatentDirichletAllocation2003" class="csl-entry">
+Blei, David M, Andrew Y Ng, and Michael I Jordan. 2003. <span>“Latent Dirichlet Allocation.”</span> <em>Journal of Machine Learning Research</em> 3 (Jan): 993–1022.
+</div>
+<div id="ref-burtejinCsoportositasKlaszterezes2016" class="csl-entry">
+Burtejin, Zorgit. 2016. <span>“Csoportosítás (<span>Klaszterezés</span>).”</span> In <em>Kvantitatív Szövegelemzés és Szövegbányászat a Politikatudományban</em>, edited by Miklós Sebők, 85–101. Budapest: L’Harmattan.
+</div>
+<div id="ref-cao2009density" class="csl-entry">
+Cao, Juan, Tian Xia, Jintao Li, Yongdong Zhang, and Sheng Tang. 2009. <span>“A Density-Based Method for Adaptive <span>LDA</span> Model Selection.”</span> <em>Neurocomputing</em> 72 (7-9): 1775–81.
+</div>
+<div id="ref-deveaud2014accurate" class="csl-entry">
+Deveaud, Romain, Eric SanJuan, and Patrice Bellot. 2014. <span>“Accurate and Effective Latent Concept Modeling for Ad Hoc Information Retrieval.”</span> <em>Document Numérique</em> 17 (1): 61–84.
+</div>
+<div id="ref-griffithsFindingScientificTopics2004" class="csl-entry">
+Griffiths, T. L., and M. Steyvers. 2004. <span>“Finding Scientific Topics.”</span> <em>Proceedings of the National Academy of Sciences</em> 101 (Supplement 1): 5228–35. <a href="https://doi.org/10.1073/pnas.0307752101">https://doi.org/10.1073/pnas.0307752101</a>.
+</div>
+<div id="ref-grimmer2013text" class="csl-entry">
+Grimmer, Justin, and Brandon M Stewart. 2013. <span>“Text as Data: <span>The</span> Promise and Pitfalls of Automatic Content Analysis Methods for Political Texts.”</span> <em>Political Analysis</em> 21 (3): 267–97.
+</div>
+<div id="ref-jacobiQuantitativeAnalysisLarge2016" class="csl-entry">
+Jacobi, Carina, Wouter Van Atteveldt, and Kasper Welbers. 2016. <span>“Quantitative Analysis of Large Amounts of Journalistic Texts Using Topic Modelling.”</span> <em>Digital Journalism</em> 4 (1): 89–106.
+</div>
+<div id="ref-phanLearningClassifyShort2008" class="csl-entry">
+Phan, Xuan-Hieu, Le-Minh Nguyen, and Susumu Horiguchi. 2008. <span>“Learning to Classify Short and Sparse Text &amp; Web with Hidden Topics from Large-Scale Data Collections.”</span> In, 91–100.
+</div>
+<div id="ref-roberts2014structural" class="csl-entry">
+Roberts, Margaret E, Brandon M Stewart, Dustin Tingley, Christopher Lucas, Jetson Leder-Luis, Shana Kushner Gadarian, Bethany Albertson, and David G Rand. 2014. <span>“Structural Topic Models for Open-Ended Survey Responses.”</span> <em>American Journal of Political Science</em> 58 (4): 1064–82.
+</div>
+<div id="ref-tanBevezetesAzAdatbanyaszatba2011" class="csl-entry">
+Tan, Pang-Ning, Michael Steinbach, and Vipin Kumar. 2011. <em>Bevezetés Az Adatbányászatba</em>. Panem Kft.
+</div>
+<div id="ref-tikkSzovegbanyaszat2007" class="csl-entry">
+Tikk, Domonkos. 2007. <em>Szövegbányászat</em>. Budapest: Typotext.
+</div>
+</div>
 <div class="footnotes">
 <hr />
 <ol start="29">
 <li id="fn29"><p>A kód részben az alábbiakon alapul: tidytextmining.com/topicmodeling.html. Az általunk is használt <code>topicmodels</code> csomag interfészt biztosít az LDA modellek és a korrelált témamodellek (CTM) C kódjához, valamint az LDA modellek illesztéséhez szükséges C ++ kódhoz.<a href="lda-ch.html#fnref29" class="footnote-back">↩︎</a></p></li>
 <li id="fn30"><p>A törvényeket és a metaadatokat tartalmazó adatbázisokat regisztációt követően a Hungarian Comparative Agendas Projekt honlapjáról <a href="https://cap.tk.hu/" class="uri">https://cap.tk.hu/</a> lehet letölteni.<a href="lda-ch.html#fnref30" class="footnote-back">↩︎</a></p></li>
 <li id="fn31"><p>Részletesebben lásd például: <a href="http://brooksandrew.github.io/simpleblog/articles/latent-dirichlet-allocation-under-the-hood/">http://brooksandrew.github.io/simpleblog/articles/latent-dirichlet-allocation-under-the-hood/</a><a href="lda-ch.html#fnref31" class="footnote-back">↩︎</a></p></li>
-<li id="fn32"><p>A <code>ldatuning</code> csomagban további indikátor implementációja található, ami a perplexityhez hasonlóan minimalizásra alapoz <span class="citation">(<a href="irodalomjegyzék.html#ref-arun2010finding" role="doc-biblioref">Arun et al. 2010</a>; <a href="irodalomjegyzék.html#ref-cao2009density" role="doc-biblioref">Cao et al. 2009</a>)</span>, illetve maximalizálásra alapoz <span class="citation">(<a href="irodalomjegyzék.html#ref-deveaud2014accurate" role="doc-biblioref">Deveaud, SanJuan, and Bellot 2014</a>; <a href="irodalomjegyzék.html#ref-griffithsFindingScientificTopics2004" role="doc-biblioref">Griffiths and Steyvers 2004</a>)</span><a href="lda-ch.html#fnref32" class="footnote-back">↩︎</a></p></li>
+<li id="fn32"><p>A <code>ldatuning</code> csomagban további indikátor implementációja található, ami a perplexityhez hasonlóan minimalizásra alapoz <span class="citation">(<a href="#ref-arun2010finding" role="doc-biblioref">Arun et al. 2010</a>; <a href="#ref-cao2009density" role="doc-biblioref">Cao et al. 2009</a>)</span>, illetve maximalizálásra alapoz <span class="citation">(<a href="#ref-deveaud2014accurate" role="doc-biblioref">Deveaud, SanJuan, and Bellot 2014</a>; <a href="#ref-griffithsFindingScientificTopics2004" role="doc-biblioref">Griffiths and Steyvers 2004</a>)</span><a href="lda-ch.html#fnref32" class="footnote-back">↩︎</a></p></li>
 <li id="fn33"><p>A tidy formátumról bővebben: <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html" class="uri">https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html</a><a href="lda-ch.html#fnref33" class="footnote-back">↩︎</a></p></li>
 <li id="fn34"><p>A kovariancia megadja két egymástól különböző változó együttmozgását. Kis értékei gyenge, nagy értékei erős lineáris összefüggésre utalnak.<a href="lda-ch.html#fnref34" class="footnote-back">↩︎</a></p></li>
 <li id="fn35"><p>A kódkönyv elérhető az alábbi linken: <a href="https://cap.tk.hu/kozpolitikai-magyar">Comparative Agendas Project</a>.<a href="lda-ch.html#fnref35" class="footnote-back">↩︎</a></p></li>
@@ -777,6 +875,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
