@@ -2,6 +2,12 @@
 
 ## Fogalmi alapok
 
+```{r, include=FALSE}
+
+source("_common.R")
+
+```
+
 A mesterséges intelligencia két fontos társadalomtudományi alkalmazási területe a felügyelet nélküli és a felügyelt tanulás. Míg az előző esetben -- ahogy azt a *[Felügyelet nélküli tanulás: topik modellezés magyar törvényszövegeken](#lda_ch)* fejezetben bemutattuk -- az emberi beavatkozás néhány kulcsparaméter megadására (így pl. a kívánt topikok számának meghatározására) szorítkozik, addig a felügyelt tanulás esetében a kutatónak nagyobb mozgástere van "tanítani" a gépet. Ennyiben a felügyelt tanulás alkalmasabb hipotézisek tesztelésére, mint az adatok rejtett mintázatait felfedező felügyelet nélküli tanulás. 
 
 A felügyelt tanulási feladat megoldása egy úgynevezett tanító halmaz (*training set*) meghatározásával kezdődik, melynek során a kutatók saját maguk végzik el kézzel azt a feladatot melyet a továbbiakban gépi közreműködéssel szeretnének nagyobb nagyságrendben, de egyben érvényesen (*validity*) és megbízhatóan (*reliability*) kivitelezni. Eredményeinket az ugyanúgy eredetileg kézzel lekódolt, de a modell-építés során félretett teszthalmazunkon (*test set*) értékelhetjük. Ennek során négy kategóriába rendezzük modellünk előrejelzéseit. Egy, a politikusi beszédeket a pozitív hangulatuk alapján osztályozó példát véve ezek a következők: azok a beszédek amelyeket a modell helyesen sorolt be pozitívba (valódi pozitív), vagy negatívba (valódi negatív), illetve azok, amelyek hibásan szerepelnek a pozitív (ál-pozitív), vagy a negatív kategóriában (ál-negatív). Mindezek együttesen egy ún. tévesztési táblát (*confusion matrix*) adnak, melynek további elemzésével ítéletet alkothatunk modellépítésünk eredményességéről.
@@ -63,11 +69,12 @@ Majd szétválasztjuk a két újsághoz tartozó cikkeket is (esetünkben a *Né
 Data_NOL <- Data_NOL_MNO[Data_NOL_MNO$corpus == "NOL",]
 ```
 
-Mint az *Environment* ablakban is látható, ez a lépés 37 135 cikkes halmazt adott. Ezen a ponton megkezdhetjük a felügyelt gépi tanulásra épülő lépéseket! Először egy 4500-as mintát veszünk az adatbázisból, hogy rövidítsük a futásidőt.
+Mint az *Environment* ablakban is látható, ez a lépés `r nrow(Data_NOL)` cikkes halmazt adott. Ezen a ponton megkezdhetjük a felügyelt gépi tanulásra épülő lépéseket! Először egy 4500-as mintát veszünk az adatbázisból, hogy rövidítsük a futásidőt.
 
 ```{r include = TRUE}
 Data_NOL <- Data_NOL[sample(nrow(Data_NOL), 4500), ]
 ```
+
 
 Majd kutatási feladatunknak megfelelően felveszünk egy új címkét (*label*), ami már kifejezetten azt mutatja, hogy egy cikk a makrogazdasági (1) vagy bármilyen más (0) osztályba tartozik-e.
 
@@ -77,10 +84,11 @@ Data_NOL$label <- ifelse(Data_NOL$majortopic_code == CAPcode, 1, 0)
 
 Ezt követően felosztjuk a 4500 cikket 2:1 arányban tanító- és teszthalmazra.
 
-```{r include = TRUE}
+```{r}
 training <- Data_NOL[sample(nrow(Data_NOL), 3000), ]
 Data_NOL$training <- ifelse(Data_NOL$filename %in% training$filename, 1, 0)
 ```
+
 
 Ahhoz, hogy a `quanteda` dtm-et tudjon készíteni a cikk-gyűjteményünkből, először egy korpusz objektumot kell létrehozni belőlük.
 
@@ -91,12 +99,16 @@ lemma_corpus_NOL <- corpus(Data_NOL, docid_field = "filename", text_field = "tex
 Így a dfm függvénnyel már létre tudjuk hozni a dokumentum-kifejezés mátrixunkat!
 
 ```{r include = TRUE}
-dtm_NOL <- dfm(lemma_corpus_NOL)
+dtm_NOL <- lemma_corpus_NOL %>% 
+  tokens() %>% 
+  dfm()
 ```
 
-A dimenzió-csökkentés érdekében eltávolítjuk a ritka (5-nél kevesebbszer szereplő) kifejezéseket a mátrixból. Láthatjuk, hogy ezzel a feature-ök majd 81 százalékát eltávolítottuk.
+A dimenzió-csökkentés érdekében eltávolítjuk a ritka (5-nél kevesebbszer szereplő) kifejezéseket a mátrixból. Láthatjuk, hogy ezzel a feature -ök majd 81 százalékát eltávolítottuk.
 
-```{r include = TRUE}
+
+
+```{r, message=TRUE}
 dtm_NOL <- dfm_trim(dtm_NOL, min_docfreq = 5, verbose=TRUE)
 ```
 
@@ -114,7 +126,6 @@ SVMmodel <- svm(
 
 ```{r echo=FALSE}
 #saveRDS(SVMmodel, file = "data/temp/svm_model.rds")
-
 SVMmodel <- readRDS("data/temp/svm_model.rds")
 ```
 
@@ -149,10 +160,12 @@ Miután eredményeink elkészültek, kiszámoljuk a felügyelt gépi tanulás sz
 [^sml3]: Elérhető az alábbi linken: [http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html](http://pablobarbera.com/ECPR-SC105/code/12-advanced-sml.html).
 
 ```{r include = TRUE}
-table(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)
+conf_mat <- table(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)
+
+conf_mat
 ```
 
-Látható, hogy modellünk alapvetően helyesen értékelte, hogy a teszthalmaz cikkeinek döntő többsége nem makrogazdasági tárgyú (1139). Szintén sikerrel sorolt be 83 cikket a makrogazdasági osztályba. Ugyanakkor 117-et hibásan tartott 1-es kategóriásnak, 161-et pedig nem „talált meg” közülük.
+Látható, hogy modellünk alapvetően helyesen értékelte, hogy a teszthalmaz cikkeinek döntő többsége nem makrogazdasági tárgyú (`r conf_mat[1]`). Szintén sikerrel sorolt be `r conf_mat[4]` cikket a makrogazdasági osztályba. Ugyanakkor `r conf_mat[3]`-et hibásan tartott 1-es kategóriásnak, `r conf_mat[2]`-t pedig nem „talált meg” közülük.
 
 A mutatószámok esetében kezdjük a legáltalánosabbal, a hitelességgel (*accuracy*), ami a mátrix átlójára épít.
 
@@ -192,13 +205,15 @@ F1 <- function(ypred, y){
 
 ```{r include = TRUE}
 precision(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)
+
 recall(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)
+
 F1(Data_NOL_predictions$predictions_label, Data_NOL_predictions$label)
 ```
 
 Összességében azt állapíthatjuk meg, hogy „játékmodellünk” közel hasonló arányú, azaz 60 százalékos pontosságot, illetve fedést eredményezett. Ez elmaradt a kettős vak kézi kódolás akár 80-90 százalékos találati arányától, ugyanakkor mintánkat didaktikai okokból szándékosan kisebbre vettük a lehetségesnél. A nagymintás adatok alapján (lásd @sebokMulticlassClassificationNewspaper2021) különösen a pontosság esetében akár 90 százalék feletti érték is elérhető felügyelt gépi tanulással, mely ponton már világossá válik a mesterséges intelligenciára épülő megközelítés versenyképessége a kézi kódoláséval, különösen nagymintás projektek esetében.
 
-De térjünk még vissza eredményeinkhez és vizsgáljuk meg őket közpolitikai kódonként is! Itt is látható, hogy 83 cikkre jeleztük előre helyesen az 1-es kódot.
+De térjünk még vissza eredményeinkhez és vizsgáljuk meg őket közpolitikai kódonként is! Itt is látható, hogy `r table(Data_NOL_predictions$predictions_label, Data_NOL_predictions$majortopic_code)[2]` cikkre jeleztük előre helyesen az 1-es kódot.
 
 ```{r include = TRUE}
 table(Data_NOL_predictions$predictions_label, Data_NOL_predictions$majortopic_code)
@@ -220,7 +235,7 @@ df <- ggplot_data %>%
 
 ```{r include = TRUE, fig.cap="Az SVM modell klasszifikációs eredményei"}
 ggplot(df, aes(majortopic_code, n, fill = predictions_label)) + 
-  geom_bar(, stat = "identity") +
+  geom_bar(stat = "identity") +
   labs(fill = NULL) +
   theme(legend.position = "bottom")
 ```
