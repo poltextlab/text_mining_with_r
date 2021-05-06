@@ -37,12 +37,12 @@ A könyvben szereplő ábrák nagy része a `ggplot2` csomaggal készült a `the
 
 Az egyes fejezetekben használt R csomagok listája és verziószáma a lenti táblázatban található. Fontos tudni, hogy a használt R csomagokat folyamatosan fejlesztik, ezért elképzelhető hogy eltérő verziószámú változatok esetén változhat a kód szintaxis.
 
-```{r echo=FALSE}
+```{r echo=FALSE, results='asis'}
 library(xtable)
 
 book_packages <- readRDS("data/temp/package_table.RDS")
 
-print(xtable(book_packages, align="llr", caption="A könyvben használt R csomagok", ), include.rownames=FALSE)
+print(xtable(book_packages, align="llr", caption="A könyvben használt R csomagok", ), include.rownames=FALSE, type = "html")
 ```
 
 

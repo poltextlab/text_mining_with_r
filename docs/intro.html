@@ -316,68 +316,281 @@ div.csl-indent {
 <p>A könyvhöz tartozik egy <code>HunMineR</code> R csomag is, amely tartalmazza az egyes fejezetekben használt összes adatbázist, így az adatbeviteli problémákat elkerülve lehet gyakorolni a szövegbányászatot. A könyv megjelenésekor a csomag még nem került be a központi R CRAN csomag repozitóriumába, hanem a poltextLAB GitHub repozitóriumából tölthető le.</p>
 <p>A könyvben szereplő ábrák nagy része a <code>ggplot2</code> csomaggal készült a <code>theme_set(theme_light())</code> opció beállításával a háttérben. Ez azt jelenti, hogy az ábrákat előállító kódok a <code>theme_light()</code> sort nem tartalmazzák, de a tényleges ábrán már megjelennek a tematikus elemek.</p>
 <p>Az egyes fejezetekben használt R csomagok listája és verziószáma a lenti táblázatban található. Fontos tudni, hogy a használt R csomagokat folyamatosan fejlesztik, ezért elképzelhető hogy eltérő verziószámú változatok esetén változhat a kód szintaxis.</p>
-<pre><code>#&gt; % latex table generated in R 4.0.5 by xtable 1.8-4 package
-#&gt; % Thu May 06 18:05:09 2021
-#&gt; \begin{table}[ht]
-#&gt; \centering
-#&gt; \begin{tabular}{lr}
-#&gt;   \hline
-#&gt; Csomagnév &amp; Verziószám \\ 
-#&gt;   \hline
-#&gt; dplyr &amp; 1.0.5 \\ 
-#&gt;   e1071 &amp; 1.7.6 \\ 
-#&gt;   factoextra &amp; 1.0.7 \\ 
-#&gt;   gapminder &amp; 0.3.0 \\ 
-#&gt;   GGally &amp; 2.1.1 \\ 
-#&gt;   ggdendro &amp; 0.1.22 \\ 
-#&gt;   ggplot2 &amp; 3.3.3 \\ 
-#&gt;   ggrepel &amp; 0.9.1 \\ 
-#&gt;   HunMineR &amp; 0.0.0.9000 \\ 
-#&gt;   igraph &amp; 1.2.6 \\ 
-#&gt;   kableExtra &amp; 1.3.4 \\ 
-#&gt;   knitr &amp; 1.33 \\ 
-#&gt;   lubridate &amp; 1.7.10 \\ 
-#&gt;   purrr &amp; 0.3.4 \\ 
-#&gt;   quanteda &amp; 3.0.0 \\ 
-#&gt;   quanteda.textmodels &amp; 0.9.4 \\ 
-#&gt;   quanteda.textplots &amp; 0.94 \\ 
-#&gt;   quanteda.textstats &amp; 0.94 \\ 
-#&gt;   readr &amp; 1.4.0 \\ 
-#&gt;   readtext &amp; 0.80 \\ 
-#&gt;   readxl &amp; 1.3.1 \\ 
-#&gt;   rvest &amp; 1.0.0 \\ 
-#&gt;   spacyr &amp; 1.2.1 \\ 
-#&gt;   stm &amp; 1.3.6 \\ 
-#&gt;   stringr &amp; 1.4.0 \\ 
-#&gt;   text2vec &amp; 0.6 \\ 
-#&gt;   tibble &amp; 3.1.1 \\ 
-#&gt;   tidyr &amp; 1.1.3 \\ 
-#&gt;   tidytext &amp; 0.3.1 \\ 
-#&gt;   topicmodels &amp; 0.2.12 \\ 
-#&gt;    \hline
-#&gt; \end{tabular}
-#&gt; \caption{A könyvben használt R csomagok} 
-#&gt; \end{table}</code></pre>
+<!-- html table generated in R 4.0.5 by xtable 1.8-4 package -->
+<!-- Thu May 06 18:25:42 2021 -->
+<table border="1">
+<caption align="bottom">
+A könyvben használt R csomagok
+</caption>
+<tr>
+<th>
+Csomagnév
+</th>
+<th>
+Verziószám
+</th>
+</tr>
+<tr>
+<td>
+dplyr
+</td>
+<td align="right">
+1.0.5
+</td>
+</tr>
+<tr>
+<td>
+e1071
+</td>
+<td align="right">
+1.7.6
+</td>
+</tr>
+<tr>
+<td>
+factoextra
+</td>
+<td align="right">
+1.0.7
+</td>
+</tr>
+<tr>
+<td>
+gapminder
+</td>
+<td align="right">
+0.3.0
+</td>
+</tr>
+<tr>
+<td>
+GGally
+</td>
+<td align="right">
+2.1.1
+</td>
+</tr>
+<tr>
+<td>
+ggdendro
+</td>
+<td align="right">
+0.1.22
+</td>
+</tr>
+<tr>
+<td>
+ggplot2
+</td>
+<td align="right">
+3.3.3
+</td>
+</tr>
+<tr>
+<td>
+ggrepel
+</td>
+<td align="right">
+0.9.1
+</td>
+</tr>
+<tr>
+<td>
+HunMineR
+</td>
+<td align="right">
+0.0.0.9000
+</td>
+</tr>
+<tr>
+<td>
+igraph
+</td>
+<td align="right">
+1.2.6
+</td>
+</tr>
+<tr>
+<td>
+kableExtra
+</td>
+<td align="right">
+1.3.4
+</td>
+</tr>
+<tr>
+<td>
+knitr
+</td>
+<td align="right">
+1.33
+</td>
+</tr>
+<tr>
+<td>
+lubridate
+</td>
+<td align="right">
+1.7.10
+</td>
+</tr>
+<tr>
+<td>
+purrr
+</td>
+<td align="right">
+0.3.4
+</td>
+</tr>
+<tr>
+<td>
+quanteda
+</td>
+<td align="right">
+3.0.0
+</td>
+</tr>
+<tr>
+<td>
+quanteda.textmodels
+</td>
+<td align="right">
+0.9.4
+</td>
+</tr>
+<tr>
+<td>
+quanteda.textplots
+</td>
+<td align="right">
+0.94
+</td>
+</tr>
+<tr>
+<td>
+quanteda.textstats
+</td>
+<td align="right">
+0.94
+</td>
+</tr>
+<tr>
+<td>
+readr
+</td>
+<td align="right">
+1.4.0
+</td>
+</tr>
+<tr>
+<td>
+readtext
+</td>
+<td align="right">
+0.80
+</td>
+</tr>
+<tr>
+<td>
+readxl
+</td>
+<td align="right">
+1.3.1
+</td>
+</tr>
+<tr>
+<td>
+rvest
+</td>
+<td align="right">
+1.0.0
+</td>
+</tr>
+<tr>
+<td>
+spacyr
+</td>
+<td align="right">
+1.2.1
+</td>
+</tr>
+<tr>
+<td>
+stm
+</td>
+<td align="right">
+1.3.6
+</td>
+</tr>
+<tr>
+<td>
+stringr
+</td>
+<td align="right">
+1.4.0
+</td>
+</tr>
+<tr>
+<td>
+text2vec
+</td>
+<td align="right">
+0.6
+</td>
+</tr>
+<tr>
+<td>
+tibble
+</td>
+<td align="right">
+3.1.1
+</td>
+</tr>
+<tr>
+<td>
+tidyr
+</td>
+<td align="right">
+1.1.3
+</td>
+</tr>
+<tr>
+<td>
+tidytext
+</td>
+<td align="right">
+0.3.1
+</td>
+</tr>
+<tr>
+<td>
+topicmodels
+</td>
+<td align="right">
+0.2.12
+</td>
+</tr>
+</table>
 </div>
 <div id="a-hunminer-használata" class="section level2" number="1.3">
 <h2><span class="header-section-number">1.3</span> A HunMineR használata</h2>
 <p>A Windows rendszert használóknak először az <code>installr</code> csomagot kell telepíteni, majd annak segítségével letölteni az Rtools nevű programot (az OS X és Linux rendszerek esetében erre a lépésre nincs szükség). A lenti kód futtatásával ezek a lépések automatikusan megtörténnek.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># az installr csomag letöltése és installálása</span></span>
-<span id="cb3-2"><a href="intro.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;installr&quot;</span>)</span>
-<span id="cb3-3"><a href="intro.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># az Rtools.exe fájl letöltése és installálása</span></span>
-<span id="cb3-4"><a href="intro.html#cb3-4" aria-hidden="true" tabindex="-1"></a>installr<span class="sc">::</span><span class="fu">install.Rtools</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># az installr csomag letöltése és installálása</span></span>
+<span id="cb2-2"><a href="intro.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;installr&quot;</span>)</span>
+<span id="cb2-3"><a href="intro.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># az Rtools.exe fájl letöltése és installálása</span></span>
+<span id="cb2-4"><a href="intro.html#cb2-4" aria-hidden="true" tabindex="-1"></a>installr<span class="sc">::</span><span class="fu">install.Rtools</span>()</span></code></pre></div>
 <p>Ezt követően a <code>devtools</code> csomagban található <code>install_github</code> paranccsal tudjuk telepíteni a <code>HunMineR</code> csomagot, a lenti kód lefuttatásával.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A devtools csomag letöltése és installálása</span></span>
-<span id="cb4-2"><a href="intro.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
-<span id="cb4-3"><a href="intro.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A HunMineR csomag letöltése és installálása</span></span>
-<span id="cb4-4"><a href="intro.html#cb4-4" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;poltextlab/HunMineR&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A devtools csomag letöltése és installálása</span></span>
+<span id="cb3-2"><a href="intro.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
+<span id="cb3-3"><a href="intro.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A HunMineR csomag letöltése és installálása</span></span>
+<span id="cb3-4"><a href="intro.html#cb3-4" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;poltextlab/HunMineR&quot;</span>)</span></code></pre></div>
 <p>Ebben a fázisban a <code>data</code> függvénnyel tudjuk megnézni, hogy pontosan milyen adatbázisok szerepelnek a csomagban, illetve ugyanitt megtalálható az egyes adatbázisok részletes leírása. Ha egy adatbázisról szeretnénk többet megtudni, akkor a kiegészítő információkat <code>?adatbazis_neve</code> megoldással tudjuk megnézni.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A HunMineR csomag betöltése</span></span>
-<span id="cb5-2"><a href="intro.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span>
-<span id="cb5-3"><a href="intro.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># csomagban lévő adatok listázása</span></span>
-<span id="cb5-4"><a href="intro.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;HunMineR&quot;</span>)</span>
-<span id="cb5-5"><a href="intro.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># A miniszterelnöki beszédek minta adatbázisának részletei</span></span>
-<span id="cb5-6"><a href="intro.html#cb5-6" aria-hidden="true" tabindex="-1"></a>?data_miniszterelnokok</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A HunMineR csomag betöltése</span></span>
+<span id="cb4-2"><a href="intro.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span>
+<span id="cb4-3"><a href="intro.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># csomagban lévő adatok listázása</span></span>
+<span id="cb4-4"><a href="intro.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;HunMineR&quot;</span>)</span>
+<span id="cb4-5"><a href="intro.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># A miniszterelnöki beszédek minta adatbázisának részletei</span></span>
+<span id="cb4-6"><a href="intro.html#cb4-6" aria-hidden="true" tabindex="-1"></a>?data_miniszterelnokok</span></code></pre></div>
 </div>
 <div id="köszönetnyilvánítás" class="section level2" number="1.4">
 <h2><span class="header-section-number">1.4</span> Köszönetnyilvánítás</h2>
