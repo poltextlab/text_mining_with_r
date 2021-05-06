@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>6 Szótárak és érzelemelemzés | Szövegbányászat és mesterséges intelligencia R-ben</title>
-  <meta name="description" content="6 Szótárak és érzelemelemzés | Szövegbányászat és mesterséges intelligencia R-ben" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <title>6 Szótárak és érzelemelemzés | R Notebook</title>
+  <meta name="description" content="Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="6 Szótárak és érzelemelemzés | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta property="og:title" content="6 Szótárak és érzelemelemzés | R Notebook" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="6 Szótárak és érzelemelemzés | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta property="og:description" content="Szövegbányászat és mesterséges intelligencia R-ben" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="6 Szótárak és érzelemelemzés | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="twitter:title" content="6 Szótárak és érzelemelemzés | R Notebook" />
   
-  <meta name="twitter:description" content="6 Szótárak és érzelemelemzés | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="twitter:description" content="Szövegbányászat és mesterséges intelligencia R-ben" />
   
 
 <meta name="author" content="Sebők Miklós, Ring Orsolya, Máté Ákos" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="leiro-stat.html"/>
 <link rel="next" href="lda-ch.html"/>
-<script src="libs/header-attrs-2.7.10/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
@@ -64,6 +66,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -122,6 +125,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="konyv_style.css" type="text/css" />
@@ -215,13 +241,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.1" data-path="similarity.html"><a href="similarity.html#a-szövegösszehasonlítás-különböző-megközelítései"><i class="fa fa-check"></i><b>10.1</b> A szövegösszehasonlítás különböző megközelítései</a></li>
 <li class="chapter" data-level="10.2" data-path="similarity.html"><a href="similarity.html#lexikális-hasonlóság"><i class="fa fa-check"></i><b>10.2</b> Lexikális hasonlóság</a></li>
 <li class="chapter" data-level="10.3" data-path="similarity.html"><a href="similarity.html#szemantikai-hasonlóság"><i class="fa fa-check"></i><b>10.3</b> Szemantikai hasonlóság</a></li>
-<li class="chapter" data-level="10.4" data-path="similarity.html"><a href="similarity.html#hasonlóság-számítás"><i class="fa fa-check"></i><b>10.4</b> Hasonlóság-számítás</a>
+<li class="chapter" data-level="10.4" data-path="similarity.html"><a href="similarity.html#hasonlóságszámítás"><i class="fa fa-check"></i><b>10.4</b> Hasonlóságszámítás</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="similarity.html"><a href="similarity.html#adatbázis-importálás-és-előkészítés"><i class="fa fa-check"></i><b>10.4.1</b> Adatbázis importálás és előkészítés</a></li>
+<li class="chapter" data-level="10.4.1" data-path="similarity.html"><a href="similarity.html#adatbázis-importálás-és-előkészítés"><i class="fa fa-check"></i><b>10.4.1</b> Adatbázis-importálás és előkészítés</a></li>
 </ul></li>
 <li class="chapter" data-level="10.5" data-path="similarity.html"><a href="similarity.html#szövegtisztítás"><i class="fa fa-check"></i><b>10.5</b> Szövegtisztítás</a></li>
-<li class="chapter" data-level="10.6" data-path="similarity.html"><a href="similarity.html#a-jaccard-hasonlóság-számítás"><i class="fa fa-check"></i><b>10.6</b> A Jaccard hasonlóság számítás</a></li>
-<li class="chapter" data-level="10.7" data-path="similarity.html"><a href="similarity.html#a-koszinusz-hasonlóság-számítás"><i class="fa fa-check"></i><b>10.7</b> A Koszinusz hasonlóság számítás</a></li>
+<li class="chapter" data-level="10.6" data-path="similarity.html"><a href="similarity.html#a-jaccard-hasonlóság-számítása"><i class="fa fa-check"></i><b>10.6</b> A Jaccard-hasonlóság számítása</a></li>
+<li class="chapter" data-level="10.7" data-path="similarity.html"><a href="similarity.html#a-koszinusz-hasonlóság-számítása"><i class="fa fa-check"></i><b>10.7</b> A koszinusz-hasonlóság számítása</a></li>
 <li class="chapter" data-level="10.8" data-path="similarity.html"><a href="similarity.html#az-eredmények-vizualizációja"><i class="fa fa-check"></i><b>10.8</b> Az eredmények vizualizációja</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="nlp-ch.html"><a href="nlp-ch.html"><i class="fa fa-check"></i><b>11</b> NLP és névelemfelismerés</a>
@@ -262,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Szövegbányászat és mesterséges intelligencia R-ben</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Notebook</a>
           </h1>
         </div>
 
@@ -273,8 +299,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="sentiment" class="section level1" number="6">
 <h1><span class="header-section-number">6</span> Szótárak és érzelemelemzés</h1>
 <p>A szentiment- vagy vélemény-, illetve érzelemelemzés a számítógépes nyelvészet részterülete, melynek célja az egyes szövegek tartalmából kinyerni azokat az információkat, amelyek értékelést fejeznek ki.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a> A véleményelemzés a szövegeket három szinten osztályozza. A legáltalánosabb a dokumentumszintű osztályozás, amikor egy hosszabb szövegegység egészét vizsgáljuk, míg a mondatszintű osztályozásnál a vizsgálat alapegysége a mondat. A legrészletesebb adatokat akkor nyerjük, amikor az elemzést target-szinten végezzük, azaz meghatározzuk azt is, hogy egy-egy érzelem a szövegen belül mire vonatkozik. Mindhárom szinten azonos a feladat: egyrészt meg kell állapítani, hogy az adott egységben van-e értékelés, vélemény vagy érzelem, és ha igen, akkor pedig meg kell határozni, hogy milyen azok érzelmi tartalma.</p>
-<p>A pozitív-negatív-semleges skálán mozgó szentimentelemzés mellett az elmúlt két évtizedben jelentős lépések történtek a szövegek emóciótartalmának automatikus vizsgálatára is. A módszer hasonló a szentimentelemzéshez, tartalmilag azonban más skálán mozog. Az emócióelemzés esetén ugyanis nem csak azt kell meghatározni, hogy egy kifejezés pozitív vagy negatív töltettel rendelkezik, hanem azt is, hogy milyen érzelmet (öröm, bánat, undor stb.) hordoz. A szótár alapú szentiment- vagy emócióelemzés alapja az az egyszerű ötlet, hogy ha tudjuk, hogy egyes szavak milyen érzelmeket, érzéseket hordoznak, akkor ezeket a szavakat egy szövegben megszámolva képet kaphatunk az adott dokumentum érzelmi tartalmáról. Mivel a szótár alapú elemzés az adott kategórián belüli kulcsszavak gyakoriságán alapul, ezért van, aki nem tekinti statisztikai elemzésnek (lásd például <span class="citation"><a href="irodalomjegyzék.html#ref-young2012affective" role="doc-biblioref">Young and Soroka</a> (<a href="irodalomjegyzék.html#ref-young2012affective" role="doc-biblioref">2012</a>)</span>).</p>
-<p>A tágabb kvantitatív szövegelemzési kontextusban az osztályozáson (<em>classification</em>) belül a felügyelt módszerekhez hasonlóan itt is ismert kategóriákkal dolgozunk, azaz előre meghatározzuk, hogy egy-egy adott szó pozitív vagy negatív tértékű, vagy továbbmenve, milyen érzelmet hordoz, csak egyszerűbb módszertannal <span class="citation">(<a href="irodalomjegyzék.html#ref-grimmer2013text" role="doc-biblioref">Grimmer and Stewart 2013</a>)</span>. A kulcsszavakra építés miatt a módszer a kvalitatív és a kvantitatív kutatási vonalak találkozásának is tekinthető, hiszen egy-egy szónak az érzelmi töltete nem mindig ítélhető meg objektíven. Mint minden módszer esetében, itt is kiemelten fontos ellenőrni, hogy a használt szótár kategóriák és kulcsszavak fedik-e a valóságot. Más szavakkal: <em>validate, validate, validate</em>.</p>
+<p>A pozitív-negatív-semleges skálán mozgó szentimentelemzés mellett az elmúlt két évtizedben jelentős lépések történtek a szövegek emóciótartalmának automatikus vizsgálatára is. A módszer hasonló a szentimentelemzéshez, tartalmilag azonban más skálán mozog. Az emócióelemzés esetén ugyanis nem csak azt kell meghatározni, hogy egy kifejezés pozitív vagy negatív töltettel rendelkezik, hanem azt is, hogy milyen érzelmet (öröm, bánat, undor stb.) hordoz. A szótár alapú szentiment- vagy emócióelemzés alapja az az egyszerű ötlet, hogy ha tudjuk, hogy egyes szavak milyen érzelmeket, érzéseket hordoznak, akkor ezeket a szavakat egy szövegben megszámolva képet kaphatunk az adott dokumentum érzelmi tartalmáról. Mivel a szótár alapú elemzés az adott kategórián belüli kulcsszavak gyakoriságán alapul, ezért van, aki nem tekinti statisztikai elemzésnek (lásd például <span class="citation"><a href="#ref-young2012affective" role="doc-biblioref">Young and Soroka</a> (<a href="#ref-young2012affective" role="doc-biblioref">2012</a>)</span>).</p>
+<p>A tágabb kvantitatív szövegelemzési kontextusban az osztályozáson (<em>classification</em>) belül a felügyelt módszerekhez hasonlóan itt is ismert kategóriákkal dolgozunk, azaz előre meghatározzuk, hogy egy-egy adott szó pozitív vagy negatív tértékű, vagy továbbmenve, milyen érzelmet hordoz, csak egyszerűbb módszertannal <span class="citation">(<a href="#ref-grimmer2013text" role="doc-biblioref">Grimmer and Stewart 2013</a>)</span>. A kulcsszavakra építés miatt a módszer a kvalitatív és a kvantitatív kutatási vonalak találkozásának is tekinthető, hiszen egy-egy szónak az érzelmi töltete nem mindig ítélhető meg objektíven. Mint minden módszer esetében, itt is kiemelten fontos ellenőrni, hogy a használt szótár kategóriák és kulcsszavak fedik-e a valóságot. Más szavakkal: <em>validate, validate, validate</em>.</p>
 <p><strong>A módszer előnyei:</strong></p>
 <ul>
 <li>Tökéletesen megbízható: a számításoknak nincs probabilisztikus (azaz valószínűségre épülő) eleme, mint például a Support Vector alapú osztályozásnak, illetve az emberi szövegkódolásnál előforduló problémákat is elkerüljük (például azt, hogy két kódoló, vagy ugyanazon kódoló két különböző időpontban nem azonosan értékeli ugyanazt a kifejezést).</li>
@@ -288,16 +314,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>A terület-specifikus szótár építése kvalitatív folyamat, éppen ezért idő- és emberi erőforrás igényes.</li>
 <li>A szózsák alapú elemzéseknél a kontextus elvész. Gondoljunk például a tagadásra: a „nem vagyok boldog” kifejezés esetén egy általános szentiment szótár a tagadás miatt félreosztályozná a mondat érzelmi töltését, hiszen a boldog szó önmagában a pozitív kategóriába tartozik. Természetesen az automatikus tagadás kezelésére is vannak lehetőségek, de a kérdés komplexitása miatt ezek bemutatásától most eltekintünk.</li>
 </ul>
-<p>A legnagyobb méretű általános szentimentszótár az angol nyelvű SentiWordNet (SWN), ami kb. 150 000 szót tartalmaz, amelyek mindegyike a három szentimentérték – pozitív, negatív, semleges – közül kapott egyet.<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a><span class="citation">(<a href="irodalomjegyzék.html#ref-baccianellaSentiwordnetEnhancedLexical2010" role="doc-biblioref">Baccianella, Esuli, and Sebastiani 2010</a>)</span></p>
+<p>A legnagyobb méretű általános szentimentszótár az angol nyelvű SentiWordNet (SWN), ami kb. 150 000 szót tartalmaz, amelyek mindegyike a három szentimentérték – pozitív, negatív, semleges – közül kapott egyet.<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a><span class="citation">(<a href="#ref-baccianellaSentiwordnetEnhancedLexical2010" role="doc-biblioref">Baccianella, Esuli, and Sebastiani 2010</a>)</span></p>
 <p>Az R-ben végzett szentimentelemzés során az angol nyelvű szövegekhez több beépített általános szentimentszótár is a rendelkezésünkre áll.<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a> A teljesség igénye nélkül említhetjük az AFINN,<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a> a bing<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a> és a az nrc<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a> szótárakat. Az elemzés sikere több faktortól is függ. Fontos, hogy a korpuszban lévő dokumentumokat körültekintően tisztítsuk meg az elemzés elején (lásd a <em><a href="corpus-ch.html#corpus_ch">Korpuszépítés és előkészítés fejezetet</a></em>). A következő lépésben meg kell bizonyosodnunk arról, hogy a kiválasztott szentiment szótár alkalmazható a korpuszunkra. Amennyiben nem találunk alkalmas szótárt, akkor a saját szótár validálására kell figyelni. A negyedik fejezetben leírtak itt is érvényesek, a dokumentum-kifejezés mátrixot érdemes valamilyen módon súlyozni.</p>
 <div id="szótárak-az-r-ben" class="section level2" number="6.1">
 <h2><span class="header-section-number">6.1</span> Szótárak az R-ben</h2>
 <p>A szótár alapú elemzéshez a <code>quanteda</code> csomagot fogjuk használni, illetve a 3. fejezetben már megismert <code>readr</code>, <code>stringr</code>, <code>dplyr</code> tidyverse csomagokat.<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a></p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="sentiment.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
 <span id="cb71-2"><a href="sentiment.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb71-3"><a href="sentiment.html#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb71-4"><a href="sentiment.html#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
-<span id="cb71-5"><a href="sentiment.html#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span></code></pre></div>
+<span id="cb71-3"><a href="sentiment.html#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb71-4"><a href="sentiment.html#cb71-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb71-5"><a href="sentiment.html#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb71-6"><a href="sentiment.html#cb71-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span></code></pre></div>
 <p>Mielőtt két esettanulmányt bemutatnánk, vizsgáljuk meg, hogyan néz ki egy szentimentszótár az R-ben. A szótárt kézzel úgy tudjuk készíthetünk, hogy egy listán belül létrehozzuk karaktervektorként a kategóriákat és a kulcsszavakat, és ezt a listát a <code>quanteda</code> <code>dictionary</code> függvényével eltároljuk.</p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="sentiment.html#cb72-1" aria-hidden="true" tabindex="-1"></a>szentiment_szotar <span class="ot">&lt;-</span> <span class="fu">dictionary</span>(</span>
 <span id="cb72-2"><a href="sentiment.html#cb72-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
@@ -335,12 +362,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Habár a <code>quanteda</code> is lehetőséget ad néhány előkészítő lépésre, érdemes ezt olyan céleszközzel tenni, ami nagyobb rugalmasságot ad a kezünkbe. Mi erre a célra a <code>stringr</code> csomagot használjuk. Első lépésben kitöröljük a sortöréseket (<code>\n</code>), a központozást, a számokat és kisbetűsítünk minden szót. Előfordulhat, hogy (számunkra nehezen látható) extra szóközök maradnak a szövegben. Ezeket az <code>str_squish()</code>függvénnyel tüntetjük el. A szöveg eleji és végi extra szóközöket (<em>leading vagy trailing white space</em>) az <code>str_trim()</code> függvény vágja le.</p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="sentiment.html#cb75-1" aria-hidden="true" tabindex="-1"></a>mn_tiszta <span class="ot">&lt;-</span> mn_minta <span class="sc">%&gt;%</span></span>
 <span id="cb75-2"><a href="sentiment.html#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb75-3"><a href="sentiment.html#cb75-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>),</span>
-<span id="cb75-4"><a href="sentiment.html#cb75-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:punct:]&quot;</span>),</span>
-<span id="cb75-5"><a href="sentiment.html#cb75-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:digit:]&quot;</span>),</span>
-<span id="cb75-6"><a href="sentiment.html#cb75-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_to_lower</span>(text),</span>
-<span id="cb75-7"><a href="sentiment.html#cb75-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_trim</span>(text),</span>
-<span id="cb75-8"><a href="sentiment.html#cb75-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">str_squish</span>(text)</span>
+<span id="cb75-3"><a href="sentiment.html#cb75-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> stringr<span class="sc">::</span><span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>),</span>
+<span id="cb75-4"><a href="sentiment.html#cb75-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> stringr<span class="sc">::</span><span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:punct:]&quot;</span>),</span>
+<span id="cb75-5"><a href="sentiment.html#cb75-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> stringr<span class="sc">::</span><span class="fu">str_remove_all</span>(<span class="at">string =</span> text, <span class="at">pattern =</span> <span class="st">&quot;[:digit:]&quot;</span>),</span>
+<span id="cb75-6"><a href="sentiment.html#cb75-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> stringr<span class="sc">::</span><span class="fu">str_to_lower</span>(text),</span>
+<span id="cb75-7"><a href="sentiment.html#cb75-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> stringr<span class="sc">::</span><span class="fu">str_trim</span>(text),</span>
+<span id="cb75-8"><a href="sentiment.html#cb75-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">text =</span> stringr<span class="sc">::</span><span class="fu">str_squish</span>(text)</span>
 <span id="cb75-9"><a href="sentiment.html#cb75-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <p>A szöveg sokkal jobban néz ki, habár észrevehetjük, hogy maradhattak benne problémás részek, főleg a sortörés miatt, ami sajnos hol egyes szavak közepén van (a jobbik eset), vagy pedig pont szóhatáron, ez esetben a két szó sajnos összevonódik. Az egyszerűség kedvéért feltételezzük, hogy ez kellően ritkán fordul elő ahhoz, hogy ne befolyásolja az elemzésünk eredményét.</p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="sentiment.html#cb76-1" aria-hidden="true" tabindex="-1"></a>mn_tiszta<span class="sc">$</span>text[<span class="dv">1</span>]</span>
@@ -370,10 +397,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb79-7"><a href="sentiment.html#cb79-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; - [negative]:</span></span>
 <span id="cb79-8"><a href="sentiment.html#cb79-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   - aberrált, abnormális, abnormalitás, abszurd, abszurditás, ádáz, adócsalás, adócsaló, adós, adósság, áfacsalás, áfacsaló, affér, aggasztó, aggodalom, aggódik, aggódás, agresszió, agresszíven, agresszivitás [ ... and 2,568 more ]</span></span></code></pre></div>
 <p>Az egyes dokumentumok szentimentjét a <code>dfm_lookup()</code> becsüli, ahol az előző lépésben létrehozott súlyozott dfm az input és a magyar szentimentszótár a dictionary. Egy gyors pillantás az eredményre és látjuk hogy minden dokumentumhoz készült egy pozitív és egy negatív érték. A TF-IDF súlyozás miatt nem látunk egész számokat (a súlyozás nélkül a sima szófrekvenciát kapnánk).</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="sentiment.html#cb80-1" aria-hidden="true" tabindex="-1"></a>mn_szentiment <span class="ot">&lt;-</span> <span class="fu">dfm_lookup</span>(mn_dfm, <span class="at">dictionary =</span> poltext_szotar)</span>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="sentiment.html#cb80-1" aria-hidden="true" tabindex="-1"></a>mn_szentiment <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">dfm_lookup</span>(mn_dfm, <span class="at">dictionary =</span> poltext_szotar)</span>
 <span id="cb80-2"><a href="sentiment.html#cb80-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb80-3"><a href="sentiment.html#cb80-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mn_szentiment, <span class="dv">5</span>)</span>
-<span id="cb80-4"><a href="sentiment.html#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Document-feature matrix of: 5 documents, 2 features (40.0% sparse) and 1 docvar.</span></span>
+<span id="cb80-4"><a href="sentiment.html#cb80-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Document-feature matrix of: 5 documents, 2 features (40.00% sparse) and 1 docvar.</span></span>
 <span id="cb80-5"><a href="sentiment.html#cb80-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     features</span></span>
 <span id="cb80-6"><a href="sentiment.html#cb80-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; docs   positive  negative</span></span>
 <span id="cb80-7"><a href="sentiment.html#cb80-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    1  0          0       </span></span>
@@ -393,7 +420,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb81-9"><a href="sentiment.html#cb81-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 2006-01-02 21.1044299  6.449036</span></span>
 <span id="cb81-10"><a href="sentiment.html#cb81-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 2006-01-02 11.0358129  8.131890</span></span></code></pre></div>
 <p>Végül a kapott korpuszt a kiszámolt szentimentértékekkel a <code>quanteda</code>-ban lévő <code>convert()</code> függvénnyel adattáblává alakítjuk. A<code>convert()</code> függvény dokumentációját érdemes elolvasni, mert ennek segítségével tudjuk a <code>quanteda</code>-ban elkészült objektumainkat átalakítani úgy, hogy azt más csomagok is tudják használni.</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="sentiment.html#cb82-1" aria-hidden="true" tabindex="-1"></a>mn_df <span class="ot">&lt;-</span> <span class="fu">convert</span>(mn_corpus, <span class="at">to =</span> <span class="st">&quot;data.frame&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="sentiment.html#cb82-1" aria-hidden="true" tabindex="-1"></a>mn_df <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">convert</span>(mn_corpus, <span class="at">to =</span> <span class="st">&quot;data.frame&quot;</span>)</span></code></pre></div>
 <p>Mielőtt vizualizálnánk az eredményt érdemes a napi szintre aggregálni a szentimentértéket és egy nettó értéket kalkulálni.<a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a></p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="sentiment.html#cb83-1" aria-hidden="true" tabindex="-1"></a>mn_df <span class="ot">&lt;-</span> mn_df <span class="sc">%&gt;%</span></span>
 <span id="cb83-2"><a href="sentiment.html#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(doc_date) <span class="sc">%&gt;%</span></span>
@@ -414,7 +441,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="mnb-sajtóközlemények" class="section level2" number="6.3">
 <h2><span class="header-section-number">6.3</span> MNB sajtóközlemények</h2>
-<p>A második esettanulmányban a kontextuális szótárelemzést mutatjuk be egy angol nyelvű korpusz és specializált szótár segítségével. A korpusz, az MNB kamatdöntéseit kísérő nemzetközi sajtóközleményei, a szótár pedig a <span class="citation"><a href="irodalomjegyzék.html#ref-loughranWhenLiabilityNot2011" role="doc-biblioref">Loughran and McDonald</a> (<a href="irodalomjegyzék.html#ref-loughranWhenLiabilityNot2011" role="doc-biblioref">2011</a>)</span> pénzügyi szentimentszótár.<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a></p>
+<p>A második esettanulmányban a kontextuális szótárelemzést mutatjuk be egy angol nyelvű korpusz és specializált szótár segítségével. A korpusz, az MNB kamatdöntéseit kísérő nemzetközi sajtóközleményei, a szótár pedig a <span class="citation"><a href="#ref-loughranWhenLiabilityNot2011" role="doc-biblioref">Loughran and McDonald</a> (<a href="#ref-loughranWhenLiabilityNot2011" role="doc-biblioref">2011</a>)</span> pénzügyi szentimentszótár.<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a></p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="sentiment.html#cb85-1" aria-hidden="true" tabindex="-1"></a>penzugy_szentiment <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>dictionary_LoughranMcDonald</span></code></pre></div>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="sentiment.html#cb86-1" aria-hidden="true" tabindex="-1"></a>penzugy_szentiment</span>
 <span id="cb86-2"><a href="sentiment.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Dictionary object with 9 key entries.</span></span>
@@ -475,7 +502,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb90-11"><a href="sentiment.html#cb90-11" aria-hidden="true" tabindex="-1"></a>mnb_df <span class="ot">&lt;-</span> <span class="fu">convert</span>(mnb_corpus, <span class="at">to =</span> <span class="st">&quot;data.frame&quot;</span>)</span></code></pre></div>
 <p>A célunk, hogy szentiment kategóriánkénti bontásban mutassuk be az elemzésünk eredményét, de előtte egy kicsit alakítani kell az adattáblán, hogy a korábban már tárgyalt <em>tidy</em> formára hozzuk. A különböző szentiment értékeket tartalmazó oszlopokat fogjuk átrendezni úgy, hogy kreálunk egy „sent_type” változót, ahol a kategória nevet fogjuk eltárolni és egy „sent_score” változót, ahol a szentiment értéket. Ehhez a <code>tidyr</code>-ben található <code>pivot_longer()</code> föggvényt használjuk.</p>
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="sentiment.html#cb91-1" aria-hidden="true" tabindex="-1"></a>mnb_df <span class="ot">&lt;-</span> mnb_df <span class="sc">%&gt;%</span></span>
-<span id="cb91-2"><a href="sentiment.html#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb91-2"><a href="sentiment.html#cb91-2" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
 <span id="cb91-3"><a href="sentiment.html#cb91-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> negative<span class="sc">:</span>superfluous,</span>
 <span id="cb91-4"><a href="sentiment.html#cb91-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">&quot;sent_type&quot;</span>,</span>
 <span id="cb91-5"><a href="sentiment.html#cb91-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">&quot;sent_score&quot;</span></span>
@@ -498,19 +525,46 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-baccianellaSentiwordnetEnhancedLexical2010" class="csl-entry">
+Baccianella, Stefano, Andrea Esuli, and Fabrizio Sebastiani. 2010. <span>“Sentiwordnet 3.0: An Enhanced Lexical Resource for Sentiment Analysis and Opinion Mining.”</span> In <em>Lrec</em>, 10:2200–2204.
+</div>
+<div id="ref-grimmer2013text" class="csl-entry">
+Grimmer, Justin, and Brandon M Stewart. 2013. <span>“Text as Data: <span>The</span> Promise and Pitfalls of Automatic Content Analysis Methods for Political Texts.”</span> <em>Political Analysis</em> 21 (3): 267–97.
+</div>
+<div id="ref-laver2000estimating" class="csl-entry">
+Laver, Michael, and John Garry. 2000. <span>“Estimating Policy Positions from Political Texts.”</span> <em>American Journal of Political Science</em>, 619–34.
+</div>
+<div id="ref-liuSentimentAnalysisSubjectivity2010" class="csl-entry">
+Liu, Bing. 2010. <span>“Sentiment Analysis and Subjectivity.”</span> <em>Handbook of Natural Language Processing</em> 2 (2010): 627–66.
+</div>
+<div id="ref-loughranWhenLiabilityNot2011" class="csl-entry">
+Loughran, Tim, and Bill McDonald. 2011. <span>“When Is a Liability Not a Liability? <span>Textual</span> Analysis, Dictionaries, and 10-<span>Ks</span>.”</span> <em>The Journal of Finance</em> 66 (1): 35–65.
+</div>
+<div id="ref-mateEffectCentralBank2021" class="csl-entry">
+Máté, Ákos, Miklós Sebők, and Tamás Barczikay. 2021. <span>“The Effect of Central Bank Communication on Sovereign Bond Yields: <span>The</span> Case of <span>Hungary</span>.”</span> Edited by Hiranya K. Nath. <em>PLOS ONE</em> 16 (2): e0245515. <a href="https://doi.org/10.1371/journal.pone.0245515">https://doi.org/10.1371/journal.pone.0245515</a>.
+</div>
+<div id="ref-silge2017text" class="csl-entry">
+Silge, Julia, and David Robinson. 2017. <em>Text Mining with <span>R</span>: <span>A</span> Tidy Approach</em>. " O’Reilly Media, Inc.".
+</div>
+<div id="ref-young2012affective" class="csl-entry">
+Young, Lori, and Stuart Soroka. 2012. <span>“Affective News: <span>The</span> Automated Coding of Sentiment in Political Texts.”</span> <em>Political Communication</em> 29 (2): 205–31.
+</div>
+</div>
 <div class="footnotes">
 <hr />
 <ol start="16">
-<li id="fn16"><p>Bővebben lásd például: <span class="citation">(<a href="irodalomjegyzék.html#ref-liuSentimentAnalysisSubjectivity2010" role="doc-biblioref">Liu 2010</a>)</span><a href="sentiment.html#fnref16" class="footnote-back">↩︎</a></p></li>
-<li id="fn17"><p>A lehetséges, területspecifikus szótáralkotási módszerekről részletesebben ezekben a tanulmányokban lehet olvasni: <span class="citation"><a href="irodalomjegyzék.html#ref-laver2000estimating" role="doc-biblioref">Laver and Garry</a> (<a href="irodalomjegyzék.html#ref-laver2000estimating" role="doc-biblioref">2000</a>)</span>; <span class="citation"><a href="irodalomjegyzék.html#ref-young2012affective" role="doc-biblioref">Young and Soroka</a> (<a href="irodalomjegyzék.html#ref-young2012affective" role="doc-biblioref">2012</a>)</span>; <span class="citation"><a href="irodalomjegyzék.html#ref-loughranWhenLiabilityNot2011" role="doc-biblioref">Loughran and McDonald</a> (<a href="irodalomjegyzék.html#ref-loughranWhenLiabilityNot2011" role="doc-biblioref">2011</a>)</span>; <span class="citation"><a href="irodalomjegyzék.html#ref-mateEffectCentralBank2021" role="doc-biblioref">Máté, Sebők, and Barczikay</a> (<a href="irodalomjegyzék.html#ref-mateEffectCentralBank2021" role="doc-biblioref">2021</a>)</span><a href="sentiment.html#fnref17" class="footnote-back">↩︎</a></p></li>
+<li id="fn16"><p>Bővebben lásd például: <span class="citation">(<a href="#ref-liuSentimentAnalysisSubjectivity2010" role="doc-biblioref">Liu 2010</a>)</span><a href="sentiment.html#fnref16" class="footnote-back">↩︎</a></p></li>
+<li id="fn17"><p>A lehetséges, területspecifikus szótáralkotási módszerekről részletesebben ezekben a tanulmányokban lehet olvasni: <span class="citation"><a href="#ref-laver2000estimating" role="doc-biblioref">Laver and Garry</a> (<a href="#ref-laver2000estimating" role="doc-biblioref">2000</a>)</span>; <span class="citation"><a href="#ref-young2012affective" role="doc-biblioref">Young and Soroka</a> (<a href="#ref-young2012affective" role="doc-biblioref">2012</a>)</span>; <span class="citation"><a href="#ref-loughranWhenLiabilityNot2011" role="doc-biblioref">Loughran and McDonald</a> (<a href="#ref-loughranWhenLiabilityNot2011" role="doc-biblioref">2011</a>)</span>; <span class="citation"><a href="#ref-mateEffectCentralBank2021" role="doc-biblioref">Máté, Sebők, and Barczikay</a> (<a href="#ref-mateEffectCentralBank2021" role="doc-biblioref">2021</a>)</span><a href="sentiment.html#fnref17" class="footnote-back">↩︎</a></p></li>
 <li id="fn18"><p>A szótár és dokumentációja elérhető az alábbi linken: <a href="https://github.com/aesuli/SentiWordNet">https://github.com/aesuli/SentiWordNet</a><a href="sentiment.html#fnref18" class="footnote-back">↩︎</a></p></li>
 <li id="fn19"><p>A quanteda.dictionaries csomag leírása és a benne található szótárak az alábbi github linken érhetőek el: <a href="https://github.com/kbenoit/quanteda.dictionaries" class="uri">https://github.com/kbenoit/quanteda.dictionaries</a><a href="sentiment.html#fnref19" class="footnote-back">↩︎</a></p></li>
 <li id="fn20"><p>A szótár és dokumentációja elérhető itt: <a href="http://www2.imm.dtu.dk/pubdb/pubs/6010-full.html" class="uri">http://www2.imm.dtu.dk/pubdb/pubs/6010-full.html</a><a href="sentiment.html#fnref20" class="footnote-back">↩︎</a></p></li>
 <li id="fn21"><p>A szótár és dokumentációja elérhető itt: <a href="https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html" class="uri">https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html</a><a href="sentiment.html#fnref21" class="footnote-back">↩︎</a></p></li>
 <li id="fn22"><p>A szótár és dokumentációja elérhető itt: <a href="http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm" class="uri">http://saifmohammad.com/WebPages/NRC-Emotion-Lexicon.htm</a><a href="sentiment.html#fnref22" class="footnote-back">↩︎</a></p></li>
-<li id="fn23"><p>A szentimentelemzéshez gyakran használt csomag még a <code>tidytext</code>. Online is szabadon elérhető könyvük <span class="citation"><a href="irodalomjegyzék.html#ref-silge2017text" role="doc-biblioref">Silge and Robinson</a> (<a href="irodalomjegyzék.html#ref-silge2017text" role="doc-biblioref">2017</a>)</span> 2. fejezetében részletesen is bemutatják a szerzők a <code>tidytext</code> munkafolyamatot: (<a href="https://www.tidytextmining.com/sentiment.html">https://www.tidytextmining.com/sentiment.html</a>).<a href="sentiment.html#fnref23" class="footnote-back">↩︎</a></p></li>
+<li id="fn23"><p>A szentimentelemzéshez gyakran használt csomag még a <code>tidytext</code>. Online is szabadon elérhető könyvük <span class="citation"><a href="#ref-silge2017text" role="doc-biblioref">Silge and Robinson</a> (<a href="#ref-silge2017text" role="doc-biblioref">2017</a>)</span> 2. fejezetében részletesen is bemutatják a szerzők a <code>tidytext</code> munkafolyamatot: (<a href="https://www.tidytextmining.com/sentiment.html">https://www.tidytextmining.com/sentiment.html</a>).<a href="sentiment.html#fnref23" class="footnote-back">↩︎</a></p></li>
 <li id="fn24"><p>A korpusz a Hungarian Compartive Agendas Project keretében készült és regisztáció után, kutatási célra elérhető az alábbi linken: <a href="https://cap.tk.hu/a-media-es-a-kozvelemeny-napirendje">https://cap.tk.hu/a-media-es-a-kozvelemeny-napirendje</a>.<a href="sentiment.html#fnref24" class="footnote-back">↩︎</a></p></li>
-<li id="fn25"><p>A korpusz, a szótár és az elemzés teljes dokumentációja elérhető az alábbi github linken: <a href="https://github.com/poltextlab/central_bank_communication">https://github.com/poltextlab/central_bank_communication</a>, a teljes elemzés <span class="citation">(<a href="irodalomjegyzék.html#ref-mateEffectCentralBank2021" role="doc-biblioref">Máté, Sebők, and Barczikay 2021</a>)</span> elérhető: <a href="https://doi.org/10.1371/journal.pone.0245515">https://doi.org/10.1371/journal.pone.0245515</a><a href="sentiment.html#fnref25" class="footnote-back">↩︎</a></p></li>
+<li id="fn25"><p>A korpusz, a szótár és az elemzés teljes dokumentációja elérhető az alábbi github linken: <a href="https://github.com/poltextlab/central_bank_communication">https://github.com/poltextlab/central_bank_communication</a>, a teljes elemzés <span class="citation">(<a href="#ref-mateEffectCentralBank2021" role="doc-biblioref">Máté, Sebők, and Barczikay 2021</a>)</span> elérhető: <a href="https://doi.org/10.1371/journal.pone.0245515">https://doi.org/10.1371/journal.pone.0245515</a><a href="sentiment.html#fnref25" class="footnote-back">↩︎</a></p></li>
 <li id="fn26"><p>ELKH TK MILAB: <a href="https://milab.tk.hu/hu">https://milab.tk.hu/hu</a> A szótár és a hozzátartozó dokumentáció elérhető az alábbi github oldalon: <a href="https://github.com/poltextlab/sentiment_hun" class="uri">https://github.com/poltextlab/sentiment_hun</a><a href="sentiment.html#fnref26" class="footnote-back">↩︎</a></p></li>
 <li id="fn27"><p>A csoportosított adatokkal való munka bővebb bemutatását lásd a <a href="#fuggelek">Függelékben</a>.<a href="sentiment.html#fnref27" class="footnote-back">↩︎</a></p></li>
 <li id="fn28"><p>A témával részletesen foglalkozó tanulmányban egy saját monetáris szentimentszótárat mutatunk be: Az implementáció és a hozzá tartozó R forráskód nyilvános: <a href="https://doi.org/10.6084/m9.figshare.13526156.v1" class="uri">https://doi.org/10.6084/m9.figshare.13526156.v1</a><a href="sentiment.html#fnref28" class="footnote-back">↩︎</a></p></li>
@@ -545,6 +599,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

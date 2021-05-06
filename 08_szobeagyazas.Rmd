@@ -34,6 +34,7 @@ Az elemzéshez a `text2vec` csomagot használjuk, ami a GloVe implementációt t
 ```{r}
 library(text2vec)
 library(quanteda)
+library(quanteda.textstats)
 library(readtext)
 library(readr)
 library(dplyr)
@@ -70,7 +71,7 @@ mn_tokens <- tokens(mn_corpus) %>%
 
 features <- dfm(mn_tokens) %>%
   dfm_trim(min_termfreq = 5) %>%
-  featnames()
+  quanteda::featnames()
 
 mn_tokens <- tokens_select(mn_tokens, features, padding = TRUE)
 ```
@@ -79,7 +80,7 @@ mn_tokens <- tokens_select(mn_tokens, features, padding = TRUE)
 Az `fcm` megalkotása során a célkifejezéstől való távolság függvényében súlyozzuk a tokeneket.
 
 ```{r tidy = TRUE, tidy.opts=list(width.cutoff=80)}
-mn_fcm <- fcm(mn_tokens, context = "window", count = "weighted", weights = 1 / (1:5), tri = TRUE)
+mn_fcm <- quanteda::fcm(mn_tokens, context = "window", count = "weighted", weights = 1 / (1:5), tri = TRUE)
 ```
 
 A tényleges szóbeágyazás a `text2vec` csomaggal történik. A `GlobalVector` egy új „környezetet" (*environment*) hoz létre. Itt adhatjuk meg az alapvető paramétereket. A `rank` a vektor dimenziót adja meg (a szakirodalomban a 300–500 dimenzió a megszokott). A többi paraméterrel is lehet kísérletezni, hogy mennyire változtatja meg a kapott szóbeágyazásokat. A `fit_transform` pedig a tényleges becslést végzi. Itt az iterációk számát (a gépi tanulásos irodalomban *epoch*-nak is hívják a tanulási köröket) és a korai leállás (*early stopping*) kritériumát a `convergence_tol` megadásával állíthatjuk be. Minél több dimenziót szeretnénk és minél több iterációt, annál tovább fog tartani a szóbeágyazás futtatása. 
@@ -114,7 +115,7 @@ Az egyes szavakhoz legközelebb álló szavakat a koszinusz hasonlóság alapjá
 ```{r}
 teszt <- mn_word_vectors["polgármester", , drop = F]
 
-cos_sim_rom <- sim2(x = mn_word_vectors, y = teszt, method = "cosine", norm = "l2")
+cos_sim_rom <- text2vec::sim2(x = mn_word_vectors, y = teszt, method = "cosine", norm = "l2")
 
 head(sort(cos_sim_rom[, 1], decreasing = TRUE), 5)
 ```
@@ -154,7 +155,6 @@ budapest <- mn_word_vectors["budapest", , drop = FALSE] - mn_word_vectors["magya
 cos_sim <- textstat_simil(x = as.dfm(mn_word_vectors), y = as.dfm(budapest), method = "cosine")
 
 head(sort(cos_sim[, 1], decreasing = TRUE), 5)
-
 ```
 
 A szavak egymástól való távolságát vizuálisan is tudjuk ábrázolni. Az egyik ezzel kapcsolatban felmerülő probléma, hogy egy 2 dimenziós ábrán akarunk egy 3–500 dimenziós mátrixot ábrázolni. Több lehetséges megoldás is van, mi ezek közül a lehető legegyszerűbbet mutatjuk be.[^dim] Első lépésben egy data frame-et készítünk a szóbeágyazás eredményeként kapott mátrixból, megtartva a szavakat az első oszlopban a `tibble` csomag `rownames_to_column` függvényével. Mivel csak 2 dimenziót tudunk ábrázolni egy tradícionális statikus ábrán, ezért a `V1` és `V2` oszlopokat tartjuk csak meg, amik az első és második dimenziót reprezentálják.
@@ -163,7 +163,7 @@ A szavak egymástól való távolságát vizuálisan is tudjuk ábrázolni. Az e
 
 ```{r}
 mn_embedding_df <- as.data.frame(mn_word_vectors[, c(1:2)]) %>% 
-  rownames_to_column(var = "words")
+  tibble::rownames_to_column(var = "words")
 ```
 
 Ezután pedig a `ggplot` függvényt felhasználva definiálunk egy új, `embedding_plot` nevű, függvényt, ami az elkészült data frame alapján bármilyen kulcsszó kombinációt képes ábrázolni.

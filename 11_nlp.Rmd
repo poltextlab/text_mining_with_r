@@ -48,7 +48,7 @@ knitr::include_graphics("figures/11-02_napirend_elotti_magyarlanc.png")
 Az így létrehozott `.csv` fájllal megyegyező adattáblát be tudjuk tölteni a `HunMineR` segítségével.
 
 ```{r}
-library (dplyr)
+library(dplyr)
 library(HunMineR)
 ```
 

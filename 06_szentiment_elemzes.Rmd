@@ -54,6 +54,7 @@ A szótár alapú elemzéshez a `quanteda` csomagot fogjuk használni, illetve a
 ```{r message=FALSE}
 library(stringr)
 library(dplyr)
+library(tidyr)
 library(ggplot2)
 library(quanteda)
 library(HunMineR)
@@ -94,7 +95,6 @@ A fejezetben két különböző korpuszt fogunk elemezni: a 2006-os *Magyar Nemz
 
 ```{r message=FALSE}
 mn_minta <- HunMineR::data_magyar_nemzet_small
-
 ```
 
 A `HunMineR` csomag segítségével beolvassuk a *Magyar Nemzet* adatbázis egy kisebb részét, ami az esetünkben a 2006-os címlapokon szereplő híreket jelenti. A `summary()` parancs, ahogy a neve is mutatja, gyors áttekintést nyújt a betöltött adatbázisról. Látjuk, hogy `r nrow(mn_minta)` sorból (megfigyelés) és `r ncol(mn_minta)` oszlopból (változó) áll. Első ránézésre látszik, hogy a text változónk tartalmazza a szövegeket, és hogy azok tisztításra szorulnak.
@@ -110,12 +110,12 @@ Habár a `quanteda` is lehetőséget ad néhány előkészítő lépésre, érde
 ```{r}
 mn_tiszta <- mn_minta %>%
   mutate(
-    text = str_remove_all(string = text, pattern = "\n"),
-    text = str_remove_all(string = text, pattern = "[:punct:]"),
-    text = str_remove_all(string = text, pattern = "[:digit:]"),
-    text = str_to_lower(text),
-    text = str_trim(text),
-    text = str_squish(text)
+    text = stringr::str_remove_all(string = text, pattern = "\n"),
+    text = stringr::str_remove_all(string = text, pattern = "[:punct:]"),
+    text = stringr::str_remove_all(string = text, pattern = "[:digit:]"),
+    text = stringr::str_to_lower(text),
+    text = stringr::str_trim(text),
+    text = stringr::str_squish(text)
   )
 ```
 
@@ -156,10 +156,9 @@ poltext_szotar
 Az egyes dokumentumok szentimentjét a `dfm_lookup()` becsüli, ahol az előző lépésben létrehozott súlyozott dfm az input és a magyar szentimentszótár a dictionary. Egy gyors pillantás az eredményre és látjuk hogy minden dokumentumhoz készült egy pozitív és egy negatív érték. A TF-IDF súlyozás miatt nem látunk egész számokat (a súlyozás nélkül a sima szófrekvenciát kapnánk).
 
 ```{r}
-mn_szentiment <- dfm_lookup(mn_dfm, dictionary = poltext_szotar)
+mn_szentiment <- quanteda::dfm_lookup(mn_dfm, dictionary = poltext_szotar)
 
 head(mn_szentiment, 5)
-
 ```
 
 Ahhoz, hogy fel tudjuk használni a kapott eredményt, érdemes dokumentumváltozóként eltárolni a korpuszban. Ezt a fent már használt `docvars()` függvény segítségével tudjuk megtenni, ahol a második argumentumkét az új változó nevét adjuk meg.
@@ -174,8 +173,7 @@ head(docvars(mn_corpus), 5)
 Végül a kapott korpuszt a kiszámolt szentimentértékekkel a `quanteda`-ban lévő `convert()` függvénnyel adattáblává alakítjuk. A`convert()` függvény dokumentációját érdemes elolvasni, mert ennek segítségével tudjuk a `quanteda`-ban elkészült objektumainkat átalakítani úgy, hogy azt más csomagok is tudják használni.
 
 ```{r}
-mn_df <- convert(mn_corpus, to = "data.frame")
-
+mn_df <- quanteda::convert(mn_corpus, to = "data.frame")
 ```
 
 Mielőtt vizualizálnánk az eredményt érdemes a napi szintre aggregálni a szentimentértéket és egy nettó értéket kalkulálni.[^szent-12]
@@ -232,7 +230,6 @@ A munkamenet hasonló a *Magyar Nemzet*-es példához:
 
 ```{r}
 mnb_pr <- HunMineR::data_mnb_pr
-
 ```
 
 Adatbázisunk `r nrow(mnb_pr)` megfigyelésből és `r ncol(mnb_pr)` változóból áll. Az egyetlen lényeges dokumentum metaadat itt is a szövegek megjelenési ideje.
@@ -282,7 +279,7 @@ A célunk, hogy szentiment kategóriánkénti bontásban mutassuk be az elemzés
 
 ```{r}
 mnb_df <- mnb_df %>%
-  pivot_longer(
+  tidyr::pivot_longer(
     cols = negative:superfluous,
     names_to = "sent_type",
     values_to = "sent_score"

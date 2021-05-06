@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1 Bevezetés | Szövegbányászat és mesterséges intelligencia R-ben</title>
-  <meta name="description" content="1 Bevezetés | Szövegbányászat és mesterséges intelligencia R-ben" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <title>1 Bevezetés | R Notebook</title>
+  <meta name="description" content="Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1 Bevezetés | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta property="og:title" content="1 Bevezetés | R Notebook" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="1 Bevezetés | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta property="og:description" content="Szövegbányászat és mesterséges intelligencia R-ben" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1 Bevezetés | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="twitter:title" content="1 Bevezetés | R Notebook" />
   
-  <meta name="twitter:description" content="1 Bevezetés | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="twitter:description" content="Szövegbányászat és mesterséges intelligencia R-ben" />
   
 
 <meta name="author" content="Sebők Miklós, Ring Orsolya, Máté Ákos" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="index.html"/>
 <link rel="next" href="alapfogalmak.html"/>
-<script src="libs/header-attrs-2.7.10/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
@@ -64,6 +66,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -122,6 +125,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="konyv_style.css" type="text/css" />
@@ -215,13 +241,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.1" data-path="similarity.html"><a href="similarity.html#a-szövegösszehasonlítás-különböző-megközelítései"><i class="fa fa-check"></i><b>10.1</b> A szövegösszehasonlítás különböző megközelítései</a></li>
 <li class="chapter" data-level="10.2" data-path="similarity.html"><a href="similarity.html#lexikális-hasonlóság"><i class="fa fa-check"></i><b>10.2</b> Lexikális hasonlóság</a></li>
 <li class="chapter" data-level="10.3" data-path="similarity.html"><a href="similarity.html#szemantikai-hasonlóság"><i class="fa fa-check"></i><b>10.3</b> Szemantikai hasonlóság</a></li>
-<li class="chapter" data-level="10.4" data-path="similarity.html"><a href="similarity.html#hasonlóság-számítás"><i class="fa fa-check"></i><b>10.4</b> Hasonlóság-számítás</a>
+<li class="chapter" data-level="10.4" data-path="similarity.html"><a href="similarity.html#hasonlóságszámítás"><i class="fa fa-check"></i><b>10.4</b> Hasonlóságszámítás</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="similarity.html"><a href="similarity.html#adatbázis-importálás-és-előkészítés"><i class="fa fa-check"></i><b>10.4.1</b> Adatbázis importálás és előkészítés</a></li>
+<li class="chapter" data-level="10.4.1" data-path="similarity.html"><a href="similarity.html#adatbázis-importálás-és-előkészítés"><i class="fa fa-check"></i><b>10.4.1</b> Adatbázis-importálás és előkészítés</a></li>
 </ul></li>
 <li class="chapter" data-level="10.5" data-path="similarity.html"><a href="similarity.html#szövegtisztítás"><i class="fa fa-check"></i><b>10.5</b> Szövegtisztítás</a></li>
-<li class="chapter" data-level="10.6" data-path="similarity.html"><a href="similarity.html#a-jaccard-hasonlóság-számítás"><i class="fa fa-check"></i><b>10.6</b> A Jaccard hasonlóság számítás</a></li>
-<li class="chapter" data-level="10.7" data-path="similarity.html"><a href="similarity.html#a-koszinusz-hasonlóság-számítás"><i class="fa fa-check"></i><b>10.7</b> A Koszinusz hasonlóság számítás</a></li>
+<li class="chapter" data-level="10.6" data-path="similarity.html"><a href="similarity.html#a-jaccard-hasonlóság-számítása"><i class="fa fa-check"></i><b>10.6</b> A Jaccard-hasonlóság számítása</a></li>
+<li class="chapter" data-level="10.7" data-path="similarity.html"><a href="similarity.html#a-koszinusz-hasonlóság-számítása"><i class="fa fa-check"></i><b>10.7</b> A koszinusz-hasonlóság számítása</a></li>
 <li class="chapter" data-level="10.8" data-path="similarity.html"><a href="similarity.html#az-eredmények-vizualizációja"><i class="fa fa-check"></i><b>10.8</b> Az eredmények vizualizációja</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="nlp-ch.html"><a href="nlp-ch.html"><i class="fa fa-check"></i><b>11</b> NLP és névelemfelismerés</a>
@@ -262,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Szövegbányászat és mesterséges intelligencia R-ben</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Notebook</a>
           </h1>
         </div>
 
@@ -275,7 +301,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="a-kötet-témái" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> A kötet témái</h2>
 <p>A szövegek adatként való értelmezése (<em>text as data</em>) és kvantitatív elemzése (<em>quantitative text analysis</em>), avagy a szövegbányászat (<em>text mining</em>) a nemzetközi társadalomtudományi kutatások egyik leggyorsabban fejlődő irányzata. A szövegek és más kvalitatív adatok (filmek, képek) elemzése annyiban különbözik a mennyiségi (kvantitatív) adatokétól, hogy nyers formájukban még nem alkalmasak statisztikai, illetve ökonometriai elemzésre. Ezért van szükség az ezzel összefüggő módszertani problémák speciális tárgyalására.</p>
-<p>Jelen kötet bevezeti az érdeklődőket a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának ilyen speciális problémáiba, valamint ezek gyakorlati megoldásába. Közvetlen előzménynek tekinthető a témában a Sebők Miklós által szerkesztett <a href="https://poltextlab.tk.hu/uploads/files/Kvantitativ_szovegelemzes_keszpdf.pdf"><em>Kvantitatív szövegelemzés és szövegbányászat a politikatudományban</em></a> címmel megjelent könyv, amely a magyar tudományos diskurzusban kevésbé bevett alapfogalmakat és eljárásokat mutatta be <span class="citation">(<a href="irodalomjegyzék.html#ref-sebokKvantitativSzovegelemzesEs2016" role="doc-biblioref">Sebők 2016</a>)</span>. A hangsúly az elméleten volt, bár számos fejezet foglalkozott konkrét kódrészletek elemzésével. Míg az előző kötet az egyes kódolási eljárásokat, illetve ezek kutatásmódszertani előnyeit és hátrányait ismertette, ezúttal a társadalomtudományi elemzések során használható kvantitatív szövegelemzés legfontosabb gyakorlati feladatait vesszük sorra.</p>
+<p>Jelen kötet bevezeti az érdeklődőket a szövegbányászat és a mesterséges intelligencia társadalomtudományi alkalmazásának ilyen speciális problémáiba, valamint ezek gyakorlati megoldásába. Közvetlen előzménynek tekinthető a témában a Sebők Miklós által szerkesztett <a href="https://poltextlab.tk.hu/uploads/files/Kvantitativ_szovegelemzes_keszpdf.pdf"><em>Kvantitatív szövegelemzés és szövegbányászat a politikatudományban</em></a> címmel megjelent könyv, amely a magyar tudományos diskurzusban kevésbé bevett alapfogalmakat és eljárásokat mutatta be <span class="citation">(<a href="#ref-sebokKvantitativSzovegelemzesEs2016" role="doc-biblioref">Sebők 2016</a>)</span>. A hangsúly az elméleten volt, bár számos fejezet foglalkozott konkrét kódrészletek elemzésével. Míg az előző kötet az egyes kódolási eljárásokat, illetve ezek kutatásmódszertani előnyeit és hátrányait ismertette, ezúttal a társadalomtudományi elemzések során használható kvantitatív szövegelemzés legfontosabb gyakorlati feladatait vesszük sorra.</p>
 <p>Könyvünk a magyar tankönyvpiacon elsőként ismerteti lépésről-lépésre a nemzetközi társadalomtudományban használatos kvantitatív szövegelemzési eljárásokat. A módszereink bemutatására szolgáló elemzéseket az R programnyelv segítségével végeztük el, mely a nemzetközi társadalomtudományi vizsgálatok során egyik leggyakrabban használt környezet a Python mellett. Mivel a szövegbányászat nyelve az angol, bár igyekeztünk, ahol lehetséges volt igyekeztünk magyar szakkifejezéseket használni, de ilyenkor is minden esetben megadtuk azok angol megfelelőjét. Kivételt képeznek azok az esetek, ahol nincs használatban megfelelő magyar terminológia, ezeknél megtartottuk az angol kifejezéseket, de magyarázattal láttuk el azokat.</p>
 <p>Az Olvasó a két kötet együttes használatával olyan ismeretek birtokába jut, melyek révén képes lesz alkalmazni a kvantitatív szövegelemzés és szövegbányászat legalapvetőbb eljárásait saját kutatásaiban. Deduktív vagy induktív felfedező logikája szerint dönthet az adatelemzés módjáról, és a felkínált menüből kiválaszthatja a kutatási tervéhez legjobban illeszkedő megoldásokat. A bemutatott konkrét példák segítségével pedig akár reprodukálhatja is ezen eljárásokat saját kutatásában. Mindezt a kötet fejezeteiben bőséggel tárgyalt <em>R-scriptek</em> (kódok) részletes leírása is segíti. Ennek alapján a kötet két fő célcsoportja a társadalomtudományi kutatói és felsőoktatási hallgatói-oktatói közösség. Az oktatási alkalmazást segítheti a fontosabb fogalmak magyar és angol nyelvű szószedete, valamint több helyen a további olvasásra ajánlott szakirodalom felsorolása. A kötet honlapján (<a href="www.hunminer.hu">www.hunminer.hu</a>) közvetlenül is elérhetőek a felhasznált adatbázisok és kódok.</p>
 <p>Kötetünk négy logikai egységből épül fel. Az első négy fejezet bemutatja azokat a fogalmakat és eljárásokat, amelyek elengedhetetlenek egy szövegbányászati kutatás során, valamint itt kerül sor a szöveges adatforrásokkal való munkafolyamat ismertetésére, a szövegelőkészítés és a korpuszépítés technikáinak bemutatására. A második blokkban az egyszerűbb elemzési módszereket tárgyaljuk, így a leíró statisztikák készítését, a szótár alapú elemzést, valamint érzelemelemzést. A kötet harmadik blokkját a mesterséges intelligencia alapú megközelítéseknek szenteljük, melynek során az olvasó a felügyelt és felügyelet nélküli tanulás fogalmával ismerkedhet meg. A felügyelet nélküli módszerek közül a topic modellezést, szóbeágyazást és a szövegskálázást mutatjuk be, a felügyelt elemzések közül pedig az osztályozással foglalkozunk részletesebben. Végezetül kötetünket egy függelék zárja, melyben a kezdő RStudió felhasználóknak adunk gyakorlati iránymutatást a programfelülettel való megismerkedéshez, használatának elsajátításához.</p>
@@ -289,26 +315,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Az egyes fejezetekben szereplő kódrészleteket egymás utáni sorrendben bemásolva és lefuttatva a saját R környezetünkben tudjuk reprodukálni a könyvben szereplő technikákat. A <a href="#fuggelek">Függelékben</a> részletesebben is foglalkozunk az R és az RStudio beállításaival, használatával. Az ajánlott R minimum verzió a 4.0.0, illetve az ajánlott minimum RStudio verzió az 1.4.0000.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <p>A könyvhöz tartozik egy <code>HunMineR</code> R csomag is, amely tartalmazza az egyes fejezetekben használt összes adatbázist, így az adatbeviteli problémákat elkerülve lehet gyakorolni a szövegbányászatot. A könyv megjelenésekor a csomag még nem került be a központi R CRAN csomag repozitóriumába, hanem a poltextLAB GitHub repozitóriumából tölthető le.</p>
 <p>A könyvben szereplő ábrák nagy része a <code>ggplot2</code> csomaggal készült a <code>theme_set(theme_light())</code> opció beállításával a háttérben. Ez azt jelenti, hogy az ábrákat előállító kódok a <code>theme_light()</code> sort nem tartalmazzák, de a tényleges ábrán már megjelennek a tematikus elemek.</p>
+<p>Az egyes fejezetekben használt R csomagok listája és verziószáma a lenti táblázatban található. Fontos tudni, hogy a használt R csomagokat folyamatosan fejlesztik, ezért elképzelhető hogy eltérő verziószámú változatok esetén változhat a kód szintaxis.</p>
+<pre><code>#&gt; % latex table generated in R 4.0.5 by xtable 1.8-4 package
+#&gt; % Thu May 06 17:50:02 2021
+#&gt; \begin{table}[ht]
+#&gt; \centering
+#&gt; \begin{tabular}{lr}
+#&gt;   \hline
+#&gt; Csomagnév &amp; Verziószám \\ 
+#&gt;   \hline
+#&gt; dplyr &amp; 1.0.5 \\ 
+#&gt;   e1071 &amp; 1.7.6 \\ 
+#&gt;   factoextra &amp; 1.0.7 \\ 
+#&gt;   gapminder &amp; 0.3.0 \\ 
+#&gt;   GGally &amp; 2.1.1 \\ 
+#&gt;   ggdendro &amp; 0.1.22 \\ 
+#&gt;   ggplot2 &amp; 3.3.3 \\ 
+#&gt;   ggrepel &amp; 0.9.1 \\ 
+#&gt;   HunMineR &amp; 0.0.0.9000 \\ 
+#&gt;   igraph &amp; 1.2.6 \\ 
+#&gt;   kableExtra &amp; 1.3.4 \\ 
+#&gt;   knitr &amp; 1.33 \\ 
+#&gt;   lubridate &amp; 1.7.10 \\ 
+#&gt;   purrr &amp; 0.3.4 \\ 
+#&gt;   quanteda &amp; 3.0.0 \\ 
+#&gt;   quanteda.textmodels &amp; 0.9.4 \\ 
+#&gt;   quanteda.textplots &amp; 0.94 \\ 
+#&gt;   quanteda.textstats &amp; 0.94 \\ 
+#&gt;   readr &amp; 1.4.0 \\ 
+#&gt;   readtext &amp; 0.80 \\ 
+#&gt;   readxl &amp; 1.3.1 \\ 
+#&gt;   rvest &amp; 1.0.0 \\ 
+#&gt;   spacyr &amp; 1.2.1 \\ 
+#&gt;   stm &amp; 1.3.6 \\ 
+#&gt;   stringr &amp; 1.4.0 \\ 
+#&gt;   text2vec &amp; 0.6 \\ 
+#&gt;   tibble &amp; 3.1.1 \\ 
+#&gt;   tidyr &amp; 1.1.3 \\ 
+#&gt;   tidytext &amp; 0.3.1 \\ 
+#&gt;   topicmodels &amp; 0.2.12 \\ 
+#&gt;    \hline
+#&gt; \end{tabular}
+#&gt; \caption{A könyvben használt R csomagok} 
+#&gt; \end{table}</code></pre>
 </div>
 <div id="a-hunminer-használata" class="section level2" number="1.3">
 <h2><span class="header-section-number">1.3</span> A HunMineR használata</h2>
 <p>A Windows rendszert használóknak először az <code>installr</code> csomagot kell telepíteni, majd annak segítségével letölteni az Rtools nevű programot (az OS X és Linux rendszerek esetében erre a lépésre nincs szükség). A lenti kód futtatásával ezek a lépések automatikusan megtörténnek.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># az installr csomag letöltése és installálása</span></span>
-<span id="cb2-2"><a href="intro.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;installr&quot;</span>)</span>
-<span id="cb2-3"><a href="intro.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># az Rtools.exe fájl letöltése és installálása</span></span>
-<span id="cb2-4"><a href="intro.html#cb2-4" aria-hidden="true" tabindex="-1"></a>installr<span class="sc">::</span><span class="fu">install.Rtools</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># az installr csomag letöltése és installálása</span></span>
+<span id="cb3-2"><a href="intro.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;installr&quot;</span>)</span>
+<span id="cb3-3"><a href="intro.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># az Rtools.exe fájl letöltése és installálása</span></span>
+<span id="cb3-4"><a href="intro.html#cb3-4" aria-hidden="true" tabindex="-1"></a>installr<span class="sc">::</span><span class="fu">install.Rtools</span>()</span></code></pre></div>
 <p>Ezt követően a <code>devtools</code> csomagban található <code>install_github</code> paranccsal tudjuk telepíteni a <code>HunMineR</code> csomagot, a lenti kód lefuttatásával.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A devtools csomag letöltése és installálása</span></span>
-<span id="cb3-2"><a href="intro.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
-<span id="cb3-3"><a href="intro.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A HunMineR csomag letöltése és installálása</span></span>
-<span id="cb3-4"><a href="intro.html#cb3-4" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;poltextlab/HunMineR&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A devtools csomag letöltése és installálása</span></span>
+<span id="cb4-2"><a href="intro.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)</span>
+<span id="cb4-3"><a href="intro.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># A HunMineR csomag letöltése és installálása</span></span>
+<span id="cb4-4"><a href="intro.html#cb4-4" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;poltextlab/HunMineR&quot;</span>)</span></code></pre></div>
 <p>Ebben a fázisban a <code>data</code> függvénnyel tudjuk megnézni, hogy pontosan milyen adatbázisok szerepelnek a csomagban, illetve ugyanitt megtalálható az egyes adatbázisok részletes leírása. Ha egy adatbázisról szeretnénk többet megtudni, akkor a kiegészítő információkat <code>?adatbazis_neve</code> megoldással tudjuk megnézni.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A HunMineR csomag betöltése</span></span>
-<span id="cb4-2"><a href="intro.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span>
-<span id="cb4-3"><a href="intro.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># csomagban lévő adatok listázása</span></span>
-<span id="cb4-4"><a href="intro.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;HunMineR&quot;</span>)</span>
-<span id="cb4-5"><a href="intro.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># A miniszterelnöki beszédek minta adatbázisának részletei</span></span>
-<span id="cb4-6"><a href="intro.html#cb4-6" aria-hidden="true" tabindex="-1"></a>?data_miniszterelnokok</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="intro.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A HunMineR csomag betöltése</span></span>
+<span id="cb5-2"><a href="intro.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span>
+<span id="cb5-3"><a href="intro.html#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># csomagban lévő adatok listázása</span></span>
+<span id="cb5-4"><a href="intro.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;HunMineR&quot;</span>)</span>
+<span id="cb5-5"><a href="intro.html#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># A miniszterelnöki beszédek minta adatbázisának részletei</span></span>
+<span id="cb5-6"><a href="intro.html#cb5-6" aria-hidden="true" tabindex="-1"></a>?data_miniszterelnokok</span></code></pre></div>
 </div>
 <div id="köszönetnyilvánítás" class="section level2" number="1.4">
 <h2><span class="header-section-number">1.4</span> Köszönetnyilvánítás</h2>
@@ -317,6 +386,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Köszönjük a szakmai lektor hasznos megjegyzéseit, Fedinec Csilla nyelvi lektor alapos munkáját, valamint a Typotex Kiadó rugalmasságát és színvonalas közreműködését a könyv kiadásában! Végül, de nem utolsósorban hálásak vagyunk a kötet megvalósulásához támogatást nyújtó szervezeteknek és ösztöndíjaknak: az MTA Könyvkiadási Alapjának, a Társadalomtudományi Kutatóközpont Könyvtámogatási Alapjának, a Nemzeti Kutatási, Fejlesztési és Innovációs Hivatalnak (NKFIH FK 123907, NKFIH FK 129018), az MTA Bolyai János Kutatási Ösztöndíjának.</p>
 <p>A kötet alapjául szolgáló kutatást, amelyet a Társadalomtudományi Kutatóközpont valósított meg, az Innovációs és Technológiai Minisztérium és a Nemzeti Kutatási, Fejlesztési és Innovációs Hivatal támogatta a Mesterséges Intelligencia Nemzeti Laboratórium keretében.</p>
 
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-sebokKvantitativSzovegelemzesEs2016" class="csl-entry">
+Sebők, Miklós. 2016. <em>Kvantitatív Szövegelemzés és Szövegbányászat a Politikatudományban</em>. L’Harmattan Kiadó.
 </div>
 </div>
 <div class="footnotes">
@@ -355,6 +430,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

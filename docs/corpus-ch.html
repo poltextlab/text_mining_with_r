@@ -4,21 +4,21 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4 Korpuszépítés és szövegelőkészítés | Szövegbányászat és mesterséges intelligencia R-ben</title>
-  <meta name="description" content="4 Korpuszépítés és szövegelőkészítés | Szövegbányászat és mesterséges intelligencia R-ben" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <title>4 Korpuszépítés és szövegelőkészítés | R Notebook</title>
+  <meta name="description" content="Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4 Korpuszépítés és szövegelőkészítés | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta property="og:title" content="4 Korpuszépítés és szövegelőkészítés | R Notebook" />
   <meta property="og:type" content="book" />
   
   
-  <meta property="og:description" content="4 Korpuszépítés és szövegelőkészítés | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta property="og:description" content="Szövegbányászat és mesterséges intelligencia R-ben" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4 Korpuszépítés és szövegelőkészítés | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="twitter:title" content="4 Korpuszépítés és szövegelőkészítés | R Notebook" />
   
-  <meta name="twitter:description" content="4 Korpuszépítés és szövegelőkészítés | Szövegbányászat és mesterséges intelligencia R-ben" />
+  <meta name="twitter:description" content="Szövegbányászat és mesterséges intelligencia R-ben" />
   
 
 <meta name="author" content="Sebők Miklós, Ring Orsolya, Máté Ákos" />
@@ -33,7 +33,7 @@
   
 <link rel="prev" href="adatkezeles.html"/>
 <link rel="next" href="leiro-stat.html"/>
-<script src="libs/header-attrs-2.7.10/header-attrs.js"></script>
+<script src="libs/header-attrs-2.7/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -51,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
@@ -64,6 +66,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
@@ -122,6 +125,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="konyv_style.css" type="text/css" />
@@ -215,13 +241,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.1" data-path="similarity.html"><a href="similarity.html#a-szövegösszehasonlítás-különböző-megközelítései"><i class="fa fa-check"></i><b>10.1</b> A szövegösszehasonlítás különböző megközelítései</a></li>
 <li class="chapter" data-level="10.2" data-path="similarity.html"><a href="similarity.html#lexikális-hasonlóság"><i class="fa fa-check"></i><b>10.2</b> Lexikális hasonlóság</a></li>
 <li class="chapter" data-level="10.3" data-path="similarity.html"><a href="similarity.html#szemantikai-hasonlóság"><i class="fa fa-check"></i><b>10.3</b> Szemantikai hasonlóság</a></li>
-<li class="chapter" data-level="10.4" data-path="similarity.html"><a href="similarity.html#hasonlóság-számítás"><i class="fa fa-check"></i><b>10.4</b> Hasonlóság-számítás</a>
+<li class="chapter" data-level="10.4" data-path="similarity.html"><a href="similarity.html#hasonlóságszámítás"><i class="fa fa-check"></i><b>10.4</b> Hasonlóságszámítás</a>
 <ul>
-<li class="chapter" data-level="10.4.1" data-path="similarity.html"><a href="similarity.html#adatbázis-importálás-és-előkészítés"><i class="fa fa-check"></i><b>10.4.1</b> Adatbázis importálás és előkészítés</a></li>
+<li class="chapter" data-level="10.4.1" data-path="similarity.html"><a href="similarity.html#adatbázis-importálás-és-előkészítés"><i class="fa fa-check"></i><b>10.4.1</b> Adatbázis-importálás és előkészítés</a></li>
 </ul></li>
 <li class="chapter" data-level="10.5" data-path="similarity.html"><a href="similarity.html#szövegtisztítás"><i class="fa fa-check"></i><b>10.5</b> Szövegtisztítás</a></li>
-<li class="chapter" data-level="10.6" data-path="similarity.html"><a href="similarity.html#a-jaccard-hasonlóság-számítás"><i class="fa fa-check"></i><b>10.6</b> A Jaccard hasonlóság számítás</a></li>
-<li class="chapter" data-level="10.7" data-path="similarity.html"><a href="similarity.html#a-koszinusz-hasonlóság-számítás"><i class="fa fa-check"></i><b>10.7</b> A Koszinusz hasonlóság számítás</a></li>
+<li class="chapter" data-level="10.6" data-path="similarity.html"><a href="similarity.html#a-jaccard-hasonlóság-számítása"><i class="fa fa-check"></i><b>10.6</b> A Jaccard-hasonlóság számítása</a></li>
+<li class="chapter" data-level="10.7" data-path="similarity.html"><a href="similarity.html#a-koszinusz-hasonlóság-számítása"><i class="fa fa-check"></i><b>10.7</b> A koszinusz-hasonlóság számítása</a></li>
 <li class="chapter" data-level="10.8" data-path="similarity.html"><a href="similarity.html#az-eredmények-vizualizációja"><i class="fa fa-check"></i><b>10.8</b> Az eredmények vizualizációja</a></li>
 </ul></li>
 <li class="chapter" data-level="11" data-path="nlp-ch.html"><a href="nlp-ch.html"><i class="fa fa-check"></i><b>11</b> NLP és névelemfelismerés</a>
@@ -262,7 +288,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Szövegbányászat és mesterséges intelligencia R-ben</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Notebook</a>
           </h1>
         </div>
 
@@ -276,31 +302,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.1</span> Szövegbeszerzés</h2>
 <p>A szövegbányászati elemzések egyik első lépése az elemzés alapjául szolgáló korpusz megépítése. A korpuszt alkotó szövegek beszerzésének egyik módja a <em>webscarping</em>, melynek során weboldalakról történik az információ kinyerése.</p>
 <p>A scrapelést végezhetjük R-ben az <code>rvest</code> csomag segítségével. Fejezetünkben a scrapelésnek csupán néhány alaplépését mutatjuk meg, a folyamatról bővebb információ található például az alábbi oldalakon: <a href="https://cran.r-project.org/web/packages/rvest/rvest.pdf" class="uri">https://cran.r-project.org/web/packages/rvest/rvest.pdf</a>, <a href="https://rvest.tidyverse.org" class="uri">https://rvest.tidyverse.org</a>.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="corpus-ch.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
-<span id="cb24-2"><a href="corpus-ch.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb24-3"><a href="corpus-ch.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb24-4"><a href="corpus-ch.html#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb24-5"><a href="corpus-ch.html#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
-<span id="cb24-6"><a href="corpus-ch.html#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
-<span id="cb24-7"><a href="corpus-ch.html#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textmodels)</span>
-<span id="cb24-8"><a href="corpus-ch.html#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="corpus-ch.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb25-2"><a href="corpus-ch.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb25-3"><a href="corpus-ch.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb25-4"><a href="corpus-ch.html#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb25-5"><a href="corpus-ch.html#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(stringr)</span>
+<span id="cb25-6"><a href="corpus-ch.html#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda)</span>
+<span id="cb25-7"><a href="corpus-ch.html#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textmodels)</span>
+<span id="cb25-8"><a href="corpus-ch.html#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(quanteda.textstats)</span>
+<span id="cb25-9"><a href="corpus-ch.html#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(HunMineR)</span></code></pre></div>
 <p>A szükséges csomagok beolvasása után a <code>read_html()</code> függvény segítségével az adott weboldal adatait kérjük le a szerverről. A <code>read_html()</code> függvény argumentuma az adott weblap URL-je.</p>
 <p>Ha például a <code>poltextLAB</code> projekt honlapjáról szeretnénk adatokat gyűjteni, azt az alábbi módon tehetjük meg:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="corpus-ch.html#cb25-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://poltextlab.tk.hu/hu&quot;</span>)</span>
-<span id="cb25-2"><a href="corpus-ch.html#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="corpus-ch.html#cb25-3" aria-hidden="true" tabindex="-1"></a>r</span>
-<span id="cb25-4"><a href="corpus-ch.html#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; {html_document}</span></span>
-<span id="cb25-5"><a href="corpus-ch.html#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;html lang=&quot;hu&quot; class=&quot;no-js&quot;&gt;</span></span>
-<span id="cb25-6"><a href="corpus-ch.html#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot;&gt;\n&lt;met ...</span></span>
-<span id="cb25-7"><a href="corpus-ch.html#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &lt;body class=&quot;index&quot;&gt;\n\n\t&lt;script&gt;\n\t  (function(i,s,o,g,r,a,m){i[&#39;GoogleAnalyti ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="corpus-ch.html#cb26-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> rvest<span class="sc">::</span><span class="fu">read_html</span>(<span class="st">&quot;https://poltextlab.tk.hu/hu&quot;</span>)</span>
+<span id="cb26-2"><a href="corpus-ch.html#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="corpus-ch.html#cb26-3" aria-hidden="true" tabindex="-1"></a>r</span>
+<span id="cb26-4"><a href="corpus-ch.html#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; {html_document}</span></span>
+<span id="cb26-5"><a href="corpus-ch.html#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &lt;html lang=&quot;hu&quot; class=&quot;no-js&quot;&gt;</span></span>
+<span id="cb26-6"><a href="corpus-ch.html#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &lt;head&gt;\n&lt;meta http-equiv=&quot;Content-Type&quot; content= ...</span></span>
+<span id="cb26-7"><a href="corpus-ch.html#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &lt;body class=&quot;index&quot;&gt;\n\n\t&lt;script&gt;\n\t  (functio ...</span></span></code></pre></div>
 <p>Ezután a <code>html_nodes()</code> függvény argumentumaként meg kell adnunk azt a HTML címkét vagy CSS azonosítót, ami a legyűjteni kívánt elemeket azonosítja a weboldalon. Ezeket az azonosítókat az adott weboldal forráskódjának megtekintésével tudhatjuk meg, amire a különböző böngészők különböző lehetőségeket kínálnak. Majd a <code>html_text()</code> függvény segítségével megkapjuk azokat a szövegeket, amelyek az adott weblapon az adott azonosítóval rendelkeznek.</p>
 <p>Példánkban a <a href="https://poltextlab.tk.hu/hu" class="uri">https://poltextlab.tk.hu/hu</a> weboldalról azokat az információkat szeretnénk kigyűjteni, amelyek az <code>&lt;title&gt;</code> címke alatt szerepelnek.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="corpus-ch.html#cb26-1" aria-hidden="true" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://poltextlab.tk.hu/hu&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_nodes</span>(<span class="st">&quot;title&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">html_text</span>()</span>
-<span id="cb26-2"><a href="corpus-ch.html#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-3"><a href="corpus-ch.html#cb26-3" aria-hidden="true" tabindex="-1"></a>title</span>
-<span id="cb26-4"><a href="corpus-ch.html#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MTA TK Political and Legal Text Mining and Artificial Intelligence Laboratory (poltextLAB)&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="corpus-ch.html#cb27-1" aria-hidden="true" tabindex="-1"></a>title <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">&quot;https://poltextlab.tk.hu/hu&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="corpus-ch.html#cb27-2" aria-hidden="true" tabindex="-1"></a>    rvest<span class="sc">::</span><span class="fu">html_nodes</span>(<span class="st">&quot;title&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb27-3"><a href="corpus-ch.html#cb27-3" aria-hidden="true" tabindex="-1"></a>    rvest<span class="sc">::</span><span class="fu">html_text</span>()</span>
+<span id="cb27-4"><a href="corpus-ch.html#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="corpus-ch.html#cb27-5" aria-hidden="true" tabindex="-1"></a>title</span>
+<span id="cb27-6"><a href="corpus-ch.html#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MTA TK Political and Legal Text Mining and Artificial Intelligence Laboratory (poltextLAB)&quot;</span></span></code></pre></div>
 <p>Ezután a kigyűjtött információkat kiíratjuk egy <code>csv</code> fájlba.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="corpus-ch.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(title, <span class="st">&quot;title.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="corpus-ch.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(title, <span class="st">&quot;title.csv&quot;</span>)</span></code></pre></div>
 <p>A <em>webscraping</em> során az egyik nehézség, ha a weboldal letiltja az automatikus letöltést, ezt kivédhetjük például különböző böngészőbővítmények segítségével, illetve a fejléc (<em>header</em>) vagy a hálózati kliens (<em>user agent</em>) megváltoztatásával. De segíthet véletlenszerű kiszolgáló (<em>proxy</em>) vagy VPN szolgáltatás<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> használata is, valamint ha az egyes kérések között időt hagyunk. A weboldalakon legtöbbször a legyűjtött szövegekhez tartozó különböző metaadatok is szerepelnek (például egy parlamenti beszéd dátuma, az azt elmondó képviselő neve), melyeket érdemes a scarpelés során szintén összegyűjteni. A scrapelés során fontos figyelnünk arra, hogy később jól használható formában mentsük el az adatokat, például <code>.csv</code>,<code>.json</code> vagy <code>.txt</code> kiterjesztésekkel. A karakterkódolási problémák elkerülése érdekében érdemes UTF-8 vagy UTF-16-os kódolást alkalmazni, mivel ezek tartalmazzák a magyar nyelv ékezetes karaktereit is. A karakterkódolással kapcsolatosan további hasznos információk találhatóak az alábbi oldalon: <a href="http://www.cs.bme.hu/~egmont/utf8" class="uri">http://www.cs.bme.hu/~egmont/utf8</a></p>
 <p>Arra is van lehetőség, hogy az elemezni kívánt korpuszt papíron keletkezett, majd szkennelt és szükség szerint optikai karakterfelismerés (<em>Optical Character Recognition – OCR</em>) segítségével feldolgozott szövegekből építsük fel. Mivel azonban ezeket a feladatokat nem R-ben végezzük, ezekről itt nem szólunk bővebben. Az így beszerzett és <code>.txt</code> vagy <code>.csv</code> fájllá alakított szövegekből való korpuszépítés a következő lépésekben megegyezik a weboldalakról gyűjtött szövegekével.</p>
 </div>
@@ -309,103 +338,90 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Az elemzéshez vezető következő lépés a szövegelőkészítés, amit a szöveg tisztításával kell kezdenünk. A szövegtisztításnál mindig járjunk el körültekintően és az egyes lépéseket a kutatási kérdésünknek megfelelően tervezzük meg, a folyamat során pedig időnként végezzünk ellenőrzést, ezzel elkerülhetjük a kutatásunkhoz szükséges információk elvesztését.</p>
 <p>Miután az elemezni kívánt szövegeinket beszereztük, majd a <em><a href="adatkezeles.html#adatkezeles">Az adatok importálása</a></em> alfejezetben leírtak szerint importáltuk, következhetnek az alapvető előfeldolgozási lépések, ezek közé tartozik például a scrapelés során a korpuszba került html címkék, számok és egyéb zajok (például a speciális karakterek, írásjelek) eltávolítása, valamint a kisbetűsítés, a tokenizálás, a szótövezés és a stopszavazás.</p>
 <p>A <code>stringr</code> csomag segítségével először eltávolíthatjuk a felesleges <code>html</code> címkéket a korpuszból. Ehhez először létrehozzuk a <code>text1</code> nevű objektumot, ami egy karaktervektorból áll.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="corpus-ch.html#cb28-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;MTA TK&quot;</span>, <span class="st">&quot;&lt;font size=&#39;6&#39;&gt; Political and Legal Text Mining and Artificial Intelligence Laboratory (poltextLAB)&quot;</span>)</span>
-<span id="cb28-2"><a href="corpus-ch.html#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="corpus-ch.html#cb28-3" aria-hidden="true" tabindex="-1"></a>text1</span>
-<span id="cb28-4"><a href="corpus-ch.html#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MTA TK&quot;                                                                                             </span></span>
-<span id="cb28-5"><a href="corpus-ch.html#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &quot;&lt;font size=&#39;6&#39;&gt; Political and Legal Text Mining and Artificial Intelligence Laboratory (poltextLAB)&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="corpus-ch.html#cb29-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;MTA TK&quot;</span>, <span class="st">&quot;&lt;font size=&#39;6&#39;&gt; Political and Legal Text Mining and Artificial Intelligence Laboratory (poltextLAB)&quot;</span>)</span>
+<span id="cb29-2"><a href="corpus-ch.html#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="corpus-ch.html#cb29-3" aria-hidden="true" tabindex="-1"></a>text1</span>
+<span id="cb29-4"><a href="corpus-ch.html#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;MTA TK&quot;                                                                                             </span></span>
+<span id="cb29-5"><a href="corpus-ch.html#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &quot;&lt;font size=&#39;6&#39;&gt; Political and Legal Text Mining and Artificial Intelligence Laboratory (poltextLAB)&quot;</span></span></code></pre></div>
 <p>Majd a <code>str_replace_all()</code>függvény segítségével eltávolítjuk két html címke közötti szövegrészt. Ehhez a függvény argumentumában létrehozunk egy regex kifejezést, aminek segítségével a függvény minden <code>&lt; &gt;</code> közötti szövegrészt üres karakterekre cserél. Ezután a <code>str_to_lower()</code>mindent kisbetűvé konvertál, majd a <code>str_trim()</code> eltávolítja a szóközöket a karakterláncok elejéről és végéről.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="corpus-ch.html#cb29-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="sc">%&gt;%</span></span>
-<span id="cb29-2"><a href="corpus-ch.html#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_replace_all</span>(<span class="at">pattern =</span> <span class="st">&quot;&lt;.*?&gt;&quot;</span>, <span class="at">replacement =</span> <span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb29-3"><a href="corpus-ch.html#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_to_lower</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb29-4"><a href="corpus-ch.html#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str_trim</span>()</span>
-<span id="cb29-5"><a href="corpus-ch.html#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;mta tk&quot;                                                                             </span></span>
-<span id="cb29-6"><a href="corpus-ch.html#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &quot;political and legal text mining and artificial intelligence laboratory (poltextlab)&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="corpus-ch.html#cb30-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="corpus-ch.html#cb30-2" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_replace_all</span>(<span class="at">pattern =</span> <span class="st">&quot;&lt;.*?&gt;&quot;</span>, <span class="at">replacement =</span> <span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="corpus-ch.html#cb30-3" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_to_lower</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb30-4"><a href="corpus-ch.html#cb30-4" aria-hidden="true" tabindex="-1"></a>  stringr<span class="sc">::</span><span class="fu">str_trim</span>()</span>
+<span id="cb30-5"><a href="corpus-ch.html#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;mta tk&quot;                                                                             </span></span>
+<span id="cb30-6"><a href="corpus-ch.html#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &quot;political and legal text mining and artificial intelligence laboratory (poltextlab)&quot;</span></span></code></pre></div>
 <div id="tokenizálás-szótövezés-kisbetűsítés-és-a-tiltólistás-szavak-eltávolítása" class="section level3" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Tokenizálás, szótövezés, kisbetűsítés és a tiltólistás szavak eltávolítása</h3>
 <p>Az előkészítés következő lépésében tokenizáljuk, azaz egységeire bontjuk az elemezni kívánt szöveget, így a tokenek az egyes szavakat vagy kifejezéseket fogják jelölni. Ennek eredményeként kapjuk meg az <em>n-gramokat</em>, amik a vizsgált egységek (számok, betűk, szavak, kifejezések) n-elemű sorozatát alkotják.</p>
 <p>A következőkben a „Példa az előkészítésre” mondatot bontjuk először tokenekre a <code>tokens()</code> függvénnyel, majd a tokeneket a <code>tokens_tolower()</code> segítségével kisbetűsítjük, a <code>tokens_wordstem()</code> függvénnyel pedig szótövezzük. Végezetül a <code>quanteda</code> csomagban található magyar nyelvű stopszótár segítségével, elvégezzük a stopszavak eltávolítását. Ehhez először létrehozzuk az <code>sw</code> elnevezésű karaktervektort a magyar stopszavakból. A <code>head()</code> függvény segítségével belenézhetünk a szótárba, és a <em>console</em>-ra kiírathatjuk a szótár első hat szavát. Végül a <code>tokens_remove()</code>segítségével eltávolítjuk a stopszavakat.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="corpus-ch.html#cb30-1" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="st">&quot;Példa az elokészítésre&quot;</span></span>
-<span id="cb30-2"><a href="corpus-ch.html#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="corpus-ch.html#cb30-3" aria-hidden="true" tabindex="-1"></a>toks <span class="ot">&lt;-</span> <span class="fu">tokens</span>(text)</span>
-<span id="cb30-4"><a href="corpus-ch.html#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-5"><a href="corpus-ch.html#cb30-5" aria-hidden="true" tabindex="-1"></a>toks <span class="ot">&lt;-</span> <span class="fu">tokens_tolower</span>(toks)</span>
-<span id="cb30-6"><a href="corpus-ch.html#cb30-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-7"><a href="corpus-ch.html#cb30-7" aria-hidden="true" tabindex="-1"></a>toks <span class="ot">&lt;-</span> <span class="fu">tokens_wordstem</span>(toks)</span>
-<span id="cb30-8"><a href="corpus-ch.html#cb30-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-9"><a href="corpus-ch.html#cb30-9" aria-hidden="true" tabindex="-1"></a>toks</span>
-<span id="cb30-10"><a href="corpus-ch.html#cb30-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Tokens consisting of 1 document.</span></span>
-<span id="cb30-11"><a href="corpus-ch.html#cb30-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1 :</span></span>
-<span id="cb30-12"><a href="corpus-ch.html#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;példa&quot;        &quot;az&quot;           &quot;elokészítésr&quot;</span></span>
-<span id="cb30-13"><a href="corpus-ch.html#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-14"><a href="corpus-ch.html#cb30-14" aria-hidden="true" tabindex="-1"></a>sw <span class="ot">&lt;-</span> <span class="fu">stopwords</span>(<span class="st">&quot;hungarian&quot;</span>)</span>
-<span id="cb30-15"><a href="corpus-ch.html#cb30-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-16"><a href="corpus-ch.html#cb30-16" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sw)</span>
-<span id="cb30-17"><a href="corpus-ch.html#cb30-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;a&quot;     &quot;ahogy&quot; &quot;ahol&quot;  &quot;aki&quot;   &quot;akik&quot;  &quot;akkor&quot;</span></span>
-<span id="cb30-18"><a href="corpus-ch.html#cb30-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-19"><a href="corpus-ch.html#cb30-19" aria-hidden="true" tabindex="-1"></a><span class="fu">tokens_remove</span>(toks, sw)</span>
-<span id="cb30-20"><a href="corpus-ch.html#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Tokens consisting of 1 document.</span></span>
-<span id="cb30-21"><a href="corpus-ch.html#cb30-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1 :</span></span>
-<span id="cb30-22"><a href="corpus-ch.html#cb30-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;példa&quot;        &quot;elokészítésr&quot;</span></span></code></pre></div>
-<p>Ezt követi a szótövezés (<em>stemmelés</em>) lépése, melynek során az alkalmazott szótövező algoritmus egyszerűen levágja a szavak összes toldalékát, a képzőket, a jelzőket és a ragokat. Szótövezés helyett alkalmazhatunk szótári alakra hozást is (<em>lemmatizálás</em>). A két eljárás közötti különbség abban rejlik, hogy a szótövezés során csupán eltávolítjuk a szavak toldalékként azonosított végződéseit, hogy ugyanannak a szónak különböző megjelenési formáit közös törzsre redukáljuk, míg a lemmatizálás esetében rögtön az értelmes, szótári formát kapjuk vissza. A két módszer közötti választás a kutatási kérdés alapján meghozott kutatói döntésen alapul <span class="citation">(<a href="irodalomjegyzék.html#ref-grimmer2013text" role="doc-biblioref">Grimmer and Stewart 2013</a>)</span>.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="corpus-ch.html#cb31-1" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="st">&quot;Példa az elokészítésre&quot;</span></span>
+<span id="cb31-2"><a href="corpus-ch.html#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="corpus-ch.html#cb31-3" aria-hidden="true" tabindex="-1"></a>toks <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">tokens</span>(text)</span>
+<span id="cb31-4"><a href="corpus-ch.html#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="corpus-ch.html#cb31-5" aria-hidden="true" tabindex="-1"></a>toks <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">tokens_tolower</span>(toks)</span>
+<span id="cb31-6"><a href="corpus-ch.html#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="corpus-ch.html#cb31-7" aria-hidden="true" tabindex="-1"></a>toks <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">tokens_wordstem</span>(toks)</span>
+<span id="cb31-8"><a href="corpus-ch.html#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="corpus-ch.html#cb31-9" aria-hidden="true" tabindex="-1"></a>toks</span>
+<span id="cb31-10"><a href="corpus-ch.html#cb31-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Tokens consisting of 1 document.</span></span>
+<span id="cb31-11"><a href="corpus-ch.html#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1 :</span></span>
+<span id="cb31-12"><a href="corpus-ch.html#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;példa&quot;        &quot;az&quot;           &quot;elokészítésr&quot;</span></span>
+<span id="cb31-13"><a href="corpus-ch.html#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-14"><a href="corpus-ch.html#cb31-14" aria-hidden="true" tabindex="-1"></a>sw <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">stopwords</span>(<span class="st">&quot;hungarian&quot;</span>)</span>
+<span id="cb31-15"><a href="corpus-ch.html#cb31-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-16"><a href="corpus-ch.html#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sw)</span>
+<span id="cb31-17"><a href="corpus-ch.html#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;a&quot;     &quot;ahogy&quot; &quot;ahol&quot;  &quot;aki&quot;   &quot;akik&quot;  &quot;akkor&quot;</span></span>
+<span id="cb31-18"><a href="corpus-ch.html#cb31-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-19"><a href="corpus-ch.html#cb31-19" aria-hidden="true" tabindex="-1"></a>quanteda<span class="sc">::</span><span class="fu">tokens_remove</span>(toks, sw)</span>
+<span id="cb31-20"><a href="corpus-ch.html#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Tokens consisting of 1 document.</span></span>
+<span id="cb31-21"><a href="corpus-ch.html#cb31-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1 :</span></span>
+<span id="cb31-22"><a href="corpus-ch.html#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;példa&quot;        &quot;elokészítésr&quot;</span></span></code></pre></div>
+<p>Ezt követi a szótövezés (<em>stemmelés</em>) lépése, melynek során az alkalmazott szótövező algoritmus egyszerűen levágja a szavak összes toldalékát, a képzőket, a jelzőket és a ragokat. Szótövezés helyett alkalmazhatunk szótári alakra hozást is (<em>lemmatizálás</em>). A két eljárás közötti különbség abban rejlik, hogy a szótövezés során csupán eltávolítjuk a szavak toldalékként azonosított végződéseit, hogy ugyanannak a szónak különböző megjelenési formáit közös törzsre redukáljuk, míg a lemmatizálás esetében rögtön az értelmes, szótári formát kapjuk vissza. A két módszer közötti választás a kutatási kérdés alapján meghozott kutatói döntésen alapul <span class="citation">(<a href="#ref-grimmer2013text" role="doc-biblioref">Grimmer and Stewart 2013</a>)</span>.</p>
 <p>Az alábbi példában egyetlen szó különböző alakjainak szótári alakra hozásával szemléltetjük a lemmatizálás működését.</p>
 <p>Ehhez először a <code>text1</code> nevű objektumban tároljuk a szótári alakra hozni kívánt szöveget, majd tokenizáljuk és eltávolítjuk a központozást. Ezután definiáljuk a megfelelő szótövet és azt, hogy mely szavak alakjait szeretnénk erre a szótőre egységesíteni, majd a <code>rep()</code> függvény segítségével elvégezzük a lemmatizálást, amely a korábban definiált szóalakokat az általunk megadott szótári alakkal helyettesíti. Hosszabb szövegek lemmatizálásához előre létrehozott szótárakat használhatunk, ilyen például a <code>WordNet</code>, ami magyar nyelven is elérhető: <a href="https://github.com/mmihaltz/huwn" class="uri">https://github.com/mmihaltz/huwn</a>. A magyar nyelvű szövegek lemmatizálását elvégezhetjük a szövegek R-be való beolvasása előtt is a <code>magyarlanc</code> nyelvi elemző segítségével, melyről a <a href="nlp-ch.html#nlp_ch"><em>Természetes-nyelv feldolgozás (NLP) és névelemfelismerés</em></a> című fejezetben szólunk részletesebben.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="corpus-ch.html#cb31-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="ot">&lt;-</span> <span class="st">&quot;Példa az elokészítésre. Az elokészítést a szövetisztítással kell megkezdenünk. Az elokészített korpuszon elemzést végzünk&quot;</span></span>
-<span id="cb31-2"><a href="corpus-ch.html#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-3"><a href="corpus-ch.html#cb31-3" aria-hidden="true" tabindex="-1"></a>toks1 <span class="ot">&lt;-</span> <span class="fu">tokens</span>(text1, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb31-4"><a href="corpus-ch.html#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-5"><a href="corpus-ch.html#cb31-5" aria-hidden="true" tabindex="-1"></a>elokeszites <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;elokészítésre&quot;</span>, <span class="st">&quot;elokészítést&quot;</span>, <span class="st">&quot;elokészített&quot;</span>)</span>
-<span id="cb31-6"><a href="corpus-ch.html#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="corpus-ch.html#cb31-7" aria-hidden="true" tabindex="-1"></a>lemma <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">&quot;elokészítés&quot;</span>, <span class="fu">length</span>(elokeszites))</span>
-<span id="cb31-8"><a href="corpus-ch.html#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-9"><a href="corpus-ch.html#cb31-9" aria-hidden="true" tabindex="-1"></a>toks1 <span class="ot">&lt;-</span> <span class="fu">tokens_replace</span>(toks1, elokeszites, lemma, <span class="at">valuetype =</span> <span class="st">&quot;fixed&quot;</span>)</span>
-<span id="cb31-10"><a href="corpus-ch.html#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-11"><a href="corpus-ch.html#cb31-11" aria-hidden="true" tabindex="-1"></a>toks1</span>
-<span id="cb31-12"><a href="corpus-ch.html#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Tokens consisting of 1 document.</span></span>
-<span id="cb31-13"><a href="corpus-ch.html#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1 :</span></span>
-<span id="cb31-14"><a href="corpus-ch.html#cb31-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;Példa&quot;             &quot;az&quot;                &quot;elokészítés&quot;       &quot;Az&quot;               </span></span>
-<span id="cb31-15"><a href="corpus-ch.html#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;elokészítés&quot;       &quot;a&quot;                 &quot;szövetisztítással&quot; &quot;kell&quot;             </span></span>
-<span id="cb31-16"><a href="corpus-ch.html#cb31-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;megkezdenünk&quot;      &quot;Az&quot;                &quot;elokészítés&quot;       &quot;korpuszon&quot;        </span></span>
-<span id="cb31-17"><a href="corpus-ch.html#cb31-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [ ... and 2 more ]</span></span></code></pre></div>
-<p>A fenti <code>text1</code> objektumban tárolt szöveg szótövezését az alábbiak szerint tudjuk elvégezni. Megvizsgálva az előkészítés különböző alakjainak lemmatizált és stemmelt változatát jól láthatjuk a két módszer közötti különbséget.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="corpus-ch.html#cb32-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="ot">&lt;-</span> <span class="st">&quot;Példa az elokészítésre. Az elokészítést a szövetisztítással kell megkezdenünk. Az elokészített korpuszon elemzést végzünk&quot;</span></span>
 <span id="cb32-2"><a href="corpus-ch.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-3"><a href="corpus-ch.html#cb32-3" aria-hidden="true" tabindex="-1"></a>toks2 <span class="ot">&lt;-</span> <span class="fu">tokens</span>(text1, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb32-3"><a href="corpus-ch.html#cb32-3" aria-hidden="true" tabindex="-1"></a>toks1 <span class="ot">&lt;-</span> <span class="fu">tokens</span>(text1, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb32-4"><a href="corpus-ch.html#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-5"><a href="corpus-ch.html#cb32-5" aria-hidden="true" tabindex="-1"></a>toks2 <span class="ot">&lt;-</span> <span class="fu">tokens_wordstem</span>(toks2)</span>
+<span id="cb32-5"><a href="corpus-ch.html#cb32-5" aria-hidden="true" tabindex="-1"></a>elokeszites <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;elokészítésre&quot;</span>, <span class="st">&quot;elokészítést&quot;</span>, <span class="st">&quot;elokészített&quot;</span>)</span>
 <span id="cb32-6"><a href="corpus-ch.html#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-7"><a href="corpus-ch.html#cb32-7" aria-hidden="true" tabindex="-1"></a>toks2</span>
-<span id="cb32-8"><a href="corpus-ch.html#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Tokens consisting of 1 document.</span></span>
-<span id="cb32-9"><a href="corpus-ch.html#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1 :</span></span>
-<span id="cb32-10"><a href="corpus-ch.html#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;Példa&quot;           &quot;az&quot;              &quot;elokészítésr&quot;    &quot;Az&quot;             </span></span>
-<span id="cb32-11"><a href="corpus-ch.html#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;elokészítést&quot;    &quot;a&quot;               &quot;szövetisztításs&quot; &quot;kell&quot;           </span></span>
-<span id="cb32-12"><a href="corpus-ch.html#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;megkezdenünk&quot;    &quot;Az&quot;              &quot;elokészített&quot;    &quot;korpuszon&quot;      </span></span>
-<span id="cb32-13"><a href="corpus-ch.html#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [ ... and 2 more ]</span></span></code></pre></div>
+<span id="cb32-7"><a href="corpus-ch.html#cb32-7" aria-hidden="true" tabindex="-1"></a>lemma <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="st">&quot;elokészítés&quot;</span>, <span class="fu">length</span>(elokeszites))</span>
+<span id="cb32-8"><a href="corpus-ch.html#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="corpus-ch.html#cb32-9" aria-hidden="true" tabindex="-1"></a>toks1 <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">tokens_replace</span>(toks1, elokeszites, lemma, <span class="at">valuetype =</span> <span class="st">&quot;fixed&quot;</span>)</span>
+<span id="cb32-10"><a href="corpus-ch.html#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="corpus-ch.html#cb32-11" aria-hidden="true" tabindex="-1"></a>toks1</span>
+<span id="cb32-12"><a href="corpus-ch.html#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Tokens consisting of 1 document.</span></span>
+<span id="cb32-13"><a href="corpus-ch.html#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1 :</span></span>
+<span id="cb32-14"><a href="corpus-ch.html#cb32-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;Példa&quot;             &quot;az&quot;               </span></span>
+<span id="cb32-15"><a href="corpus-ch.html#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;elokészítés&quot;       &quot;Az&quot;               </span></span>
+<span id="cb32-16"><a href="corpus-ch.html#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;elokészítés&quot;       &quot;a&quot;                </span></span>
+<span id="cb32-17"><a href="corpus-ch.html#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;szövetisztítással&quot; &quot;kell&quot;             </span></span>
+<span id="cb32-18"><a href="corpus-ch.html#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;megkezdenünk&quot;      &quot;Az&quot;               </span></span>
+<span id="cb32-19"><a href="corpus-ch.html#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;elokészítés&quot;       &quot;korpuszon&quot;        </span></span>
+<span id="cb32-20"><a href="corpus-ch.html#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [ ... and 2 more ]</span></span></code></pre></div>
+<p>A fenti <code>text1</code> objektumban tárolt szöveg szótövezését az alábbiak szerint tudjuk elvégezni. Megvizsgálva az előkészítés különböző alakjainak lemmatizált és stemmelt változatát jól láthatjuk a két módszer közötti különbséget.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="corpus-ch.html#cb33-1" aria-hidden="true" tabindex="-1"></a>text1 <span class="ot">&lt;-</span> <span class="st">&quot;Példa az elokészítésre. Az elokészítést a szövetisztítással kell megkezdenünk. Az elokészített korpuszon elemzést végzünk&quot;</span></span>
+<span id="cb33-2"><a href="corpus-ch.html#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="corpus-ch.html#cb33-3" aria-hidden="true" tabindex="-1"></a>toks2 <span class="ot">&lt;-</span> <span class="fu">tokens</span>(text1, <span class="at">remove_punct =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb33-4"><a href="corpus-ch.html#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="corpus-ch.html#cb33-5" aria-hidden="true" tabindex="-1"></a>toks2 <span class="ot">&lt;-</span> <span class="fu">tokens_wordstem</span>(toks2)</span>
+<span id="cb33-6"><a href="corpus-ch.html#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="corpus-ch.html#cb33-7" aria-hidden="true" tabindex="-1"></a>toks2</span>
+<span id="cb33-8"><a href="corpus-ch.html#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Tokens consisting of 1 document.</span></span>
+<span id="cb33-9"><a href="corpus-ch.html#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; text1 :</span></span>
+<span id="cb33-10"><a href="corpus-ch.html#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;Példa&quot;           &quot;az&quot;             </span></span>
+<span id="cb33-11"><a href="corpus-ch.html#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;elokészítésr&quot;    &quot;Az&quot;             </span></span>
+<span id="cb33-12"><a href="corpus-ch.html#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;elokészítést&quot;    &quot;a&quot;              </span></span>
+<span id="cb33-13"><a href="corpus-ch.html#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;szövetisztításs&quot; &quot;kell&quot;           </span></span>
+<span id="cb33-14"><a href="corpus-ch.html#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;megkezdenünk&quot;    &quot;Az&quot;             </span></span>
+<span id="cb33-15"><a href="corpus-ch.html#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;elokészített&quot;    &quot;korpuszon&quot;      </span></span>
+<span id="cb33-16"><a href="corpus-ch.html#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [ ... and 2 more ]</span></span></code></pre></div>
 </div>
 <div id="dokumentum-kifejezés-mátrix-dtm" class="section level3" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> Dokumentum kifejezés mátrix (DTM)</h3>
 <p>A szövegbányászati elemzések nagy részéhez szükségünk van arra, hogy a szövegeinkből dokumentum kifejezés mátrix-ot (<em>Document Term Matrix – DTM</em> vagy <em>Document Feature Matrix – DFM</em>) hozzunk létre. Ezzel a lépéssel alakítjuk a szövegeinket számokká, ami lehetővé teszi, hogy utána különböző statisztikai műveleteket végezzünk velük.</p>
 <p>A dokumentum kifejezés mátrix minden sora egy dokumentum, minden oszlopa egy kifejezés, az oszlopokban szereplő változók pedig megmutatják az egyes kifejezések számát az egyes dokumentumokban. A legtöbb dokumentum kifejezés mátrix ritka mátrix, mivel a legtöbb dokumentum és kifejezés párosítása nem történik meg: a kifejezések nagy része csak néhány dokumentumban szerepel, ezek értéke nulla lesz.</p>
 <p>Az alábbi példában három egy-egy mondatos dokumentumon szemléltetjük a fentieket. A korábban megismert módon előkészítjük, azaz kisbetűsítjük, szótövezzük a dokumentumokat, eltávolítjuk a tiltólistás szavakat, majd létrehozzuk belőlük a dokumentum kifejezés mátrixot.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="corpus-ch.html#cb33-1" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb33-2"><a href="corpus-ch.html#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">d1 =</span> <span class="st">&quot;Ez egy példa az előfeldolgozásra&quot;</span>,</span>
-<span id="cb33-3"><a href="corpus-ch.html#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">d2 =</span> <span class="st">&quot;Egy másik lehetséges példa&quot;</span>,</span>
-<span id="cb33-4"><a href="corpus-ch.html#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">d3 =</span> <span class="st">&quot;Ez pedig egy harmadik példa&quot;</span></span>
-<span id="cb33-5"><a href="corpus-ch.html#cb33-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb33-6"><a href="corpus-ch.html#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-7"><a href="corpus-ch.html#cb33-7" aria-hidden="true" tabindex="-1"></a>dtm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(</span>
-<span id="cb33-8"><a href="corpus-ch.html#cb33-8" aria-hidden="true" tabindex="-1"></a>  text,</span>
-<span id="cb33-9"><a href="corpus-ch.html#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">tolower =</span> <span class="cn">TRUE</span>, <span class="at">stem =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb33-10"><a href="corpus-ch.html#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove =</span> <span class="fu">stopwords</span>(<span class="st">&quot;hungarian&quot;</span>)</span>
-<span id="cb33-11"><a href="corpus-ch.html#cb33-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb33-12"><a href="corpus-ch.html#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-13"><a href="corpus-ch.html#cb33-13" aria-hidden="true" tabindex="-1"></a>dtm</span>
-<span id="cb33-14"><a href="corpus-ch.html#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Document-feature matrix of: 3 documents, 4 features (50.0% sparse).</span></span>
-<span id="cb33-15"><a href="corpus-ch.html#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     features</span></span>
-<span id="cb33-16"><a href="corpus-ch.html#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; docs példa elofeldolgozásra lehetség harmadik</span></span>
-<span id="cb33-17"><a href="corpus-ch.html#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   d1     1                1        0        0</span></span>
-<span id="cb33-18"><a href="corpus-ch.html#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   d2     1                0        1        0</span></span>
-<span id="cb33-19"><a href="corpus-ch.html#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   d3     1                0        0        1</span></span></code></pre></div>
 <p>Egy másik szövegbányászati megközelítés a mátrixot nem DTM-nek, hanem DFM-nek nevezi, például a <code>quanteda</code> csomag használata során nem DTM-et, hanem DFM-et kell létrehoznunk.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="corpus-ch.html#cb34-1" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
 <span id="cb34-2"><a href="corpus-ch.html#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">d1 =</span> <span class="st">&quot;Ez egy példa az elofeldolgozásra&quot;</span>,</span>
@@ -413,71 +429,88 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb34-4"><a href="corpus-ch.html#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">d3 =</span> <span class="st">&quot;Ez pedig egy harmadik példa&quot;</span></span>
 <span id="cb34-5"><a href="corpus-ch.html#cb34-5" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb34-6"><a href="corpus-ch.html#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-7"><a href="corpus-ch.html#cb34-7" aria-hidden="true" tabindex="-1"></a>dfm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(</span>
-<span id="cb34-8"><a href="corpus-ch.html#cb34-8" aria-hidden="true" tabindex="-1"></a>  text,</span>
-<span id="cb34-9"><a href="corpus-ch.html#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">tolower =</span> <span class="cn">TRUE</span>, <span class="at">stem =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb34-10"><a href="corpus-ch.html#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove =</span> <span class="fu">stopwords</span>(<span class="st">&quot;hungarian&quot;</span>)</span>
-<span id="cb34-11"><a href="corpus-ch.html#cb34-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-12"><a href="corpus-ch.html#cb34-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-13"><a href="corpus-ch.html#cb34-13" aria-hidden="true" tabindex="-1"></a>dfm</span>
-<span id="cb34-14"><a href="corpus-ch.html#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Document-feature matrix of: 3 documents, 4 features (50.0% sparse).</span></span>
-<span id="cb34-15"><a href="corpus-ch.html#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     features</span></span>
-<span id="cb34-16"><a href="corpus-ch.html#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; docs példa elofeldolgozásra lehetség harmadik</span></span>
-<span id="cb34-17"><a href="corpus-ch.html#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   d1     1                1        0        0</span></span>
-<span id="cb34-18"><a href="corpus-ch.html#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   d2     1                0        1        0</span></span>
-<span id="cb34-19"><a href="corpus-ch.html#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   d3     1                0        0        1</span></span></code></pre></div>
+<span id="cb34-7"><a href="corpus-ch.html#cb34-7" aria-hidden="true" tabindex="-1"></a>dfm <span class="ot">&lt;-</span> text <span class="sc">%&gt;%</span> </span>
+<span id="cb34-8"><a href="corpus-ch.html#cb34-8" aria-hidden="true" tabindex="-1"></a>  tokens <span class="sc">%&gt;%</span> </span>
+<span id="cb34-9"><a href="corpus-ch.html#cb34-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(<span class="at">pattern =</span> <span class="fu">stopwords</span>(<span class="st">&quot;hungarian&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-10"><a href="corpus-ch.html#cb34-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_tolower</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb34-11"><a href="corpus-ch.html#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_wordstem</span>(<span class="at">language =</span> <span class="st">&quot;hungarian&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb34-12"><a href="corpus-ch.html#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm</span>()</span>
+<span id="cb34-13"><a href="corpus-ch.html#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-14"><a href="corpus-ch.html#cb34-14" aria-hidden="true" tabindex="-1"></a>dfm</span>
+<span id="cb34-15"><a href="corpus-ch.html#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Document-feature matrix of: 3 documents, 4 features (50.00% sparse) and 0 docvars.</span></span>
+<span id="cb34-16"><a href="corpus-ch.html#cb34-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     features</span></span>
+<span id="cb34-17"><a href="corpus-ch.html#cb34-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; docs péld elofeldolgozás lehetséges harmad</span></span>
+<span id="cb34-18"><a href="corpus-ch.html#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   d1    1              1          0      0</span></span>
+<span id="cb34-19"><a href="corpus-ch.html#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   d2    1              0          1      0</span></span>
+<span id="cb34-20"><a href="corpus-ch.html#cb34-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   d3    1              0          0      1</span></span></code></pre></div>
 </div>
 <div id="súlyozás" class="section level3" number="4.2.3">
 <h3><span class="header-section-number">4.2.3</span> Súlyozás</h3>
-<p>A dokumentum kifejezés mátrix lehet egy egyszerű bináris mátrix, ami csak azt az információt tartalmazza, hogy egy adott szó előfordul-e egy adott dokumentumban. Míg az egyszerű bináris mátrixban ugyanakkora súlya van egy szónak ha egyszer és ha tízszer szerepel, készíthetünk olyan mátrixot is, ahol egy szónak annál nagyobb a súlya egy dokumentumban, minél többször fordul elő. A szógyakoriság (<em>term frequency – TF</em>) szerint súlyozott mátrixnál azt is figyelembe vesszük, hogy az adott szó hány dokumentumban szerepel. Minél több dokumentumban szerepel egy szó, annál kisebb a jelentősége. Ilyen szavak például a névelők, amelyek sok dokumentumban előfordulnak ugyan, de nem sok tartalmi jelentőséggel bírnak. Két szó közül általában az a fontosabb, amelyik koncentráltan, kevés dokumentumban, de azokon belül nagy gyakorisággal fordul elő. A dokumentum gyakorisági érték (<em>document frequency – DF</em>) egy szó gyakoriságát jellemzi egy korpuszon belül. A súlyozási sémákban általában a dokumentum gyakorisági érték inverzével számolnak (<em>inverse document frequency - IDF</em>) ez a leggyakrabban használt TF-IDF súlyozás (<em>term frequency &amp; inverse document frequency - TF-IDF</em>). Az így súlyozott TF mátrix egy-egy cellájában található érték azt mutatja, hogy egy adott szónak mekkora a jelentősége egy adott dokumentumban. A TF-IDF súlyozás értéke tehát magas azon szavak esetén, amelyek az adott dokumentumban gyakran fordulnak elő, míg a teljes korpuszban ritkán; alacsonyabb azon szavak esetén, amelyek az adott dokumentumban ritkábban, vagy a korpuszban gyakrabban fordulnak elő; és kicsi azon szavaknál, amelyek a korpusz lényegében összes dokumentumában előfordulnak <span class="citation">(<a href="irodalomjegyzék.html#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007, 33–37</a> o.)</span></p>
+<p>A dokumentum kifejezés mátrix lehet egy egyszerű bináris mátrix, ami csak azt az információt tartalmazza, hogy egy adott szó előfordul-e egy adott dokumentumban. Míg az egyszerű bináris mátrixban ugyanakkora súlya van egy szónak ha egyszer és ha tízszer szerepel, készíthetünk olyan mátrixot is, ahol egy szónak annál nagyobb a súlya egy dokumentumban, minél többször fordul elő. A szógyakoriság (<em>term frequency – TF</em>) szerint súlyozott mátrixnál azt is figyelembe vesszük, hogy az adott szó hány dokumentumban szerepel. Minél több dokumentumban szerepel egy szó, annál kisebb a jelentősége. Ilyen szavak például a névelők, amelyek sok dokumentumban előfordulnak ugyan, de nem sok tartalmi jelentőséggel bírnak. Két szó közül általában az a fontosabb, amelyik koncentráltan, kevés dokumentumban, de azokon belül nagy gyakorisággal fordul elő. A dokumentum gyakorisági érték (<em>document frequency – DF</em>) egy szó gyakoriságát jellemzi egy korpuszon belül. A súlyozási sémákban általában a dokumentum gyakorisági érték inverzével számolnak (<em>inverse document frequency - IDF</em>) ez a leggyakrabban használt TF-IDF súlyozás (<em>term frequency &amp; inverse document frequency - TF-IDF</em>). Az így súlyozott TF mátrix egy-egy cellájában található érték azt mutatja, hogy egy adott szónak mekkora a jelentősége egy adott dokumentumban. A TF-IDF súlyozás értéke tehát magas azon szavak esetén, amelyek az adott dokumentumban gyakran fordulnak elő, míg a teljes korpuszban ritkán; alacsonyabb azon szavak esetén, amelyek az adott dokumentumban ritkábban, vagy a korpuszban gyakrabban fordulnak elő; és kicsi azon szavaknál, amelyek a korpusz lényegében összes dokumentumában előfordulnak <span class="citation">(<a href="#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007, 33–37</a> o.)</span></p>
 <p>Az alábbiakban az 1999-es törvényszövegeken szemléltetjük, hogy egy 125 dokumentumból létrehozott mátrix segítségével milyen alapvető statisztikai műveleteket végezhetünk.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
 <p>A <code>HunMineR</code> csomagból tudjuk importálni a törvényeket.</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="corpus-ch.html#cb35-1" aria-hidden="true" tabindex="-1"></a>lawtext_df <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_lawtext_1999</span></code></pre></div>
 <p>Majd az importált adatokból létrehozzuk a korpuszt <code>lawtext_corpus</code> néven. Ezt követi a dokumentum kifejezés mátrix kialakítása (mivel a <code>quanteda</code> csomaggal dolgozunk, <code>dfm</code> mátrixot hozunk létre), és ezzel egy lépésben elvégezzük az alapvető szövegtisztító lépéseket is.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="corpus-ch.html#cb36-1" aria-hidden="true" tabindex="-1"></a>lawtext_corpus <span class="ot">&lt;-</span> <span class="fu">corpus</span>(lawtext_df)</span>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="corpus-ch.html#cb36-1" aria-hidden="true" tabindex="-1"></a>lawtext_corpus <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">corpus</span>(lawtext_df)</span>
 <span id="cb36-2"><a href="corpus-ch.html#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-3"><a href="corpus-ch.html#cb36-3" aria-hidden="true" tabindex="-1"></a>lawtext_dfm <span class="ot">&lt;-</span> <span class="fu">dfm</span>(</span>
-<span id="cb36-4"><a href="corpus-ch.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  lawtext_corpus,</span>
-<span id="cb36-5"><a href="corpus-ch.html#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tolower =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb36-6"><a href="corpus-ch.html#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove =</span> <span class="fu">stopwords</span>(<span class="st">&quot;hungarian&quot;</span>),</span>
-<span id="cb36-7"><a href="corpus-ch.html#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">stem =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb36-8"><a href="corpus-ch.html#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_punct =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb36-9"><a href="corpus-ch.html#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_symbols =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb36-10"><a href="corpus-ch.html#cb36-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">remove_numbers =</span> <span class="cn">TRUE</span></span>
-<span id="cb36-11"><a href="corpus-ch.html#cb36-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<span id="cb36-3"><a href="corpus-ch.html#cb36-3" aria-hidden="true" tabindex="-1"></a>lawtext_dfm <span class="ot">&lt;-</span> lawtext_corpus <span class="sc">%&gt;%</span> </span>
+<span id="cb36-4"><a href="corpus-ch.html#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens</span>(</span>
+<span id="cb36-5"><a href="corpus-ch.html#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">remove_punct =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb36-6"><a href="corpus-ch.html#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">remove_symbols =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb36-7"><a href="corpus-ch.html#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">remove_numbers =</span> <span class="cn">TRUE</span></span>
+<span id="cb36-8"><a href="corpus-ch.html#cb36-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-9"><a href="corpus-ch.html#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_tolower</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb36-10"><a href="corpus-ch.html#cb36-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_remove</span>(<span class="at">pattern =</span> <span class="fu">stopwords</span>(<span class="st">&quot;hungarian&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-11"><a href="corpus-ch.html#cb36-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens_wordstem</span>(<span class="at">language =</span> <span class="st">&quot;hungarian&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-12"><a href="corpus-ch.html#cb36-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm</span>()</span></code></pre></div>
 <p>A <code>topfeatures</code> függvény segítségével megnézhetjük a mátrix leggyakoribb szavait, a függvény argumentumában megadva a dokumentum kifejezés mátrix nevét és a kívánt kifejezésszámot.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="corpus-ch.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">topfeatures</span>(lawtext_dfm, <span class="dv">15</span>)</span>
-<span id="cb37-2"><a href="corpus-ch.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       the        of  szerzodo        to         b        ha       and  kiadások </span></span>
-<span id="cb37-3"><a href="corpus-ch.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      7902      5665      3619      3290      2831      2794      2712      2447 </span></span>
-<span id="cb37-4"><a href="corpus-ch.html#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   törvéni        in következo  muködési        or       évi        is </span></span>
-<span id="cb37-5"><a href="corpus-ch.html#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      2385      2253      2178      2038      2034      1908      1864</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="corpus-ch.html#cb37-1" aria-hidden="true" tabindex="-1"></a>quanteda<span class="sc">::</span><span class="fu">topfeatures</span>(lawtext_dfm, <span class="dv">15</span>)</span>
+<span id="cb37-2"><a href="corpus-ch.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         the    bekezdés          of         áll </span></span>
+<span id="cb37-3"><a href="corpus-ch.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        7942        5877        5666        4267 </span></span>
+<span id="cb37-4"><a href="corpus-ch.html#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    szerzodo rendelkezés     törvény          to </span></span>
+<span id="cb37-5"><a href="corpus-ch.html#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        3620        3403        3312        3290 </span></span>
+<span id="cb37-6"><a href="corpus-ch.html#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        hely          an     személy          év </span></span>
+<span id="cb37-7"><a href="corpus-ch.html#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        3114        3068        3048        2975 </span></span>
+<span id="cb37-8"><a href="corpus-ch.html#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      kiadás           b          ha </span></span>
+<span id="cb37-9"><a href="corpus-ch.html#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        2884        2831        2794</span></span></code></pre></div>
 <p>Mivel látható, hogy a szövegekben sok angol kifejezés is volt egy következő lépcsőben az angol stopszavakat is eltávolítjuk.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="corpus-ch.html#cb38-1" aria-hidden="true" tabindex="-1"></a>lawtext_dfm_2 <span class="ot">&lt;-</span> <span class="fu">dfm</span>(lawtext_dfm, <span class="at">remove =</span> <span class="fu">stopwords</span>(<span class="st">&quot;english&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="corpus-ch.html#cb38-1" aria-hidden="true" tabindex="-1"></a>lawtext_dfm_2 <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">dfm_remove</span>(lawtext_dfm, <span class="at">pattern =</span> <span class="fu">stopwords</span>(<span class="st">&quot;english&quot;</span>))</span></code></pre></div>
 <p>Ezután megnézzük a leggyakoribb 15 kifejezést.</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="corpus-ch.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">topfeatures</span>(lawtext_dfm_2, <span class="dv">15</span>)</span>
-<span id="cb39-2"><a href="corpus-ch.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      szerzodo             b            ha      kiadások       törvéni     következo </span></span>
-<span id="cb39-3"><a href="corpus-ch.html#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          3619          2831          2794          2447          2385          2178 </span></span>
-<span id="cb39-4"><a href="corpus-ch.html#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      muködési           évi         állam             c meghatározott   költségveté </span></span>
-<span id="cb39-5"><a href="corpus-ch.html#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          2038          1908          1718          1713          1654          1637 </span></span>
-<span id="cb39-6"><a href="corpus-ch.html#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      államban           lép           fél </span></span>
-<span id="cb39-7"><a href="corpus-ch.html#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          1622          1616          1533</span></span></code></pre></div>
+<span id="cb39-2"><a href="corpus-ch.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     bekezdés          áll     szerzodo  rendelkezés </span></span>
+<span id="cb39-3"><a href="corpus-ch.html#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         5877         4267         3620         3403 </span></span>
+<span id="cb39-4"><a href="corpus-ch.html#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      törvény         hely      személy           év </span></span>
+<span id="cb39-5"><a href="corpus-ch.html#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         3312         3114         3048         2975 </span></span>
+<span id="cb39-6"><a href="corpus-ch.html#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       kiadás            b           ha    következo </span></span>
+<span id="cb39-7"><a href="corpus-ch.html#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         2884         2831         2794         2398 </span></span>
+<span id="cb39-8"><a href="corpus-ch.html#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; költségvetés      muködés         eset </span></span>
+<span id="cb39-9"><a href="corpus-ch.html#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         2376         2325         2070</span></span></code></pre></div>
 <p>A következő lépés, hogy TF-IDF súlyozású statisztikát készítünk, a dokumentum kifejezés mátrix alapján. Ehhez először létrehozzuk a <code>lawtext_tfidf</code> nevű objektumot, majd a <code>textstat_frequency</code> függvény segítségével kilistázzuk annak első 10 elemét.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="corpus-ch.html#cb40-1" aria-hidden="true" tabindex="-1"></a>lawtext_tfidf <span class="ot">&lt;-</span> <span class="fu">dfm_tfidf</span>(lawtext_dfm_2)</span>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="corpus-ch.html#cb40-1" aria-hidden="true" tabindex="-1"></a>lawtext_tfidf <span class="ot">&lt;-</span> quanteda<span class="sc">::</span><span class="fu">dfm_tfidf</span>(lawtext_dfm_2)</span>
 <span id="cb40-2"><a href="corpus-ch.html#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="corpus-ch.html#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">textstat_frequency</span>(lawtext_tfidf, <span class="at">force =</span> <span class="cn">TRUE</span>, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb40-3"><a href="corpus-ch.html#cb40-3" aria-hidden="true" tabindex="-1"></a>quanteda.textstats<span class="sc">::</span><span class="fu">textstat_frequency</span>(lawtext_tfidf, <span class="at">force =</span> <span class="cn">TRUE</span>, <span class="at">n =</span> <span class="dv">10</span>)</span>
 <span id="cb40-4"><a href="corpus-ch.html#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         feature frequency rank docfreq group</span></span>
-<span id="cb40-5"><a href="corpus-ch.html#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      kiadások 2120.2303    1      17   all</span></span>
-<span id="cb40-6"><a href="corpus-ch.html#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  felhalmozási 1448.3465    2       7   all</span></span>
-<span id="cb40-7"><a href="corpus-ch.html#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      szerzodo 1378.5012    3      52   all</span></span>
-<span id="cb40-8"><a href="corpus-ch.html#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4   költségveté 1302.8556    4      20   all</span></span>
-<span id="cb40-9"><a href="corpus-ch.html#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5         shall 1291.1619    5      14   all</span></span>
-<span id="cb40-10"><a href="corpus-ch.html#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6      államban 1223.7785    6      22   all</span></span>
-<span id="cb40-11"><a href="corpus-ch.html#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7        részes 1155.9688    7      13   all</span></span>
-<span id="cb40-12"><a href="corpus-ch.html#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8      muködési 1101.7581    8      36   all</span></span>
-<span id="cb40-13"><a href="corpus-ch.html#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9        articl  967.8961    9      14   all</span></span>
-<span id="cb40-14"><a href="corpus-ch.html#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10        parti  845.2246   10      20   all</span></span></code></pre></div>
+<span id="cb40-5"><a href="corpus-ch.html#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   felhalmozás 1452.1019    1       7   all</span></span>
+<span id="cb40-6"><a href="corpus-ch.html#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      szerzodo 1348.9356    2      53   all</span></span>
+<span id="cb40-7"><a href="corpus-ch.html#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3         shall 1291.1619    3      14   all</span></span>
+<span id="cb40-8"><a href="corpus-ch.html#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        kiadás 1279.6236    4      45   all</span></span>
+<span id="cb40-9"><a href="corpus-ch.html#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  költségvetés 1101.1371    5      43   all</span></span>
+<span id="cb40-10"><a href="corpus-ch.html#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6     támogatás 1034.7700    6      38   all</span></span>
+<span id="cb40-11"><a href="corpus-ch.html#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     beruházás  941.6002    7      22   all</span></span>
+<span id="cb40-12"><a href="corpus-ch.html#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8   contracting  893.7937    8       7   all</span></span>
+<span id="cb40-13"><a href="corpus-ch.html#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9        articl  884.2272    9      14   all</span></span>
+<span id="cb40-14"><a href="corpus-ch.html#cb40-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10      muködés  741.1141   10      60   all</span></span></code></pre></div>
 
 </div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-grimmer2013text" class="csl-entry">
+Grimmer, Justin, and Brandon M Stewart. 2013. <span>“Text as Data: <span>The</span> Promise and Pitfalls of Automatic Content Analysis Methods for Political Texts.”</span> <em>Political Analysis</em> 21 (3): 267–97.
+</div>
+<div id="ref-tikkSzovegbanyaszat2007" class="csl-entry">
+Tikk, Domonkos. 2007. <em>Szövegbányászat</em>. Budapest: Typotext.
 </div>
 </div>
 <div class="footnotes">
@@ -516,6 +549,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {

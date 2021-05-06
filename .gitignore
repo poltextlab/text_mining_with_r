@@ -27,7 +27,7 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 latex_export.r
-tinkering.R
+tinkering*
 data/mn_pretrained.rds
 data/temp/
 data/data_ner/
