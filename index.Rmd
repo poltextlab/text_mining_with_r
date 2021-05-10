@@ -3,13 +3,11 @@ title: "Szövegbányászat és mesterséges intelligencia R-ben"
 author: "Sebők Miklós, Ring Orsolya, Máté Ákos"
 date: "2021"
 site: bookdown::bookdown_site
-output: bookdown::gitbook
 documentclass: book
-biblio-style: apalike
+
 link-citations: true
-links-as-notes: true
-colorlinks: true
-bibliography: [references.bib]
+csl: american-political-science-association.csl
+bibliography: references.bib
 description: "Szövegbányászat és mesterséges intelligencia R-ben"
 ---
 
