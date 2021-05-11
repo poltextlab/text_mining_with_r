@@ -55,8 +55,6 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
-<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.4.0/str_view.js"></script>
@@ -306,8 +304,8 @@ div.csl-indent {
 </div>
 <div id="word2vec-és-glove" class="section level2" number="8.2">
 <h2><span class="header-section-number">8.2</span> Word2Vec és GloVe</h2>
-<p>A társadalomtudományokban szóbeágyazásra a két legnépszerűbb algoritmus – a Word2Vec és a GloVe – a kontextuális szövegeloszláson (<em>distributional similarity based representations</em>) alapul, vagyis abból a feltevésből indul ki, hogy a hasonló kifejezések hasonló kontextusban fordulnak elő, emellett mindkettő sekély neurális hálón (2 rejtett réteg) alapuló modell.<a href="#fn37" class="footnote-ref" id="fnref37"><sup>37</sup></a> A Word2Vec-nek két verziója van: <em>Continuous Bag-of-words</em> (CBOW) és <em>SkipGram</em> (SG). Előbbi a kontextuális szavakból jelzi előre (<em>predicting</em>) a kontextushoz legszorosabban kapcsolódó kifejezést, míg utóbbi adott kifejezésből jelzi előre a kontextust <span class="citation"><a href="#ref-mikolov2013efficient" role="doc-biblioref">Mikolov et al.</a> (<a href="#ref-mikolov2013efficient" role="doc-biblioref">2013</a>)</span>. A GloVe (<em>Global Vectors for Word Representation</em>) a Word2Vec-hez hasonlóan neurális hálón alapuló, szóvektorok előállítását célzó modell, a Word2Vec-kel szemben azonban nem a meghatározott kontextus-ablakban (<em>context window</em>) megjelenő kifejezések közti kapcsolatokat tárja fel, hanem a szöveg globális jellemzőit igyekszik megragadni az egész szöveget jellemző együttes előfordulási gyakoriságok (<em>co-occurrance</em>) meghatározásával <span class="citation"><a href="#ref-pennington2014glove" role="doc-biblioref">Pennington, Socher, and Manning</a> (<a href="#ref-pennington2014glove" role="doc-biblioref">2014</a>)</span>. Míg a Word2Vec modell prediktív jellegű, addig a GloVe egy statisztikai alapú (<em>count-based</em>) modell, melyek gyakorlati hasznosításukat tekintve nagyon hasonlóak.</p>
-<p>A szóvektor modellek között érdemes megemlíteni a fastText-et is, mely 157 nyelvre (köztük a magyarra is) kínál a szóbeágyazás módszerén alapuló, előre tanított szóvektorokat, melyet tovább lehet tanítani speciális szövegkorpuszokra, ezzel jelentősen lerövidítve a modell tanításához szükséges idő- és kapacitásszükségletet (<span class="citation"><a href="#ref-mikolov2018advances" role="doc-biblioref">Mikolov et al.</a> (<a href="#ref-mikolov2018advances" role="doc-biblioref">2018</a>)</span>). Habár a GloVe és Word2Vec skip-gram módszerek hasonlóságát a szakirodalom adottnak veszi, a tényleges kép ennél árnyaltabb. A GloVe esetében a ritkán előforduló szavak kisebb súlyt kapnak a szóvektorok számításánál, míg a Word2Vec alulsúlyozza a nagy frekvenciájú szavakat. Ennek a következménye, hogy a Word2Vec esetében gyakori, hogy a szemantikailag legközelebbi szó az egy elütés, nem pedig valid találat. Ennek ellenére a két módszer (amennyiben a Word2Vec algoritmusnál a kisfrekvenciájú tokeneket kiszűrjük) az emberi validálás során nagyon hasonló eredményeket hozott <span class="citation">(<a href="#ref-spirlingword" role="doc-biblioref">Spirling and Rodriguez 2021</a>)</span>.</p>
+<p>A társadalomtudományokban szóbeágyazásra a két legnépszerűbb algoritmus – a Word2Vec és a GloVe – a kontextuális szövegeloszláson (<em>distributional similarity based representations</em>) alapul, vagyis abból a feltevésből indul ki, hogy a hasonló kifejezések hasonló kontextusban fordulnak elő, emellett mindkettő sekély neurális hálón (2 rejtett réteg) alapuló modell.<a href="#fn37" class="footnote-ref" id="fnref37"><sup>37</sup></a> A Word2Vec-nek két verziója van: <em>Continuous Bag-of-words</em> (CBOW) és <em>SkipGram</em> (SG). Előbbi a kontextuális szavakból jelzi előre (<em>predicting</em>) a kontextushoz legszorosabban kapcsolódó kifejezést, míg utóbbi adott kifejezésből jelzi előre a kontextust <span class="citation"><a href="irodalomjegyzék.html#ref-mikolov2013efficient" role="doc-biblioref">Mikolov et al.</a> (<a href="irodalomjegyzék.html#ref-mikolov2013efficient" role="doc-biblioref">2013</a>)</span>. A GloVe (<em>Global Vectors for Word Representation</em>) a Word2Vec-hez hasonlóan neurális hálón alapuló, szóvektorok előállítását célzó modell, a Word2Vec-kel szemben azonban nem a meghatározott kontextus-ablakban (<em>context window</em>) megjelenő kifejezések közti kapcsolatokat tárja fel, hanem a szöveg globális jellemzőit igyekszik megragadni az egész szöveget jellemző együttes előfordulási gyakoriságok (<em>co-occurrance</em>) meghatározásával <span class="citation"><a href="irodalomjegyzék.html#ref-pennington2014glove" role="doc-biblioref">Pennington, Socher, and Manning</a> (<a href="irodalomjegyzék.html#ref-pennington2014glove" role="doc-biblioref">2014</a>)</span>. Míg a Word2Vec modell prediktív jellegű, addig a GloVe egy statisztikai alapú (<em>count-based</em>) modell, melyek gyakorlati hasznosításukat tekintve nagyon hasonlóak.</p>
+<p>A szóvektor modellek között érdemes megemlíteni a fastText-et is, mely 157 nyelvre (köztük a magyarra is) kínál a szóbeágyazás módszerén alapuló, előre tanított szóvektorokat, melyet tovább lehet tanítani speciális szövegkorpuszokra, ezzel jelentősen lerövidítve a modell tanításához szükséges idő- és kapacitásszükségletet (<span class="citation"><a href="irodalomjegyzék.html#ref-mikolov2018advances" role="doc-biblioref">Mikolov et al.</a> (<a href="irodalomjegyzék.html#ref-mikolov2018advances" role="doc-biblioref">2018</a>)</span>). Habár a GloVe és Word2Vec skip-gram módszerek hasonlóságát a szakirodalom adottnak veszi, a tényleges kép ennél árnyaltabb. A GloVe esetében a ritkán előforduló szavak kisebb súlyt kapnak a szóvektorok számításánál, míg a Word2Vec alulsúlyozza a nagy frekvenciájú szavakat. Ennek a következménye, hogy a Word2Vec esetében gyakori, hogy a szemantikailag legközelebbi szó az egy elütés, nem pedig valid találat. Ennek ellenére a két módszer (amennyiben a Word2Vec algoritmusnál a kisfrekvenciájú tokeneket kiszűrjük) az emberi validálás során nagyon hasonló eredményeket hozott <span class="citation">(<a href="irodalomjegyzék.html#ref-spirlingword" role="doc-biblioref">Spirling and Rodriguez 2021</a>)</span>.</p>
 <p>A fejezetben a gyakorlati példa során a GloVe algoritmust használjuk majd, mivel véleményünk szerint jobb és könnyebben követhető a dokumentációja az implementációt tartalmazó R csomagnak, mint a többi alternatívának.</p>
 <div id="glove-használata-magyar-média-korpuszon" class="section level3" number="8.2.1">
 <h3><span class="header-section-number">8.2.1</span> GloVe használata magyar média korpuszon</h3>
@@ -364,9 +362,9 @@ div.csl-indent {
 <span id="cb137-4"><a href="embedding.html#cb137-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb137-5"><a href="embedding.html#cb137-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">sort</span>(cos_sim_rom[, <span class="dv">1</span>], <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">5</span>)</span>
 <span id="cb137-6"><a href="embedding.html#cb137-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; polgármester        mszps  szocialista     fideszes </span></span>
-<span id="cb137-7"><a href="embedding.html#cb137-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    1.0000000    0.5059529    0.4339177    0.4204766 </span></span>
+<span id="cb137-7"><a href="embedding.html#cb137-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        1.000        0.506        0.434        0.420 </span></span>
 <span id="cb137-8"><a href="embedding.html#cb137-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     elmondta </span></span>
-<span id="cb137-9"><a href="embedding.html#cb137-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    0.4024232</span></span></code></pre></div>
+<span id="cb137-9"><a href="embedding.html#cb137-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        0.402</span></span></code></pre></div>
 <p>A lenti <code>show_vector()</code> függvényt definiálva a kapott eredmény egy data frame lesz, és az <code>n</code> változtatásával a kapcsolódó szavak számát is könnyen változtathatjuk.</p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="embedding.html#cb138-1" aria-hidden="true" tabindex="-1"></a>show_vector <span class="ot">&lt;-</span> <span class="cf">function</span>(vectors, pattern, <span class="at">n =</span> <span class="dv">5</span>) {</span>
 <span id="cb138-2"><a href="embedding.html#cb138-2" aria-hidden="true" tabindex="-1"></a>  term <span class="ot">&lt;-</span> mn_word_vectors[pattern, , drop <span class="ot">=</span> F]</span>
@@ -378,33 +376,27 @@ div.csl-indent {
 <p>Példánkban láthatjuk, hogy a „barack” szó beágyazásának eredménye nem gyümölcsöt fog adni, hanem az Egyesült Államok elnökét és a hozzá kapcsolódó szavakat.</p>
 <div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="embedding.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_vector</span>(mn_word_vectors, <span class="st">&quot;barack&quot;</span>, <span class="dv">10</span>)</span>
 <span id="cb139-2"><a href="embedding.html#cb139-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 2</span></span>
-<span id="cb139-3"><a href="embedding.html#cb139-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    term              dist</span></span>
-<span id="cb139-4"><a href="embedding.html#cb139-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;            &lt;dbl&gt;</span></span>
-<span id="cb139-5"><a href="embedding.html#cb139-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 barack           1    </span></span>
-<span id="cb139-6"><a href="embedding.html#cb139-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 obama            0.691</span></span>
-<span id="cb139-7"><a href="embedding.html#cb139-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 elnök            0.372</span></span>
-<span id="cb139-8"><a href="embedding.html#cb139-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 amerikai         0.349</span></span>
-<span id="cb139-9"><a href="embedding.html#cb139-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 demokrata        0.339</span></span>
-<span id="cb139-10"><a href="embedding.html#cb139-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 republikánus     0.294</span></span>
-<span id="cb139-11"><a href="embedding.html#cb139-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 részesülhessenek 0.256</span></span>
-<span id="cb139-12"><a href="embedding.html#cb139-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 egyesült         0.253</span></span>
-<span id="cb139-13"><a href="embedding.html#cb139-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 elnököt          0.251</span></span>
-<span id="cb139-14"><a href="embedding.html#cb139-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 bush             0.239</span></span></code></pre></div>
+<span id="cb139-3"><a href="embedding.html#cb139-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   term          dist</span></span>
+<span id="cb139-4"><a href="embedding.html#cb139-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;        &lt;dbl&gt;</span></span>
+<span id="cb139-5"><a href="embedding.html#cb139-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 barack       1    </span></span>
+<span id="cb139-6"><a href="embedding.html#cb139-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 obama        0.691</span></span>
+<span id="cb139-7"><a href="embedding.html#cb139-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 elnök        0.372</span></span>
+<span id="cb139-8"><a href="embedding.html#cb139-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 amerikai     0.349</span></span>
+<span id="cb139-9"><a href="embedding.html#cb139-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 demokrata    0.339</span></span>
+<span id="cb139-10"><a href="embedding.html#cb139-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 republikánus 0.294</span></span>
+<span id="cb139-11"><a href="embedding.html#cb139-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 4 more rows</span></span></code></pre></div>
 <p>Ugyanez működik magyar vezetőkkel is.</p>
 <div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="embedding.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="fu">show_vector</span>(mn_word_vectors, <span class="st">&quot;orbán&quot;</span>, <span class="dv">10</span>)</span>
 <span id="cb140-2"><a href="embedding.html#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # A tibble: 10 x 2</span></span>
-<span id="cb140-3"><a href="embedding.html#cb140-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    term            dist</span></span>
-<span id="cb140-4"><a href="embedding.html#cb140-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    &lt;chr&gt;          &lt;dbl&gt;</span></span>
-<span id="cb140-5"><a href="embedding.html#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 orbán          1    </span></span>
-<span id="cb140-6"><a href="embedding.html#cb140-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  2 viktor         0.937</span></span>
-<span id="cb140-7"><a href="embedding.html#cb140-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3 miniszterelnök 0.743</span></span>
-<span id="cb140-8"><a href="embedding.html#cb140-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  4 mondta         0.701</span></span>
-<span id="cb140-9"><a href="embedding.html#cb140-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  5 jelentette     0.673</span></span>
-<span id="cb140-10"><a href="embedding.html#cb140-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  6 kormányfo      0.667</span></span>
-<span id="cb140-11"><a href="embedding.html#cb140-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  7 fogalmazott    0.661</span></span>
-<span id="cb140-12"><a href="embedding.html#cb140-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  8 fidesz         0.656</span></span>
-<span id="cb140-13"><a href="embedding.html#cb140-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  9 hangsúlyozta   0.655</span></span>
-<span id="cb140-14"><a href="embedding.html#cb140-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 beszélt        0.624</span></span></code></pre></div>
+<span id="cb140-3"><a href="embedding.html#cb140-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   term            dist</span></span>
+<span id="cb140-4"><a href="embedding.html#cb140-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;          &lt;dbl&gt;</span></span>
+<span id="cb140-5"><a href="embedding.html#cb140-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 orbán          1    </span></span>
+<span id="cb140-6"><a href="embedding.html#cb140-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 viktor         0.937</span></span>
+<span id="cb140-7"><a href="embedding.html#cb140-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 miniszterelnök 0.743</span></span>
+<span id="cb140-8"><a href="embedding.html#cb140-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 mondta         0.701</span></span>
+<span id="cb140-9"><a href="embedding.html#cb140-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 jelentette     0.673</span></span>
+<span id="cb140-10"><a href="embedding.html#cb140-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 kormányfo      0.667</span></span>
+<span id="cb140-11"><a href="embedding.html#cb140-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ... with 4 more rows</span></span></code></pre></div>
 <p>A szakirodalomban klasszikus vektorműveletes példákat is reprokuálni tudjuk a <em>Magyar Nemzet</em> korpuszon készített szóbeágyazásainkkal. A <code>budapest - magyarország + német + németország</code> eredményét úgy kapjuk meg, hogy az egyes szavakhoz tartozó vektorokat kivonjuk egymásból, illetve hozzáadjuk őket, ezután pedig a kapott mátrixon a <code>quanteda</code> csomag <code>textstat_simil</code> függvényével kiszámítjuk az új hasonlósági értékeket.</p>
 <div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="embedding.html#cb141-1" aria-hidden="true" tabindex="-1"></a>budapest <span class="ot">&lt;-</span> mn_word_vectors[<span class="st">&quot;budapest&quot;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>] <span class="sc">-</span> mn_word_vectors[<span class="st">&quot;magyarország&quot;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>] <span class="sc">+</span> mn_word_vectors[<span class="st">&quot;német&quot;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>] <span class="sc">+</span></span>
 <span id="cb141-2"><a href="embedding.html#cb141-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">+</span> mn_word_vectors[<span class="st">&quot;németország&quot;</span>, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
@@ -413,9 +405,9 @@ div.csl-indent {
 <span id="cb141-5"><a href="embedding.html#cb141-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb141-6"><a href="embedding.html#cb141-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">sort</span>(cos_sim[, <span class="dv">1</span>], <span class="at">decreasing =</span> <span class="cn">TRUE</span>), <span class="dv">5</span>)</span>
 <span id="cb141-7"><a href="embedding.html#cb141-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    budapest       német németország   kancellár </span></span>
-<span id="cb141-8"><a href="embedding.html#cb141-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   0.6393528   0.6014288   0.5315928   0.4602480 </span></span>
+<span id="cb141-8"><a href="embedding.html#cb141-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       0.639       0.601       0.532       0.460 </span></span>
 <span id="cb141-9"><a href="embedding.html#cb141-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      angéla </span></span>
-<span id="cb141-10"><a href="embedding.html#cb141-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   0.4222456</span></span></code></pre></div>
+<span id="cb141-10"><a href="embedding.html#cb141-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       0.422</span></span></code></pre></div>
 <p>A szavak egymástól való távolságát vizuálisan is tudjuk ábrázolni. Az egyik ezzel kapcsolatban felmerülő probléma, hogy egy 2 dimenziós ábrán akarunk egy 3–500 dimenziós mátrixot ábrázolni. Több lehetséges megoldás is van, mi ezek közül a lehető legegyszerűbbet mutatjuk be.<a href="#fn40" class="footnote-ref" id="fnref40"><sup>40</sup></a> Első lépésben egy data frame-et készítünk a szóbeágyazás eredményeként kapott mátrixból, megtartva a szavakat az első oszlopban a <code>tibble</code> csomag <code>rownames_to_column</code> függvényével. Mivel csak 2 dimenziót tudunk ábrázolni egy tradícionális statikus ábrán, ezért a <code>V1</code> és <code>V2</code> oszlopokat tartjuk csak meg, amik az első és második dimenziót reprezentálják.</p>
 <div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="embedding.html#cb142-1" aria-hidden="true" tabindex="-1"></a>mn_embedding_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mn_word_vectors[, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)]) <span class="sc">%&gt;%</span> </span>
 <span id="cb142-2"><a href="embedding.html#cb142-2" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;words&quot;</span>)</span></code></pre></div>
@@ -441,25 +433,10 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<h3>Irodalomjegyzék</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-mikolov2013efficient" class="csl-entry">
-Mikolov, Tomas, Kai Chen, Greg Corrado, and Jeffrey Dean. 2013. <span>“Efficient Estimation of Word Representations in Vector Space.”</span> <em>arXiv Preprint arXiv:1301.3781</em>.
-</div>
-<div id="ref-mikolov2018advances" class="csl-entry">
-Mikolov, Tomas, Edouard Grave, Piotr Bojanowski, Christian Puhrsch, and Armand Joulin. 2018. <span>“Advances in Pre-Training Distributed Word Representations.”</span> In <em>Proceedings of the International Conference on Language Resources and Evaluation (<span>LREC</span> 2018)</em>.
-</div>
-<div id="ref-pennington2014glove" class="csl-entry">
-Pennington, Jeffrey, Richard Socher, and Christopher D Manning. 2014. <span>“Glove: <span>Global</span> Vectors for Word Representation.”</span> In <em>Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing (<span>EMNLP</span>)</em>, 1532–43.
-</div>
-<div id="ref-spirlingword" class="csl-entry">
-Spirling, Arthur, and Pedro L Rodriguez. 2021. <span>“Word Embeddings.”</span> <em>Journal of Politics</em>. <a href="https://polmeth.mit.edu/sites/default/files/documents/Pedro_Rodriguez.pdf">https://polmeth.mit.edu/sites/default/files/documents/Pedro_Rodriguez.pdf</a>.
-</div>
-</div>
 <div class="footnotes">
 <hr />
 <ol start="37">
-<li id="fn37"><p>Egy kiváló tanulmányban <span class="citation"><a href="#ref-spirlingword" role="doc-biblioref">Spirling and Rodriguez</a> (<a href="#ref-spirlingword" role="doc-biblioref">2021</a>)</span> (könyvünk írásakor még nem jelent meg) összehasonlítják a Word2Vec és GloVe módszereket, különböző paraméterekkel, adatbázisokkal. Azoknak, akiket komolyabban érdekelnek a szóbeágyazás gyakorlati alkalmazásának a részletei, mindenképp ajánljuk elolvasásra.<a href="embedding.html#fnref37" class="footnote-back">↩︎</a></p></li>
+<li id="fn37"><p>Egy kiváló tanulmányban <span class="citation"><a href="irodalomjegyzék.html#ref-spirlingword" role="doc-biblioref">Spirling and Rodriguez</a> (<a href="irodalomjegyzék.html#ref-spirlingword" role="doc-biblioref">2021</a>)</span> (könyvünk írásakor még nem jelent meg) összehasonlítják a Word2Vec és GloVe módszereket, különböző paraméterekkel, adatbázisokkal. Azoknak, akiket komolyabban érdekelnek a szóbeágyazás gyakorlati alkalmazásának a részletei, mindenképp ajánljuk elolvasásra.<a href="embedding.html#fnref37" class="footnote-back">↩︎</a></p></li>
 <li id="fn38"><p>A Magyar CAP Project által kezelt adatbázisok regisztrációt követően elérhetőek az elábbi linken: <a href="https://cap.tk.hu/adatbazisok">https://cap.tk.hu/adatbazisok</a>.<a href="embedding.html#fnref38" class="footnote-back">↩︎</a></p></li>
 <li id="fn39"><p>A futtatásra használt PC konfiguráció: CPU: Intel Core i5-4460 (3.2GHz); RAM: 16GB<a href="embedding.html#fnref39" class="footnote-back">↩︎</a></p></li>
 <li id="fn40"><p>Az egyik legelterjedtebb dimenzionalitás csökkentő eljárás a szakirodalomban a főkomponens-analízis (<em>principal component analysis</em>), illetve szintén gyakran használt az irodalomban az úgynevezett t-SNE (<em>t-distributed stochastic neighbor embedding</em>).<a href="embedding.html#fnref40" class="footnote-back">↩︎</a></p></li>

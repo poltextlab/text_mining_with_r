@@ -55,8 +55,6 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
-<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.4.0/str_view.js"></script>
@@ -378,7 +376,7 @@ div.csl-indent {
 <span id="cb236-3"><a href="osztályozás-és-felügyelt-tanulás.html#cb236-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="fu">sum</span>(<span class="fu">diag</span>(tab))<span class="sc">/</span><span class="fu">sum</span>(tab))</span>
 <span id="cb236-4"><a href="osztályozás-és-felügyelt-tanulás.html#cb236-4" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="osztályozás-és-felügyelt-tanulás.html#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(Data_NOL_predictions<span class="sc">$</span>predictions_label, Data_NOL_predictions<span class="sc">$</span>label)</span>
-<span id="cb237-2"><a href="osztályozás-és-felügyelt-tanulás.html#cb237-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.7866667</span></span></code></pre></div>
+<span id="cb237-2"><a href="osztályozás-és-felügyelt-tanulás.html#cb237-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.787</span></span></code></pre></div>
 <p>Ennek adatai azt mutatják, hogy nagy általánosságban jól működött a modell. Ugyanakkor kutatási kérdésünk szempontjából fontosabb, hogy milyen arányban találtuk meg a makrogazdasági cikkeket (felidézés – <em>recall</em>), illetve milyen pontossággal osztottuk ki ezeket a kódokat (pontosság – <em>precision</em>). A következő lépésben így először definiáljuk, majd kiszámoljuk a pontosságot és a felidézést, valamint ezek harmonikus átlagát, az F1 mutatót.</p>
 <div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="osztályozás-és-felügyelt-tanulás.html#cb238-1" aria-hidden="true" tabindex="-1"></a>precision <span class="ot">&lt;-</span> <span class="cf">function</span>(ypred, y){</span>
 <span id="cb238-2"><a href="osztályozás-és-felügyelt-tanulás.html#cb238-2" aria-hidden="true" tabindex="-1"></a>  tab <span class="ot">&lt;-</span> <span class="fu">table</span>(ypred, y)</span>
@@ -392,14 +390,14 @@ div.csl-indent {
 <span id="cb240-2"><a href="osztályozás-és-felügyelt-tanulás.html#cb240-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="dv">2</span><span class="sc">*</span><span class="fu">precision</span>(ypred, y)<span class="sc">*</span><span class="fu">recall</span>(ypred, y)<span class="sc">/</span>(<span class="fu">precision</span>(ypred, y)<span class="sc">+</span><span class="fu">recall</span>(ypred, y)))</span>
 <span id="cb240-3"><a href="osztályozás-és-felügyelt-tanulás.html#cb240-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="osztályozás-és-felügyelt-tanulás.html#cb241-1" aria-hidden="true" tabindex="-1"></a><span class="fu">precision</span>(Data_NOL_predictions<span class="sc">$</span>predictions_label, Data_NOL_predictions<span class="sc">$</span>label)</span>
-<span id="cb241-2"><a href="osztályozás-és-felügyelt-tanulás.html#cb241-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.3133333</span></span>
+<span id="cb241-2"><a href="osztályozás-és-felügyelt-tanulás.html#cb241-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.313</span></span>
 <span id="cb241-3"><a href="osztályozás-és-felügyelt-tanulás.html#cb241-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb241-4"><a href="osztályozás-és-felügyelt-tanulás.html#cb241-4" aria-hidden="true" tabindex="-1"></a><span class="fu">recall</span>(Data_NOL_predictions<span class="sc">$</span>predictions_label, Data_NOL_predictions<span class="sc">$</span>label)</span>
-<span id="cb241-5"><a href="osztályozás-és-felügyelt-tanulás.html#cb241-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.4519231</span></span>
+<span id="cb241-5"><a href="osztályozás-és-felügyelt-tanulás.html#cb241-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.452</span></span>
 <span id="cb241-6"><a href="osztályozás-és-felügyelt-tanulás.html#cb241-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb241-7"><a href="osztályozás-és-felügyelt-tanulás.html#cb241-7" aria-hidden="true" tabindex="-1"></a><span class="fu">F1</span>(Data_NOL_predictions<span class="sc">$</span>predictions_label, Data_NOL_predictions<span class="sc">$</span>label)</span>
-<span id="cb241-8"><a href="osztályozás-és-felügyelt-tanulás.html#cb241-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.3700787</span></span></code></pre></div>
-<p>Összességében azt állapíthatjuk meg, hogy „játékmodellünk” közel hasonló arányú, azaz 60 százalékos pontosságot, illetve fedést eredményezett. Ez elmaradt a kettős vak kézi kódolás akár 80-90 százalékos találati arányától, ugyanakkor mintánkat didaktikai okokból szándékosan kisebbre vettük a lehetségesnél. A nagymintás adatok alapján (lásd <span class="citation"><a href="#ref-sebokMulticlassClassificationNewspaper2021" role="doc-biblioref">Sebők and Kacsuk</a> (<a href="#ref-sebokMulticlassClassificationNewspaper2021" role="doc-biblioref">2021</a>)</span>) különösen a pontosság esetében akár 90 százalék feletti érték is elérhető felügyelt gépi tanulással, mely ponton már világossá válik a mesterséges intelligenciára épülő megközelítés versenyképessége a kézi kódoláséval, különösen nagymintás projektek esetében.</p>
+<span id="cb241-8"><a href="osztályozás-és-felügyelt-tanulás.html#cb241-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.37</span></span></code></pre></div>
+<p>Összességében azt állapíthatjuk meg, hogy „játékmodellünk” közel hasonló arányú, azaz 60 százalékos pontosságot, illetve fedést eredményezett. Ez elmaradt a kettős vak kézi kódolás akár 80-90 százalékos találati arányától, ugyanakkor mintánkat didaktikai okokból szándékosan kisebbre vettük a lehetségesnél. A nagymintás adatok alapján (lásd <span class="citation"><a href="irodalomjegyzék.html#ref-sebokMulticlassClassificationNewspaper2021" role="doc-biblioref">Sebők and Kacsuk</a> (<a href="irodalomjegyzék.html#ref-sebokMulticlassClassificationNewspaper2021" role="doc-biblioref">2021</a>)</span>) különösen a pontosság esetében akár 90 százalék feletti érték is elérhető felügyelt gépi tanulással, mely ponton már világossá válik a mesterséges intelligenciára épülő megközelítés versenyképessége a kézi kódoláséval, különösen nagymintás projektek esetében.</p>
 <p>De térjünk még vissza eredményeinkhez és vizsgáljuk meg őket közpolitikai kódonként is! Itt is látható, hogy 94 cikkre jeleztük előre helyesen az 1-es kódot.</p>
 <div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="osztályozás-és-felügyelt-tanulás.html#cb242-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(Data_NOL_predictions<span class="sc">$</span>predictions_label, Data_NOL_predictions<span class="sc">$</span>majortopic_code)</span>
 <span id="cb242-2"><a href="osztályozás-és-felügyelt-tanulás.html#cb242-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    </span></span>
@@ -432,12 +430,6 @@ div.csl-indent {
 <img src="_main_files/figure-html/unnamed-chunk-263-1.png" alt="Az SVM modell klasszifikációs eredményei" width="90%" />
 </div>
 
-</div>
-</div>
-<h3>Irodalomjegyzék</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-sebokMulticlassClassificationNewspaper2021" class="csl-entry">
-Sebők, Miklós, and Zoltán Kacsuk. 2021. <span>“The <span>Multiclass</span> <span>Classification</span> of <span>Newspaper</span> <span>Articles</span> with <span>Machine</span> <span>Learning</span>: <span>The</span> <span>Hybrid</span> <span>Binary</span> <span>Snowball</span> <span>Approach</span>.”</span> <em>Political Analysis</em> 29 (2): 236–49. <a href="https://doi.org/10.1017/pan.2020.27">https://doi.org/10.1017/pan.2020.27</a>.
 </div>
 </div>
 <div class="footnotes">
