@@ -55,8 +55,6 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
-<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
 <link href="libs/str_view-0.1.0/str_view.css" rel="stylesheet" />
 <script src="libs/str_view-binding-1.4.0/str_view.js"></script>
@@ -300,9 +298,9 @@ div.csl-indent {
 <h1><span class="header-section-number">5</span> Leíró statisztika</h1>
 <div id="a-szövegek-a-vektortérben" class="section level2" number="5.1">
 <h2><span class="header-section-number">5.1</span> A szövegek a vektortérben</h2>
-<p>A szövegbányászati feladatok két altípusa a keresés és a rendszerezés. A keresés során olyan szövegeket keresünk, amelyekben egy adott kifejezés előfordul, a rendszerezés során pedig a szövegeket hasonlítjuk össze egymással és egy előre megadott, vagy egy előzetesen nem ismert kategóriarendszer csoportjaihoz soroljuk őket. A webes keresőprogramok egyik jellemző tevékenysége, az információ-visszakeresés (<em>information retrieval</em>) során például az a cél, hogy a korpuszból visszakeressük a kereső információigénye szempontjából releváns információkat, mely keresés alapulhat metaadatokon vagy teljes szöveges indexelésen <span class="citation">(<a href="#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007</a>; <a href="#ref-russelMestersegesIntelligencia2005" role="doc-biblioref">Russel and Norvig 2005, 742.o</a>)</span>. Az információkinyerés (<em>information extraction</em>) esetén a cél, hogy a strukturálatlan szövegekből strukturált adatokat állítsunk elő. Azaz az információkinyerés során nem a felhasználó által keresett információt keressük meg és lokalizáljuk, hanem az adott kérdés szempontjából releváns információkat gyűjtjük ki a dokumentumokból. Az információkinyerés alternatív megoldása segítségével már képesek lehetünk a kifejezések közötti kapcsolatok elemzésére, tendenciák és minták felismerésére és az információk összekapcsolása révén új információk létrehozására, azaz a segítségével strukturálatlan szövegekből is előállíthatunk strukturált információkat <span class="citation">(<a href="#ref-kwartlerTextMiningPractice2017" role="doc-biblioref">Kwartler 2017</a>; <a href="#ref-schutzeIntroductionInformationRetrieval2008" role="doc-biblioref">Schütze, Manning, and Raghavan 2008</a>; <a href="#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007, 63–81.o</a>)</span>.</p>
+<p>A szövegbányászati feladatok két altípusa a keresés és a rendszerezés. A keresés során olyan szövegeket keresünk, amelyekben egy adott kifejezés előfordul, a rendszerezés során pedig a szövegeket hasonlítjuk össze egymással és egy előre megadott, vagy egy előzetesen nem ismert kategóriarendszer csoportjaihoz soroljuk őket. A webes keresőprogramok egyik jellemző tevékenysége, az információ-visszakeresés (<em>information retrieval</em>) során például az a cél, hogy a korpuszból visszakeressük a kereső információigénye szempontjából releváns információkat, mely keresés alapulhat metaadatokon vagy teljes szöveges indexelésen <span class="citation">(<a href="irodalomjegyzék.html#ref-russelMestersegesIntelligencia2005" role="doc-biblioref">Russel and Norvig 2005, 742.o</a>; <a href="irodalomjegyzék.html#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007</a>)</span>. Az információkinyerés (<em>information extraction</em>) esetén a cél, hogy a strukturálatlan szövegekből strukturált adatokat állítsunk elő. Azaz az információkinyerés során nem a felhasználó által keresett információt keressük meg és lokalizáljuk, hanem az adott kérdés szempontjából releváns információkat gyűjtjük ki a dokumentumokból. Az információkinyerés alternatív megoldása segítségével már képesek lehetünk a kifejezések közötti kapcsolatok elemzésére, tendenciák és minták felismerésére és az információk összekapcsolása révén új információk létrehozására, azaz a segítségével strukturálatlan szövegekből is előállíthatunk strukturált információkat <span class="citation">(<a href="irodalomjegyzék.html#ref-kwartlerTextMiningPractice2017" role="doc-biblioref">Kwartler 2017</a>; <a href="irodalomjegyzék.html#ref-schutzeIntroductionInformationRetrieval2008" role="doc-biblioref">Schütze, Manning, and Raghavan 2008</a>; <a href="irodalomjegyzék.html#ref-tikkSzovegbanyaszat2007" role="doc-biblioref">Tikk 2007, 63–81.o</a>)</span>.</p>
 <p>A szövegbányászati vizsgálatok során folyó szövegek, azaz strukturálatlan vagy részben strukturált dokumentumok elemzésére kerül sor. Ezekből a kutatási kérdéseink szempontjából releváns, látens összefüggéseket nyerünk ki, amelyek már strukturált szerkezetűek. A dokumentumok reprezentálásának három legelterjedtebb módja a halmazelmélet alapú, az algebrai és a valószínűségi modell. A halmazelméleti modellek a dokumentumok hasonlóságát halmazelmélet, a valószínűségi modellek pedig feltételes valószínűségi becslés alapján határozzák meg. Az algebrai modellek a dokumentumokat vektorként vagy mátrixként ábrázolják és algebrai műveletek segítségével hasonlítják össze.</p>
-<p>A vektortérmodell sokdimenziós vektortérben ábrázolja a dokumentumokat, úgy, hogy a dokumentumokat vektorokkal reprezentálja, a vektortér dimenziói pedig a dokumentumok összességében előforduló egyedi szavak. A modell alkalmazása során azok a dokumentumok hasonlítanak egymásra, amelyeknek a szókészlete átfedi egymást, és a hasonlóság mértéke az átfedéssel arányos. A vektortérmodellben a dokumentumgyűjteményt a szó-dokumentum mátrixszal (<em>term-document matrix</em>) reprezentáljuk, a mátrixban a sorok száma megegyezik az egyedi szavak számával, az oszlopokat pedig a dokumentumvektorok alkotják. Az egyedi szavak összességét szótárnak nevezzük. Mivel mátrixban az egyedi szavak száma általában igen nagy, ezért a mátrix hatékony kezeléséhez annak mérete különböző eljárásokkal csökkenthető. Fontos tudni, hogy a dokumentumok vektortér reprezentációjában a szavak szövegen belüli sorrendjére és pozíciójára vonatkozó információ nem található meg <span class="citation">(<a href="#ref-russelMestersegesIntelligencia2005" role="doc-biblioref">Russel and Norvig 2005, 742–44</a> o.; <a href="#ref-kwartlerTextMiningPractice2017" role="doc-biblioref">Kwartler 2017</a>; <a href="#ref-welbersTextAnalysis2017" role="doc-biblioref">Welbers, Van Atteveldt, and Benoit 2017</a>)</span>. A vektortérmodellt szózsák (<em>bag of words</em>) modellnek is nevezzük, melynek segítségével a fent leírtak szerint az egyes szavak gyakoriságát vizsgálhatjuk meg egy adott korpuszon belül.</p>
+<p>A vektortérmodell sokdimenziós vektortérben ábrázolja a dokumentumokat, úgy, hogy a dokumentumokat vektorokkal reprezentálja, a vektortér dimenziói pedig a dokumentumok összességében előforduló egyedi szavak. A modell alkalmazása során azok a dokumentumok hasonlítanak egymásra, amelyeknek a szókészlete átfedi egymást, és a hasonlóság mértéke az átfedéssel arányos. A vektortérmodellben a dokumentumgyűjteményt a szó-dokumentum mátrixszal (<em>term-document matrix</em>) reprezentáljuk, a mátrixban a sorok száma megegyezik az egyedi szavak számával, az oszlopokat pedig a dokumentumvektorok alkotják. Az egyedi szavak összességét szótárnak nevezzük. Mivel mátrixban az egyedi szavak száma általában igen nagy, ezért a mátrix hatékony kezeléséhez annak mérete különböző eljárásokkal csökkenthető. Fontos tudni, hogy a dokumentumok vektortér reprezentációjában a szavak szövegen belüli sorrendjére és pozíciójára vonatkozó információ nem található meg <span class="citation">(<a href="irodalomjegyzék.html#ref-russelMestersegesIntelligencia2005" role="doc-biblioref">Russel and Norvig 2005, 742–44</a> o.; <a href="irodalomjegyzék.html#ref-kwartlerTextMiningPractice2017" role="doc-biblioref">Kwartler 2017</a>; <a href="irodalomjegyzék.html#ref-welbersTextAnalysis2017" role="doc-biblioref">Welbers, Van Atteveldt, and Benoit 2017</a>)</span>. A vektortérmodellt szózsák (<em>bag of words</em>) modellnek is nevezzük, melynek segítségével a fent leírtak szerint az egyes szavak gyakoriságát vizsgálhatjuk meg egy adott korpuszon belül.</p>
 </div>
 <div id="leíró-statisztika" class="section level2" number="5.2">
 <h2><span class="header-section-number">5.2</span> Leíró statisztika</h2>
@@ -442,17 +440,17 @@ div.csl-indent {
 <span id="cb47-15"><a href="leiro-stat.html#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  tisztelt hölgyeim és    31            0      3</span></span>
 <span id="cb47-16"><a href="leiro-stat.html#cb47-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9             hogy ez a    10            0      3</span></span>
 <span id="cb47-17"><a href="leiro-stat.html#cb47-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10        hogy a magyar    18            0      3</span></span>
-<span id="cb47-18"><a href="leiro-stat.html#cb47-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       lambda         z</span></span>
-<span id="cb47-19"><a href="leiro-stat.html#cb47-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1.7266498 3.5500939</span></span>
-<span id="cb47-20"><a href="leiro-stat.html#cb47-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  4.7126130 2.9870558</span></span>
-<span id="cb47-21"><a href="leiro-stat.html#cb47-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  3.9239765 2.4659912</span></span>
-<span id="cb47-22"><a href="leiro-stat.html#cb47-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  2.6826277 1.7954739</span></span>
-<span id="cb47-23"><a href="leiro-stat.html#cb47-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  3.5817972 1.5956086</span></span>
-<span id="cb47-24"><a href="leiro-stat.html#cb47-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  2.5135668 1.5757358</span></span>
-<span id="cb47-25"><a href="leiro-stat.html#cb47-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  1.9371894 1.2837433</span></span>
-<span id="cb47-26"><a href="leiro-stat.html#cb47-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8  2.2327116 0.9596371</span></span>
-<span id="cb47-27"><a href="leiro-stat.html#cb47-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9  0.4617372 0.9032165</span></span>
-<span id="cb47-28"><a href="leiro-stat.html#cb47-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 0.6903168 0.7832561</span></span></code></pre></div>
+<span id="cb47-18"><a href="leiro-stat.html#cb47-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    lambda     z</span></span>
+<span id="cb47-19"><a href="leiro-stat.html#cb47-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   1.727 3.550</span></span>
+<span id="cb47-20"><a href="leiro-stat.html#cb47-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   4.713 2.987</span></span>
+<span id="cb47-21"><a href="leiro-stat.html#cb47-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   3.924 2.466</span></span>
+<span id="cb47-22"><a href="leiro-stat.html#cb47-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4   2.683 1.795</span></span>
+<span id="cb47-23"><a href="leiro-stat.html#cb47-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5   3.582 1.596</span></span>
+<span id="cb47-24"><a href="leiro-stat.html#cb47-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6   2.514 1.576</span></span>
+<span id="cb47-25"><a href="leiro-stat.html#cb47-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7   1.937 1.284</span></span>
+<span id="cb47-26"><a href="leiro-stat.html#cb47-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8   2.233 0.960</span></span>
+<span id="cb47-27"><a href="leiro-stat.html#cb47-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9   0.462 0.903</span></span>
+<span id="cb47-28"><a href="leiro-stat.html#cb47-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10  0.690 0.783</span></span></code></pre></div>
 <p>A szókapcsolatok listázásánál is láthattuk, hogy a korpuszunk még minden szót tartalmaz, ezért találtunk például „hogy ez a" összetételt. A következőkben eltávolítjuk az ilyen funkció nélküli stopszavakat a korpuszból, amihez saját stopszólistát használunk. Először a <code>HunMineR</code> csomagból beolvassuk és egy <code>custom_stopwords</code> nevű objektumban tároljuk a stopszavakat, majd a <code>tokens()</code> függvény segítségével tokenizáljuk a korpuszt és a <code>tokens_select()</code> használatával eltávolítjuk a stopszavakat.</p>
 <p>Ha ezután újra megnézzük a kollokációkat, jól látható a stopszavak eltávolításának eredménye:</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="leiro-stat.html#cb48-1" aria-hidden="true" tabindex="-1"></a>custom_stopwords <span class="ot">&lt;-</span> HunMineR<span class="sc">::</span>data_stopwords_extra</span>
@@ -471,12 +469,12 @@ div.csl-indent {
 <span id="cb48-14"><a href="leiro-stat.html#cb48-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 taps kormánypártok soraiban    13            0</span></span>
 <span id="cb48-15"><a href="leiro-stat.html#cb48-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 közbeszólás fidesz soraiból    12            0</span></span>
 <span id="cb48-16"><a href="leiro-stat.html#cb48-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5          taps MSZP soraiban     9            0</span></span>
-<span id="cb48-17"><a href="leiro-stat.html#cb48-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   length    lambda         z</span></span>
-<span id="cb48-18"><a href="leiro-stat.html#cb48-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      3 -1.848559 -1.003837</span></span>
-<span id="cb48-19"><a href="leiro-stat.html#cb48-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      3 -3.217896 -1.087495</span></span>
-<span id="cb48-20"><a href="leiro-stat.html#cb48-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      3 -1.884367 -1.102199</span></span>
-<span id="cb48-21"><a href="leiro-stat.html#cb48-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      3 -4.371498 -1.949939</span></span>
-<span id="cb48-22"><a href="leiro-stat.html#cb48-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      3 -4.711439 -2.780059</span></span></code></pre></div>
+<span id="cb48-17"><a href="leiro-stat.html#cb48-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   length lambda     z</span></span>
+<span id="cb48-18"><a href="leiro-stat.html#cb48-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1      3  -1.85 -1.00</span></span>
+<span id="cb48-19"><a href="leiro-stat.html#cb48-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      3  -3.22 -1.09</span></span>
+<span id="cb48-20"><a href="leiro-stat.html#cb48-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3      3  -1.88 -1.10</span></span>
+<span id="cb48-21"><a href="leiro-stat.html#cb48-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4      3  -4.37 -1.95</span></span>
+<span id="cb48-22"><a href="leiro-stat.html#cb48-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5      3  -4.71 -2.78</span></span></code></pre></div>
 <p>A korpusz további elemzése előtt fontos, hogy ne csak a stopszavakat távolítsuk el, hanem az egyéb alapvető szövegtisztító lépéseket is elvégezzük. Azaz a <code>tokens_select()</code> segítségével eltávolítsuk a számokat, a központozást, az elválasztó karaktereket, mint például a szóközöket, tabulátorokat, sortöréseket.</p>
 <p>Ezután a <code>tokens_ngrams()</code> segítségével ngramokat hozunk létre a tokenekből, majd kialakítjuk a dokumentum kifejezés mátrixot (<code>dfm</code>) és elvégezzük a <code>tf-idf</code> szerinti súlyozást. A <code>dfm_tfidf()</code> függvény kiszámolja a dokumentum gyakoriság inverz súlyozását. A függvény alapértelmezés szerint a normalizált kifejezések gyakoriságát használja a dokumentumon belüli relatív kifejezés gyakoriság helyett, ezt írjuk felül a <code>schem_tf = "prop"</code> használatával. Végül a <code>textstat_frequency()</code> segítségével gyakorisági statisztikát készíthetünk a korábban meghatározott (példánkban két és három tagú) n-gramokról.</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="leiro-stat.html#cb49-1" aria-hidden="true" tabindex="-1"></a>corpus_mineln <span class="sc">%&gt;%</span></span>
@@ -490,28 +488,28 @@ div.csl-indent {
 <span id="cb49-9"><a href="leiro-stat.html#cb49-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb49-10"><a href="leiro-stat.html#cb49-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dfm_tfidf</span>(<span class="at">scheme_tf =</span> <span class="st">&quot;prop&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb49-11"><a href="leiro-stat.html#cb49-11" aria-hidden="true" tabindex="-1"></a>  quanteda.textstats<span class="sc">::</span><span class="fu">textstat_frequency</span>(<span class="at">n =</span> <span class="dv">10</span>, <span class="at">force =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb49-12"><a href="leiro-stat.html#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                        feature   frequency rank</span></span>
-<span id="cb49-13"><a href="leiro-stat.html#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1            tisztelt_hölgyeim 0.002788904    1</span></span>
-<span id="cb49-14"><a href="leiro-stat.html#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      tisztelt_hölgyeim_uraim 0.002788904    1</span></span>
-<span id="cb49-15"><a href="leiro-stat.html#cb49-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3            fordítsanak_hátat 0.002439685    3</span></span>
-<span id="cb49-16"><a href="leiro-stat.html#cb49-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4              fidesz_soraiból 0.002151922    4</span></span>
-<span id="cb49-17"><a href="leiro-stat.html#cb49-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5                    taps_mszp 0.001757918    5</span></span>
-<span id="cb49-18"><a href="leiro-stat.html#cb49-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6          magyarország_európa 0.001457380    6</span></span>
-<span id="cb49-19"><a href="leiro-stat.html#cb49-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7    tisztelt_képviselotársaim 0.001439932    7</span></span>
-<span id="cb49-20"><a href="leiro-stat.html#cb49-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8       kormánypártok_soraiban 0.001430247    8</span></span>
-<span id="cb49-21"><a href="leiro-stat.html#cb49-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9           taps_kormánypártok 0.001293617    9</span></span>
-<span id="cb49-22"><a href="leiro-stat.html#cb49-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 taps_kormánypártok_soraiban 0.001293617    9</span></span>
-<span id="cb49-23"><a href="leiro-stat.html#cb49-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    docfreq group</span></span>
-<span id="cb49-24"><a href="leiro-stat.html#cb49-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1        4   all</span></span>
-<span id="cb49-25"><a href="leiro-stat.html#cb49-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2        4   all</span></span>
-<span id="cb49-26"><a href="leiro-stat.html#cb49-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3        1   all</span></span>
-<span id="cb49-27"><a href="leiro-stat.html#cb49-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4        1   all</span></span>
-<span id="cb49-28"><a href="leiro-stat.html#cb49-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5        2   all</span></span>
-<span id="cb49-29"><a href="leiro-stat.html#cb49-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6        1   all</span></span>
-<span id="cb49-30"><a href="leiro-stat.html#cb49-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7        2   all</span></span>
-<span id="cb49-31"><a href="leiro-stat.html#cb49-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8        2   all</span></span>
-<span id="cb49-32"><a href="leiro-stat.html#cb49-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9        2   all</span></span>
-<span id="cb49-33"><a href="leiro-stat.html#cb49-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10       2   all</span></span></code></pre></div>
+<span id="cb49-12"><a href="leiro-stat.html#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                        feature frequency rank docfreq</span></span>
+<span id="cb49-13"><a href="leiro-stat.html#cb49-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1            tisztelt_hölgyeim   0.00279    1       4</span></span>
+<span id="cb49-14"><a href="leiro-stat.html#cb49-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2      tisztelt_hölgyeim_uraim   0.00279    1       4</span></span>
+<span id="cb49-15"><a href="leiro-stat.html#cb49-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3            fordítsanak_hátat   0.00244    3       1</span></span>
+<span id="cb49-16"><a href="leiro-stat.html#cb49-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4              fidesz_soraiból   0.00215    4       1</span></span>
+<span id="cb49-17"><a href="leiro-stat.html#cb49-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5                    taps_mszp   0.00176    5       2</span></span>
+<span id="cb49-18"><a href="leiro-stat.html#cb49-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6          magyarország_európa   0.00146    6       1</span></span>
+<span id="cb49-19"><a href="leiro-stat.html#cb49-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7    tisztelt_képviselotársaim   0.00144    7       2</span></span>
+<span id="cb49-20"><a href="leiro-stat.html#cb49-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8       kormánypártok_soraiban   0.00143    8       2</span></span>
+<span id="cb49-21"><a href="leiro-stat.html#cb49-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9           taps_kormánypártok   0.00129    9       2</span></span>
+<span id="cb49-22"><a href="leiro-stat.html#cb49-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10 taps_kormánypártok_soraiban   0.00129    9       2</span></span>
+<span id="cb49-23"><a href="leiro-stat.html#cb49-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    group</span></span>
+<span id="cb49-24"><a href="leiro-stat.html#cb49-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    all</span></span>
+<span id="cb49-25"><a href="leiro-stat.html#cb49-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    all</span></span>
+<span id="cb49-26"><a href="leiro-stat.html#cb49-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3    all</span></span>
+<span id="cb49-27"><a href="leiro-stat.html#cb49-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    all</span></span>
+<span id="cb49-28"><a href="leiro-stat.html#cb49-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5    all</span></span>
+<span id="cb49-29"><a href="leiro-stat.html#cb49-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6    all</span></span>
+<span id="cb49-30"><a href="leiro-stat.html#cb49-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7    all</span></span>
+<span id="cb49-31"><a href="leiro-stat.html#cb49-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8    all</span></span>
+<span id="cb49-32"><a href="leiro-stat.html#cb49-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 9    all</span></span>
+<span id="cb49-33"><a href="leiro-stat.html#cb49-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 10   all</span></span></code></pre></div>
 </div>
 <div id="a-szövegek-lexikai-diverzitása" class="section level2" number="5.3">
 <h2><span class="header-section-number">5.3</span> A szövegek lexikai diverzitása</h2>
@@ -528,15 +526,15 @@ div.csl-indent {
 <span id="cb50-10"><a href="leiro-stat.html#cb50-10" aria-hidden="true" tabindex="-1"></a>mineln_dfm <span class="sc">%&gt;%</span></span>
 <span id="cb50-11"><a href="leiro-stat.html#cb50-11" aria-hidden="true" tabindex="-1"></a>  quanteda.textstats<span class="sc">::</span><span class="fu">textstat_lexdiv</span>(<span class="at">measure =</span> <span class="st">&quot;CTTR&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb50-12"><a href="leiro-stat.html#cb50-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">arrange</span>(dplyr<span class="sc">::</span><span class="fu">desc</span>(CTTR))</span>
-<span id="cb50-13"><a href="leiro-stat.html#cb50-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                document     CTTR</span></span>
-<span id="cb50-14"><a href="leiro-stat.html#cb50-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    antall_jozsef_1990 32.99078</span></span>
-<span id="cb50-15"><a href="leiro-stat.html#cb50-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 gyurcsany_ferenc_2005 26.14422</span></span>
-<span id="cb50-16"><a href="leiro-stat.html#cb50-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     orban_viktor_1995 23.35548</span></span>
-<span id="cb50-17"><a href="leiro-stat.html#cb50-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4       horn_gyula_1994 22.25547</span></span>
-<span id="cb50-18"><a href="leiro-stat.html#cb50-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     boross_peter_1993 21.98656</span></span>
-<span id="cb50-19"><a href="leiro-stat.html#cb50-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6    bajnai_gordon_2009 19.93214</span></span>
-<span id="cb50-20"><a href="leiro-stat.html#cb50-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  medgyessy_peter_2002 16.81246</span></span>
-<span id="cb50-21"><a href="leiro-stat.html#cb50-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     orban_viktor_2018 16.24532</span></span></code></pre></div>
+<span id="cb50-13"><a href="leiro-stat.html#cb50-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                document CTTR</span></span>
+<span id="cb50-14"><a href="leiro-stat.html#cb50-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    antall_jozsef_1990 33.0</span></span>
+<span id="cb50-15"><a href="leiro-stat.html#cb50-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 gyurcsany_ferenc_2005 26.1</span></span>
+<span id="cb50-16"><a href="leiro-stat.html#cb50-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     orban_viktor_1995 23.4</span></span>
+<span id="cb50-17"><a href="leiro-stat.html#cb50-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4       horn_gyula_1994 22.3</span></span>
+<span id="cb50-18"><a href="leiro-stat.html#cb50-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5     boross_peter_1993 22.0</span></span>
+<span id="cb50-19"><a href="leiro-stat.html#cb50-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6    bajnai_gordon_2009 19.9</span></span>
+<span id="cb50-20"><a href="leiro-stat.html#cb50-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7  medgyessy_peter_2002 16.8</span></span>
+<span id="cb50-21"><a href="leiro-stat.html#cb50-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     orban_viktor_2018 16.2</span></span></code></pre></div>
 <p>A kiszámolt értéket hozzáadhatjuk a <code>dfm</code>-hez is.</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="leiro-stat.html#cb51-1" aria-hidden="true" tabindex="-1"></a>dfm_lexdiv <span class="ot">&lt;-</span> mineln_dfm</span>
 <span id="cb51-2"><a href="leiro-stat.html#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -545,89 +543,67 @@ div.csl-indent {
 <span id="cb51-5"><a href="leiro-stat.html#cb51-5" aria-hidden="true" tabindex="-1"></a>quanteda<span class="sc">::</span><span class="fu">docvars</span>(dfm_lexdiv, <span class="st">&quot;cttr&quot;</span>) <span class="ot">&lt;-</span> cttr_score</span>
 <span id="cb51-6"><a href="leiro-stat.html#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb51-7"><a href="leiro-stat.html#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(dfm_lexdiv)</span>
-<span id="cb51-8"><a href="leiro-stat.html#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             mineln partoldal year     cttr</span></span>
-<span id="cb51-9"><a href="leiro-stat.html#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    antall_jozsef      jobb 1990 32.99078</span></span>
-<span id="cb51-10"><a href="leiro-stat.html#cb51-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    bajnai_gordon       bal 2009 19.93214</span></span>
-<span id="cb51-11"><a href="leiro-stat.html#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     boross_peter      jobb 1993 21.98656</span></span>
-<span id="cb51-12"><a href="leiro-stat.html#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 gyurcsany_ferenc       bal 2005 26.14422</span></span>
-<span id="cb51-13"><a href="leiro-stat.html#cb51-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       horn_gyula       bal 1994 22.25547</span></span>
-<span id="cb51-14"><a href="leiro-stat.html#cb51-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  medgyessy_peter       bal 2002 16.81246</span></span>
-<span id="cb51-15"><a href="leiro-stat.html#cb51-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     orban_viktor      jobb 1995 23.35548</span></span>
-<span id="cb51-16"><a href="leiro-stat.html#cb51-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     orban_viktor      jobb 2018 16.24532</span></span></code></pre></div>
+<span id="cb51-8"><a href="leiro-stat.html#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             mineln partoldal year cttr</span></span>
+<span id="cb51-9"><a href="leiro-stat.html#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    antall_jozsef      jobb 1990 33.0</span></span>
+<span id="cb51-10"><a href="leiro-stat.html#cb51-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    bajnai_gordon       bal 2009 19.9</span></span>
+<span id="cb51-11"><a href="leiro-stat.html#cb51-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     boross_peter      jobb 1993 22.0</span></span>
+<span id="cb51-12"><a href="leiro-stat.html#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 gyurcsany_ferenc       bal 2005 26.1</span></span>
+<span id="cb51-13"><a href="leiro-stat.html#cb51-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       horn_gyula       bal 1994 22.3</span></span>
+<span id="cb51-14"><a href="leiro-stat.html#cb51-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  medgyessy_peter       bal 2002 16.8</span></span>
+<span id="cb51-15"><a href="leiro-stat.html#cb51-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     orban_viktor      jobb 1995 23.4</span></span>
+<span id="cb51-16"><a href="leiro-stat.html#cb51-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     orban_viktor      jobb 2018 16.2</span></span></code></pre></div>
 <p>A fenti elemzést elvégezhetjük úgy is, hogy valamennyi indexálást egyben megkapjuk. Ehhez a <code>textstat_lexdiv()</code> függvény argumentumába a <code>measure = "all"</code> kifejezést kell megadnunk.</p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="leiro-stat.html#cb52-1" aria-hidden="true" tabindex="-1"></a>mineln_dfm <span class="sc">%&gt;%</span></span>
 <span id="cb52-2"><a href="leiro-stat.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textstat_lexdiv</span>(<span class="at">measure =</span> <span class="st">&quot;all&quot;</span>)</span>
-<span id="cb52-3"><a href="leiro-stat.html#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                document       TTR         C        R</span></span>
-<span id="cb52-4"><a href="leiro-stat.html#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    antall_jozsef_1990 0.6465054 0.9490329 46.65601</span></span>
-<span id="cb52-5"><a href="leiro-stat.html#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    bajnai_gordon_2009 0.7283044 0.9566410 28.18830</span></span>
-<span id="cb52-6"><a href="leiro-stat.html#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     boross_peter_1993 0.7209677 0.9565427 31.09369</span></span>
-<span id="cb52-7"><a href="leiro-stat.html#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 gyurcsany_ferenc_2005 0.5563859 0.9301449 36.97351</span></span>
-<span id="cb52-8"><a href="leiro-stat.html#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       horn_gyula_1994 0.7142122 0.9555469 31.47399</span></span>
-<span id="cb52-9"><a href="leiro-stat.html#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  medgyessy_peter_2002 0.7110912 0.9514261 23.77641</span></span>
-<span id="cb52-10"><a href="leiro-stat.html#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     orban_viktor_1995 0.7224880 0.9574810 33.02964</span></span>
-<span id="cb52-11"><a href="leiro-stat.html#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     orban_viktor_2018 0.7529538 0.9584932 22.97435</span></span>
-<span id="cb52-12"><a href="leiro-stat.html#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       CTTR        U         S        K        I</span></span>
-<span id="cb52-13"><a href="leiro-stat.html#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 32.99078 72.92298 0.9601534 11.21473 419.0858</span></span>
-<span id="cb52-14"><a href="leiro-stat.html#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 19.93214 73.23764 0.9616371 16.40817 459.3906</span></span>
-<span id="cb52-15"><a href="leiro-stat.html#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 21.98656 75.23509 0.9624951 18.51659 355.0407</span></span>
-<span id="cb52-16"><a href="leiro-stat.html#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 26.14422 52.17985 0.9440104 11.86397 291.9314</span></span>
-<span id="cb52-17"><a href="leiro-stat.html#cb52-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 22.25547 73.97126 0.9618001 12.60022 571.6996</span></span>
-<span id="cb52-18"><a href="leiro-stat.html#cb52-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 16.81246 62.75886 0.9553276 26.48161 251.3022</span></span>
-<span id="cb52-19"><a href="leiro-stat.html#cb52-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 23.35548 78.08616 0.9637924 16.50145 400.1580</span></span>
-<span id="cb52-20"><a href="leiro-stat.html#cb52-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 16.24532 71.52920 0.9610435 26.17792 313.3935</span></span>
-<span id="cb52-21"><a href="leiro-stat.html#cb52-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              D         Vm      Maas      lgV0    lgeV0</span></span>
-<span id="cb52-22"><a href="leiro-stat.html#cb52-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0.0009296389 0.02871363 0.1171029 11.191310 25.76894</span></span>
-<span id="cb52-23"><a href="leiro-stat.html#cb52-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0.0009739104 0.02691146 0.1168511 10.429595 24.01503</span></span>
-<span id="cb52-24"><a href="leiro-stat.html#cb52-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 0.0013147316 0.03325578 0.1152895 10.725349 24.69603</span></span>
-<span id="cb52-25"><a href="leiro-stat.html#cb52-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 0.0009601654 0.02791768 0.1384359  9.233313 21.26049</span></span>
-<span id="cb52-26"><a href="leiro-stat.html#cb52-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 0.0007454724 0.02321726 0.1162702 10.656921 24.53847</span></span>
-<span id="cb52-27"><a href="leiro-stat.html#cb52-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 0.0017552766 0.03728672 0.1262300  9.420533 21.69158</span></span>
-<span id="cb52-28"><a href="leiro-stat.html#cb52-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 0.0011722374 0.03143078 0.1131652 11.019123 25.37247</span></span>
-<span id="cb52-29"><a href="leiro-stat.html#cb52-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 0.0015453380 0.03451461 0.1182383  9.980932 22.98195</span></span></code></pre></div>
+<span id="cb52-3"><a href="leiro-stat.html#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                document   TTR     C    R CTTR    U</span></span>
+<span id="cb52-4"><a href="leiro-stat.html#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    antall_jozsef_1990 0.647 0.949 46.7 33.0 72.9</span></span>
+<span id="cb52-5"><a href="leiro-stat.html#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    bajnai_gordon_2009 0.728 0.957 28.2 19.9 73.2</span></span>
+<span id="cb52-6"><a href="leiro-stat.html#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     boross_peter_1993 0.721 0.957 31.1 22.0 75.2</span></span>
+<span id="cb52-7"><a href="leiro-stat.html#cb52-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 gyurcsany_ferenc_2005 0.556 0.930 37.0 26.1 52.2</span></span>
+<span id="cb52-8"><a href="leiro-stat.html#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       horn_gyula_1994 0.714 0.956 31.5 22.3 74.0</span></span>
+<span id="cb52-9"><a href="leiro-stat.html#cb52-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  medgyessy_peter_2002 0.711 0.951 23.8 16.8 62.8</span></span>
+<span id="cb52-10"><a href="leiro-stat.html#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     orban_viktor_1995 0.722 0.957 33.0 23.4 78.1</span></span>
+<span id="cb52-11"><a href="leiro-stat.html#cb52-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     orban_viktor_2018 0.753 0.958 23.0 16.2 71.5</span></span>
+<span id="cb52-12"><a href="leiro-stat.html#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       S    K   I        D     Vm  Maas  lgV0 lgeV0</span></span>
+<span id="cb52-13"><a href="leiro-stat.html#cb52-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 0.960 11.2 419 0.000930 0.0287 0.117 11.19  25.8</span></span>
+<span id="cb52-14"><a href="leiro-stat.html#cb52-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 0.962 16.4 459 0.000974 0.0269 0.117 10.43  24.0</span></span>
+<span id="cb52-15"><a href="leiro-stat.html#cb52-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 0.962 18.5 355 0.001315 0.0333 0.115 10.73  24.7</span></span>
+<span id="cb52-16"><a href="leiro-stat.html#cb52-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 0.944 11.9 292 0.000960 0.0279 0.138  9.23  21.3</span></span>
+<span id="cb52-17"><a href="leiro-stat.html#cb52-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 0.962 12.6 572 0.000745 0.0232 0.116 10.66  24.5</span></span>
+<span id="cb52-18"><a href="leiro-stat.html#cb52-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 0.955 26.5 251 0.001755 0.0373 0.126  9.42  21.7</span></span>
+<span id="cb52-19"><a href="leiro-stat.html#cb52-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7 0.964 16.5 400 0.001172 0.0314 0.113 11.02  25.4</span></span>
+<span id="cb52-20"><a href="leiro-stat.html#cb52-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8 0.961 26.2 313 0.001545 0.0345 0.118  9.98  23.0</span></span></code></pre></div>
 <p>Ha pedig arra vagyunk kíváncsiak, hogy a kapott értékek hogyan viszonyulnak egymáshoz, azt a <code>cor()</code> függvény segítésével számolhatjuk ki.</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="leiro-stat.html#cb53-1" aria-hidden="true" tabindex="-1"></a>div_df <span class="ot">&lt;-</span> mineln_dfm <span class="sc">%&gt;%</span></span>
 <span id="cb53-2"><a href="leiro-stat.html#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textstat_lexdiv</span>(<span class="at">measure =</span> <span class="st">&quot;all&quot;</span>)</span>
 <span id="cb53-3"><a href="leiro-stat.html#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb53-4"><a href="leiro-stat.html#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(div_df[, <span class="dv">2</span><span class="sc">:</span><span class="dv">13</span>])</span>
-<span id="cb53-5"><a href="leiro-stat.html#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             TTR          C           R        CTTR</span></span>
-<span id="cb53-6"><a href="leiro-stat.html#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TTR   1.0000000  0.9709934 -0.64927227 -0.64927227</span></span>
-<span id="cb53-7"><a href="leiro-stat.html#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C     0.9709934  1.0000000 -0.44988787 -0.44988787</span></span>
-<span id="cb53-8"><a href="leiro-stat.html#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R    -0.6492723 -0.4498879  1.00000000  1.00000000</span></span>
-<span id="cb53-9"><a href="leiro-stat.html#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; CTTR -0.6492723 -0.4498879  1.00000000  1.00000000</span></span>
-<span id="cb53-10"><a href="leiro-stat.html#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; U     0.7586668  0.8884154 -0.02424963 -0.02424963</span></span>
-<span id="cb53-11"><a href="leiro-stat.html#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; S     0.8514841  0.9516268 -0.16264543 -0.16264543</span></span>
-<span id="cb53-12"><a href="leiro-stat.html#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; K     0.5991452  0.4294223 -0.83367217 -0.83367217</span></span>
-<span id="cb53-13"><a href="leiro-stat.html#cb53-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; I     0.2327750  0.3698611  0.26241321  0.26241321</span></span>
-<span id="cb53-14"><a href="leiro-stat.html#cb53-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; D     0.4013304  0.2514823 -0.65214634 -0.65214634</span></span>
-<span id="cb53-15"><a href="leiro-stat.html#cb53-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Vm    0.3075452  0.1968097 -0.47355632 -0.47355632</span></span>
-<span id="cb53-16"><a href="leiro-stat.html#cb53-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Maas -0.7882881 -0.9112332  0.05759202  0.05759202</span></span>
-<span id="cb53-17"><a href="leiro-stat.html#cb53-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lgV0  0.3571139  0.5682834  0.45841359  0.45841359</span></span>
-<span id="cb53-18"><a href="leiro-stat.html#cb53-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                U           S           K          I</span></span>
-<span id="cb53-19"><a href="leiro-stat.html#cb53-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TTR   0.75866675  0.85148414  0.59914525  0.2327750</span></span>
-<span id="cb53-20"><a href="leiro-stat.html#cb53-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C     0.88841537  0.95162677  0.42942231  0.3698611</span></span>
-<span id="cb53-21"><a href="leiro-stat.html#cb53-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R    -0.02424963 -0.16264543 -0.83367217  0.2624132</span></span>
-<span id="cb53-22"><a href="leiro-stat.html#cb53-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; CTTR -0.02424963 -0.16264543 -0.83367217  0.2624132</span></span>
-<span id="cb53-23"><a href="leiro-stat.html#cb53-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; U     1.00000000  0.98430655  0.01275208  0.5848631</span></span>
-<span id="cb53-24"><a href="leiro-stat.html#cb53-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; S     0.98430655  1.00000000  0.16142157  0.5274070</span></span>
-<span id="cb53-25"><a href="leiro-stat.html#cb53-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; K     0.01275208  0.16142157  1.00000000 -0.5873634</span></span>
-<span id="cb53-26"><a href="leiro-stat.html#cb53-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; I     0.58486310  0.52740696 -0.58736335  1.0000000</span></span>
-<span id="cb53-27"><a href="leiro-stat.html#cb53-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; D    -0.10697212  0.01957486  0.94208077 -0.7750434</span></span>
-<span id="cb53-28"><a href="leiro-stat.html#cb53-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Vm   -0.07691131  0.01930842  0.84481216 -0.8224867</span></span>
-<span id="cb53-29"><a href="leiro-stat.html#cb53-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Maas -0.99701921 -0.99354677 -0.06058855 -0.5695876</span></span>
-<span id="cb53-30"><a href="leiro-stat.html#cb53-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lgV0  0.87598404  0.79330142 -0.40821917  0.6634351</span></span>
-<span id="cb53-31"><a href="leiro-stat.html#cb53-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                D          Vm        Maas       lgV0</span></span>
-<span id="cb53-32"><a href="leiro-stat.html#cb53-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TTR   0.40133039  0.30754517 -0.78828811  0.3571139</span></span>
-<span id="cb53-33"><a href="leiro-stat.html#cb53-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C     0.25148227  0.19680971 -0.91123321  0.5682834</span></span>
-<span id="cb53-34"><a href="leiro-stat.html#cb53-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R    -0.65214634 -0.47355632  0.05759202  0.4584136</span></span>
-<span id="cb53-35"><a href="leiro-stat.html#cb53-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; CTTR -0.65214634 -0.47355632  0.05759202  0.4584136</span></span>
-<span id="cb53-36"><a href="leiro-stat.html#cb53-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; U    -0.10697212 -0.07691131 -0.99701921  0.8759840</span></span>
-<span id="cb53-37"><a href="leiro-stat.html#cb53-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; S     0.01957486  0.01930842 -0.99354677  0.7933014</span></span>
-<span id="cb53-38"><a href="leiro-stat.html#cb53-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; K     0.94208077  0.84481216 -0.06058855 -0.4082192</span></span>
-<span id="cb53-39"><a href="leiro-stat.html#cb53-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; I    -0.77504336 -0.82248673 -0.56958764  0.6634351</span></span>
-<span id="cb53-40"><a href="leiro-stat.html#cb53-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; D     1.00000000  0.96943443  0.06563582 -0.4269281</span></span>
-<span id="cb53-41"><a href="leiro-stat.html#cb53-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Vm    0.96943443  1.00000000  0.04532617 -0.3156220</span></span>
-<span id="cb53-42"><a href="leiro-stat.html#cb53-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Maas  0.06563582  0.04532617  1.00000000 -0.8557245</span></span>
-<span id="cb53-43"><a href="leiro-stat.html#cb53-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lgV0 -0.42692805 -0.31562199 -0.85572445  1.0000000</span></span></code></pre></div>
+<span id="cb53-5"><a href="leiro-stat.html#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;         TTR      C       R    CTTR       U       S</span></span>
+<span id="cb53-6"><a href="leiro-stat.html#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TTR   1.000  0.971 -0.6493 -0.6493  0.7587  0.8515</span></span>
+<span id="cb53-7"><a href="leiro-stat.html#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C     0.971  1.000 -0.4499 -0.4499  0.8884  0.9516</span></span>
+<span id="cb53-8"><a href="leiro-stat.html#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R    -0.649 -0.450  1.0000  1.0000 -0.0242 -0.1626</span></span>
+<span id="cb53-9"><a href="leiro-stat.html#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; CTTR -0.649 -0.450  1.0000  1.0000 -0.0242 -0.1626</span></span>
+<span id="cb53-10"><a href="leiro-stat.html#cb53-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; U     0.759  0.888 -0.0242 -0.0242  1.0000  0.9843</span></span>
+<span id="cb53-11"><a href="leiro-stat.html#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; S     0.851  0.952 -0.1626 -0.1626  0.9843  1.0000</span></span>
+<span id="cb53-12"><a href="leiro-stat.html#cb53-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; K     0.599  0.429 -0.8337 -0.8337  0.0128  0.1614</span></span>
+<span id="cb53-13"><a href="leiro-stat.html#cb53-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; I     0.233  0.370  0.2624  0.2624  0.5849  0.5274</span></span>
+<span id="cb53-14"><a href="leiro-stat.html#cb53-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; D     0.401  0.251 -0.6521 -0.6521 -0.1070  0.0196</span></span>
+<span id="cb53-15"><a href="leiro-stat.html#cb53-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Vm    0.308  0.197 -0.4736 -0.4736 -0.0769  0.0193</span></span>
+<span id="cb53-16"><a href="leiro-stat.html#cb53-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Maas -0.788 -0.911  0.0576  0.0576 -0.9970 -0.9935</span></span>
+<span id="cb53-17"><a href="leiro-stat.html#cb53-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lgV0  0.357  0.568  0.4584  0.4584  0.8760  0.7933</span></span>
+<span id="cb53-18"><a href="leiro-stat.html#cb53-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            K      I       D      Vm    Maas   lgV0</span></span>
+<span id="cb53-19"><a href="leiro-stat.html#cb53-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; TTR   0.5991  0.233  0.4013  0.3075 -0.7883  0.357</span></span>
+<span id="cb53-20"><a href="leiro-stat.html#cb53-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; C     0.4294  0.370  0.2515  0.1968 -0.9112  0.568</span></span>
+<span id="cb53-21"><a href="leiro-stat.html#cb53-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; R    -0.8337  0.262 -0.6521 -0.4736  0.0576  0.458</span></span>
+<span id="cb53-22"><a href="leiro-stat.html#cb53-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; CTTR -0.8337  0.262 -0.6521 -0.4736  0.0576  0.458</span></span>
+<span id="cb53-23"><a href="leiro-stat.html#cb53-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; U     0.0128  0.585 -0.1070 -0.0769 -0.9970  0.876</span></span>
+<span id="cb53-24"><a href="leiro-stat.html#cb53-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; S     0.1614  0.527  0.0196  0.0193 -0.9935  0.793</span></span>
+<span id="cb53-25"><a href="leiro-stat.html#cb53-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; K     1.0000 -0.587  0.9421  0.8448 -0.0606 -0.408</span></span>
+<span id="cb53-26"><a href="leiro-stat.html#cb53-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; I    -0.5874  1.000 -0.7750 -0.8225 -0.5696  0.663</span></span>
+<span id="cb53-27"><a href="leiro-stat.html#cb53-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; D     0.9421 -0.775  1.0000  0.9694  0.0656 -0.427</span></span>
+<span id="cb53-28"><a href="leiro-stat.html#cb53-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Vm    0.8448 -0.822  0.9694  1.0000  0.0453 -0.316</span></span>
+<span id="cb53-29"><a href="leiro-stat.html#cb53-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Maas -0.0606 -0.570  0.0656  0.0453  1.0000 -0.856</span></span>
+<span id="cb53-30"><a href="leiro-stat.html#cb53-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lgV0 -0.4082  0.663 -0.4269 -0.3156 -0.8557  1.000</span></span></code></pre></div>
 <p>A kapott értékeket a <code>ggcorr()</code> függvény segítségével ábrázolhatjuk is. Ha a függvény argumentumában a <code>label = TRUE</code> szerepel, a kapott ábrán a kiszámított értékek is láthatók.</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="leiro-stat.html#cb54-1" aria-hidden="true" tabindex="-1"></a>GGally<span class="sc">::</span><span class="fu">ggcorr</span>(div_df[, <span class="dv">2</span><span class="sc">:</span><span class="dv">13</span>], <span class="at">label =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-63"></span>
@@ -639,41 +615,41 @@ div.csl-indent {
 <p>Ezt követően azt is megvizsgálhatjuk, hogy a korpusz szövegei mennyire könnyen olvashatóak. Ehhez a <code>Flesch.Kincaid</code> pontszámot használjuk, ami a szavak és a mondatok hossza alapján határozza meg a szöveg olvashatóságát. Ehhez a <code>textstat_readability()</code> függvényt használjuk, mely a korpuszunkat elemzi.</p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="leiro-stat.html#cb55-1" aria-hidden="true" tabindex="-1"></a>quanteda.textstats<span class="sc">::</span><span class="fu">textstat_readability</span>(<span class="at">x =</span> corpus_mineln, <span class="at">measure =</span> <span class="st">&quot;Flesch.Kincaid&quot;</span>)</span>
 <span id="cb55-2"><a href="leiro-stat.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                document Flesch.Kincaid</span></span>
-<span id="cb55-3"><a href="leiro-stat.html#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    antall_jozsef_1990       16.48512</span></span>
-<span id="cb55-4"><a href="leiro-stat.html#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    bajnai_gordon_2009       10.91816</span></span>
-<span id="cb55-5"><a href="leiro-stat.html#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     boross_peter_1993       15.39736</span></span>
-<span id="cb55-6"><a href="leiro-stat.html#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 gyurcsany_ferenc_2005       13.55911</span></span>
-<span id="cb55-7"><a href="leiro-stat.html#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       horn_gyula_1994       13.78239</span></span>
-<span id="cb55-8"><a href="leiro-stat.html#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  medgyessy_peter_2002       15.81893</span></span>
-<span id="cb55-9"><a href="leiro-stat.html#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     orban_viktor_1995       13.04284</span></span>
-<span id="cb55-10"><a href="leiro-stat.html#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     orban_viktor_2018       11.37763</span></span></code></pre></div>
+<span id="cb55-3"><a href="leiro-stat.html#cb55-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    antall_jozsef_1990           16.5</span></span>
+<span id="cb55-4"><a href="leiro-stat.html#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    bajnai_gordon_2009           10.9</span></span>
+<span id="cb55-5"><a href="leiro-stat.html#cb55-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     boross_peter_1993           15.4</span></span>
+<span id="cb55-6"><a href="leiro-stat.html#cb55-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 gyurcsany_ferenc_2005           13.6</span></span>
+<span id="cb55-7"><a href="leiro-stat.html#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       horn_gyula_1994           13.8</span></span>
+<span id="cb55-8"><a href="leiro-stat.html#cb55-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  medgyessy_peter_2002           15.8</span></span>
+<span id="cb55-9"><a href="leiro-stat.html#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     orban_viktor_1995           13.0</span></span>
+<span id="cb55-10"><a href="leiro-stat.html#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     orban_viktor_2018           11.4</span></span></code></pre></div>
 <p>Ezután a kiszámított értékkel kiegészítjük a korpuszt.</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="leiro-stat.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(corpus_mineln, <span class="st">&quot;f_k&quot;</span>) <span class="ot">&lt;-</span> <span class="fu">textstat_readability</span>(corpus_mineln, <span class="at">measure =</span> <span class="st">&quot;Flesch.Kincaid&quot;</span>)[, </span>
 <span id="cb56-2"><a href="leiro-stat.html#cb56-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>]</span>
 <span id="cb56-3"><a href="leiro-stat.html#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb56-4"><a href="leiro-stat.html#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(corpus_mineln)</span>
-<span id="cb56-5"><a href="leiro-stat.html#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             mineln partoldal year      f_k</span></span>
-<span id="cb56-6"><a href="leiro-stat.html#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    antall_jozsef      jobb 1990 16.48512</span></span>
-<span id="cb56-7"><a href="leiro-stat.html#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    bajnai_gordon       bal 2009 10.91816</span></span>
-<span id="cb56-8"><a href="leiro-stat.html#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     boross_peter      jobb 1993 15.39736</span></span>
-<span id="cb56-9"><a href="leiro-stat.html#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 gyurcsany_ferenc       bal 2005 13.55911</span></span>
-<span id="cb56-10"><a href="leiro-stat.html#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       horn_gyula       bal 1994 13.78239</span></span>
-<span id="cb56-11"><a href="leiro-stat.html#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  medgyessy_peter       bal 2002 15.81893</span></span>
-<span id="cb56-12"><a href="leiro-stat.html#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     orban_viktor      jobb 1995 13.04284</span></span>
-<span id="cb56-13"><a href="leiro-stat.html#cb56-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     orban_viktor      jobb 2018 11.37763</span></span></code></pre></div>
+<span id="cb56-5"><a href="leiro-stat.html#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             mineln partoldal year  f_k</span></span>
+<span id="cb56-6"><a href="leiro-stat.html#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    antall_jozsef      jobb 1990 16.5</span></span>
+<span id="cb56-7"><a href="leiro-stat.html#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    bajnai_gordon       bal 2009 10.9</span></span>
+<span id="cb56-8"><a href="leiro-stat.html#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     boross_peter      jobb 1993 15.4</span></span>
+<span id="cb56-9"><a href="leiro-stat.html#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 gyurcsany_ferenc       bal 2005 13.6</span></span>
+<span id="cb56-10"><a href="leiro-stat.html#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       horn_gyula       bal 1994 13.8</span></span>
+<span id="cb56-11"><a href="leiro-stat.html#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  medgyessy_peter       bal 2002 15.8</span></span>
+<span id="cb56-12"><a href="leiro-stat.html#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     orban_viktor      jobb 1995 13.0</span></span>
+<span id="cb56-13"><a href="leiro-stat.html#cb56-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     orban_viktor      jobb 2018 11.4</span></span></code></pre></div>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="leiro-stat.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(corpus_mineln, <span class="st">&quot;f_k&quot;</span>) <span class="ot">&lt;-</span> <span class="fu">textstat_readability</span>(corpus_mineln, <span class="at">measure =</span> <span class="st">&quot;Flesch.Kincaid&quot;</span>)[, </span>
 <span id="cb57-2"><a href="leiro-stat.html#cb57-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>]</span>
 <span id="cb57-3"><a href="leiro-stat.html#cb57-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-4"><a href="leiro-stat.html#cb57-4" aria-hidden="true" tabindex="-1"></a><span class="fu">docvars</span>(corpus_mineln)</span>
-<span id="cb57-5"><a href="leiro-stat.html#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             mineln partoldal year      f_k</span></span>
-<span id="cb57-6"><a href="leiro-stat.html#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    antall_jozsef      jobb 1990 16.48512</span></span>
-<span id="cb57-7"><a href="leiro-stat.html#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    bajnai_gordon       bal 2009 10.91816</span></span>
-<span id="cb57-8"><a href="leiro-stat.html#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     boross_peter      jobb 1993 15.39736</span></span>
-<span id="cb57-9"><a href="leiro-stat.html#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 gyurcsany_ferenc       bal 2005 13.55911</span></span>
-<span id="cb57-10"><a href="leiro-stat.html#cb57-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       horn_gyula       bal 1994 13.78239</span></span>
-<span id="cb57-11"><a href="leiro-stat.html#cb57-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  medgyessy_peter       bal 2002 15.81893</span></span>
-<span id="cb57-12"><a href="leiro-stat.html#cb57-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     orban_viktor      jobb 1995 13.04284</span></span>
-<span id="cb57-13"><a href="leiro-stat.html#cb57-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     orban_viktor      jobb 2018 11.37763</span></span></code></pre></div>
+<span id="cb57-5"><a href="leiro-stat.html#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             mineln partoldal year  f_k</span></span>
+<span id="cb57-6"><a href="leiro-stat.html#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    antall_jozsef      jobb 1990 16.5</span></span>
+<span id="cb57-7"><a href="leiro-stat.html#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    bajnai_gordon       bal 2009 10.9</span></span>
+<span id="cb57-8"><a href="leiro-stat.html#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3     boross_peter      jobb 1993 15.4</span></span>
+<span id="cb57-9"><a href="leiro-stat.html#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 gyurcsany_ferenc       bal 2005 13.6</span></span>
+<span id="cb57-10"><a href="leiro-stat.html#cb57-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5       horn_gyula       bal 1994 13.8</span></span>
+<span id="cb57-11"><a href="leiro-stat.html#cb57-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  medgyessy_peter       bal 2002 15.8</span></span>
+<span id="cb57-12"><a href="leiro-stat.html#cb57-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7     orban_viktor      jobb 1995 13.0</span></span>
+<span id="cb57-13"><a href="leiro-stat.html#cb57-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8     orban_viktor      jobb 2018 11.4</span></span></code></pre></div>
 <p>Majd a <code>ggplot2</code> segítségével vizualizálhatjuk az eredményt. Ehhez az olvashatósági pontszámmal kiegészített korpuszból egy adattáblát alakítunk ki, majd beállítjuk az ábrázolás paramétereit. Azaz ahhoz, hogy a két tengelyen az év, illetve az olvashatósági pontszám szerepeljen, a színezés különböztesse meg a jobb és a bal oldalt, az egyes dokumentumokat ponttal jelöljük, a jobb és a bal oldali beszédeket vonallal kötjük össze, az ábrára fekete színnel felíratjuk a miniszterelnökök nevét. Valamint azt is beállítjuk, hogy az x tengely beosztása az egyes beszédek dátumához igazodjon. A <code>theme_minimal()</code> függvénnyel pedig azt határozzuk meg, hogy mindez fehér hátteret kapjon.</p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="leiro-stat.html#cb58-1" aria-hidden="true" tabindex="-1"></a>corpus_df <span class="ot">&lt;-</span> <span class="fu">docvars</span>(corpus_mineln)</span></code></pre></div>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="leiro-stat.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(corpus_df, <span class="fu">aes</span>(year, f_k)) <span class="sc">+</span></span>
@@ -865,17 +841,17 @@ div.csl-indent {
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="leiro-stat.html#cb64-1" aria-hidden="true" tabindex="-1"></a>mineln_dfm <span class="sc">%&gt;%</span></span>
 <span id="cb64-2"><a href="leiro-stat.html#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">textstat_simil</span>(<span class="at">y =</span> mineln_dfm[, <span class="fu">c</span>(<span class="st">&quot;kormány&quot;</span>)], <span class="at">margin =</span> <span class="st">&quot;features&quot;</span>, <span class="at">method =</span> <span class="st">&quot;correlation&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb64-3"><a href="leiro-stat.html#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb64-4"><a href="leiro-stat.html#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 kormány</span></span>
-<span id="cb64-5"><a href="leiro-stat.html#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; elnök        -0.1185449</span></span>
-<span id="cb64-6"><a href="leiro-stat.html#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; tisztelt     -0.5401371</span></span>
-<span id="cb64-7"><a href="leiro-stat.html#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; országgyulés  0.8082763</span></span>
-<span id="cb64-8"><a href="leiro-stat.html#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; hölgyeim     -0.3580776</span></span>
-<span id="cb64-9"><a href="leiro-stat.html#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; uraim        -0.3580776</span></span>
-<span id="cb64-10"><a href="leiro-stat.html#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; honfitársaim  0.8648335</span></span>
-<span id="cb64-11"><a href="leiro-stat.html#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ünnepi        0.8737759</span></span>
-<span id="cb64-12"><a href="leiro-stat.html#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pillanatban   0.8737759</span></span>
-<span id="cb64-13"><a href="leiro-stat.html#cb64-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; állok         0.6864778</span></span>
-<span id="cb64-14"><a href="leiro-stat.html#cb64-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; magyar        0.7530170</span></span></code></pre></div>
+<span id="cb64-4"><a href="leiro-stat.html#cb64-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              kormány</span></span>
+<span id="cb64-5"><a href="leiro-stat.html#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; elnök         -0.119</span></span>
+<span id="cb64-6"><a href="leiro-stat.html#cb64-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; tisztelt      -0.540</span></span>
+<span id="cb64-7"><a href="leiro-stat.html#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; országgyulés   0.808</span></span>
+<span id="cb64-8"><a href="leiro-stat.html#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; hölgyeim      -0.358</span></span>
+<span id="cb64-9"><a href="leiro-stat.html#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; uraim         -0.358</span></span>
+<span id="cb64-10"><a href="leiro-stat.html#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; honfitársaim   0.865</span></span>
+<span id="cb64-11"><a href="leiro-stat.html#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ünnepi         0.874</span></span>
+<span id="cb64-12"><a href="leiro-stat.html#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; pillanatban    0.874</span></span>
+<span id="cb64-13"><a href="leiro-stat.html#cb64-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; állok          0.686</span></span>
+<span id="cb64-14"><a href="leiro-stat.html#cb64-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; magyar         0.753</span></span></code></pre></div>
 <p>Arra is van lehetőségünk, hogy a két alkorpuszt hasonlítsuk össze egymással. Ehhez a <code>textstat_keyness()</code> függvényt használjuk, melynek a bemenete a <code>dfm</code>. A függvény argumentumában a <code>target =</code> után kell megadni, hogy mely alkorpusz a viszonyítási alap. Az összehasonlítás eredményét a <code>textplot_keyness()</code> függvény segítségével ábrázolhatjuk, ami megjeleníti a két alkorpusz leggyakoribb kifejezéseit.</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="leiro-stat.html#cb65-1" aria-hidden="true" tabindex="-1"></a>dfm_keyness <span class="ot">&lt;-</span> corpus_mineln <span class="sc">%&gt;%</span> </span>
 <span id="cb65-2"><a href="leiro-stat.html#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tokens</span>(<span class="at">remove_punct =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
@@ -960,24 +936,6 @@ div.csl-indent {
 
 </div>
 </div>
-<h3>Irodalomjegyzék</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-kwartlerTextMiningPractice2017" class="csl-entry">
-Kwartler, Ted. 2017. <em>Text Mining in Practice with <span>R</span></em>. John Wiley &amp; Sons.
-</div>
-<div id="ref-russelMestersegesIntelligencia2005" class="csl-entry">
-Russel, Stuart, and Peter Norvig. 2005. <em>Mesterséges <span>Intelligencia</span></em>. Panem Kft.
-</div>
-<div id="ref-schutzeIntroductionInformationRetrieval2008" class="csl-entry">
-Schütze, Hinrich, Christopher D Manning, and Prabhakar Raghavan. 2008. <em>Introduction to Information Retrieval</em>. Vol. 39. Cambridge University Press Cambridge.
-</div>
-<div id="ref-tikkSzovegbanyaszat2007" class="csl-entry">
-Tikk, Domonkos. 2007. <em>Szövegbányászat</em>. Budapest: Typotext.
-</div>
-<div id="ref-welbersTextAnalysis2017" class="csl-entry">
-Welbers, Kasper, Wouter Van Atteveldt, and Kenneth Benoit. 2017. <span>“Text Analysis in <span>R</span>.”</span> <em>Communication Methods and Measures</em> 11 (4): 245–65.
-</div>
-</div>
 <div class="footnotes">
 <hr />
 <ol start="10">
@@ -985,7 +943,7 @@ Welbers, Kasper, Wouter Van Atteveldt, and Kenneth Benoit. 2017. <span>“Text A
 <li id="fn11"><p>A <code>lubridate</code> használatának részletes leírása megtalálható az alábbi linken: <a href="https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf" class="uri">https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf</a><a href="leiro-stat.html#fnref11" class="footnote-back">↩︎</a></p></li>
 <li id="fn12"><p>A lambda leírása megtalálható itt: <a href="https://quanteda.io/reference/textstat_collocations.html" class="uri">https://quanteda.io/reference/textstat_collocations.html</a><a href="leiro-stat.html#fnref12" class="footnote-back">↩︎</a></p></li>
 <li id="fn13"><p>A különböző indexek leírása megtalálható az alábbi linken: <a href="https://quanteda.io/reference/textstat_lexdiv.html" class="uri">https://quanteda.io/reference/textstat_lexdiv.html</a><a href="leiro-stat.html#fnref13" class="footnote-back">↩︎</a></p></li>
-<li id="fn14"><p><span class="citation">(<a href="#ref-schutzeIntroductionInformationRetrieval2008" role="doc-biblioref">Schütze, Manning, and Raghavan 2008</a>)</span>
+<li id="fn14"><p><span class="citation">(<a href="irodalomjegyzék.html#ref-schutzeIntroductionInformationRetrieval2008" role="doc-biblioref">Schütze, Manning, and Raghavan 2008</a>)</span>
 A fentiekben láthattuk az eltéréseket a jobb és a bal oldali beszédeken belül, sőt ugyanahhoz a miniszterelnökhöz tartozó két beszéd között is.
 A következőkben <code>textstat_dist()</code> és <code>textstat_simil()</code> függvények segítségével megvizsgáljuk, valójában mennyire hasonlítanak vagy különböznek ezek a beszédek. Mindkét függvény bemenete <code>dmf</code>, melyből először egy súlyozott <code>dfm</code>-et készítünk, majd elvégezzük az összehasonlítást először a <code>jaccard</code>-féle hasonlóság alapján.<a href="leiro-stat.html#fnref14" class="footnote-back">↩︎</a></p></li>
 <li id="fn15"><p>Olyan ábra, amely hasonlóságaik vagy különbségeik alapján csoportosított objektumok összefüggéseit mutatja meg.<a href="leiro-stat.html#fnref15" class="footnote-back">↩︎</a></p></li>
