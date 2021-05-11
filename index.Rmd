@@ -20,7 +20,7 @@ A szövegek adatként való értelmezése (text as data) és kvantitatív elemz�
 
 A magyar tankönyvpiacon elsőként ismertetünk lépésről-lépésre a nemzetközi társadalomtudományban használatos olyan kvantitatív szövegelemzési eljárásokat, mint a névelemfelismerés, a véleményelemzés, a topikmodellezés, illetve a szövegek felügyelt tanulásra épülő osztályozása. A módszereink bemutatására szolgáló elemzéseket az egyik leggyakrabban használt programnyelv, az R segítségével végeztük el. A kötet anyaga akár minimális programozási ismerettel is elsajátítható, így teljesen kezdők számára is ajánlott. A hazai olvasók érdeklődését szem előtt tartva példáink döntő többsége új, magyar nyelvű korpuszokra épül, melyek alapján megismerhetők a magyar nyelvű kvantitatív szövegelemzés módozatai.
 
-A könyv megrendelhető a [Typotex kiadó honlapján](https://www.typotex.hu/book/11810/sebok_szovegbanyaszat_es_mesterseges_intelligencia_r_ben)
+A könyv megrendelhető a [Typotex kiadó honlapján!](https://www.typotex.hu/book/11810/sebok_szovegbanyaszat_es_mesterseges_intelligencia_r_ben)
 
 
 <br>
